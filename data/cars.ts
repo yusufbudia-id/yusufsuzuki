@@ -57,7 +57,7 @@ export const cars: Car[] = [
       { name: "FRONX SGX AT (TWO TONE)", priceAB: 335200000, priceAA: 344200000 }
     ],
     monthlyInstallment: "Rp 3.200.000",
-    description: "Suzuki Fronx adalah SUV kompak stylish terbaru dengan desain coupe sport yang futuristis. Dilengkapi teknologi hybrid mild dan fitur keselamatan canggih, Fronx menghadirkan pengalaman berkendara premium untuk generasi modern.",
+    description: "Beli Suzuki Fronx terbaru di Jogja. SUV kompak stylish dengan desain coupe sport futuristis dan teknologi hybrid mild. Dapatkan penawaran kredit Suzuki Fronx terbaik untuk area Yogyakarta, Sleman, Bantul, dan sekitarnya hanya di dealer resmi Suzuki Sumber Baru Mobil.",
     heroImage: "/mobil/fronx-1.jpg",
     gallery: ["/mobil/fronx-1.jpg"],
     colors: [
@@ -111,7 +111,7 @@ export const cars: Car[] = [
       { name: "XL7 HYBRID ALPHA AT KURO (2 Tone)", priceAB: 329500000, priceAA: 342500000 }
     ],
     monthlyInstallment: "Rp 3.500.000",
-    description: "Suzuki XL7 adalah SUV 7 penumpang premium dengan tampilan gagah dan interior mewah. Cocok untuk keluarga aktif yang membutuhkan ruang luas dan kenyamanan berkelas dengan teknologi terkini.",
+    description: "Cari mobil keluarga tangguh di Jogja? Suzuki XL7 adalah SUV 7 penumpang premium dengan kabin luas dan teknologi Smart Hybrid. Sangat nyaman untuk mobilitas harian di Yogyakarta maupun rencana liburan jalan darat ke Bali atau luar pulau bersama keluarga. Dapatkan promo DP ringan di dealer kami.",
     heroImage: "/mobil/xl7-1.jpg",
     gallery: ["/mobil/xl7-1.jpg"],
     colors: [
@@ -161,7 +161,7 @@ export const cars: Car[] = [
       { name: "NEW CARRY PICK UP WD AC PS", priceAB: 190150000, priceAA: 196200000 }
     ],
     monthlyInstallment: "Rp 2.400.000",
-    description: "Suzuki Carry Pick Up adalah raja niaga ringan paling laris di Indonesia. Dengan bak terbuka, tenaga handal, dan biaya operasional rendah, Carry Pick Up adalah solusi bisnis terbaik untuk UMKM dan logistik.",
+    description: "Suzuki Carry Pick Up adalah rajanya mobil niaga andalan pengusaha Jogja, Magelang, dan sekitarnya. Dengan bak luas, muatan banyak, dan mesin bandel, Carry PU sangat cocok untuk angkutan logistik UMKM. Dapatkan harga Suzuki Carry termurah se-DIY dengan proses kredit cepat dan syarat mudah.",
     heroImage: "/mobil/carry-1.jpg",
     gallery: ["/mobil/carry-1.jpg"],
     colors: [
@@ -207,7 +207,7 @@ export const cars: Car[] = [
       { name: "PU FD AC PS BOX STANDARD MBG", priceAB: 269900000, priceAA: 275900000 }
     ],
     monthlyInstallment: "Rp 2.600.000",
-    description: "Suzuki Carry Box hadir dengan bak tertutup (box) yang ideal untuk pengiriman barang yang membutuhkan perlindungan dari cuaca. Cocok untuk bisnis kuliner, ekspedisi, dan distribusi barang.",
+    description: "Tingkatkan efisiensi bisnis ekspedisi dan katering Anda di Yogyakarta dengan Suzuki Carry Box. Dilengkapi bak tertutup aluminium yang aman dari cuaca, mobil niaga ini siap mendukung mobilitas usaha Anda. Cek promo diskon Suzuki Carry Box terbaru khusus pelat AB dan AA di sini.",
     heroImage: "/mobil/carrybox-1.jpg",
     gallery: ["/mobil/carrybox-1.jpg"],
     colors: [
@@ -247,7 +247,7 @@ export const cars: Car[] = [
       { name: "S-PRESSO AGS", priceAB: 192250000, priceAA: 199400000 }
     ],
     monthlyInstallment: "Rp 2.100.000",
-    description: "Suzuki S-Presso adalah city car paling stylish dengan tampilan SUV mini yang unik. Harga terjangkau, irit BBM, lincah di perkotaan, dan penuh fitur modern. Perfect untuk anak muda dan daily driver kota.",
+    description: "Suzuki S-Presso adalah city car lincah bergaya SUV mini yang sangat cocok untuk menembus kemacetan dan jalanan sempit di Jogja. Sangat irit BBM, ground clearance tinggi, dan warna stylish. Dapatkan simulasi kredit Suzuki S-Presso dengan DP terjangkau khusus mahasiswa dan pekerja di Yogyakarta.",
     heroImage: "/mobil/spresso-1.jpg",
     gallery: ["/mobil/spresso-1.jpg"],
     colors: [
@@ -297,7 +297,7 @@ export const cars: Car[] = [
       { name: "JIMNY (5 DOOR) AT (TWO TONE)", priceAB: 508500000, priceAA: 513400000 }
     ],
     monthlyInstallment: "Rp 5.100.000",
-    description: "Suzuki Jimny adalah SUV off-road legendaris yang tak tertandingi. Dengan sasis ladder frame, mesin bertenaga, dan 4WD handal, Jimny menaklukkan segala medan dari kota hingga petualangan ekstrem.",
+    description: "Miliki Suzuki Jimny, SUV off-road legendaris dengan sistem 4WD AllGrip Pro yang tangguh. Siap menaklukkan berbagai medan jalan, dari aspal kota Jogja hingga jalur ekstrem Gunung Merapi dan pesisir selatan. Segera amankan antrean inden Suzuki Jimny Anda di dealer resmi Suzuki Yogyakarta.",
     heroImage: "/mobil/jimny-1.jpg",
     gallery: ["/mobil/jimny-1.jpg"],
     colors: [
@@ -346,7 +346,7 @@ export const cars: Car[] = [
       { name: "ALL NEW ERTIGA HYBRID GX AT", priceAB: 294400000, priceAA: 304800000 }
     ],
     monthlyInstallment: "Rp 3.350.000",
-    description: "Suzuki Ertiga adalah MPV 7-penumpang paling populer dengan kombinasi sempurna antara kenyamanan, efisiensi BBM, dan harga terjangkau. Pilihan terbaik untuk keluarga Indonesia yang aktif dan dinamis.",
+    description: "Suzuki All New Ertiga Hybrid adalah MPV 7-seater idaman untuk keluarga Jogja. Dengan teknologi hybrid pertama di kelasnya, nikmati perjalanan hemat BBM melintasi Yogyakarta dan Jawa Tengah. Temukan promo diskon puluhan juta dan harga kredit Suzuki Ertiga termurah di Suzuki Sumber Baru Mobil.",
     heroImage: "/mobil/ertiga-1.jpg",
     gallery: ["/mobil/ertiga-1.jpg"],
     colors: [
@@ -397,7 +397,7 @@ export const cars: Car[] = [
       { name: "APV SGX MT", priceAB: 253000000, priceAA: 263000000 }
     ],
     monthlyInstallment: "Rp 3.050.000",
-    description: "Suzuki APV adalah minibus serbaguna untuk keluarga besar dan kebutuhan komersial. Dengan kapasitas hingga 9 penumpang, APV menjadi pilihan terbaik untuk travel, shuttle, dan angkutan keluarga.",
+    description: "Suzuki APV Arena adalah pilihan utama untuk mobil travel, shuttle wisata Jogja, dan angkutan keluarga besar. Kabin lega hingga 9 penumpang menjadikannya armada andalan bisnis pariwisata di DIY. Ajukan kredit Suzuki APV sekarang dengan penawaran spesial dan DP ringan dari dealer kami.",
     heroImage: "/mobil/apv-1.jpg",
     gallery: ["/mobil/apv-1.jpg"],
     colors: [
@@ -440,7 +440,7 @@ export const cars: Car[] = [
       { name: "GRAND VITARA MC GLX AT (Two Tone)", priceAB: 430400000, priceAA: 448000000 }
     ],
     monthlyInstallment: "Rp 4.850.000",
-    description: "Suzuki Grand Vitara hadir kembali dengan teknologi hybrid yang canggih. SUV premium dengan desain elegan, kabin mewah, dan performa tinggi untuk pengendara yang menginginkan kemewahan sekaligus efisiensi.",
+    description: "Rasakan kemewahan berkendara di Jogja dengan Suzuki Grand Vitara Hybrid. SUV flagship ini menawarkan fitur premium seperti Panoramic Sunroof dan efisiensi BBM tinggi. Pilihan sempurna untuk menunjang prestise harian dalam kota maupun perjalanan jarak jauh lintas provinsi. Hubungi Yusuf Suzuki untuk Test Drive.",
     heroImage: "/mobil/vitara-1.jpg",
     gallery: ["/mobil/vitara-1.jpg"],
     colors: [
