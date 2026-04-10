@@ -20,52 +20,53 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-      {/* Blue accent line at top */}
+      {/* Blue accent line at top - Dipertahankan sebagai identitas tipis Suzuki */}
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-suzuki-blue via-suzuki-red to-suzuki-blue opacity-50" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 w-full">
         <div className="max-w-2xl">
-          {/* Badge: Tambahkan opacity-0 di className */}
+          {/* Badge: Diubah ke gaya Glassmorphism Elegan */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="opacity-0 inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold px-4 py-2 rounded-full mb-6 shadow-xl"
+            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold px-4 py-2 rounded-full mb-6 shadow-xl"
           >
             <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
             Dealer Resmi Suzuki Yogyakarta
           </motion.div>
 
-          {/* Heading: Tambahkan opacity-0 di className */}
+          {/* Heading: Teks kuning dihilangkan, full putih agar menyatu dan mewah */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="opacity-0 text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-5"
+            className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-5"
           >
             Dealer Resmi Suzuki
             <br />
             Jogja & Sekitarnya
           </motion.h1>
 
-          {/* Subheading: Tambahkan opacity-0 di className */}
+          {/* Subheading */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="opacity-0 text-gray-300 text-lg sm:text-xl max-w-xl leading-relaxed mb-10"
+            className="text-gray-300 text-lg sm:text-xl max-w-xl leading-relaxed mb-10"
           >
             Dapatkan mobil Suzuki impian dengan promo terbaik, simulasi kredit mudah, dan pelayanan ramah dari{" "}
             <span className="text-white font-semibold">Yusuf Suzuki</span>.
           </motion.p>
 
-          {/* CTA Buttons: Tambahkan opacity-0 di className */}
+          {/* CTA Buttons: Direvamp menjadi tema Monochrome Premium */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="opacity-0 flex flex-wrap gap-4"
+            className="flex flex-wrap gap-4"
           >
+            {/* Tombol Utama: Putih Solid */}
             <Link 
               href="/mobil" 
               className="bg-white text-black hover:bg-gray-200 font-bold py-3.5 px-7 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-white/20 active:scale-95 inline-flex items-center gap-2 text-base"
@@ -74,6 +75,7 @@ export default function Hero() {
               Lihat Mobil
             </Link>
 
+            {/* Tombol WA: Transparan dengan aksen hijau yang menyala saat dihover */}
             <a
               href={`${WA_BASE_URL}?text=Halo%20Yusuf%20Suzuki%2C%20saya%20ingin%20tanya%20tentang%20mobil%20Suzuki`}
               target="_blank"
@@ -84,6 +86,7 @@ export default function Hero() {
               Chat Yusuf Suzuki
             </a>
 
+            {/* Tombol Test Drive: Outline yang sangat tipis dan halus */}
             <Link 
               href="/test-drive" 
               className="bg-transparent border border-white/30 text-white hover:bg-white/10 font-semibold py-3.5 px-7 rounded-xl transition-all duration-300 active:scale-95 inline-flex items-center gap-2 text-base backdrop-blur-sm"
@@ -93,12 +96,12 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* Stats: Tambahkan opacity-0 di className */}
+          {/* Stats */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="opacity-0 mt-14 grid grid-cols-3 gap-6 max-w-sm"
+            className="mt-14 grid grid-cols-3 gap-6 max-w-sm"
           >
             {[
               { value: "500+", label: "Mobil Terjual" },
@@ -114,12 +117,12 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator: Tambahkan opacity-0 di className */}
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="opacity-0 absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50"
       >
         <span className="text-xs">Scroll</span>
         <motion.div
