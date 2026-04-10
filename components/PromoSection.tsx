@@ -17,7 +17,8 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.08 }}
-      className="group bg-white rounded-none overflow-hidden border border-gray-200 hover:border-gray-900 hover:shadow-2xl transition-all duration-500 flex flex-col h-full"
+      // TAMBAHKAN CLASS opacity-0 DI SINI 👇
+      className="opacity-0 group bg-white rounded-none overflow-hidden border border-gray-200 hover:border-gray-900 hover:shadow-2xl transition-all duration-500 flex flex-col h-full"
     >
       {/* Menggunakan aspect-[2/1] agar lebih pendek & pipih dari sebelumnya */}
       <div className="relative aspect-[2/1] w-full overflow-hidden bg-gray-100">
@@ -97,7 +98,8 @@ export default function PromoSection() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-left max-w-2xl"
+            // TAMBAHKAN CLASS opacity-0 DI SINI 👇
+            className="opacity-0 text-left max-w-2xl"
           >
             <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
               Promo Bulan Ini
@@ -148,7 +150,8 @@ export default function PromoSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center mt-8 md:mt-12"
+          // TAMBAHKAN CLASS opacity-0 DI SINI 👇
+          className="opacity-0 text-center mt-8 md:mt-12"
         >
           <Link 
             href="/promo" 
