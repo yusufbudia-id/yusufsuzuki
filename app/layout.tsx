@@ -16,7 +16,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL("https://suzukiautojogja.com"), 
   title: {
-    default: "Sales Konsultan Resmi Suzuki Jogja - Sumber Baru Mobil",
+    default: "Dealer Resmi Suzuki Jogja - Sumber Baru Mobil",
     template: "%s | Sumber Baru Mobil Jogja", // Template disesuaikan agar sub-halaman tetap rapi
   },
   description:
