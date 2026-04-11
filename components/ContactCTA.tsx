@@ -21,12 +21,13 @@ export default function ContactCTA() {
             transition={{ duration: 0.7 }}
             className="w-full md:w-1/3 lg:w-1/4 flex-none"
           >
-            {/* Foto profil kotak tajam dengan efek Hitam-Putih ke Berwarna saat dihover */}
+            {/* Foto profil kotak tajam - EFEK GRAYSCALE DIHAPUS agar full color sejak awal */}
             <div className="aspect-[3/4] overflow-hidden bg-gray-800 rounded-none shadow-2xl relative">
               <img 
                 src="/kontak/photo.jpg" 
                 alt="Yusuf Suzuki - Konsultan Penjualan Suzuki Jogja" 
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105" 
+                // Kelas 'grayscale' dan 'group-hover:grayscale-0' telah dihapus
+                className="w-full h-full object-cover transition-all duration-700 ease-in-out scale-100 group-hover:scale-105" 
               />
               {/* Overlay halus di bawah foto */}
               <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
