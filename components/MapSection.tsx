@@ -11,12 +11,11 @@ export default function MapSection() {
             <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-6 uppercase tracking-widest">
               Lokasi Kami
             </span>
-            {/* Heading SEO: Menambahkan kata "Dealer Suzuki Jogja" */}
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6 uppercase tracking-tight">
-              Kunjungi Dealer Suzuki Jogja
+              Kunjungi Showroom Kami
             </h2>
             <p className="text-gray-500 mb-12 text-base leading-relaxed max-w-lg">
-              Datang langsung ke showroom kami di Jalan Magelang untuk melihat unit display secara detail, konsultasi, dan jadwalkan test drive Anda.
+              Datang langsung ke showroom kami untuk melihat unit display secara detail, konsultasi, dan jadwalkan test drive Anda.
             </p>
             
             <div className="space-y-8">
@@ -66,17 +65,20 @@ export default function MapSection() {
 
           {/* Sisi Kanan: Peta (Map) */}
           <div className="rounded-none overflow-hidden bg-gray-200 border border-gray-200 hover:border-gray-900 transition-colors duration-500 h-[400px] lg:h-[500px] relative shadow-sm">
-            {/* Tautan Embed Peta yang Benar & Valid */}
+            {/* Overlay saat map memuat */}
+            <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-semibold text-xs tracking-widest uppercase -z-10">
+              Memuat Peta...
+            </div>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.2505680194094!2d110.36035967591605!3d-7.763261677020084!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a5843a8cdbc93%3A0xcda6c49c7198bb4b!2sSuzuki%20Sumber%20Baru%20Mobil%20-%20Mlati!5e0!3m2!1sid!2sid!4v1714101908079!5m2!1sid!2sid"
+              src="https://maps.google.com/maps?q=Suzuki%20Mlati%20Sumber%20Baru%20Mobil&t=&z=15&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0 }}
-              allowFullScreen={false}
+              allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Lokasi Dealer Suzuki Jogja Sumber Baru Mobil"
-              className="absolute inset-0 w-full h-full"
+              title="Lokasi Suzuki Sumber Baru Mobil"
+              className="relative z-10 w-full h-full"
             />
           </div>
         </div>
