@@ -31,15 +31,22 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 w-full">
         <div className="max-w-2xl">
-          {/* Badge: Diubah ke gaya Glassmorphism Elegan */}
+          {/* Badge: Glassmorphism Interaktif & Lebih Hidup */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold px-4 py-2 rounded-full mb-6 shadow-xl"
+            transition={{ type: "spring", stiffness: 100, damping: 10 }}
+            whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
+            whileTap={{ scale: 0.95 }}
+            className="cursor-default inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold px-4 py-2 rounded-full mb-6 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] transition-shadow duration-300"
           >
-            <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-            Dealer Resmi Suzuki Yogyakarta
+            {/* Live Indicator (Titik Menyala dengan Efek Ping Berlapis) */}
+            <div className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white shadow-[0_0_6px_rgba(255,255,255,0.8)]"></span>
+            </div>
+            
+            <span className="tracking-wide text-gray-50">Dealer Resmi Suzuki Yogyakarta</span>
           </motion.div>
 
           {/* Heading SEO: Menggabungkan kata kunci utama dalam satu tarikan napas */}
