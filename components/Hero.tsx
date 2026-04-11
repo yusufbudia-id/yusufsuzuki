@@ -31,22 +31,25 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 w-full">
         <div className="max-w-2xl">
-          {/* Badge: Glassmorphism Interaktif & Lebih Hidup */}
+          {/* Badge: Modern Premium dengan Aksen Cyan & Dark Glass */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ type: "spring", stiffness: 100, damping: 10 }}
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
+            transition={{ type: "spring", stiffness: 120, damping: 12 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="cursor-default inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-semibold px-4 py-2 rounded-full mb-6 shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:shadow-[0_0_25px_rgba(255,255,255,0.25)] transition-shadow duration-300"
+            className="cursor-default inline-flex items-center gap-3 bg-[#0a192f]/60 backdrop-blur-md border border-cyan-500/30 px-5 py-2.5 rounded-full mb-6 shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:border-cyan-400/50 transition-all duration-300 group"
           >
-            {/* Live Indicator (Titik Menyala dengan Efek Ping Berlapis) */}
-            <div className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white shadow-[0_0_6px_rgba(255,255,255,0.8)]"></span>
+            {/* Live Indicator (Titik Menyala Cyan) */}
+            <div className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75 duration-1000"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.9)] group-hover:bg-cyan-400 transition-colors"></span>
             </div>
             
-            <span className="tracking-wide text-gray-50">Dealer Resmi Suzuki Yogyakarta</span>
+            {/* Teks: Uppercase, huruf direnggangkan (tracking) agar elegan */}
+            <span className="tracking-widest uppercase text-[10px] font-bold text-cyan-50 group-hover:text-white transition-colors">
+              Dealer Resmi Suzuki Yogyakarta
+            </span>
           </motion.div>
 
           {/* Heading SEO: Menggabungkan kata kunci utama dalam satu tarikan napas */}
