@@ -26,7 +26,7 @@ export default function ContactCTA() {
               <img 
                 src="/kontak/photo.jpg" 
                 alt="Yusuf Suzuki - Konsultan Penjualan Suzuki Jogja" 
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105" 
+                className="w-full h-full group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105" 
               />
               {/* Overlay halus di bawah foto */}
               <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
