@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image"; // <-- Import Image
 import { MessageCircle, Phone } from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
 
@@ -13,7 +14,7 @@ export default function ContactCTA() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-16">
           
-          {/* Sisi Kiri: Foto Yusuf Suzuki (Ultra-Sharp & Editorial Effect) */}
+          {/* Sisi Kiri: Foto Yusuf Suzuki (Optimized with Next Image) */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -21,15 +22,16 @@ export default function ContactCTA() {
             transition={{ duration: 0.7 }}
             className="w-full md:w-1/3 lg:w-1/4 flex-none"
           >
-            {/* Foto profil kotak tajam dengan efek Hitam-Putih ke Berwarna saat dihover */}
             <div className="aspect-[3/4] overflow-hidden bg-gray-800 rounded-none shadow-2xl relative">
-              <img 
+              <Image 
                 src="/kontak/photo.jpg" 
                 alt="Yusuf Suzuki - Konsultan Penjualan Suzuki Jogja" 
+                fill
+                sizes="(max-width: 768px) 100vw, 25vw"
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-100 group-hover:scale-105" 
               />
               {/* Overlay halus di bawah foto */}
-              <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent z-10" />
             </div>
           </motion.div>
 
@@ -45,20 +47,19 @@ export default function ContactCTA() {
               Konsultasi Gratis Bersama Yusuf Suzuki
             </span>
             
-            {/* Judul full putih bersih, uppercase, tracking-tight */}
+            {/* Judul SEO Optimized: Memasukkan "Suzuki Jogja" */}
             <h2 className="text-3xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight leading-tight">
-              Masih bingung pilih
+              Pilih Mobil Suzuki Jogja
               <br />
-              mobil Suzuki yang tepat?
+              Yang Tepat Untuk Anda
             </h2>
             
             <p className="text-gray-400 text-base md:text-lg max-w-2xl mx-auto md:mx-0 mb-12 leading-relaxed">
-              Konsultasikan kebutuhan Anda dengan Yusuf Suzuki. Fast response, ramah, dan profesional membantu Anda menemukan mobil terbaik sesuai budget dan promo bulan ini.
+              Konsultasikan kebutuhan Anda dengan Yusuf Suzuki. Fast response, ramah, dan profesional membantu Anda menemukan mobil terbaik sesuai budget dan promo Suzuki Jogja bulan ini.
             </p>
             
             {/* Tombol Aksi Monokrom */}
             <div className="flex flex-wrap justify-center md:justify-start gap-4">
-              {/* Tombol Utama: Putih Solid */}
               <a
                 href={`${WA_BASE_URL}?text=Halo%20Yusuf%20Suzuki%2C%20saya%20butuh%20bantuan%20memilih%20mobil%20Suzuki%20yang%20tepat`}
                 target="_blank"
@@ -69,7 +70,6 @@ export default function ContactCTA() {
                 Hubungi Yusuf Suzuki Sekarang
               </a>
               
-              {/* Tombol Telepon: Outline Transparan */}
               <a
                 href="tel:082174635218"
                 className="bg-transparent border-2 border-white/20 hover:border-white/40 hover:bg-white/5 text-white text-[11px] uppercase tracking-widest font-bold px-8 py-4 rounded-none flex items-center justify-center gap-2 transition-all"
