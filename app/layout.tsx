@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | Sumber Baru Mobil Jogja", 
   },
   description:
-    "Dealer resmi Suzuki Jogja. Dapatkan harga terbaik, promo kredit DP ringan & cicilan murah di Sumber Baru Mobil Jl. Magelang KM 8. Hubungi Yusuf Suzuki: 0821 7463 5218.",
+    "Cari mobil Suzuki di Jogja? Hubungi Sales Resmi Yusuf Suzuki: 0821 7463 5218.",
   keywords: [
     "dealer suzuki jogja",
     "suzuki sumber baru mobil",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: "Suzuki Sumber Baru Mobil",
     title: "Suzuki Sumber Baru Mobil Jogja | Dealer Resmi Jl. Magelang",
     description:
-      "Dealer resmi Suzuki Jogja & sekitarnya. Promo terbaik, kredit mudah, DP ringan. Hubungi Yusuf Suzuki: 0821 7463 5218.",
+      "Cari mobil Suzuki di Jogja? Hubungi Sales Resmi Yusuf Suzuki: 0821 7463 5218.",
     images: [
       {
         url: "/og-image.jpg", 
