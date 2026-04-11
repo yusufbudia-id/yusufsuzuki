@@ -42,16 +42,18 @@ export default function Hero() {
             Dealer Resmi Suzuki Yogyakarta
           </motion.div>
 
-          {/* Heading: Teks kuning dihilangkan, full putih agar menyatu dan mewah */}
+          {/* Heading SEO: Menggabungkan kata kunci utama dalam satu tarikan napas */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-5"
           >
-            Dealer Resmi Suzuki
+            Dealer Resmi Suzuki Jogja
             <br />
-            Jogja & Sekitarnya
+            <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-300 mt-2 block">
+              Pusat Promo & Harga Terbaik
+            </span>
           </motion.h1>
 
           {/* Subheading */}

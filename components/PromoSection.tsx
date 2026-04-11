@@ -101,8 +101,9 @@ export default function PromoSection() {
             <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
               Promo Bulan Ini
             </span>
+            {/* Heading SEO: Menggunakan kata kunci Promo Suzuki Jogja */}
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight">
-              Penawaran Terbaik
+              Promo Suzuki Jogja Terbaru
             </h2>
             <p className="text-gray-500 text-sm md:text-base">
               Jangan lewatkan promo eksklusif yang terbatas untuk wilayah Jogja dan sekitarnya.

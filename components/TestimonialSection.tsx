@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image"; // <-- Import Image
 import { Star, Quote } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
 
@@ -19,11 +20,12 @@ export default function TestimonialSection() {
           <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
             Testimoni Pelanggan
           </span>
+          {/* Heading SEO: Menggunakan kata kunci jualan spesifik */}
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight">
-            Apa Kata Mereka?
+            Review Pembeli Suzuki Jogja
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-sm md:text-base">
-            Kepercayaan pelanggan adalah prioritas utama dan bukti nyata komitmen kami.
+            Kepercayaan pelanggan adalah prioritas utama dan bukti nyata komitmen Yusuf Suzuki.
           </p>
         </motion.div>
 
@@ -56,12 +58,16 @@ export default function TestimonialSection() {
               
               {/* Info Pelanggan */}
               <div className="flex items-center gap-4 border-t border-gray-100 pt-6 mt-auto">
-                {/* Foto Profil Kotak Tajam (dengan efek Hitam-Putih ke Berwarna) */}
-                <img 
-                  src={t.avatar} 
-                  alt={t.name} 
-                  className="w-12 h-12 rounded-none object-cover grayscale group-hover:grayscale-0 transition-all duration-500" 
-                />
+                {/* Foto Profil: Diganti menggunakan Next Image */}
+                <div className="relative w-12 h-12 shrink-0">
+                  <Image 
+                    src={t.avatar} 
+                    alt={`Review dari ${t.name}`} 
+                    fill
+                    sizes="48px"
+                    className="rounded-none object-cover grayscale group-hover:grayscale-0 transition-all duration-500" 
+                  />
+                </div>
                 <div>
                   <p className="font-bold text-gray-900 text-xs uppercase tracking-widest mb-1">{t.name}</p>
                   <p className="text-[10px] text-gray-400 uppercase tracking-widest">{t.location}</p>

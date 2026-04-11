@@ -28,11 +28,12 @@ export default function AdvantagesSection() {
           <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
             Mengapa Kami?
           </span>
+          {/* Heading SEO: Menggunakan kata kunci Dealer Resmi Suzuki Jogja */}
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight">
-            Keunggulan Dealer Kami
+            Keunggulan Dealer Resmi Suzuki Jogja
           </h2>
           <p className="text-gray-500 max-w-2xl mx-auto text-sm md:text-base">
-            Kami berkomitmen memberikan pengalaman pembelian mobil terbaik.
+            Beli mobil Suzuki impian Anda dengan kemudahan proses, harga transparan, dan pelayanan terbaik dari Yusuf Suzuki.
           </p>
         </motion.div>
 

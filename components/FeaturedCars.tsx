@@ -54,15 +54,16 @@ export default function FeaturedCars() {
             <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
               Produk Unggulan
             </span>
+            {/* Heading SEO: Menggunakan kata kunci Harga Mobil Suzuki Jogja */}
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight">
-              Lineup Suzuki Terbaru
+              Harga Mobil Suzuki Jogja Terbaru
             </h2>
             <p className="text-gray-500 text-sm md:text-base">
               Temukan mobil Suzuki impian Anda dengan teknologi terkini dan harga terbaik di Jogja.
             </p>
           </motion.div>
 
-          {/* Tombol Navigasi Manual (Sekarang menggunakan fungsi Embla) */}
+          {/* Tombol Navigasi Manual */}
           <div className="hidden lg:flex items-center gap-2">
             <button 
               onClick={scrollPrev}
