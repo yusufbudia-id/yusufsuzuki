@@ -12,6 +12,7 @@ interface CreditSimulatorProps {
 
 export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps) {
   const [selectedSlug, setSelectedSlug] = useState(defaultCarSlug ?? cars[0].slug);
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0); // State baru untuk varian
   const [hargaMobil, setHargaMobil] = useState(cars[0].startingPriceNum);
   const [dpPct, setDpPct] = useState(20);
   const [tenor, setTenor] = useState(60);
@@ -27,20 +28,38 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
 
   // Bunga Leasing Retail Standar (Flat per Tahun)
   const bungaMap: Record<number, number> = {
-    12: 5.00,  // 1 Tahun
-    24: 5.25,  // 2 Tahun
-    36: 5.50,  // 3 Tahun
-    48: 5.75,  // 4 Tahun
-    60: 6.00   // 5 Tahun
+    12: 5.75,  // 1 Tahun
+    24: 6.00,  // 2 Tahun
+    36: 6.25,  // 3 Tahun
+    48: 6.50,  // 4 Tahun
+    60: 6.75   // 5 Tahun
   };
 
-  // Mengubah harga mobil jika dropdown kendaraan diganti
-  useEffect(() => {
-    const car = cars.find((c) => c.slug === selectedSlug);
-    if (car) setHargaMobil(car.startingPriceNum);
-  }, [selectedSlug]);
+  // Ambil data mobil yang sedang dipilih
+  const currentCar = cars.find((c) => c.slug === selectedSlug);
+  // @ts-ignore - Mengabaikan error TS jika tipe variants belum ditambahkan secara resmi di file tipe
+  const currentVariants = currentCar?.variants || [];
+  const currentVariantName = currentVariants.length > 0 ? currentVariants[selectedVariantIndex]?.name : "";
 
-  // Handle Input Harga Manual (hanya menerima angka)
+  // 1. Mengatur ulang Varian ke index 0 setiap kali Model Mobil diganti
+  const handleCarChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSlug(e.target.value);
+    setSelectedVariantIndex(0); 
+  };
+
+  // 2. Mengubah harga OTR otomatis saat Mobil atau Varian diubah
+  useEffect(() => {
+    if (currentCar) {
+      if (currentVariants.length > 0 && currentVariants[selectedVariantIndex]) {
+        setHargaMobil(currentVariants[selectedVariantIndex].price);
+      } else {
+        setHargaMobil(currentCar.startingPriceNum);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedSlug, selectedVariantIndex]);
+
+  // Handle Input Harga Manual (opsional jika user mau input OTR setelah diskon)
   const handleHargaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
     setHargaMobil(Number(value));
@@ -48,53 +67,37 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
 
   // Logika Perhitungan "TDP All-In" (Skema ADDM)
   useEffect(() => {
-    // Ambil bunga standar dari map
     let bungaTahun = bungaMap[tenor] || 10;
     
-    // LOGIKA KHUSUS SUZUKI CARRY: Bunga +1.00%
-    // Mengecek apakah slug mobil mengandung kata "carry"
+    // LOGIKA KHUSUS SUZUKI CARRY: Bunga +1.0%
     if (selectedSlug.toLowerCase().includes("carry")) {
-      bungaTahun += 1.00;
+      bungaTahun += 1.0;
     }
 
     const tenorTahun = tenor / 12;
-    
-    // Target Total DP (TDP) dari persentase yang dipilih
     const targetTDP = Math.ceil((dpPct / 100) * hargaMobil);
-
-    // Biaya Admin (Estimasi Leasing Retail)
     const admin = tenor <= 24 ? 3000000 : 4500000; 
-    
-    // Biaya Asuransi (Kombinasi: 1.8% per tahun)
     const asuransiPct = 0.018; 
     const asuransi = Math.ceil(hargaMobil * asuransiPct * tenorTahun);
     const biayaLain = admin + asuransi;
-
-    // Kalkulasi Aljabar untuk mencari Pokok Utang & DP Murni jika TDP sudah FIX
-    // Rumus C-Factor (Faktor Pengali Cicilan) menggunakan bunga yang sudah disesuaikan
     const c_factor = (1 + (bungaTahun / 100) * tenorTahun) / tenor;
 
-    // Rumus mencari Pokok Utang dari TDP (karena TDP = DP Murni + Biaya Lain + Cicilan 1)
     let pokokUtang = (hargaMobil - targetTDP + biayaLain) / (1 - c_factor);
     let dpMurni = hargaMobil - pokokUtang;
 
-    // Proteksi: Jika TDP terlalu kecil untuk cover admin+asuransi+cicilan (DP Murni minus)
     if (dpMurni <= 0) {
       dpMurni = 0;
-      pokokUtang = hargaMobil; // Full kredit tanpa DP Murni
+      pokokUtang = hargaMobil;
     }
 
     const cicilan = Math.ceil(pokokUtang * c_factor);
-    
-    // Hitung ulang Final TDP 
     const totalDP = dpMurni + admin + asuransi + cicilan;
 
     setResult({ dpMurni, cicilan, admin, asuransi, totalDP, pokokUtang });
-  }, [hargaMobil, dpPct, tenor, selectedSlug]); // Pastikan selectedSlug masuk ke dependency array
+  }, [hargaMobil, dpPct, tenor, selectedSlug]);
 
-  const selectedCar = cars.find((c) => c.slug === selectedSlug);
-
-  const waMsg = `Halo Yusuf Suzuki, saya ingin pengajuan kredit ${selectedCar?.name}:
+  const waMsg = `Halo Yusuf Suzuki, saya ingin pengajuan kredit:
+- Unit: ${currentCar?.name} ${currentVariantName ? `(${currentVariantName})` : ''}
 - Harga OTR: ${formatCurrency(hargaMobil)}
 - Tenor: ${tenor} Bulan
 - Total DP (TDP): ${formatCurrency(result.totalDP)}
@@ -108,7 +111,7 @@ Mohon info persyaratannya.`;
         {/* Sisi Kiri: Inputs */}
         <div className="lg:col-span-7 p-6 md:p-10 border-b lg:border-b-0 lg:border-r border-gray-100">
           <div className="flex items-center gap-4 mb-10">
-            <div className="w-12 h-12 bg-gray-900 flex items-center justify-center text-white">
+            <div className="w-12 h-12 bg-gray-900 flex items-center justify-center text-white shrink-0">
               <Calculator size={24} strokeWidth={1.5} />
             </div>
             <div>
@@ -119,23 +122,41 @@ Mohon info persyaratannya.`;
 
           <div className="space-y-8">
             
-            {/* 1. Pilih Mobil */}
-            <div>
-              <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Unit Kendaraan</label>
-              <select
-                value={selectedSlug}
-                onChange={(e) => setSelectedSlug(e.target.value)}
-                className="w-full border-b-2 border-gray-200 bg-transparent py-2 text-lg font-bold text-gray-900 focus:outline-none focus:border-gray-900 transition-colors appearance-none cursor-pointer"
-              >
-                {cars.map((c) => (
-                  <option key={c.slug} value={c.slug}>{c.name.toUpperCase()}</option>
-                ))}
-              </select>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {/* 1. Pilih Model Kendaraan */}
+              <div>
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Unit Kendaraan</label>
+                <select
+                  value={selectedSlug}
+                  onChange={handleCarChange}
+                  className="w-full border-b-2 border-gray-200 bg-transparent py-2 text-base font-bold text-gray-900 focus:outline-none focus:border-gray-900 transition-colors appearance-none cursor-pointer"
+                >
+                  {cars.map((c) => (
+                    <option key={c.slug} value={c.slug}>{c.name.toUpperCase()}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* 2. Pilih Varian / Tipe (Hanya Muncul Jika Varian Tersedia) */}
+              {currentVariants.length > 0 && (
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Tipe / Varian</label>
+                  <select
+                    value={selectedVariantIndex}
+                    onChange={(e) => setSelectedVariantIndex(Number(e.target.value))}
+                    className="w-full border-b-2 border-gray-200 bg-transparent py-2 text-base font-bold text-gray-900 focus:outline-none focus:border-gray-900 transition-colors appearance-none cursor-pointer"
+                  >
+                    {currentVariants.map((v: any, idx: number) => (
+                      <option key={idx} value={idx}>{v.name.toUpperCase()}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
 
-            {/* 2. Harga Mobil (Bisa Diubah Manual) */}
+            {/* 3. Harga Mobil (Tetap Bisa Diubah Manual jika butuh simulasi Diskon) */}
             <div className="relative">
-              <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Harga OTR (Bisa Diubah)</label>
+              <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Harga OTR (Bisa Diubah Sesuai Diskon)</label>
               <div className="flex items-center border-b-2 border-gray-200 focus-within:border-gray-900 transition-colors">
                 <span className="text-lg font-bold text-gray-400 mr-2 py-2">Rp</span>
                 <input
@@ -149,7 +170,7 @@ Mohon info persyaratannya.`;
               </div>
             </div>
 
-            {/* 3. DP Range (Target TDP) */}
+            {/* 4. DP Range (Target TDP) */}
             <div>
               <div className="flex justify-between items-end mb-4">
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Total DP (TDP)</label>
@@ -162,7 +183,7 @@ Mohon info persyaratannya.`;
               />
             </div>
 
-            {/* 4. Tenor Chips */}
+            {/* 5. Tenor Chips */}
             <div>
               <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4">Jangka Waktu</label>
               <div className="grid grid-cols-5 gap-2">
@@ -193,9 +214,9 @@ Mohon info persyaratannya.`;
                 key={result.cicilan}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter"
+                className="text-4xl md:text-4xl xl:text-5xl font-black text-gray-900 tracking-tighter"
               >
-                {formatCurrency(result.cicilan)}<span className="text-base md:text-lg text-gray-400 ml-1 font-bold">/BLN</span>
+                {formatCurrency(result.cicilan)}<span className="text-base md:text-sm xl:text-lg text-gray-400 ml-1 font-bold">/BLN</span>
               </motion.p>
             </AnimatePresence>
           </div>
