@@ -63,48 +63,67 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
+  // Data Schema Markup untuk LocalBusiness
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AutoDealer",
+    "name": "Suzuki Sumber Baru Mobil",
+    "image": "https://suzukiautojogja.com/logo.png",
+    "@id": "https://suzukiautojogja.com",
+    "url": "https://suzukiautojogja.com",
+    "telephone": "+6282174635218",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Jl. Magelang KM 8, Sendangadi, Mlati",
+      "addressLocality": "Sleman",
+      "addressRegion": "Daerah Istimewa Yogyakarta",
+      "postalCode": "55285",
+      "addressCountry": "ID"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -7.734464690542473,
+      "longitude": 110.3629346013371
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "08:00",
+      "closes": "17:00"
+    },
+    "sameAs": [
+      "https://web.facebook.com/sumberbarumobil.yusuf",
+      "https://www.instagram.com/suzukisumberbaru.yusuf",
+      "https://www.tiktok.com/@suzukisumberbaru.yusuf"
+    ]
+  };
+
   return (
-    <html lang="id" className={manrope.variable} data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="id">
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        {/* Memasukkan Schema Markup secara aman */}
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "AutoDealer",
-              name: "Suzuki Sumber Baru Mobil",
-              description: "Dealer resmi Suzuki area Jogja & sekitarnya",
-              url: "https://suzukiautojogja.com", 
-              telephone: "+6282174635218",
-              address: {
-                "@type": "PostalAddress",
-                streetAddress: "Jl. Magelang KM 8",
-                addressLocality: "Yogyakarta",
-                addressRegion: "DI Yogyakarta",
-                addressCountry: "ID",
-              },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: -7.7494,
-                longitude: 110.3593,
-              },
-              openingHours: "Mo-Sa 08:00-17:00",
-              priceRange: "Rp 100.000.000 - Rp 500.000.000",
-              brand: {
-                "@type": "Brand",
-                name: "Suzuki",
-              },
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="font-sans antialiased" suppressHydrationWarning>
+      <body className={`${manrope.className} antialiased bg-white text-gray-900`}>
         <Navbar />
-        <main>{children}</main>
+        
+        <main className="min-h-screen">
+          {children}
+        </main>
+        
         <Footer />
         <WhatsappFloatingButton />
       </body>

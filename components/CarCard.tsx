@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image"; // <-- Import next/image
 import { motion } from "framer-motion";
 import { MessageCircle, ArrowRight, Sparkles, TrendingUp } from "lucide-react";
 import { Car } from "@/data/cars";
@@ -22,10 +23,13 @@ export default function CarCard({ car, index = 0 }: CarCardProps) {
     >
       {/* Image Section - Area foto tetap dominan */}
       <div className="relative h-60 overflow-hidden bg-gray-100">
-        <img
-          src={car.heroImage}
+        {/* Menggunakan Image bawaan Next.js untuk Lazy Loading dan Optimasi Otomatis */}
+        <Image
+          src={car.heroImage || "/logo.png"} // Fallback logo jika gambar kosong
           alt={car.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
         />
         
         <div className="absolute top-4 left-4 flex gap-2 flex-wrap">
@@ -50,7 +54,7 @@ export default function CarCard({ car, index = 0 }: CarCardProps) {
         
         {/* Promo tetap dipertahankan karena ini "Hook" jualan */}
         {car.promo && (
-          <div className="border border-red-200 text-red-600 text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-none w-fit mb-6">
+          <div className="border border-red-200 text-red-600 text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-none w-fit mb-6 line-clamp-1">
             {car.promo}
           </div>
         )}

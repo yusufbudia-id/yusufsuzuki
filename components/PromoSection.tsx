@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image"; // <-- Import next/image
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -19,13 +20,16 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
       transition={{ delay: index * 0.08 }}
       className="group bg-white rounded-none overflow-hidden border border-gray-200 hover:border-gray-900 hover:shadow-2xl transition-all duration-500 flex flex-col h-full"
     >
-      {/* Menggunakan aspect-[2/1] agar lebih pendek & pipih dari sebelumnya */}
+      {/* Menggunakan aspect-[2/1] agar lebih pendek & pipih */}
       <div className="relative aspect-[2/1] w-full overflow-hidden bg-gray-100">
-        <img 
+        {/* Menggunakan Image bawaan Next.js untuk optimasi */}
+        <Image 
           src={promo.image} 
           alt={promo.title} 
-          /* Menggunakan object-top agar gambar fokus ke bagian atas */
-          className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-in-out" 
+          fill
+          priority={index === 0} // Sangat Penting: Hanya slide promo pertama yang di-load instan
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-in-out" 
         />
         
         {/* Badge: Frosted glass elegan */}
@@ -53,17 +57,13 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
         
         {/* Tombol Action Tajam */}
         <a
-          // Menggunakan trik encodeURIComponent untuk format teks WA yang rapi
           onClick={(e) => {
             e.preventDefault();
-            // Mengambil URL website saat ini (berguna saat sudah online)
             const domain = window.location.origin;
             const imageUrl = `${domain}${promo.image}`;
             
-            // Merakit pesan WA
             const waText = `Halo Yusuf Suzuki, saya tertarik dengan promo ini:\n\n*${promo.title}*\nHighlight: ${promo.highlight}\n\nCek promo: ${imageUrl}\n\nBisa minta info lebih lanjut?`;
             
-            // Membuka tab baru ke WhatsApp
             window.open(buildWhatsAppUrl(waText), "_blank");
           }}
           href="#"
@@ -92,7 +92,6 @@ export default function PromoSection() {
         {/* Header & Nav Buttons Wrapper */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           
-          {/* Teks Rata Kiri */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -110,7 +109,6 @@ export default function PromoSection() {
             </p>
           </motion.div>
 
-          {/* Tombol Navigasi (Melayang / Tanpa Border) */}
           <div className="hidden lg:flex items-center gap-2">
             <button
               onClick={() => emblaApi?.scrollPrev()}

@@ -2,26 +2,32 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { MessageCircle, Car, CalendarCheck, ChevronDown } from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
 
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url('/hero/bg-hero.jpg')", 
-        }}
-      />
+      
+      {/* Background Image: Dioptimasi menggunakan next/image dengan priority */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/hero/bg-hero.jpg"
+          alt="Dealer Resmi Suzuki Jogja - Sumber Baru Mobil"
+          fill
+          priority // Sangat penting: Memaksa browser memuat ini paling pertama (LCP Fix)
+          quality={85} // Kompresi otomatis tanpa mengurangi kualitas visual
+          className="object-cover object-center"
+        />
+      </div>
       
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent -z-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent -z-10" />
 
       {/* Blue accent line at top - Dipertahankan sebagai identitas tipis Suzuki */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-suzuki-blue via-suzuki-red to-suzuki-blue opacity-50" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-suzuki-blue via-suzuki-red to-suzuki-blue opacity-50 z-0" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 w-full">
         <div className="max-w-2xl">
@@ -122,7 +128,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/50 z-10"
       >
         <span className="text-xs">Scroll</span>
         <motion.div
