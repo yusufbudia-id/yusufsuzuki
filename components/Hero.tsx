@@ -56,15 +56,15 @@ export default function Hero() {
             </span>
           </motion.h1>
 
-          {/* Subheading */}
+          {/* Subheading SEO: Memasukkan kata dari H1 ke dalam paragraf */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-gray-300 text-lg sm:text-xl max-w-xl leading-relaxed mb-10"
           >
-            Dapatkan mobil Suzuki impian dengan promo terbaik, simulasi kredit mudah, dan pelayanan ramah dari{" "}
-            <span className="text-white font-semibold">Yusuf Suzuki</span>.
+            Sebagai <strong className="text-white font-normal">dealer resmi Suzuki Jogja</strong>, kami hadir sebagai pusat promo dan harga terbaik untuk mobil impian Anda. Dapatkan kemudahan kredit bersama{" "}
+            <strong className="text-white font-semibold">Yusuf Suzuki</strong>.
           </motion.p>
 
           {/* CTA Buttons: Direvamp menjadi tema Monochrome Premium */}
