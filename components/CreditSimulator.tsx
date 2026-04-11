@@ -27,11 +27,11 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
 
   // Bunga Leasing Retail Standar (Flat per Tahun)
   const bungaMap: Record<number, number> = {
-    12: 5.50,  // 1 Tahun
-    24: 5.75,  // 2 Tahun
-    36: 6.00, // 3 Tahun
-    48: 6.25, // 4 Tahun
-    60: 6.50  // 5 Tahun
+    12: 5.00,  // 1 Tahun
+    24: 5.25,  // 2 Tahun
+    36: 5.50,  // 3 Tahun
+    48: 5.75,  // 4 Tahun
+    60: 6.00   // 5 Tahun
   };
 
   // Mengubah harga mobil jika dropdown kendaraan diganti
@@ -48,7 +48,15 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
 
   // Logika Perhitungan "TDP All-In" (Skema ADDM)
   useEffect(() => {
-    const bungaTahun = bungaMap[tenor] || 10;
+    // Ambil bunga standar dari map
+    let bungaTahun = bungaMap[tenor] || 10;
+    
+    // LOGIKA KHUSUS SUZUKI CARRY: Bunga +1.00%
+    // Mengecek apakah slug mobil mengandung kata "carry"
+    if (selectedSlug.toLowerCase().includes("carry")) {
+      bungaTahun += 1.00;
+    }
+
     const tenorTahun = tenor / 12;
     
     // Target Total DP (TDP) dari persentase yang dipilih
@@ -63,7 +71,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     const biayaLain = admin + asuransi;
 
     // Kalkulasi Aljabar untuk mencari Pokok Utang & DP Murni jika TDP sudah FIX
-    // Rumus C-Factor (Faktor Pengali Cicilan)
+    // Rumus C-Factor (Faktor Pengali Cicilan) menggunakan bunga yang sudah disesuaikan
     const c_factor = (1 + (bungaTahun / 100) * tenorTahun) / tenor;
 
     // Rumus mencari Pokok Utang dari TDP (karena TDP = DP Murni + Biaya Lain + Cicilan 1)
@@ -82,7 +90,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     const totalDP = dpMurni + admin + asuransi + cicilan;
 
     setResult({ dpMurni, cicilan, admin, asuransi, totalDP, pokokUtang });
-  }, [hargaMobil, dpPct, tenor]);
+  }, [hargaMobil, dpPct, tenor, selectedSlug]); // Pastikan selectedSlug masuk ke dependency array
 
   const selectedCar = cars.find((c) => c.slug === selectedSlug);
 
