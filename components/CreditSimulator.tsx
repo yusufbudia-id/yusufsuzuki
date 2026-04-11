@@ -12,7 +12,8 @@ interface CreditSimulatorProps {
 
 export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps) {
   const [selectedSlug, setSelectedSlug] = useState(defaultCarSlug ?? cars[0].slug);
-  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0); // State baru untuk varian
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+  const [region, setRegion] = useState<"AB" | "AA">("AB"); // State baru untuk Wilayah Plat
   const [hargaMobil, setHargaMobil] = useState(cars[0].startingPriceNum);
   const [dpPct, setDpPct] = useState(20);
   const [tenor, setTenor] = useState(60);
@@ -28,50 +29,51 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
 
   // Bunga Leasing Retail Standar (Flat per Tahun)
   const bungaMap: Record<number, number> = {
-    12: 5.75,  // 1 Tahun
-    24: 6.00,  // 2 Tahun
-    36: 6.25,  // 3 Tahun
-    48: 6.50,  // 4 Tahun
-    60: 6.75   // 5 Tahun
+    12: 5.50,
+    24: 5.75,
+    36: 6.00,
+    48: 6.25,
+    60: 6.50
   };
 
-  // Ambil data mobil yang sedang dipilih
   const currentCar = cars.find((c) => c.slug === selectedSlug);
-  // @ts-ignore - Mengabaikan error TS jika tipe variants belum ditambahkan secara resmi di file tipe
+  // @ts-ignore
   const currentVariants = currentCar?.variants || [];
   const currentVariantName = currentVariants.length > 0 ? currentVariants[selectedVariantIndex]?.name : "";
 
-  // 1. Mengatur ulang Varian ke index 0 setiap kali Model Mobil diganti
+  // 1. Reset Varian saat Model diganti
   const handleCarChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSlug(e.target.value);
     setSelectedVariantIndex(0); 
   };
 
-  // 2. Mengubah harga OTR otomatis saat Mobil atau Varian diubah
+  // 2. Auto-Update Harga OTR berdasarkan Varian DAN Wilayah (AB / AA)
   useEffect(() => {
     if (currentCar) {
       if (currentVariants.length > 0 && currentVariants[selectedVariantIndex]) {
-        setHargaMobil(currentVariants[selectedVariantIndex].price);
+        // Ambil harga berdasarkan region yang dipilih
+        const variant = currentVariants[selectedVariantIndex];
+        setHargaMobil(region === "AB" ? variant.priceAB : variant.priceAA);
       } else {
+        // Fallback jika varian belum diisi di data
         setHargaMobil(currentCar.startingPriceNum);
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSlug, selectedVariantIndex]);
+  }, [selectedSlug, selectedVariantIndex, region]);
 
-  // Handle Input Harga Manual (opsional jika user mau input OTR setelah diskon)
+  // Handle Input Harga Manual
   const handleHargaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
     setHargaMobil(Number(value));
   };
 
-  // Logika Perhitungan "TDP All-In" (Skema ADDM)
+  // Logika Kalkulasi
   useEffect(() => {
     let bungaTahun = bungaMap[tenor] || 10;
     
-    // LOGIKA KHUSUS SUZUKI CARRY: Bunga +1.0%
     if (selectedSlug.toLowerCase().includes("carry")) {
-      bungaTahun += 1.0;
+      bungaTahun += 0.5;
     }
 
     const tenorTahun = tenor / 12;
@@ -98,6 +100,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
 
   const waMsg = `Halo Yusuf Suzuki, saya ingin pengajuan kredit:
 - Unit: ${currentCar?.name} ${currentVariantName ? `(${currentVariantName})` : ''}
+- Wilayah OTR: Plat ${region}
 - Harga OTR: ${formatCurrency(hargaMobil)}
 - Tenor: ${tenor} Bulan
 - Total DP (TDP): ${formatCurrency(result.totalDP)}
@@ -124,7 +127,7 @@ Mohon info persyaratannya.`;
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* 1. Pilih Model Kendaraan */}
-              <div>
+              <div className="sm:col-span-2">
                 <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Unit Kendaraan</label>
                 <select
                   value={selectedSlug}
@@ -137,7 +140,7 @@ Mohon info persyaratannya.`;
                 </select>
               </div>
 
-              {/* 2. Pilih Varian / Tipe (Hanya Muncul Jika Varian Tersedia) */}
+              {/* 2. Pilih Varian / Tipe */}
               {currentVariants.length > 0 && (
                 <div>
                   <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Tipe / Varian</label>
@@ -152,9 +155,24 @@ Mohon info persyaratannya.`;
                   </select>
                 </div>
               )}
+
+              {/* 3. Pilih Wilayah (AB/AA) */}
+              {currentVariants.length > 0 && (
+                <div>
+                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Wilayah OTR</label>
+                  <select
+                    value={region}
+                    onChange={(e) => setRegion(e.target.value as "AB" | "AA")}
+                    className="w-full border-b-2 border-gray-200 bg-transparent py-2 text-base font-bold text-gray-900 focus:outline-none focus:border-gray-900 transition-colors appearance-none cursor-pointer"
+                  >
+                    <option value="AB">PLAT AB (JOGJA)</option>
+                    <option value="AA">PLAT AA (KEDU/MAGELANG)</option>
+                  </select>
+                </div>
+              )}
             </div>
 
-            {/* 3. Harga Mobil (Tetap Bisa Diubah Manual jika butuh simulasi Diskon) */}
+            {/* 4. Harga Mobil */}
             <div className="relative">
               <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Harga OTR (Bisa Diubah Sesuai Diskon)</label>
               <div className="flex items-center border-b-2 border-gray-200 focus-within:border-gray-900 transition-colors">
@@ -170,7 +188,7 @@ Mohon info persyaratannya.`;
               </div>
             </div>
 
-            {/* 4. DP Range (Target TDP) */}
+            {/* 5. DP Range */}
             <div>
               <div className="flex justify-between items-end mb-4">
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Total DP (TDP)</label>
@@ -183,7 +201,7 @@ Mohon info persyaratannya.`;
               />
             </div>
 
-            {/* 5. Tenor Chips */}
+            {/* 6. Tenor Chips */}
             <div>
               <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4">Jangka Waktu</label>
               <div className="grid grid-cols-5 gap-2">
