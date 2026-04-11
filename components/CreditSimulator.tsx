@@ -29,11 +29,11 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
 
   // Bunga Leasing Retail Standar (Flat per Tahun)
   const bungaMap: Record<number, number> = {
-    12: 5.50,
-    24: 5.75,
-    36: 6.00,
-    48: 6.25,
-    60: 6.50
+    12: 5.75,
+    24: 6.00,
+    36: 6.25,
+    48: 6.50,
+    60: 6.75
   };
 
   const currentCar = cars.find((c) => c.slug === selectedSlug);
@@ -73,7 +73,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     let bungaTahun = bungaMap[tenor] || 10;
     
     if (selectedSlug.toLowerCase().includes("carry")) {
-      bungaTahun += 0.5;
+      bungaTahun += 1.5;
     }
 
     const tenorTahun = tenor / 12;
