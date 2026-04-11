@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
-import Script from "next/script"; // <-- 1. Import komponen Script dari Next.js
+import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -16,11 +16,12 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   metadataBase: new URL("https://suzukiautojogja.com"), 
   title: {
-    default: "Sales Konsultan Resmi Suzuki Jogja - Sumber Baru Mobil",
-    template: "%s | Sumber Baru Mobil Jogja", // Template disesuaikan agar sub-halaman tetap rapi
+    // Judul Utama (Opsi 1): Ringkas, Tanpa Repetisi, Sangat Kuat di SEO Lokal
+    default: "Suzuki Sumber Baru Mobil Jogja | Dealer Resmi Jl. Magelang",
+    template: "%s | Sumber Baru Mobil Jogja", 
   },
   description:
-    "Dealer resmi Suzuki Jogja & sekitarnya. Suzuki Sumber Baru Mobil di Jl. Magelang KM 8. Promo terbaik, kredit mudah, DP ringan. Hubungi Yusuf Suzuki: 0821 7463 5218.",
+    "Dealer resmi Suzuki Jogja. Dapatkan harga terbaik, promo kredit DP ringan & cicilan murah di Sumber Baru Mobil Jl. Magelang KM 8. Hubungi Yusuf Suzuki: 0821 7463 5218.",
   keywords: [
     "dealer suzuki jogja",
     "suzuki sumber baru mobil",
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: "https://suzukiautojogja.com", 
     siteName: "Suzuki Sumber Baru Mobil",
-    title: "Sales Konsultan Resmi Suzuki Jogja - Sumber Baru Mobil", // Diperbarui
+    title: "Suzuki Sumber Baru Mobil Jogja | Dealer Resmi Jl. Magelang",
     description:
       "Dealer resmi Suzuki Jogja & sekitarnya. Promo terbaik, kredit mudah, DP ringan. Hubungi Yusuf Suzuki: 0821 7463 5218.",
     images: [
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sales Konsultan Resmi Suzuki Jogja - Sumber Baru Mobil", // Diperbarui
+    title: "Suzuki Sumber Baru Mobil Jogja | Dealer Resmi Jl. Magelang",
     description:
       "Dealer resmi Suzuki Jogja & sekitarnya. Promo terbaik, kredit mudah, DP ringan.",
   },
@@ -119,7 +120,7 @@ export default function RootLayout({
       </head>
       <body className={`${manrope.className} antialiased bg-white text-gray-900`}>
         
-        {/* 2. Google Analytics Script (Mode afterInteractive) */}
+        {/* Google Analytics Script */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`}
           strategy="afterInteractive"
@@ -133,7 +134,7 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* 3. Meta / Facebook Pixel Script (Mode afterInteractive) */}
+        {/* Meta / Facebook Pixel Script */}
         <Script id="meta-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
