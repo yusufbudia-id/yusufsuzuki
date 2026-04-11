@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Hero from "@/components/Hero";
 import FeaturedCars from "@/components/FeaturedCars";
 import AdvantagesSection from "@/components/AdvantagesSection";
@@ -7,14 +6,7 @@ import TestimonialSection from "@/components/TestimonialSection";
 import ContactCTA from "@/components/ContactCTA";
 import MapSection from "@/components/MapSection";
 
-export const metadata: Metadata = {
-  title: "Dealer Suzuki Jogja | Suzuki Sumber Baru Mobil – Jl. Magelang KM 8",
-  description:
-    "Dealer resmi Suzuki Yogyakarta & sekitarnya. Promo terbaik, kredit mudah, DP ringan. Hubungi Yusuf Suzuki: 0821 7463 5218.",
-  alternates: {
-    canonical: "https://suzukiautojogja.com", // <-- Domain diperbarui
-  },
-};
+// Metadata di sini dihapus agar mengikuti layout.tsx secara otomatis
 
 export default function HomePage() {
   return (
@@ -22,7 +14,6 @@ export default function HomePage() {
       <Hero />
       <FeaturedCars />
       
-      {/* Garis Pembatas Tipis (Tidak mentok ujung layar) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <hr className="border-t border-gray-200" />
       </div>
