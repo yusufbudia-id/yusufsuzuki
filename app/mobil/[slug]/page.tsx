@@ -35,7 +35,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `Promo Suzuki ${car.name} Jogja Terbaru`,
       description: `Beli Suzuki ${car.name} di Jogja sekarang. DP Ringan, angsuran bisa disesuaikan, dan gratis test drive ke rumah Anda.`,
       images: [car.heroImage || "/logo.png"],
-    }
+    },
+    // <-- Tambahkan baris di bawah ini
+    alternates: {
+      canonical: `https://suzukiautojogja.com/mobil/${car.slug}`,
+    },
   };
 }
 

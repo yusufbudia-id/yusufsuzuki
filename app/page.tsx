@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: "Dealer Suzuki Jogja | Suzuki Sumber Baru Mobil – Jl. Magelang KM 8",
   description:
     "Dealer resmi Suzuki Yogyakarta & sekitarnya. Promo terbaik, kredit mudah, DP ringan. Hubungi Yusuf Suzuki: 0821 7463 5218.",
+  alternates: {
+    canonical: "https://suzukiautojogja.com", // <-- Domain diperbarui
+  },
 };
 
 export default function HomePage() {
