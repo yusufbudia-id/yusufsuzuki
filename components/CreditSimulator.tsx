@@ -32,8 +32,8 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     12: 5.75,
     24: 6.00,
     36: 6.25,
-    48: 6.50,
-    60: 6.75
+    48: 6.55,
+    60: 6.80
   };
 
   const currentCar = cars.find((c) => c.slug === selectedSlug);
@@ -73,7 +73,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     let bungaTahun = bungaMap[tenor] || 10;
     
     if (selectedSlug.toLowerCase().includes("carry")) {
-      bungaTahun += 1.5;
+      bungaTahun += 2.0;
     }
 
     const tenorTahun = tenor / 12;
