@@ -15,7 +15,8 @@ export default function WhatsappFloatingButton() {
       transition={{ delay: 1.5, type: "spring", stiffness: 200 }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
-      className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-xl flex items-center justify-center transition-colors group"
+      // Perhatikan class di bawah ini: 'hidden md:flex' menggantikan 'flex'
+      className="hidden md:flex fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-xl items-center justify-center transition-colors group"
       aria-label="Chat WhatsApp Yusuf Suzuki"
     >
       <MessageCircle size={26} className="group-hover:scale-110 transition-transform" />
