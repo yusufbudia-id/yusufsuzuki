@@ -40,15 +40,22 @@ export default function BottomNavigation() {
           );
         })}
 
-        {/* Tombol WhatsApp (Dibuat Menonjol) */}
+        {/* Tombol WhatsApp (Dibuat Hidup & Menonjol) */}
         <a 
           href={`${WA_BASE_URL}?text=Halo%20Yusuf%20Suzuki%2C%20saya%20ingin%20tanya%20promo%20mobil%20Suzuki%20terbaru`}
           target="_blank"
           rel="noopener noreferrer"
           className="flex flex-col items-center justify-center w-full h-full group"
         >
-          <div className="flex items-center justify-center w-10 h-10 bg-[#25D366] text-white rounded-full shadow-lg shadow-[#25D366]/30 group-active:scale-95 transition-transform mb-0.5">
-            <MessageCircle size={20} strokeWidth={2} />
+          {/* Perhatikan penambahan class 'relative' di sini */}
+          <div className="relative flex items-center justify-center w-10 h-10 bg-[#25D366] text-white rounded-full shadow-lg shadow-[#25D366]/30 group-active:scale-95 transition-transform mb-0.5">
+            
+            {/* Ikon WA (z-10 agar berada di atas gelombang) */}
+            <MessageCircle size={20} strokeWidth={2} className="relative z-10" />
+            
+            {/* Efek Ping (Gelombang Radar yang Hidup) */}
+            <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-60" />
+            
           </div>
           <span className="text-[9px] uppercase tracking-wider font-bold text-[#25D366]">
             Chat WA
