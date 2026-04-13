@@ -23,7 +23,12 @@ export const metadata: Metadata = {
   },
   description:
     "Cari mobil Suzuki di Jogja? Hubungi Sales Konsultan Resmi Yusuf Suzuki: 0821 7463 5218.",
-  keywords: [
+  icons: {
+    icon: "/favicon.ico", // Pastikan kamu punya file favicon.ico di folder public/
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png", // (Opsional) Ikon khusus kalau website disave ke Home Screen iPhone
+  },
+    keywords: [
     "dealer suzuki jogja",
     "suzuki sumber baru mobil",
     "harga suzuki jogja",
