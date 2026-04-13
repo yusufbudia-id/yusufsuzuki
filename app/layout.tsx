@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsappFloatingButton from "@/components/WhatsappFloatingButton";
+import BottomNavigation from "@/components/BottomNavigation"; // <-- 1. Import BottomNavigation
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -152,12 +153,16 @@ export default function RootLayout({
 
         <Navbar />
         
-        <main className="min-h-screen">
+        {/* 2. Tambahkan pb-16 khusus di layar HP (md:pb-0) agar konten terbawah tidak tertutup bottom bar */}
+        <main className="min-h-screen pb-16 md:pb-0">
           {children}
         </main>
         
         <Footer />
         <WhatsappFloatingButton />
+        
+        {/* 3. Panggil komponen BottomNavigation di bagian paling bawah body */}
+        <BottomNavigation />
       </body>
     </html>
   );
