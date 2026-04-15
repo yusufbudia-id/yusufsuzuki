@@ -6,19 +6,15 @@ import { promos } from "@/data/promos";
 import { WA_BASE_URL } from "@/lib/utils";
 import type { Metadata } from "next";
 
-// Ubah parameter dari id menjadi slug
 interface PromoPageProps {
-  params: {
-    slug: string;
-  };
+  params: Promise<{ slug: string }>; // Mendukung Next.js 15 (Promise)
 }
 
-export function generateMetadata({ params }: PromoPageProps): Metadata {
-  const promo = promos.find((p) => p.slug === params.slug);
+export async function generateMetadata({ params }: PromoPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const promo = promos.find((p) => p.slug === slug);
   
-  if (!promo) {
-    return { title: "Promo Tidak Ditemukan" };
-  }
+  if (!promo) return { title: "Promo Tidak Ditemukan" };
 
   return {
     title: `${promo.title} | Promo Suzuki Jogja`,
@@ -26,14 +22,15 @@ export function generateMetadata({ params }: PromoPageProps): Metadata {
   };
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
   return promos.map((promo) => ({
     slug: promo.slug,
   }));
 }
 
-export default function PromoDetailPage({ params }: PromoPageProps) {
-  const promo = promos.find((p) => p.slug === params.slug);
+export default async function PromoDetailPage({ params }: PromoPageProps) {
+  const { slug } = await params; // Await params untuk mendapatkan slug
+  const promo = promos.find((p) => p.slug === slug);
 
   if (!promo) {
     notFound();
@@ -85,6 +82,7 @@ export default function PromoDetailPage({ params }: PromoPageProps) {
               </p>
             </div>
 
+            {/* Info Tambahan */}
             <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3 mb-10">
               <AlertCircle className="text-blue-600 shrink-0 mt-0.5" size={20} />
               <p className="text-sm text-blue-800 leading-relaxed">
@@ -103,7 +101,6 @@ export default function PromoDetailPage({ params }: PromoPageProps) {
                 Klaim Promo via WhatsApp
               </a>
             </div>
-
           </div>
         </div>
       </div>
