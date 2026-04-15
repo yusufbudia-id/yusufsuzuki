@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image"; // <-- Import next/image
+import Image from "next/image";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -20,42 +20,47 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
       transition={{ delay: index * 0.08 }}
       className="group bg-white rounded-none overflow-hidden border border-gray-200 hover:border-gray-900 hover:shadow-2xl transition-all duration-500 flex flex-col h-full"
     >
-      {/* Menggunakan aspect-[2/1] agar lebih pendek & pipih */}
-      <div className="relative aspect-[2/1] w-full overflow-hidden bg-gray-100">
-        {/* Menggunakan Image bawaan Next.js untuk optimasi */}
-        <Image 
-          src={promo.image} 
-          alt={promo.title} 
-          fill
-          priority={index === 0} // Sangat Penting: Hanya slide promo pertama yang di-load instan
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-in-out" 
-        />
+      {/* Bungkus area gambar dan teks agar bisa diklik menuju halaman detail */}
+      <Link href={`/promo/${promo.slug}`} className="flex flex-col flex-grow">
         
-        {/* Badge: Frosted glass elegan */}
-        <div className="absolute top-4 left-4">
-          <span className="bg-white/95 backdrop-blur-sm text-gray-900 text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-none shadow-sm">
-            {promo.badge}
-          </span>
+        {/* Menggunakan aspect-[2/1] agar lebih pendek & pipih */}
+        <div className="relative aspect-[2/1] w-full overflow-hidden bg-gray-100">
+          <Image 
+            src={promo.image} 
+            alt={promo.title} 
+            fill
+            priority={index === 0} // Sangat Penting: Hanya slide promo pertama yang di-load instan
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-in-out" 
+          />
+          
+          {/* Badge: Frosted glass elegan */}
+          <div className="absolute top-4 left-4">
+            <span className="bg-white/95 backdrop-blur-sm text-gray-900 text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-none shadow-sm">
+              {promo.badge}
+            </span>
+          </div>
+          
+          {/* Highlight Teks (dengan gradasi hitam agar mudah dibaca) */}
+          <div className="absolute bottom-0 inset-x-0 h-3/4 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+          <p className="absolute bottom-4 left-4 right-4 text-white font-black text-lg md:text-xl uppercase tracking-tight leading-tight group-hover:text-red-500 transition-colors">
+            {promo.highlight}
+          </p>
         </div>
         
-        {/* Highlight Teks (dengan gradasi hitam agar mudah dibaca) */}
-        <div className="absolute bottom-0 inset-x-0 h-3/4 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-        <p className="absolute bottom-4 left-4 right-4 text-white font-black text-lg md:text-xl uppercase tracking-tight leading-tight">
-          {promo.highlight}
-        </p>
-      </div>
-      
-      <div className="p-6 flex flex-col flex-grow">
-        <h3 className="font-black text-gray-900 text-lg uppercase tracking-tight mb-2 line-clamp-2">{promo.title}</h3>
-        <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-3 flex-grow">{promo.description}</p>
-        
-        <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-6">
-          <Calendar size={14} />
-          Berlaku s.d. {promo.validUntil}
+        <div className="px-6 pt-6 pb-2 flex flex-col flex-grow">
+          <h3 className="font-black text-gray-900 text-lg uppercase tracking-tight mb-2 line-clamp-2 group-hover:underline">{promo.title}</h3>
+          <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-3 flex-grow">{promo.description}</p>
+          
+          <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-4">
+            <Calendar size={14} />
+            Berlaku s.d. {promo.validUntil}
+          </div>
         </div>
-        
-        {/* Tombol Action Tajam */}
+      </Link>
+
+      {/* Tombol Action Tajam (Ditaruh di luar Link agar klik WA tidak bertabrakan) */}
+      <div className="px-6 pb-6 mt-auto">
         <a
           onClick={(e) => {
             e.preventDefault();
@@ -67,7 +72,7 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
             window.open(buildWhatsAppUrl(waText), "_blank");
           }}
           href="#"
-          className="w-full bg-gray-900 hover:bg-black text-white text-[11px] uppercase tracking-widest font-bold py-4 rounded-none flex justify-center items-center gap-2 transition-colors mt-auto"
+          className="w-full bg-gray-900 hover:bg-black text-white text-[11px] uppercase tracking-widest font-bold py-4 rounded-none flex justify-center items-center gap-2 transition-colors relative z-10"
         >
           <MessageCircle size={16} />
           Tanya Yusuf Suzuki
@@ -101,7 +106,6 @@ export default function PromoSection() {
             <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
               Promo Bulan Ini
             </span>
-            {/* Heading SEO: Menggunakan kata kunci Promo Suzuki Jogja */}
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight">
               Promo Suzuki Jogja Terbaru
             </h2>
@@ -133,7 +137,7 @@ export default function PromoSection() {
           <div className="embla__container flex gap-6 pb-4">
             {promos.map((promo, i) => (
               <div 
-                key={promo.id} 
+                key={promo.slug} // <-- Menggunakan slug sebagai key
                 className="embla__slide flex-none w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
               >
                 <PromoCard promo={promo} index={i} />

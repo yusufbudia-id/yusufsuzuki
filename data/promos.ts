@@ -1,5 +1,5 @@
 export interface Promo {
-  id: string;
+  slug: string;
   title: string;
   description: string;
   carSlug?: string;
@@ -13,7 +13,7 @@ export interface Promo {
 export const promos: Promo[] = [
   // EVENT BARU: Diletakkan paling atas karena sedang berlangsung
   {
-    id: "promo-otomotif-expo-pakuwon",
+    slug: "promo-otomotif-expo-pakuwon",
     title: "Kunjungi Otomotif Expo Suzuki di Pakuwon Mall Jogja!",
     description: `Jangan lewatkan pameran spesial Suzuki di Otomotif Expo Pakuwon Mall Jogja! Dapatkan penawaran eksklusif "Choose Your Own Deals" khusus untuk pemesanan selama pameran berlangsung.
 
@@ -44,7 +44,7 @@ Juga ikuti program Test Drive Berhadiah Suzuki Fronx di lokasi! Tunggu apa lagi?
     highlight: "14-19 April 2026 di Pakuwon Mall Jogja!",
   },
   {
-    id: "promo-all-in-one-april",
+    slug: "promo-all-in-one-april",
     title: "Special Promo PRIMADONA: Momen April Diskon Optimal & Hadiah Melimpah!",
     description: `Rayakan 'Special Promo PRIMADONA' di Momen April ini! Dapatkan diskon optimal dan penawaran tak tertandingi untuk seluruh lini Suzuki.
 
@@ -77,7 +77,7 @@ Hadiah Penjualan Melimpah (Pilih FREE):
     highlight: "Bunga 1,8%, DP 20%, Diskon s/d 43 JT!",
   },
   {
-    id: "promo-test-drive-fronx",
+    slug: "promo-test-drive-fronx",
     title: "Ayo Test Drive! Dapatkan Kesempatan Bawa Pulang Fronx!",
     description: `Periode 1 April - 30 Juni 2026. Ayo lakukan test drive Suzuki Fronx dan jadilah salah satu dari Total 11 Pemenang yang beruntung:
 
@@ -99,7 +99,7 @@ Hadiah Lainnya:
     highlight: "Menangkan 1 Unit Fronx GL AT",
   },
   {
-    id: "promo-khusus-carry",
+    slug: "promo-khusus-carry",
     title: "Promo Juragan Carry: Diskon 34 Juta + Gratis Motor Suzuki Burgman!",
     description: `Kabar gembira untuk para juragan! Beli Suzuki Carry Pick Up atau Carry Box sekarang dan nikmati keuntungan berlipat ganda untuk memajukan bisnis Anda.
 
