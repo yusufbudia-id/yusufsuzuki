@@ -1,6 +1,28 @@
+"use client";
+
 import Link from "next/link";
 import { MapPin, Phone, Clock, MessageCircle, Facebook, Instagram, Youtube } from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
+
+// Komponen SVG khusus untuk ikon TikTok (karena lucide-react tidak memiliki icon TikTok bawaan)
+function TiktokIcon({ size = 24, strokeWidth = 2, className = "" }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+    </svg>
+  );
+}
 
 export default function Footer() {
   const quickLinks = [
@@ -43,13 +65,16 @@ export default function Footer() {
             </p>
             <div className="flex gap-2.5">
               {[
-                { icon: Facebook, label: "Facebook", href: "#" },
-                { icon: Instagram, label: "Instagram", href: "#" },
-                { icon: Youtube, label: "Youtube", href: "#" },
+                { icon: Facebook, label: "Facebook", href: "https://web.facebook.com/sumberbarumobil.yusuf" },
+                { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/suzukisumberbaru.yusuf" },
+                { icon: TiktokIcon, label: "TikTok", href: "https://www.tiktok.com/@suzukisumberbaru.yusuf" },
+                { icon: Youtube, label: "Youtube", href: "https://www.youtube.com/@yusufsuzuki" },
               ].map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
                   href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="w-11 h-11 border border-gray-700 hover:border-white text-gray-500 hover:text-white rounded-none flex items-center justify-center transition-all duration-300 group"
                 >
