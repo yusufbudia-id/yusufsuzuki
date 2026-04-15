@@ -11,6 +11,38 @@ export interface Promo {
 }
 
 export const promos: Promo[] = [
+  // EVENT BARU: Diletakkan paling atas karena sedang berlangsung
+  {
+    id: "promo-otomotif-expo-pakuwon",
+    title: "Kunjungi Otomotif Expo Suzuki di Pakuwon Mall Jogja!",
+    description: `Jangan lewatkan pameran spesial Suzuki di Otomotif Expo Pakuwon Mall Jogja! Dapatkan penawaran eksklusif "Choose Your Own Deals" khusus untuk pemesanan selama pameran berlangsung.
+
+📍 Lokasi: LGM Floor, Pakuwon Mall Jogja
+📅 Tanggal: 14 - 19 April 2026
+⏰ Waktu: 10.00 - 22.00 WIB
+
+Pilih Promo Unggulanmu (Choose Your Own Deals):
+- Bunga Mulai 1,8% Per Tahun
+- DP Mulai 20%
+- Tenor Panjang Hingga 8 Tahun
+- Bunga Flat Sepanjang Tenor
+- Instant Approval
+- FREE Suku Cadang & Perawatan Berkala s/d 50.000 KM
+
+Pilihan Hadiah Spesial (FREE)*:
+- Motor Suzuki Burgman / Suzuki Nex
+- iPhone 17 Pro Max
+- MAP Gift Voucher hingga Rp 20 Juta
+- iPad Air 11"
+- Apple Watch 11 Series
+- Garansi Baterai Lithium-Ion 8 Tahun (Untuk tipe Hybrid)
+
+Juga ikuti program Test Drive Berhadiah Suzuki Fronx di lokasi! Tunggu apa lagi? Segera hubungi Yusuf Suzuki untuk janjian bertemu di pameran.`,
+    badge: "EVENT SPESIAL",
+    validUntil: "19 April 2026",
+    image: "/promo/otomotif-expo.jpg", // Pastikan gambar brosur diubah namanya menjadi otomotif-expo.jpg dan ditaruh di public/promo/
+    highlight: "14-19 April 2026 di Pakuwon Mall Jogja!",
+  },
   {
     id: "promo-all-in-one-april",
     title: "Special Promo PRIMADONA: Momen April Diskon Optimal & Hadiah Melimpah!",
@@ -85,7 +117,7 @@ Layanan Purna Jual & Garansi:
     carName: "Suzuki Carry Pick Up",
     badge: "PROMO JURAGAN CARRY",
     validUntil: "30 April 2026",
-    image: "/promo/promo_carry.jpg", // Pastikan file gambar ini tersedia di public/promo/
+    image: "/promo/promo_carry.jpg", 
     highlight: "Diskon 34 JT + Gratis Burgman!",
   }
 ];
