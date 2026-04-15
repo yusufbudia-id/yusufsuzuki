@@ -112,7 +112,8 @@ export default function RootLayout({
     "sameAs": [
       "https://web.facebook.com/sumberbarumobil.yusuf",
       "https://www.instagram.com/suzukisumberbaru.yusuf",
-      "https://www.tiktok.com/@suzukisumberbaru.yusuf"
+      "https://www.tiktok.com/@suzukisumberbaru.yusuf",
+      "https://www.youtube.com/@yusufsuzuki"
     ]
   };
 
