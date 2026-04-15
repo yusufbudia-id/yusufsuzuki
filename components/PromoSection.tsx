@@ -84,7 +84,7 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
 
 // Komponen Utama Section Promo
 export default function PromoSection() {
-  const autoplay = useRef(Autoplay({ delay: 4000, stopOnInteraction: false }));
+  const autoplay = useRef(Autoplay({ delay: 6000, stopOnInteraction: false }));
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start", slidesToScroll: 1 },
     [autoplay.current]
