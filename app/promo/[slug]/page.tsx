@@ -1,23 +1,22 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, Calendar, MessageCircle, AlertCircle } from "lucide-react";
+import { ArrowLeft, Calendar, MessageCircle, AlertCircle, MapPin, Clock } from "lucide-react";
 import { promos } from "@/data/promos"; 
 import { WA_BASE_URL } from "@/lib/utils";
 import type { Metadata } from "next";
 
 interface PromoPageProps {
-  params: Promise<{ slug: string }>; // Mendukung Next.js 15 (Promise)
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: PromoPageProps): Promise<Metadata> {
   const { slug } = await params;
   const promo = promos.find((p) => p.slug === slug);
-  
   if (!promo) return { title: "Promo Tidak Ditemukan" };
 
   return {
-    title: `${promo.title} | Promo Suzuki Jogja`,
+    title: `${promo.title} | Dealer Resmi Suzuki Jogja`,
     description: promo.highlight,
   };
 }
@@ -29,79 +28,97 @@ export async function generateStaticParams() {
 }
 
 export default async function PromoDetailPage({ params }: PromoPageProps) {
-  const { slug } = await params; // Await params untuk mendapatkan slug
+  const { slug } = await params;
   const promo = promos.find((p) => p.slug === slug);
 
-  if (!promo) {
-    notFound();
-  }
+  if (!promo) notFound();
 
-  const waMsg = `Halo Yusuf Suzuki, saya tertarik dengan promo: *${promo.title}*. Mohon info lebih lanjut ya.`;
+  const waMsg = `Halo Yusuf Suzuki, saya tertarik dengan promo: *${promo.title}* yang saya lihat di website. Mohon info lengkapnya.`;
 
   return (
-    <main className="min-h-screen bg-gray-50 pt-24 pb-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-white pt-24 pb-20">
+      {/* Blue & Red Accent Line (Identitas Suzuki) */}
+      <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-700 via-red-600 to-blue-700 z-[60] md:hidden" />
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {/* Tombol Kembali - Gaya Minimalis */}
         <Link 
           href="/" 
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors font-semibold text-sm mb-6"
+          className="inline-flex items-center gap-2 text-gray-400 hover:text-black transition-colors font-bold text-[10px] uppercase tracking-[0.2em] mb-8"
         >
-          <ArrowLeft size={16} />
+          <ArrowLeft size={14} />
           Kembali ke Beranda
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-          <div className="relative w-full aspect-[4/3] md:aspect-[21/9] bg-gray-900">
-            <Image
-              src={promo.image}
-              alt={promo.title}
-              fill
-              className="object-contain md:object-cover"
-              priority
-            />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          
+          {/* Sisi Kiri: Gambar (Full Display) */}
+          <div className="lg:col-span-7">
+            <div className="relative w-full bg-gray-100 border border-gray-200 overflow-hidden shadow-sm">
+              {/* Image menggunakan object-contain agar flyer pameran tidak terpotong sama sekali */}
+              <div className="relative aspect-square md:aspect-[4/5] w-full">
+                <Image
+                  src={promo.image}
+                  alt={promo.title}
+                  fill
+                  className="object-contain p-2 md:p-0"
+                  priority
+                />
+              </div>
+              
+              {/* Badge Overlay */}
+              <div className="absolute top-6 left-6">
+                <span className="bg-gray-900 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 shadow-2xl">
+                  {promo.badge}
+                </span>
+              </div>
+            </div>
           </div>
 
-          <div className="p-6 md:p-10">
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="bg-red-50 text-red-600 border border-red-100 text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full">
-                {promo.badge}
-              </span>
-              <span className="flex items-center gap-1.5 text-gray-500 text-xs font-semibold uppercase tracking-wider">
+          {/* Sisi Kanan: Detail Konten */}
+          <div className="lg:col-span-5 flex flex-col">
+            <div className="sticky top-28">
+              <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-red-600 mb-4">
                 <Calendar size={14} />
                 Berlaku s/d {promo.validUntil}
-              </span>
-            </div>
+              </div>
 
-            <h1 className="text-2xl md:text-4xl font-black text-gray-900 leading-tight mb-8">
-              {promo.title}
-            </h1>
+              <h1 className="text-3xl md:text-4xl font-black text-gray-900 leading-[1.1] uppercase tracking-tighter mb-6">
+                {promo.title}
+              </h1>
 
-            <div className="prose prose-gray max-w-none mb-10">
-              <p className="text-gray-600 leading-relaxed whitespace-pre-line">
-                {promo.description}
-              </p>
-            </div>
+              <div className="h-1 w-20 bg-gray-900 mb-8" />
 
-            {/* Info Tambahan */}
-            <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3 mb-10">
-              <AlertCircle className="text-blue-600 shrink-0 mt-0.5" size={20} />
-              <p className="text-sm text-blue-800 leading-relaxed">
-                Promo ini memiliki kuota terbatas dan syarat ketentuan berlaku. Segera hubungi wiraniaga kami sebelum masa promo berakhir.
-              </p>
-            </div>
+              {/* Deskripsi dengan gaya tipografi yang konsisten */}
+              <div className="prose prose-sm max-w-none">
+                <p className="text-gray-600 leading-relaxed whitespace-pre-line text-base font-medium">
+                  {promo.description}
+                </p>
+              </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 border-t border-gray-100 pt-8">
-              <a
-                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 bg-[#25D366] hover:bg-[#20bd5a] text-white py-4 px-6 rounded-xl flex justify-center items-center gap-3 transition-all font-bold text-sm uppercase tracking-widest shadow-lg shadow-[#25D366]/30 active:scale-95"
-              >
-                <MessageCircle size={20} />
-                Klaim Promo via WhatsApp
-              </a>
+              {/* Action Area */}
+              <div className="mt-10 space-y-4">
+                <a
+                  href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full bg-gray-900 hover:bg-black text-white py-5 px-8 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.3em] shadow-xl active:scale-95"
+                >
+                  <MessageCircle size={20} />
+                  Klaim Promo Sekarang
+                </a>
+                
+                <div className="flex items-start gap-3 bg-gray-50 p-5 border-l-4 border-gray-900">
+                  <AlertCircle className="text-gray-400 shrink-0 mt-0.5" size={18} />
+                  <p className="text-[10px] text-gray-500 font-bold uppercase leading-relaxed tracking-wider">
+                    Syarat & ketentuan berlaku. Promo dapat berubah sewaktu-waktu tergantung ketersediaan unit di dealer.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </main>
