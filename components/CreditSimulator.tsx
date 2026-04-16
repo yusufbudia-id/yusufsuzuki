@@ -49,7 +49,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   const [hargaMobil, setHargaMobil] = useState(335200000); 
   const [dpPct, setDpPct] = useState(20); // Persentase DP Murni
   const [diskon, setDiskon] = useState(10000000); // Diskon Unit memotong DP
-  const [uping] = useState(0.5); // Mark-up Bunga Sales (Disembunyikan dari UI, statis 1%)
+  const [uping] = useState(1); // Mark-up Bunga Sales (Disembunyikan dari UI, statis 1%)
   const [tenor, setTenor] = useState(60);
   
   const [result, setResult] = useState({ 
