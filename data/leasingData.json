@@ -1,0 +1,33 @@
+{
+  "ojkWil3": [
+    { "kategori": 1, "minOtr": 0, "maxOtr": 125000000, "allRisk": 0.0253, "tlo": 0.0056 },
+    { "kategori": 2, "minOtr": 125000000, "maxOtr": 200000000, "allRisk": 0.0269, "tlo": 0.0048 },
+    { "kategori": 3, "minOtr": 200000000, "maxOtr": 400000000, "allRisk": 0.0179, "tlo": 0.0035 },
+    { "kategori": 4, "minOtr": 400000000, "maxOtr": 800000000, "allRisk": 0.0114, "tlo": 0.0027 },
+    { "kategori": 5, "minOtr": 800000000, "maxOtr": 999999999999, "allRisk": 0.0105, "tlo": 0.0024 }
+  ],
+  "depreciation": {
+    "1": 1.0,
+    "2": 0.8,
+    "3": 0.7,
+    "4": 0.6,
+    "5": 0.55
+  },
+  "flatFeePerYear": 100000,
+  "interestRates": {
+    "PASS_DP_RINGAN_ADDB": {
+      "1": 5.92,
+      "2": 6.45,
+      "3": 6.78,
+      "4": 7.03,
+      "5": 8.06
+    },
+    "PASS_DP_RINGAN_ADDM": {
+      "1": 4.95,
+      "2": 5.42,
+      "3": 5.85,
+      "4": 6.43,
+      "5": 7.48
+    }
+  }
+}

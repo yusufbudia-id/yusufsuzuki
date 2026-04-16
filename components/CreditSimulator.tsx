@@ -6,6 +6,35 @@ import { Calculator, MessageCircle, Info, Edit2 } from "lucide-react";
 import { cars } from "@/data/cars";
 import { formatCurrency, buildWhatsAppUrl } from "@/lib/utils";
 
+// 1. IMPORT DATA DATABASE LEASING
+import leasingData from "@/data/leasingData.json";
+
+// 2. FUNGSI PENGHITUNG ASURANSI DINAMIS (Berdasarkan Penyusutan & OJK)
+const getOjkRate = (currentOtr: number) => {
+  return leasingData.ojkWil3.find(
+    (rate) => currentOtr > rate.minOtr && currentOtr <= rate.maxOtr
+  );
+};
+
+const hitungAsuransiKombi = (otr: number, tenorTahun: number) => {
+  let totalPremi = 0;
+  for (let tahun = 1; tahun <= tenorTahun; tahun++) {
+    // @ts-ignore
+    const penyusutan = leasingData.depreciation[tahun.toString()] || 0.5;
+    const depreciatedOtr = otr * penyusutan;
+    const rateOjk = getOjkRate(depreciatedOtr);
+
+    if (rateOjk) {
+      if (tahun === 1) {
+        totalPremi += depreciatedOtr * rateOjk.allRisk;
+      } else {
+        totalPremi += depreciatedOtr * rateOjk.tlo;
+      }
+    }
+  }
+  return totalPremi + (leasingData.flatFeePerYear * tenorTahun);
+};
+
 interface CreditSimulatorProps {
   defaultCarSlug?: string;
 }
@@ -14,59 +43,37 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   const [selectedSlug, setSelectedSlug] = useState(defaultCarSlug ?? cars[0].slug);
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
   const [region, setRegion] = useState<"AB" | "AA">("AB");
-  const [paymentType, setPaymentType] = useState<"ADDM" | "ADDB">("ADDM"); // Toggle Skema
-  const [hargaMobil, setHargaMobil] = useState(cars[0].startingPriceNum);
-  const [dpPct, setDpPct] = useState(20);
+  const [paymentType, setPaymentType] = useState<"ADDM" | "ADDB">("ADDB");
+  
+  // State Input Reverse Calculation
+  const [hargaMobil, setHargaMobil] = useState(335200000); 
+  const [dpSetor, setDpSetor] = useState(60000000); // Nominal DP Nett yang dibayar
+  const [diskon, setDiskon] = useState(10000000); // Diskon Unit
+  const [uping, setUping] = useState(1.0); // Mark-up Bunga Sales
   const [tenor, setTenor] = useState(60);
   
   const [result, setResult] = useState({ 
-    dpMurni: 0, 
+    uangMukaAsli: 0, 
+    persenDpAwal: 0,
     cicilan: 0, 
-    adminPH: 0, 
+    adminPH: 6300000, 
     asuransiPH: 0, 
     provisiPH: 0,
-    totalDP: 0,
-    pokokUtang: 0
+    tdpKotor: 0,
+    pokokUtang: 0,
+    bungaJual: 0
   });
 
-  // --- Konstanta dari Simulasi Excel (KOMBI 1TH) ---
-  // Rate Asuransi berdasarkan tenor (Kombi 1Th)
-  const rateAsuransiMap: Record<number, number> = {
-    12: 0.0182, // 1.82%
-    24: 0.0213, // 2.13%
-    36: 0.0240, // 2.40%
-    48: 0.0264, // 2.64%
-    60: 0.0294  // 2.94%
-  };
-
-  // Rate Bunga Jual (PASS DP RINGAN ADDM)
-  const rateBungaADDMMap: Record<number, number> = {
-    12: 4.95,
-    24: 5.42,
-    36: 5.85,
-    48: 6.43,
-    60: 7.48
-  };
-
-  // Rate Bunga Jual (PASS DP RINGAN ADDB)
-  const rateBungaADDBMap: Record<number, number> = {
-    12: 5.92,
-    24: 6.45,
-    36: 6.78,
-    48: 7.03,
-    60: 8.06
-  };
+  const biayaFidusia = 503000;
+  const biayaAdminPH = 6300000; 
+  const provisiRate = 0.01; // Provisi 1%
 
   const currentCar = cars.find((c) => c.slug === selectedSlug);
   // @ts-ignore
   const currentVariants = currentCar?.variants || [];
   const currentVariantName = currentVariants.length > 0 ? currentVariants[selectedVariantIndex]?.name : "";
 
-  const handleCarChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedSlug(e.target.value);
-    setSelectedVariantIndex(0); 
-  };
-
+  // Auto-Update Harga OTR berdasarkan pilihan dropdown
   useEffect(() => {
     if (currentCar) {
       if (currentVariants.length > 0 && currentVariants[selectedVariantIndex]) {
@@ -79,64 +86,68 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSlug, selectedVariantIndex, region]);
 
-  const handleHargaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, "");
-    setHargaMobil(Number(value));
-  };
-
-  // Logika Kalkulasi Berdasarkan Simulasi Excel
+  // LOGIKA UTAMA: Reverse Calculation & Asuransi Dinamis
   useEffect(() => {
     const tenorTahun = tenor / 12;
+    const tdpKotor = dpSetor + diskon;
     
-    // 1. Ambil Rate Sesuai Skema
-    let rateBungaTahun = paymentType === "ADDM" ? rateBungaADDMMap[tenor] : rateBungaADDBMap[tenor];
-    const rateAsuransi = rateAsuransiMap[tenor] || 0.0294;
+    // Tarik Rate Bunga Dasar dari JSON
+    // @ts-ignore
+    const rateBungaDasarString = paymentType === "ADDM" 
+      // @ts-ignore
+      ? leasingData.interestRates.PASS_DP_RINGAN_ADDM[tenorTahun.toString()] 
+      // @ts-ignore
+      : leasingData.interestRates.PASS_DP_RINGAN_ADDB[tenorTahun.toString()];
+    
+    const rateBungaDasar = Number(rateBungaDasarString) / 100;
+    const bungaJual = rateBungaDasar + (uping / 100);
 
-    // Uping bunga untuk Carry (opsional, disesuaikan dengan logika bisnis Anda sebelumnya)
-    if (selectedSlug.toLowerCase().includes("carry")) {
-      rateBungaTahun += 2.0;
+    // Kalkulasi Asuransi Dinamis
+    const asuransiPH = hitungAsuransiKombi(hargaMobil, tenorTahun);
+
+    let angsuranBulat = 0;
+
+    if (paymentType === "ADDB") {
+      let uangMuka = tdpKotor - biayaFidusia;
+      let ph = hargaMobil - uangMuka;
+      let tph = ph + (ph * provisiRate) + asuransiPH + biayaAdminPH;
+      
+      let nilaiKredit = tph * (1 + (bungaJual * tenorTahun));
+      let angsuranRaw = nilaiKredit / tenor;
+      angsuranBulat = Math.round(angsuranRaw / 1000) * 1000;
+      
+    } else if (paymentType === "ADDM") {
+      // Bypass Circular Reference untuk ADDM
+      const C = ((1 + provisiRate) * (1 + (bungaJual * tenorTahun))) / tenor;
+      const angsuranRaw = (((hargaMobil - tdpKotor + biayaFidusia) * (1 + provisiRate) + asuransiPH + biayaAdminPH) * (1 + (bungaJual * tenorTahun)) / tenor) / (1 - C);
+      
+      angsuranBulat = Math.round(angsuranRaw / 1000) * 1000;
     }
 
-    // 2. Hitung Pokok Hutang (PH) Murni
-    const uangMuka = hargaMobil * (dpPct / 100);
-    const pokokHutang = hargaMobil - uangMuka;
-
-    // 3. Komponen Masuk Pokok Hutang
-    const asuransiMasukPH = hargaMobil * rateAsuransi;
-    const adminMasukPH = 6300000; // Sesuai baris Admin Jual pada Excel
-    const provisiMasukPH = pokokHutang * 0.01; // Provisi 1% dari PH Murni
-
-    // 4. Total Pokok Hutang (TPH)
-    const totalPokokHutang = pokokHutang + asuransiMasukPH + adminMasukPH + provisiMasukPH;
-
-    // 5. Total Bunga & Nilai Kredit
-    const totalBunga = totalPokokHutang * (rateBungaTahun / 100) * tenorTahun;
-    const nilaiKredit = totalPokokHutang + totalBunga;
-
-    // 6. Angsuran Per Bulan (Dibulatkan)
-    let cicilan = Math.ceil(nilaiKredit / tenor);
-    // Pembulatan ke ribuan terdekat
-    cicilan = Math.ceil(cicilan / 1000) * 1000;
-
-    // 7. Total DP (TDP) Setor Nasabah
-    const biayaFidusia = 503000; // Konstanta Legal/Fidusia dari Excel
-    let totalDP = uangMuka + biayaFidusia; 
-
-    // Jika skema ADDM, TDP ditambah cicilan pertama
-    if (paymentType === "ADDM") {
-      totalDP += cicilan;
-    }
+    // Kalkulasi final state
+    let uangMukaFinal = tdpKotor - biayaFidusia - (paymentType === "ADDM" ? angsuranBulat : 0);
+    let pokokHutangFinal = hargaMobil - uangMukaFinal;
+    let provisiFinal = pokokHutangFinal * provisiRate;
+    let tphFinal = pokokHutangFinal + provisiFinal + asuransiPH + biayaAdminPH;
+    let persenDp = (uangMukaFinal / hargaMobil) * 100;
 
     setResult({ 
-      dpMurni: uangMuka, 
-      cicilan, 
-      adminPH: adminMasukPH, 
-      asuransiPH: asuransiMasukPH, 
-      provisiPH: provisiMasukPH,
-      totalDP, 
-      pokokUtang: totalPokokHutang 
+      uangMukaAsli: uangMukaFinal, 
+      persenDpAwal: persenDp,
+      cicilan: angsuranBulat, 
+      adminPH: biayaAdminPH, 
+      asuransiPH: asuransiPH, 
+      provisiPH: provisiFinal,
+      tdpKotor: tdpKotor,
+      pokokUtang: tphFinal,
+      bungaJual: bungaJual * 100
     });
-  }, [hargaMobil, dpPct, tenor, selectedSlug, paymentType]);
+
+  }, [hargaMobil, dpSetor, diskon, tenor, paymentType, uping]);
+
+  const handleNumChange = (setter: any) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    setter(Number(e.target.value.replace(/[^0-9]/g, "")));
+  };
 
   const waMsg = `Halo Yusuf Suzuki, saya ingin pengajuan kredit:
 - Unit: ${currentCar?.name} ${currentVariantName ? `(${currentVariantName})` : ''}
@@ -144,7 +155,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
 - Harga OTR: ${formatCurrency(hargaMobil)}
 - Skema: ${paymentType}
 - Tenor: ${tenor} Bulan
-- Total DP (TDP): ${formatCurrency(result.totalDP)}
+- DP Setor (Nett): ${formatCurrency(dpSetor)}
 - Angsuran: ${formatCurrency(result.cicilan)}/bln
 Mohon info persyaratannya.`;
 
@@ -164,7 +175,6 @@ Mohon info persyaratannya.`;
                 <p className="text-gray-400 text-xs uppercase tracking-widest font-bold">Standard Kombi 1TH</p>
               </div>
             </div>
-            {/* Toggle ADDM / ADDB */}
             <div className="flex bg-gray-100 rounded-md p-1">
               <button
                 onClick={() => setPaymentType("ADDM")}
@@ -185,9 +195,8 @@ Mohon info persyaratannya.`;
             </div>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* 1. Pilih Model Kendaraan */}
               <div className="sm:col-span-2">
                 <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Unit Kendaraan</label>
                 <select
@@ -201,7 +210,6 @@ Mohon info persyaratannya.`;
                 </select>
               </div>
 
-              {/* 2. Pilih Varian / Tipe */}
               {currentVariants.length > 0 && (
                 <div>
                   <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Tipe / Varian</label>
@@ -217,7 +225,6 @@ Mohon info persyaratannya.`;
                 </div>
               )}
 
-              {/* 3. Pilih Wilayah (AB/AA) */}
               {currentVariants.length > 0 && (
                 <div>
                   <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Wilayah OTR</label>
@@ -233,47 +240,50 @@ Mohon info persyaratannya.`;
               )}
             </div>
 
-            {/* 4. Harga Mobil */}
-            <div className="relative">
-              <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Harga OTR (Bisa Diubah Sesuai Diskon)</label>
-              <div className="flex items-center border-b-2 border-gray-200 focus-within:border-gray-900 transition-colors">
-                <span className="text-lg font-bold text-gray-400 mr-2 py-2">Rp</span>
-                <input
-                  type="text"
-                  value={hargaMobil === 0 ? "" : new Intl.NumberFormat('id-ID').format(hargaMobil)}
-                  onChange={handleHargaChange}
-                  className="w-full bg-transparent py-2 text-xl font-black text-gray-900 focus:outline-none"
-                  placeholder="0"
-                />
-                <Edit2 size={16} className="text-gray-300" />
+            <div className="grid grid-cols-1 gap-6 pt-2">
+              <div className="relative">
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Harga OTR</label>
+                <div className="flex items-center border-b-2 border-gray-200 focus-within:border-gray-900 transition-colors">
+                  <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
+                  <input type="text" value={hargaMobil === 0 ? "" : new Intl.NumberFormat('id-ID').format(hargaMobil)} onChange={handleNumChange(setHargaMobil)} className="w-full bg-transparent py-2 text-lg font-black text-gray-900 focus:outline-none" />
+                </div>
+              </div>
+
+              {/* INPUT REVERSE: DP Setor & Diskon */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="relative">
+                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2 text-blue-600">DP Setor (Nett)</label>
+                  <div className="flex items-center border-b-2 border-blue-200 focus-within:border-blue-600 transition-colors">
+                    <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
+                    <input type="text" value={dpSetor === 0 ? "" : new Intl.NumberFormat('id-ID').format(dpSetor)} onChange={handleNumChange(setDpSetor)} className="w-full bg-transparent py-2 text-lg font-black text-blue-900 focus:outline-none" />
+                  </div>
+                </div>
+                <div className="relative">
+                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2 text-green-600">Diskon Unit</label>
+                  <div className="flex items-center border-b-2 border-green-200 focus-within:border-green-600 transition-colors">
+                    <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
+                    <input type="text" value={diskon === 0 ? "" : new Intl.NumberFormat('id-ID').format(diskon)} onChange={handleNumChange(setDiskon)} className="w-full bg-transparent py-2 text-lg font-black text-green-900 focus:outline-none" />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2 text-purple-600">Uping Bunga (%)</label>
+                <div className="flex items-center border-b-2 border-purple-200 focus-within:border-purple-600 transition-colors">
+                  <input type="number" step="0.1" value={uping} onChange={(e) => setUping(Number(e.target.value))} className="w-full bg-transparent py-2 text-lg font-black text-purple-900 focus:outline-none" />
+                  <span className="text-sm font-bold text-gray-400 ml-2 py-2">%</span>
+                </div>
               </div>
             </div>
 
-            {/* 5. DP Range */}
-            <div>
-              <div className="flex justify-between items-end mb-4">
-                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Pilih Range DP</label>
-                <span className="text-xl font-black text-gray-900">{dpPct}%</span>
-              </div>
-              <input
-                type="range" min={15} max={50} step={5} value={dpPct}
-                onChange={(e) => setDpPct(Number(e.target.value))}
-                className="w-full h-1.5 bg-gray-100 accent-gray-900 appearance-none cursor-pointer"
-              />
-            </div>
-
-            {/* 6. Tenor Chips */}
-            <div>
+            <div className="pt-4">
               <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4">Jangka Waktu</label>
               <div className="grid grid-cols-5 gap-2">
                 {[12, 24, 36, 48, 60].map((t) => (
                   <button
-                    key={t}
-                    onClick={() => setTenor(t)}
+                    key={t} onClick={() => setTenor(t)}
                     className={`py-3 text-xs font-black transition-all border ${
-                      tenor === t
-                        ? "bg-gray-900 border-gray-900 text-white"
-                        : "border-gray-200 text-gray-400 hover:border-gray-900 hover:text-gray-900"
+                      tenor === t ? "bg-gray-900 border-gray-900 text-white" : "border-gray-200 text-gray-400 hover:border-gray-900 hover:text-gray-900"
                     }`}
                   >
                     {t/12} THN
@@ -286,7 +296,7 @@ Mohon info persyaratannya.`;
 
         {/* Sisi Kanan: Hasil Kalkulasi */}
         <div className="lg:col-span-5 bg-gray-50 p-6 md:p-10 flex flex-col">
-          <div className="mb-8">
+          <div className="mb-6">
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Estimasi Angsuran</p>
             <AnimatePresence mode="wait">
               <motion.p 
@@ -300,30 +310,30 @@ Mohon info persyaratannya.`;
             </AnimatePresence>
           </div>
 
-          {/* Breakdown Pembiayaan */}
-          <div className="space-y-4 mb-8 flex-grow">
-            <div className="flex justify-between py-3 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">DP Murni ({dpPct}%)</span>
-              <span className="text-xs font-black text-gray-900">{formatCurrency(result.dpMurni)}</span>
+          <div className="space-y-3 mb-6 flex-grow">
+            <div className="flex justify-between py-2 border-b border-gray-200">
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">TDP Kotor (DP + Diskon)</span>
+              <span className="text-xs font-black text-gray-900">{formatCurrency(result.tdpKotor)}</span>
             </div>
-            <div className="flex justify-between py-3 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Total Pokok Hutang (TPH)</span>
+            <div className="flex justify-between py-2 border-b border-gray-200">
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Persentase DP Murni</span>
+              <span className="text-xs font-black text-gray-900">{result.persenDpAwal.toFixed(2)}%</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-gray-200">
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Total Pokok Hutang</span>
               <span className="text-xs font-black text-gray-900">{formatCurrency(result.pokokUtang)}</span>
             </div>
-            <div className="flex justify-between py-3 border-b border-gray-200">
+            <div className="flex justify-between py-2 border-b border-gray-200">
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Rate Bunga Jual</span>
+              <span className="text-xs font-black text-gray-900">{result.bungaJual.toFixed(2)}%</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-gray-200">
               <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Biaya Masuk PH</span>
               <div className="text-right">
-                <span className="text-xs font-black text-gray-900 block">{formatCurrency(result.adminPH + result.asuransiPH + result.provisiPH)}</span>
-                <span className="text-[9px] text-gray-400">(Admin, Asuransi Kombi 1th, Provisi)</span>
+                <span className="text-[9px] font-bold text-gray-500 block">Asuransi Dinamis: {formatCurrency(result.asuransiPH)}</span>
+                <span className="text-[9px] font-bold text-gray-500 block">Provisi (1%): {formatCurrency(result.provisiPH)}</span>
+                <span className="text-[9px] font-bold text-gray-500 block">Admin: {formatCurrency(result.adminPH)}</span>
               </div>
-            </div>
-            
-            <div className="flex justify-between py-5 mt-4 bg-gray-900 px-4 text-white shadow-lg">
-              <div>
-                <span className="block text-xs font-bold uppercase tracking-[0.2em]">Total Uang Muka (TDP)</span>
-                <span className="block text-[9px] text-gray-400 mt-0.5">Disetor ke Dealer</span>
-              </div>
-              <span className="text-xl font-black self-center text-green-400">{formatCurrency(result.totalDP)}</span>
             </div>
           </div>
 
@@ -331,7 +341,7 @@ Mohon info persyaratannya.`;
             <div className="flex gap-3 text-gray-500 mb-6 bg-gray-200/50 p-4 border-l-4 border-gray-900">
               <Info size={16} className="shrink-0 mt-0.5" />
               <p className="text-[9px] uppercase leading-relaxed font-bold">
-                TDP sudah mencakup DP Murni + Biaya Fidusia {paymentType === "ADDM" && "+ Angsuran Ke-1"}. Komponen Biaya Admin, Asuransi, & Provisi dimasukkan ke dalam angsuran untuk meringankan Total DP.
+                Asuransi dihitung otomatis berdasarkan OJK (Depresiasi Harga Mobil Tahunan). Masukkan nominal DP Setor dan Diskon yang disepakati untuk mendapat angsuran akurat.
               </p>
             </div>
 
