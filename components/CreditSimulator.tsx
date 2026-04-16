@@ -13,7 +13,8 @@ interface CreditSimulatorProps {
 export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps) {
   const [selectedSlug, setSelectedSlug] = useState(defaultCarSlug ?? cars[0].slug);
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
-  const [region, setRegion] = useState<"AB" | "AA">("AB"); // State baru untuk Wilayah Plat
+  const [region, setRegion] = useState<"AB" | "AA">("AB");
+  const [paymentType, setPaymentType] = useState<"ADDM" | "ADDB">("ADDM"); // Toggle Skema
   const [hargaMobil, setHargaMobil] = useState(cars[0].startingPriceNum);
   const [dpPct, setDpPct] = useState(20);
   const [tenor, setTenor] = useState(60);
@@ -21,19 +22,39 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   const [result, setResult] = useState({ 
     dpMurni: 0, 
     cicilan: 0, 
-    admin: 0, 
-    asuransi: 0, 
+    adminPH: 0, 
+    asuransiPH: 0, 
+    provisiPH: 0,
     totalDP: 0,
     pokokUtang: 0
   });
 
-  // Bunga Leasing Retail Standar (Flat per Tahun)
-  const bungaMap: Record<number, number> = {
-    12: 5.75,
-    24: 6.00,
-    36: 6.25,
-    48: 6.55,
-    60: 6.80
+  // --- Konstanta dari Simulasi Excel (KOMBI 1TH) ---
+  // Rate Asuransi berdasarkan tenor (Kombi 1Th)
+  const rateAsuransiMap: Record<number, number> = {
+    12: 0.0182, // 1.82%
+    24: 0.0213, // 2.13%
+    36: 0.0240, // 2.40%
+    48: 0.0264, // 2.64%
+    60: 0.0294  // 2.94%
+  };
+
+  // Rate Bunga Jual (PASS DP RINGAN ADDM)
+  const rateBungaADDMMap: Record<number, number> = {
+    12: 4.95,
+    24: 5.42,
+    36: 5.85,
+    48: 6.43,
+    60: 7.48
+  };
+
+  // Rate Bunga Jual (PASS DP RINGAN ADDB)
+  const rateBungaADDBMap: Record<number, number> = {
+    12: 5.92,
+    24: 6.45,
+    36: 6.78,
+    48: 7.03,
+    60: 8.06
   };
 
   const currentCar = cars.find((c) => c.slug === selectedSlug);
@@ -41,67 +62,87 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   const currentVariants = currentCar?.variants || [];
   const currentVariantName = currentVariants.length > 0 ? currentVariants[selectedVariantIndex]?.name : "";
 
-  // 1. Reset Varian saat Model diganti
   const handleCarChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSlug(e.target.value);
     setSelectedVariantIndex(0); 
   };
 
-  // 2. Auto-Update Harga OTR berdasarkan Varian DAN Wilayah (AB / AA)
   useEffect(() => {
     if (currentCar) {
       if (currentVariants.length > 0 && currentVariants[selectedVariantIndex]) {
-        // Ambil harga berdasarkan region yang dipilih
         const variant = currentVariants[selectedVariantIndex];
         setHargaMobil(region === "AB" ? variant.priceAB : variant.priceAA);
       } else {
-        // Fallback jika varian belum diisi di data
         setHargaMobil(currentCar.startingPriceNum);
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSlug, selectedVariantIndex, region]);
 
-  // Handle Input Harga Manual
   const handleHargaChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/[^0-9]/g, "");
     setHargaMobil(Number(value));
   };
 
-  // Logika Kalkulasi
+  // Logika Kalkulasi Berdasarkan Simulasi Excel
   useEffect(() => {
-    let bungaTahun = bungaMap[tenor] || 10;
-    
-    if (selectedSlug.toLowerCase().includes("carry")) {
-      bungaTahun += 2.0;
-    }
-
     const tenorTahun = tenor / 12;
-    const targetTDP = Math.ceil((dpPct / 100) * hargaMobil);
-    const admin = tenor <= 24 ? 3000000 : 4500000; 
-    const asuransiPct = 0.018; 
-    const asuransi = Math.ceil(hargaMobil * asuransiPct * tenorTahun);
-    const biayaLain = admin + asuransi;
-    const c_factor = (1 + (bungaTahun / 100) * tenorTahun) / tenor;
+    
+    // 1. Ambil Rate Sesuai Skema
+    let rateBungaTahun = paymentType === "ADDM" ? rateBungaADDMMap[tenor] : rateBungaADDBMap[tenor];
+    const rateAsuransi = rateAsuransiMap[tenor] || 0.0294;
 
-    let pokokUtang = (hargaMobil - targetTDP + biayaLain) / (1 - c_factor);
-    let dpMurni = hargaMobil - pokokUtang;
-
-    if (dpMurni <= 0) {
-      dpMurni = 0;
-      pokokUtang = hargaMobil;
+    // Uping bunga untuk Carry (opsional, disesuaikan dengan logika bisnis Anda sebelumnya)
+    if (selectedSlug.toLowerCase().includes("carry")) {
+      rateBungaTahun += 2.0;
     }
 
-    const cicilan = Math.ceil(pokokUtang * c_factor);
-    const totalDP = dpMurni + admin + asuransi + cicilan;
+    // 2. Hitung Pokok Hutang (PH) Murni
+    const uangMuka = hargaMobil * (dpPct / 100);
+    const pokokHutang = hargaMobil - uangMuka;
 
-    setResult({ dpMurni, cicilan, admin, asuransi, totalDP, pokokUtang });
-  }, [hargaMobil, dpPct, tenor, selectedSlug]);
+    // 3. Komponen Masuk Pokok Hutang
+    const asuransiMasukPH = hargaMobil * rateAsuransi;
+    const adminMasukPH = 6300000; // Sesuai baris Admin Jual pada Excel
+    const provisiMasukPH = pokokHutang * 0.01; // Provisi 1% dari PH Murni
+
+    // 4. Total Pokok Hutang (TPH)
+    const totalPokokHutang = pokokHutang + asuransiMasukPH + adminMasukPH + provisiMasukPH;
+
+    // 5. Total Bunga & Nilai Kredit
+    const totalBunga = totalPokokHutang * (rateBungaTahun / 100) * tenorTahun;
+    const nilaiKredit = totalPokokHutang + totalBunga;
+
+    // 6. Angsuran Per Bulan (Dibulatkan)
+    let cicilan = Math.ceil(nilaiKredit / tenor);
+    // Pembulatan ke ribuan terdekat
+    cicilan = Math.ceil(cicilan / 1000) * 1000;
+
+    // 7. Total DP (TDP) Setor Nasabah
+    const biayaFidusia = 503000; // Konstanta Legal/Fidusia dari Excel
+    let totalDP = uangMuka + biayaFidusia; 
+
+    // Jika skema ADDM, TDP ditambah cicilan pertama
+    if (paymentType === "ADDM") {
+      totalDP += cicilan;
+    }
+
+    setResult({ 
+      dpMurni: uangMuka, 
+      cicilan, 
+      adminPH: adminMasukPH, 
+      asuransiPH: asuransiMasukPH, 
+      provisiPH: provisiMasukPH,
+      totalDP, 
+      pokokUtang: totalPokokHutang 
+    });
+  }, [hargaMobil, dpPct, tenor, selectedSlug, paymentType]);
 
   const waMsg = `Halo Yusuf Suzuki, saya ingin pengajuan kredit:
 - Unit: ${currentCar?.name} ${currentVariantName ? `(${currentVariantName})` : ''}
 - Wilayah OTR: Plat ${region}
 - Harga OTR: ${formatCurrency(hargaMobil)}
+- Skema: ${paymentType}
 - Tenor: ${tenor} Bulan
 - Total DP (TDP): ${formatCurrency(result.totalDP)}
 - Angsuran: ${formatCurrency(result.cicilan)}/bln
@@ -113,18 +154,38 @@ Mohon info persyaratannya.`;
         
         {/* Sisi Kiri: Inputs */}
         <div className="lg:col-span-7 p-6 md:p-10 border-b lg:border-b-0 lg:border-r border-gray-100">
-          <div className="flex items-center gap-4 mb-10">
-            <div className="w-12 h-12 bg-gray-900 flex items-center justify-center text-white shrink-0">
-              <Calculator size={24} strokeWidth={1.5} />
+          <div className="flex items-center justify-between mb-10">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gray-900 flex items-center justify-center text-white shrink-0">
+                <Calculator size={24} strokeWidth={1.5} />
+              </div>
+              <div>
+                <h3 className="font-black text-gray-900 text-xl uppercase tracking-tighter">Simulasi Kredit</h3>
+                <p className="text-gray-400 text-xs uppercase tracking-widest font-bold">Standard Kombi 1TH</p>
+              </div>
             </div>
-            <div>
-              <h3 className="font-black text-gray-900 text-xl uppercase tracking-tighter">Simulasi Kredit</h3>
-              <p className="text-gray-400 text-xs uppercase tracking-widest font-bold">Skema All-In (ADDM)</p>
+            {/* Toggle ADDM / ADDB */}
+            <div className="flex bg-gray-100 rounded-md p-1">
+              <button
+                onClick={() => setPaymentType("ADDM")}
+                className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-sm transition-all ${
+                  paymentType === "ADDM" ? "bg-white shadow text-gray-900" : "text-gray-400 hover:text-gray-900"
+                }`}
+              >
+                ADDM
+              </button>
+              <button
+                onClick={() => setPaymentType("ADDB")}
+                className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-sm transition-all ${
+                  paymentType === "ADDB" ? "bg-white shadow text-gray-900" : "text-gray-400 hover:text-gray-900"
+                }`}
+              >
+                ADDB
+              </button>
             </div>
           </div>
 
           <div className="space-y-8">
-            
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* 1. Pilih Model Kendaraan */}
               <div className="sm:col-span-2">
@@ -191,7 +252,7 @@ Mohon info persyaratannya.`;
             {/* 5. DP Range */}
             <div>
               <div className="flex justify-between items-end mb-4">
-                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Total DP (TDP)</label>
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Pilih Range DP</label>
                 <span className="text-xl font-black text-gray-900">{dpPct}%</span>
               </div>
               <input
@@ -242,24 +303,27 @@ Mohon info persyaratannya.`;
           {/* Breakdown Pembiayaan */}
           <div className="space-y-4 mb-8 flex-grow">
             <div className="flex justify-between py-3 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Pokok Utang</span>
-              <span className="text-xs font-black text-gray-900">{formatCurrency(result.pokokUtang)}</span>
-            </div>
-            <div className="flex justify-between py-3 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">DP Murni</span>
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">DP Murni ({dpPct}%)</span>
               <span className="text-xs font-black text-gray-900">{formatCurrency(result.dpMurni)}</span>
             </div>
             <div className="flex justify-between py-3 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Admin + Asuransi</span>
-              <span className="text-xs font-black text-gray-900">{formatCurrency(result.admin + result.asuransi)}</span>
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Total Pokok Hutang (TPH)</span>
+              <span className="text-xs font-black text-gray-900">{formatCurrency(result.pokokUtang)}</span>
+            </div>
+            <div className="flex justify-between py-3 border-b border-gray-200">
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Biaya Masuk PH</span>
+              <div className="text-right">
+                <span className="text-xs font-black text-gray-900 block">{formatCurrency(result.adminPH + result.asuransiPH + result.provisiPH)}</span>
+                <span className="text-[9px] text-gray-400">(Admin, Asuransi Kombi 1th, Provisi)</span>
+              </div>
             </div>
             
             <div className="flex justify-between py-5 mt-4 bg-gray-900 px-4 text-white shadow-lg">
               <div>
-                <span className="block text-xs font-bold uppercase tracking-[0.2em]">Total Bayar Pertama</span>
-                <span className="block text-[9px] text-gray-400 mt-0.5">TDP (Sesuai DP {dpPct}%)</span>
+                <span className="block text-xs font-bold uppercase tracking-[0.2em]">Total Uang Muka (TDP)</span>
+                <span className="block text-[9px] text-gray-400 mt-0.5">Disetor ke Dealer</span>
               </div>
-              <span className="text-xl font-black self-center">{formatCurrency(result.totalDP)}</span>
+              <span className="text-xl font-black self-center text-green-400">{formatCurrency(result.totalDP)}</span>
             </div>
           </div>
 
@@ -267,7 +331,7 @@ Mohon info persyaratannya.`;
             <div className="flex gap-3 text-gray-500 mb-6 bg-gray-200/50 p-4 border-l-4 border-gray-900">
               <Info size={16} className="shrink-0 mt-0.5" />
               <p className="text-[9px] uppercase leading-relaxed font-bold">
-                Angka di atas adalah Total Bayar Pertama (TDP). Sudah mencakup DP Murni, Asuransi Kombinasi (1.8%), Admin, dan Angsuran Bulan ke-1.
+                TDP sudah mencakup DP Murni + Biaya Fidusia {paymentType === "ADDM" && "+ Angsuran Ke-1"}. Komponen Biaya Admin, Asuransi, & Provisi dimasukkan ke dalam angsuran untuk meringankan Total DP.
               </p>
             </div>
 
