@@ -73,10 +73,11 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   const currentVariants = currentCar?.variants || [];
   const currentVariantName = currentVariants.length > 0 ? currentVariants[selectedVariantIndex]?.name : "";
 
-  // ===== TAMBAHKAN FUNGSI INI KEMBALI DI SINI =====
+  // FUNGSI HANDLE CAR CHANGE YANG SEMPAT HILANG
   const handleCarChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSlug(e.target.value);
-    setSelectedVariantIndex(0);
+    setSelectedVariantIndex(0); 
+  };
 
   // Auto-Update Harga OTR berdasarkan pilihan dropdown
   useEffect(() => {
