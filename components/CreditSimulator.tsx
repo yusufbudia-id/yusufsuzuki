@@ -49,7 +49,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   const [hargaMobil, setHargaMobil] = useState(335200000); 
   const [dpPct, setDpPct] = useState(20); // Persentase DP Murni
   const [diskon, setDiskon] = useState(10000000); // Diskon Unit memotong DP
-  const [uping, setUping] = useState(1.0); // Mark-up Bunga Sales
+  const [uping] = useState(1.0); // Mark-up Bunga Sales (Disembunyikan dari UI, statis 1%)
   const [tenor, setTenor] = useState(60);
   
   const [result, setResult] = useState({ 
@@ -63,6 +63,9 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   const biayaFidusia = 503000;
   const biayaAdminPH = 6300000; 
   const provisiRate = 0.01; // Provisi 1%
+
+  // Turunan nilai DP Nominal dari persentase
+  const dpNominal = Math.round(hargaMobil * (dpPct / 100));
 
   const currentCar = cars.find((c) => c.slug === selectedSlug);
   // @ts-ignore
@@ -87,7 +90,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSlug, selectedVariantIndex, region]);
 
-  // LOGIKA UTAMA: Forward Calculation (Berdasarkan Persen DP)
+  // LOGIKA UTAMA: Forward Calculation
   useEffect(() => {
     const tenorTahun = tenor / 12;
     
@@ -239,34 +242,42 @@ Mohon info persyaratannya.`;
                 </div>
               </div>
 
-              {/* INPUT MAJU: Persen DP & Diskon */}
-              <div className="grid grid-cols-2 gap-4">
+              {/* INPUT MAJU: Nominal DP (Manual/Slider) & Diskon */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="relative">
                   <div className="flex justify-between items-end mb-2">
-                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-blue-600">Persen DP (%)</label>
-                    <span className="text-xs font-black text-blue-900">{dpPct}%</span>
+                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-blue-600">Nominal DP Murni</label>
+                    <span className="text-[10px] font-black text-blue-900">{dpPct.toFixed(2)}%</span>
+                  </div>
+                  <div className="flex items-center border-b-2 border-blue-200 focus-within:border-blue-600 transition-colors">
+                    <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
+                    <input 
+                      type="text" 
+                      value={dpNominal === 0 ? "" : new Intl.NumberFormat('id-ID').format(dpNominal)} 
+                      onChange={(e) => {
+                        const val = Number(e.target.value.replace(/[^0-9]/g, ""));
+                        setDpPct((val / hargaMobil) * 100);
+                      }}
+                      onBlur={() => {
+                        // Pembatasan Otomatis: Minimal 15%, Maksimal 100% (seharga OTR)
+                        if (dpPct < 15) setDpPct(15);
+                        if (dpPct > 100) setDpPct(100);
+                      }}
+                      className="w-full bg-transparent py-2 text-lg font-black text-blue-900 focus:outline-none" 
+                    />
                   </div>
                   <input
-                    type="range" min={15} max={50} step={1} value={dpPct}
+                    type="range" min={15} max={100} step={1} value={dpPct}
                     onChange={(e) => setDpPct(Number(e.target.value))}
                     className="w-full h-1.5 bg-blue-100 accent-blue-600 appearance-none cursor-pointer mt-4"
                   />
                 </div>
-                <div className="relative">
+                <div className="relative flex flex-col justify-end">
                   <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2 text-green-600">Diskon Unit (Potong DP)</label>
                   <div className="flex items-center border-b-2 border-green-200 focus-within:border-green-600 transition-colors">
                     <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
-                    <input type="text" value={diskon === 0 ? "" : new Intl.NumberFormat('id-ID').format(diskon)} onChange={handleNumChange(setDiskon)} className="w-full bg-transparent py-2 text-lg font-black text-green-900 focus:outline-none" />
+                    <input type="text" value={diskon === 0 ? "" : new Intl.NumberFormat('id-ID').format(diskon)} onChange={handleNumChange(setDiskon)} className="w-full bg-transparent py-2 text-lg font-black text-green-900 focus:outline-none mb-[22px]" />
                   </div>
-                </div>
-              </div>
-              
-              {/* UPING BUNGA (Bisa disembunyikan jika tidak ingin dilihat user) */}
-              <div className="relative">
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2 text-purple-600">Uping Bunga (%)</label>
-                <div className="flex items-center border-b-2 border-purple-200 focus-within:border-purple-600 transition-colors">
-                  <input type="number" step="0.1" value={uping} onChange={(e) => setUping(Number(e.target.value))} className="w-full bg-transparent py-2 text-lg font-black text-purple-900 focus:outline-none" />
-                  <span className="text-sm font-bold text-gray-400 ml-2 py-2">%</span>
                 </div>
               </div>
             </div>
@@ -311,7 +322,7 @@ Mohon info persyaratannya.`;
               <span className="text-xs font-black text-gray-900">{formatCurrency(hargaMobil)}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">DP Murni ({dpPct}%)</span>
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">DP Murni ({dpPct.toFixed(2)}%)</span>
               <span className="text-xs font-black text-gray-900">{formatCurrency(result.uangMukaAsli)}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-gray-200">
