@@ -103,7 +103,13 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
       // @ts-ignore
       : leasingData.interestRates.PASS_DP_RINGAN_ADDB[tenorTahun.toString()];
     
-    const rateBungaDasar = Number(rateBungaDasarString) / 100;
+    let rateBungaDasar = Number(rateBungaDasarString) / 100;
+
+    // === ATURAN KHUSUS CARRY (+2% BUNGA DASAR) ===
+    if (selectedSlug.toLowerCase().includes("carry")) {
+      rateBungaDasar += 0.02; // Tambah 2%
+    }
+
     const bungaJual = rateBungaDasar + (uping / 100);
 
     // Kalkulasi Asuransi Dinamis
@@ -145,7 +151,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
       pokokUtang: tphFinal
     });
 
-  }, [hargaMobil, tdpNominal, diskon, tenor, paymentType, uping]);
+  }, [hargaMobil, tdpNominal, diskon, tenor, paymentType, uping, selectedSlug]);
 
   const handleNumChange = (setter: any) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setter(Number(e.target.value.replace(/[^0-9]/g, "")));
