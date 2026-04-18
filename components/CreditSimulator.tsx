@@ -147,14 +147,29 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     setter(Number(e.target.value.replace(/[^0-9]/g, "")));
   };
 
-  // --- FUNGSI COPY KE CLIPBOARD ---
+  // --- FUNGSI COPY KE CLIPBOARD (SUDAH DIPERBAIKI) ---
   const handleCopyText = async () => {
     const formatAngka = (num: number) => new Intl.NumberFormat('id-ID').format(num);
-    const carNameStr = currentCar?.name.replace("Suzuki ", "") || ""; // Menghilangkan kata 'Suzuki' jika ada agar mirip "Fronx GL MT"
-    const variantStr = currentVariantName ? ` ${currentVariantName}` : "";
     
+    // Hapus awalan "Suzuki" dari nama mobil
+    const baseCarName = currentCar?.name.replace(/Suzuki /i, "") || ""; 
+    const variantName = currentVariantName || "";
+    
+    // Logika Pintar: Cegah nama duplikat (contoh: "Fronx FRONX GL MT")
+    let finalTitle = baseCarName;
+    if (variantName) {
+      if (variantName.toLowerCase().includes(baseCarName.toLowerCase())) {
+        finalTitle = variantName; // Jika varian sudah ada nama mobilnya, pakai variannya saja
+      } else {
+        finalTitle = `${baseCarName} ${variantName}`; // Jika belum ada, gabung (misal: "XL7 ZETA")
+      }
+    }
+    
+    // Ubah ke kapital semua agar rapi seperti brosur
+    finalTitle = finalTitle.toUpperCase();
+
     const textToCopy = 
-`${carNameStr}${variantStr}
+`${finalTitle}
 OTR ${formatAngka(hargaMobil)}
 DP Bayar ${formatAngka(result.tdpBayar)}
 Angsuran ${formatAngka(result.cicilan)} x ${tenor}`;
@@ -162,14 +177,22 @@ Angsuran ${formatAngka(result.cicilan)} x ${tenor}`;
     try {
       await navigator.clipboard.writeText(textToCopy);
       setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2500); // Kembali ke tulisan "Salin" setelah 2.5 detik
+      setTimeout(() => setIsCopied(false), 2500); 
     } catch (err) {
       console.error("Gagal menyalin teks: ", err);
     }
   };
 
+  // Logika nama untuk pesan WhatsApp (disamakan agar pintar juga)
+  let waCarTitle = currentCar?.name || "";
+  if (currentVariantName && !currentVariantName.toLowerCase().includes((currentCar?.name || "").replace(/Suzuki /i, "").toLowerCase())) {
+    waCarTitle += ` (${currentVariantName})`;
+  } else if (currentVariantName) {
+    waCarTitle = `Suzuki ${currentVariantName}`;
+  }
+
   const waMsg = `Halo Yusuf Suzuki, saya ingin pengajuan kredit:
-- Unit: ${currentCar?.name} ${currentVariantName ? `(${currentVariantName})` : ''}
+- Unit: ${waCarTitle}
 - Harga OTR: ${formatCurrency(hargaMobil)}
 - Skema: ${paymentType} - ${tenor} Bulan
 - Total DP: ${formatCurrency(result.tdpKotor)}
