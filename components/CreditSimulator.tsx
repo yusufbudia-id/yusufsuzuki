@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calculator, MessageCircle, Info, Edit2 } from "lucide-react";
+import { Calculator, MessageCircle, Info, Edit2, Copy, Check } from "lucide-react";
 import { cars } from "@/data/cars";
 import { formatCurrency, buildWhatsAppUrl } from "@/lib/utils";
 
@@ -47,9 +47,9 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   
   // State Input REVERSE Calculation
   const [hargaMobil, setHargaMobil] = useState(335200000); 
-  const [tdpPct, setTdpPct] = useState(20); // Persentase TDP Kotor terhadap OTR
-  const [diskon, setDiskon] = useState(10000000); // Diskon Unit memotong TDP
-  const [uping] = useState(1.0); // Mark-up Bunga (Disembunyikan dari UI, statis 1%)
+  const [tdpPct, setTdpPct] = useState(20); 
+  const [diskon, setDiskon] = useState(10000000); 
+  const [uping] = useState(1.0); 
   const [tenor, setTenor] = useState(60);
   
   const [result, setResult] = useState({ 
@@ -60,11 +60,13 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     pokokUtang: 0
   });
 
+  // State untuk efek Copy Clipboard
+  const [isCopied, setIsCopied] = useState(false);
+
   const biayaFidusia = 503000;
   const biayaAdminPH = 6300000; 
-  const provisiRate = 0.01; // Provisi 1%
+  const provisiRate = 0.01; 
 
-  // Turunan nilai Nominal TDP dari persentase
   const tdpNominal = Math.round(hargaMobil * (tdpPct / 100));
 
   const currentCar = cars.find((c) => c.slug === selectedSlug);
@@ -77,7 +79,6 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     setSelectedVariantIndex(0); 
   };
 
-  // Auto-Update Harga OTR berdasarkan pilihan dropdown
   useEffect(() => {
     if (currentCar) {
       if (currentVariants.length > 0 && currentVariants[selectedVariantIndex]) {
@@ -90,12 +91,10 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSlug, selectedVariantIndex, region]);
 
-  // LOGIKA UTAMA: Reverse Calculation (Dari TDP Kotor mencari Angsuran)
   useEffect(() => {
     const tenorTahun = tenor / 12;
-    const tdpKotor = tdpNominal; // Nilai TDP yang diinput user
+    const tdpKotor = tdpNominal; 
     
-    // Tarik Rate Bunga Dasar dari JSON
     // @ts-ignore
     const rateBungaDasarString = paymentType === "ADDM" 
       // @ts-ignore
@@ -105,16 +104,12 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     
     let rateBungaDasar = Number(rateBungaDasarString) / 100;
 
-    // === ATURAN KHUSUS CARRY (+2% BUNGA DASAR) ===
     if (selectedSlug.toLowerCase().includes("carry")) {
-      rateBungaDasar += 0.02; // Tambah 2%
+      rateBungaDasar += 0.02; 
     }
 
     const bungaJual = rateBungaDasar + (uping / 100);
-
-    // Kalkulasi Asuransi Dinamis
     const asuransiPH = hitungAsuransiKombi(hargaMobil, tenorTahun);
-
     let angsuranBulat = 0;
 
     if (paymentType === "ADDB") {
@@ -127,20 +122,15 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
       angsuranBulat = Math.round(angsuranRaw / 1000) * 1000;
       
     } else if (paymentType === "ADDM") {
-      // Rumus Aljabar untuk memecah Circular Reference (Angsuran memotong DP)
       const C = ((1 + provisiRate) * (1 + (bungaJual * tenorTahun))) / tenor;
       const angsuranRaw = (((hargaMobil - tdpKotor + biayaFidusia) * (1 + provisiRate) + asuransiPH + biayaAdminPH) * (1 + (bungaJual * tenorTahun)) / tenor) / (1 - C);
-      
       angsuranBulat = Math.round(angsuranRaw / 1000) * 1000;
     }
 
-    // Kalkulasi final state
     let uangMukaFinal = tdpKotor - biayaFidusia - (paymentType === "ADDM" ? angsuranBulat : 0);
     let pokokHutangFinal = hargaMobil - uangMukaFinal;
     let provisiFinal = pokokHutangFinal * provisiRate;
     let tphFinal = pokokHutangFinal + provisiFinal + asuransiPH + biayaAdminPH;
-
-    // TDP Bayar Konsumen = TDP Kotor - Diskon
     let tdpBayar = tdpKotor - diskon;
 
     setResult({ 
@@ -155,6 +145,27 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
 
   const handleNumChange = (setter: any) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setter(Number(e.target.value.replace(/[^0-9]/g, "")));
+  };
+
+  // --- FUNGSI COPY KE CLIPBOARD ---
+  const handleCopyText = async () => {
+    const formatAngka = (num: number) => new Intl.NumberFormat('id-ID').format(num);
+    const carNameStr = currentCar?.name.replace("Suzuki ", "") || ""; // Menghilangkan kata 'Suzuki' jika ada agar mirip "Fronx GL MT"
+    const variantStr = currentVariantName ? ` ${currentVariantName}` : "";
+    
+    const textToCopy = 
+`${carNameStr}${variantStr}
+OTR ${formatAngka(hargaMobil)}
+DP Bayar ${formatAngka(result.tdpBayar)}
+Angsuran ${formatAngka(result.cicilan)} x ${tenor}`;
+
+    try {
+      await navigator.clipboard.writeText(textToCopy);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2500); // Kembali ke tulisan "Salin" setelah 2.5 detik
+    } catch (err) {
+      console.error("Gagal menyalin teks: ", err);
+    }
   };
 
   const waMsg = `Halo Yusuf Suzuki, saya ingin pengajuan kredit:
@@ -274,7 +285,6 @@ Mohon info persyaratannya.`;
                         setTdpPct((val / hargaMobil) * 100);
                       }}
                       onBlur={() => {
-                        // Pembatasan Otomatis: Minimal 15% OTR, Maksimal 100% OTR
                         if (tdpPct < 15) setTdpPct(15);
                         if (tdpPct > 100) setTdpPct(100);
                       }}
@@ -367,15 +377,31 @@ Mohon info persyaratannya.`;
               </p>
             </div>
 
-            <a
-              href={buildWhatsAppUrl(waMsg)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full bg-gray-900 hover:bg-black text-white py-5 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.2em]"
-            >
-              <MessageCircle size={18} />
-              Ajukan Kredit Sekarang
-            </a>
+            {/* ACTION BUTTONS (WA & COPY) */}
+            <div className="flex gap-3">
+              <button
+                onClick={handleCopyText}
+                className={`flex-none w-16 md:w-auto md:px-6 py-4 flex justify-center items-center gap-2 border-2 text-[11px] uppercase tracking-widest font-black transition-colors ${
+                  isCopied 
+                    ? "border-green-600 text-green-600 bg-green-50" 
+                    : "border-gray-200 hover:border-gray-900 text-gray-600 hover:text-gray-900 bg-transparent"
+                }`}
+                title="Salin hitungan"
+              >
+                {isCopied ? <Check size={18} /> : <Copy size={18} />}
+                <span className="hidden md:block">{isCopied ? "Tersalin" : "Salin"}</span>
+              </button>
+
+              <a
+                href={buildWhatsAppUrl(waMsg)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-grow bg-gray-900 hover:bg-black text-white py-4 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.2em]"
+              >
+                <MessageCircle size={18} />
+                Ajukan Sekarang
+              </a>
+            </div>
           </div>
         </div>
       </div>
