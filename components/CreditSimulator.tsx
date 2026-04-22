@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calculator, MessageCircle, Info, Edit2, Copy, Check } from "lucide-react";
+import { Calculator, MessageCircle, Info, Edit2, Copy, Check, Lock, Unlock } from "lucide-react";
 import { cars } from "@/data/cars";
 import { formatCurrency, buildWhatsAppUrl } from "@/lib/utils";
 
@@ -49,7 +49,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   const [hargaMobil, setHargaMobil] = useState(335200000); 
   const [tdpPct, setTdpPct] = useState(20); 
   const [diskon, setDiskon] = useState(10000000); 
-  const [uping] = useState(1.0); 
+  const [uping, setUping] = useState(1.0); // Sekarang bisa diubah
   const [tenor, setTenor] = useState(60);
   
   const [result, setResult] = useState({ 
@@ -62,6 +62,12 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
 
   // State untuk efek Copy Clipboard
   const [isCopied, setIsCopied] = useState(false);
+
+  // State untuk Fitur Advanced (PIN Protected)
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [pinInput, setPinInput] = useState("");
+  const [pinError, setPinError] = useState(false);
 
   const biayaFidusia = 503000;
   const biayaAdminPH = 6300000; 
@@ -147,25 +153,20 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     setter(Number(e.target.value.replace(/[^0-9]/g, "")));
   };
 
-  // --- FUNGSI COPY KE CLIPBOARD (SUDAH DIPERBAIKI) ---
+  // --- FUNGSI COPY KE CLIPBOARD ---
   const handleCopyText = async () => {
     const formatAngka = (num: number) => new Intl.NumberFormat('id-ID').format(num);
-    
-    // Hapus awalan "Suzuki" dari nama mobil
     const baseCarName = currentCar?.name.replace(/Suzuki /i, "") || ""; 
     const variantName = currentVariantName || "";
     
-    // Logika Pintar: Cegah nama duplikat (contoh: "Fronx FRONX GL MT")
     let finalTitle = baseCarName;
     if (variantName) {
       if (variantName.toLowerCase().includes(baseCarName.toLowerCase())) {
-        finalTitle = variantName; // Jika varian sudah ada nama mobilnya, pakai variannya saja
+        finalTitle = variantName; 
       } else {
-        finalTitle = `${baseCarName} ${variantName}`; // Jika belum ada, gabung (misal: "XL7 ZETA")
+        finalTitle = `${baseCarName} ${variantName}`; 
       }
     }
-    
-    // Ubah ke kapital semua agar rapi seperti brosur
     finalTitle = finalTitle.toUpperCase();
 
     const textToCopy = 
@@ -183,7 +184,18 @@ Angsuran ${formatAngka(result.cicilan)} x ${tenor}`;
     }
   };
 
-  // Logika nama untuk pesan WhatsApp (disamakan agar pintar juga)
+  // --- FUNGSI UNLOCK ADVANCED ---
+  const handlePinSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (pinInput === "123456") {
+      setIsUnlocked(true);
+      setPinError(false);
+      setPinInput("");
+    } else {
+      setPinError(true);
+    }
+  };
+
   let waCarTitle = currentCar?.name || "";
   if (currentVariantName && !currentVariantName.toLowerCase().includes((currentCar?.name || "").replace(/Suzuki /i, "").toLowerCase())) {
     waCarTitle += ` (${currentVariantName})`;
@@ -206,7 +218,7 @@ Mohon info persyaratannya.`;
       <div className="grid grid-cols-1 lg:grid-cols-12">
         
         {/* Sisi Kiri: Inputs */}
-        <div className="lg:col-span-7 p-6 md:p-10 border-b lg:border-b-0 lg:border-r border-gray-100">
+        <div className="lg:col-span-7 p-6 md:p-10 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col">
           <div className="flex items-center justify-between mb-10">
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-gray-900 flex items-center justify-center text-white shrink-0">
@@ -237,7 +249,7 @@ Mohon info persyaratannya.`;
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6 flex-grow">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="sm:col-span-2">
                 <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Unit Kendaraan</label>
@@ -346,6 +358,72 @@ Mohon info persyaratannya.`;
               </div>
             </div>
           </div>
+
+          {/* --- AREA FITUR ADVANCED --- */}
+          <div className="pt-8 mt-8 border-t border-gray-100">
+            {!isUnlocked ? (
+              <div>
+                {!showAdvanced ? (
+                  <button
+                    onClick={() => setShowAdvanced(true)}
+                    className="text-[9px] font-bold text-gray-400 hover:text-gray-800 uppercase tracking-widest flex items-center gap-1.5 transition-colors"
+                  >
+                    <Lock size={12} strokeWidth={2.5} /> Buka Pengaturan Lanjutan
+                  </button>
+                ) : (
+                  <form onSubmit={handlePinSubmit} className="flex flex-col gap-2 max-w-[200px]">
+                    <label className="text-[9px] font-black uppercase tracking-widest text-gray-500">Masukkan PIN</label>
+                    <div className="flex gap-2">
+                      <input
+                        type="password"
+                        value={pinInput}
+                        onChange={(e) => { setPinInput(e.target.value); setPinError(false); }}
+                        className={`w-full border-b-2 py-1.5 text-xs font-bold bg-transparent focus:outline-none transition-colors ${
+                          pinError ? "border-red-500 text-red-500" : "border-gray-300 focus:border-gray-900"
+                        }`}
+                        placeholder="******"
+                        autoFocus
+                      />
+                      <button type="submit" className="bg-gray-900 text-white px-3 text-[10px] font-bold rounded-sm hover:bg-black">
+                        OK
+                      </button>
+                    </div>
+                    {pinError && <span className="text-[9px] text-red-500 font-bold uppercase tracking-wider">PIN Salah!</span>}
+                  </form>
+                )}
+              </div>
+            ) : (
+              <div className="bg-gray-50 p-4 border border-gray-200 relative">
+                <button 
+                  onClick={() => setIsUnlocked(false)} 
+                  className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors"
+                  title="Kunci kembali"
+                >
+                  <Unlock size={14} />
+                </button>
+                
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-900 mb-4">Pengaturan Advanced</label>
+                
+                <div className="max-w-[250px]">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">Upping Bunga (%)</span>
+                    <span className="text-sm font-black text-gray-900">{uping.toFixed(1)}%</span>
+                  </div>
+                  <input
+                    type="range" min={0} max={5} step={0.1} value={uping}
+                    onChange={(e) => setUping(Number(e.target.value))}
+                    className="w-full h-1.5 bg-gray-200 accent-gray-900 appearance-none cursor-pointer"
+                  />
+                  <div className="flex justify-between mt-1">
+                    <span className="text-[9px] text-gray-400 font-bold">0%</span>
+                    <span className="text-[9px] text-gray-400 font-bold">5%</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          {/* --- END AREA FITUR ADVANCED --- */}
+
         </div>
 
         {/* Sisi Kanan: Hasil Kalkulasi Tampil Bersih */}
