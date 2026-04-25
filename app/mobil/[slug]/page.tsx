@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Download, CheckCircle2, ChevronRight, Gauge, Settings, ShieldCheck, Car, MessageCircle } from "lucide-react"; // <-- Menambahkan MessageCircle
+import { Download, CheckCircle2, ChevronRight, Gauge, Settings, ShieldCheck, Car } from "lucide-react";
 import { cars } from "@/data/cars";
 import { formatCurrency, WA_BASE_URL } from "@/lib/utils";
 import PricelistTable from "@/components/PricelistTable";
@@ -59,15 +59,14 @@ export default async function CarDetailPage({ params }: Props) {
 
   const variants = car.variants || [];
   const otherCars = cars.filter((c) => c.slug !== car.slug);
-  
-  // Pesan WA Default
   const waMsg = `Halo Yusuf Suzuki, saya ingin menanyakan detail, promo, dan ketersediaan unit untuk mobil *${car.name}*.`;
-  
-  // Pesan WA Khusus Klik dari Area Pricelist
-  const waPromoMsg = `Halo Yusuf Suzuki, saya melihat daftar harga *${car.name}* di website. Boleh minta info diskon dan promo terbarunya bulan ini?`;
 
+  // --- LOGIKA PINTAR UNTUK AUTO-LINK BROSUR ---
+  // Jika di data cars.ts sudah ada link spesifik, gunakan itu. 
+  // Jika belum, buat link otomatis ke folder /brosur/
   let brochureLink = car.brochureUrl;
   if (!brochureLink) {
+    // Menyesuaikan jika slug-nya 'carry-pickup' tapi nama file-nya 'carry.pdf'
     const fileName = car.slug === "carry-pickup" ? "carry" : car.slug;
     brochureLink = `/brosur/${fileName}.pdf`;
   }
@@ -169,6 +168,7 @@ export default async function CarDetailPage({ params }: Props) {
         <FadeIn delay={0.4}>
           <div className="mt-10 flex justify-start">
             <a
+              // Menggunakan variabel brochureLink yang sudah pintar mendeteksi file
               href={brochureLink}
               target="_blank"
               rel="noopener noreferrer"
@@ -205,24 +205,7 @@ export default async function CarDetailPage({ params }: Props) {
           <div className="lg:col-span-8">
             <FadeIn delay={0.2} direction="up">
               {variants.length > 0 ? (
-                <>
-                  <PricelistTable variants={variants} />
-                  
-                  {/* --- TOMBOL TANYA PROMO DITAMBAHKAN DI SINI --- */}
-                  <div className="mt-6 flex flex-col sm:flex-row justify-end">
-                    <a
-                      href={`${WA_BASE_URL}?text=${encodeURIComponent(waPromoMsg)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1ebd50] text-white py-4 px-8 font-black text-[10px] uppercase tracking-[0.2em] rounded-none transition-all shadow-lg hover:-translate-y-1"
-                    >
-                      <MessageCircle size={16} />
-                      Tanya Promo & Diskon Varian
-                    </a>
-                  </div>
-                  {/* ----------------------------------------------- */}
-
-                </>
+                <PricelistTable variants={variants} />
               ) : (
                 <div className="bg-gray-50 border border-gray-200 p-10 text-center">
                   <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">Belum Ada Data Harga</p>
