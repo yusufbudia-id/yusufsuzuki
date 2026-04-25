@@ -36,14 +36,12 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
     >
       <Link href={`/promo/${promo.slug}`} className="absolute inset-0 z-10" aria-label={`Lihat detail promo ${promo.title}`} />
       
-      {/* RASIO GAMBAR 3:2 */}
       <div className="relative aspect-[3/2] w-full overflow-hidden bg-gray-100">
         <Image 
           src={promo.image} 
           alt={promo.title} 
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          // MENGGUNAKAN object-cover & object-top (Sama seperti kartu besar)
           className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-in-out" 
         />
         <div className="absolute top-4 left-4 z-20">
@@ -93,16 +91,13 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
 export default function PromoSection() {
   if (!promos || promos.length === 0) return null;
 
-  // 1. Sortir otomatis berdasarkan urgensi
   const sortedPromos = [...promos].sort((a, b) => {
     const dateA = parseIndonesianDate(a.validUntil).getTime();
     const dateB = parseIndonesianDate(b.validUntil).getTime();
     return dateA - dateB;
   });
 
-  // 2. Batasi 5 Promo
   const displayPromos = sortedPromos.slice(0, 5); 
-
   const featuredPromo = displayPromos[0]; 
   const regularPromos = displayPromos.slice(1); 
 
@@ -129,51 +124,50 @@ export default function PromoSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           
-          {/* FEATURED PROMO */}
+          {/* --- FEATURED PROMO --- */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-8 group relative bg-gray-900 overflow-hidden shadow-2xl flex flex-col border border-gray-800"
+            // PERUBAHAN: Menghapus bg-gray-900, menambahkan min-h agar di HP tetap aman
+            className="lg:col-span-8 group relative overflow-hidden shadow-2xl flex flex-col border border-gray-200 min-h-[400px] md:min-h-[500px]"
           >
-            <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-10" />
+            <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-20" />
             
-            {/* Perbaikan: aspect-[3/2] md:aspect-[16/9] tanpa tinggi tetap agar responsif */}
-            <div className="relative aspect-[3/2] md:aspect-[16/9] w-full bg-black">
+            {/* PERUBAHAN UTAMA: Wrapper absolut agar gambar memakan 100% ruang kotak yang ditarik Grid */}
+            <div className="absolute inset-0 w-full h-full">
               <Image 
                 src={featuredPromo.image} 
                 alt={featuredPromo.title} 
                 fill
                 priority
-                // PERUBAHAN UTAMA: object-cover (penuh kotak) & object-top (wajib lihat atas)
-                className="object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
+                className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out" 
               />
-              
-              {/* Gradasi Hitam Bawah */}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent z-10 pointer-events-none" />
-              
-              {/* Teks Konten */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 z-20 pointer-events-none">
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="bg-red-600 text-white text-[10px] uppercase tracking-widest font-black px-4 py-2 shadow-lg">
-                    {featuredPromo.badge}
-                  </span>
-                  <span className="bg-white/20 backdrop-blur-md text-white text-[9px] uppercase tracking-widest font-bold px-4 py-2 border border-white/20 hidden sm:inline-block">
-                    Sisa waktu terbatas
-                  </span>
-                </div>
-                <h3 className="font-black text-white text-2xl md:text-4xl uppercase tracking-tighter leading-tight mb-3">
-                  {featuredPromo.title}
-                </h3>
-                <p className="text-gray-300 text-sm md:text-base font-bold max-w-xl line-clamp-2 uppercase tracking-wide">
-                  {featuredPromo.highlight}
-                </p>
-                <div className="mt-6">
-                  <span className="bg-white text-gray-900 px-6 py-3 text-[10px] uppercase tracking-widest font-black inline-flex items-center gap-2 group-hover:bg-red-600 group-hover:text-white transition-colors">
-                    Ambil Promo <ArrowRight size={14} />
-                  </span>
-                </div>
+              {/* Gradasi yang dinaikkan persentasenya agar teks terbaca jelas */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10 pointer-events-none" />
+            </div>
+            
+            {/* KONTEN TEKS: Ditekan ke paling bawah dengan mt-auto */}
+            <div className="relative z-20 p-6 md:p-10 mt-auto flex flex-col justify-end h-full pointer-events-none">
+              <div className="flex items-center gap-2 mb-4 mt-auto">
+                <span className="bg-red-600 text-white text-[10px] uppercase tracking-widest font-black px-4 py-2 shadow-lg">
+                  {featuredPromo.badge}
+                </span>
+                <span className="bg-black/50 backdrop-blur-md text-white text-[9px] uppercase tracking-widest font-bold px-4 py-2 border border-white/10 hidden sm:inline-block">
+                  Sisa waktu terbatas
+                </span>
+              </div>
+              <h3 className="font-black text-white text-2xl md:text-4xl uppercase tracking-tighter leading-tight mb-3">
+                {featuredPromo.title}
+              </h3>
+              <p className="text-gray-200 text-sm md:text-base font-medium max-w-xl line-clamp-2 uppercase tracking-wide">
+                {featuredPromo.highlight}
+              </p>
+              <div className="mt-6 pointer-events-auto">
+                <span className="bg-white text-gray-900 px-6 py-3 text-[10px] uppercase tracking-widest font-black inline-flex items-center gap-2 group-hover:bg-red-600 group-hover:text-white transition-colors cursor-pointer">
+                  Ambil Promo <ArrowRight size={14} />
+                </span>
               </div>
             </div>
           </motion.div>
