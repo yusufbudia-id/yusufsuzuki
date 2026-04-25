@@ -25,7 +25,7 @@ const parseIndonesianDate = (dateStr: string) => {
 };
 
 // --- KOMPONEN KARTU PROMO REGULER ---
-function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index?: number }) {
+export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index?: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
