@@ -106,7 +106,8 @@ export default function PricelistTable({ variants, carName = "" }: PricelistTabl
                     href={buildWhatsAppUrl(waText)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full md:w-auto inline-flex justify-center items-center gap-2 bg-gray-100 hover:bg-[#25D366] text-gray-600 hover:text-white py-3 md:py-2.5 px-4 font-black text-[10px] uppercase tracking-widest rounded-none transition-all duration-300 border border-gray-200 hover:border-[#25D366]"
+                    // ---> CLASS DIUBAH DI SINI: Langsung menggunakan warna background hijau WA <---
+                    className="w-full md:w-auto inline-flex justify-center items-center gap-2 bg-[#25D366] hover:bg-[#1ebd50] text-white py-3 md:py-2.5 px-4 font-black text-[10px] uppercase tracking-widest rounded-none transition-all duration-300 shadow-md hover:shadow-lg active:scale-95"
                   >
                     <MessageCircle size={14} />
                     Tanya Promo
