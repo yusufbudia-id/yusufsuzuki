@@ -62,11 +62,8 @@ export default async function CarDetailPage({ params }: Props) {
   const waMsg = `Halo Yusuf Suzuki, saya ingin menanyakan detail, promo, dan ketersediaan unit untuk mobil *${car.name}*.`;
 
   // --- LOGIKA PINTAR UNTUK AUTO-LINK BROSUR ---
-  // Jika di data cars.ts sudah ada link spesifik, gunakan itu. 
-  // Jika belum, buat link otomatis ke folder /brosur/
   let brochureLink = car.brochureUrl;
   if (!brochureLink) {
-    // Menyesuaikan jika slug-nya 'carry-pickup' tapi nama file-nya 'carry.pdf'
     const fileName = car.slug === "carry-pickup" ? "carry" : car.slug;
     brochureLink = `/brosur/${fileName}.pdf`;
   }
@@ -168,7 +165,6 @@ export default async function CarDetailPage({ params }: Props) {
         <FadeIn delay={0.4}>
           <div className="mt-10 flex justify-start">
             <a
-              // Menggunakan variabel brochureLink yang sudah pintar mendeteksi file
               href={brochureLink}
               target="_blank"
               rel="noopener noreferrer"
@@ -205,7 +201,8 @@ export default async function CarDetailPage({ params }: Props) {
           <div className="lg:col-span-8">
             <FadeIn delay={0.2} direction="up">
               {variants.length > 0 ? (
-                <PricelistTable variants={variants} />
+                // ---> INI DIA PERUBAHANNYA: carName={car.name} <---
+                <PricelistTable variants={variants} carName={car.name} />
               ) : (
                 <div className="bg-gray-50 border border-gray-200 p-10 text-center">
                   <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">Belum Ada Data Harga</p>
