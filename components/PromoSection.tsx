@@ -1,163 +1,184 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
 import Link from "next/link";
-import { Calendar, MessageCircle, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Calendar, MessageCircle, ArrowRight } from "lucide-react";
 import { promos } from "@/data/promos";
 import { buildWhatsAppUrl } from "@/lib/utils";
 
-// Komponen Kartu Promo (Sharp & Minimalist)
-export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index?: number }) {
+// --- KOMPONEN KARTU PROMO REGULER (Baris Bawah) ---
+function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index?: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.08 }}
-      className="group bg-white rounded-none overflow-hidden border border-gray-200 hover:border-gray-900 hover:shadow-2xl transition-all duration-500 flex flex-col h-full"
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      className="group relative bg-white border border-gray-200 hover:border-gray-900 hover:shadow-2xl transition-all duration-500 flex flex-col h-full rounded-none overflow-hidden"
     >
-      {/* Bungkus area gambar dan teks agar bisa diklik menuju halaman detail */}
-      <Link href={`/promo/${promo.slug}`} className="flex flex-col flex-grow">
+      <Link href={`/promo/${promo.slug}`} className="absolute inset-0 z-10" aria-label={`Lihat detail promo ${promo.title}`} />
+      
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+        <Image 
+          src={promo.image} 
+          alt={promo.title} 
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-in-out" 
+        />
+        <div className="absolute top-4 left-4 z-20">
+          <span className="bg-gray-900 text-white text-[9px] uppercase tracking-widest font-black px-3 py-1.5 shadow-md">
+            {promo.badge}
+          </span>
+        </div>
+        <div className="absolute bottom-0 inset-x-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent z-10" />
+        <p className="absolute bottom-4 left-4 right-4 text-white font-black text-sm uppercase tracking-tight leading-tight z-20">
+          {promo.highlight}
+        </p>
+      </div>
+      
+      <div className="p-5 flex flex-col flex-grow relative z-0">
+        <h3 className="font-black text-gray-900 text-lg uppercase tracking-tight mb-2 line-clamp-2 group-hover:text-red-600 transition-colors">
+          {promo.title}
+        </h3>
+        <p className="text-gray-500 text-xs leading-relaxed mb-4 line-clamp-2 flex-grow">
+          {promo.description}
+        </p>
         
-        {/* Menggunakan aspect-[2/1] agar lebih pendek & pipih */}
-        <div className="relative aspect-[2/1] w-full overflow-hidden bg-gray-100">
-          <Image 
-            src={promo.image} 
-            alt={promo.title} 
-            fill
-            priority={index === 0} // Sangat Penting: Hanya slide promo pertama yang di-load instan
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-in-out" 
-          />
-          
-          {/* Badge: Frosted glass elegan */}
-          <div className="absolute top-4 left-4">
-            <span className="bg-white/95 backdrop-blur-sm text-gray-900 text-[10px] uppercase tracking-widest font-bold px-3 py-1.5 rounded-none shadow-sm">
-              {promo.badge}
-            </span>
-          </div>
-          
-          {/* Highlight Teks (dengan gradasi hitam agar mudah dibaca) */}
-          <div className="absolute bottom-0 inset-x-0 h-3/4 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-          <p className="absolute bottom-4 left-4 right-4 text-white font-black text-lg md:text-xl uppercase tracking-tight leading-tight group-hover:text-red-500 transition-colors">
-            {promo.highlight}
-          </p>
+        <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-4">
+          <Calendar size={12} />
+          s.d. {promo.validUntil}
         </div>
         
-        <div className="px-6 pt-6 pb-2 flex flex-col flex-grow">
-          <h3 className="font-black text-gray-900 text-lg uppercase tracking-tight mb-2 line-clamp-2 group-hover:underline">{promo.title}</h3>
-          <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-3 flex-grow">{promo.description}</p>
-          
-          <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold mb-4">
-            <Calendar size={14} />
-            Berlaku s.d. {promo.validUntil}
-          </div>
+        <div className="pt-4 border-t border-gray-100 flex items-center justify-between mt-auto">
+          <span className="text-[10px] font-black uppercase tracking-widest text-gray-900 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+            Detail <ArrowRight size={14} />
+          </span>
+          <a
+            onClick={(e) => {
+              e.stopPropagation();
+              const domain = window.location.origin;
+              const waText = `Halo Yusuf Suzuki, saya tertarik dengan promo:\n*${promo.title}*\n\nCek promo: ${domain}${promo.image}`;
+              window.open(buildWhatsAppUrl(waText), "_blank");
+            }}
+            href="#"
+            className="relative z-20 w-10 h-10 bg-gray-100 hover:bg-[#25D366] hover:text-white text-gray-500 flex items-center justify-center transition-colors"
+            title="Chat WhatsApp"
+          >
+            <MessageCircle size={18} />
+          </a>
         </div>
-      </Link>
-
-      {/* Tombol Action Tajam (Ditaruh di luar Link agar klik WA tidak bertabrakan) */}
-      <div className="px-6 pb-6 mt-auto">
-        <a
-          onClick={(e) => {
-            e.preventDefault();
-            const domain = window.location.origin;
-            const imageUrl = `${domain}${promo.image}`;
-            
-            const waText = `Halo Yusuf Suzuki, saya tertarik dengan promo ini:\n\n*${promo.title}*\nHighlight: ${promo.highlight}\n\nCek promo: ${imageUrl}\n\nBisa minta info lebih lanjut?`;
-            
-            window.open(buildWhatsAppUrl(waText), "_blank");
-          }}
-          href="#"
-          className="w-full bg-gray-900 hover:bg-black text-white text-[11px] uppercase tracking-widest font-bold py-4 rounded-none flex justify-center items-center gap-2 transition-colors relative z-10"
-        >
-          <MessageCircle size={16} />
-          Tanya Yusuf Suzuki
-        </a>
       </div>
     </motion.div>
   );
 }
 
-// Komponen Utama Section Promo
+// --- KOMPONEN UTAMA SECTION PROMO (Bento Grid Style) ---
 export default function PromoSection() {
-  const autoplay = useRef(Autoplay({ delay: 6000, stopOnInteraction: false }));
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: "start", slidesToScroll: 1 },
-    [autoplay.current]
-  );
+  // Jika tidak ada promo, jangan render apa-apa
+  if (!promos || promos.length === 0) return null;
+
+  // Pisahkan promo pertama (Featured) dan sisanya
+  const featuredPromo = promos[0];
+  const regularPromos = promos.slice(1);
 
   return (
-    <section className="pt-8 pb-24 bg-gray-50 overflow-hidden">
+    <section className="pt-16 pb-24 bg-gray-50 overflow-hidden border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header & Nav Buttons Wrapper */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        {/* Header Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
+        >
+          <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 mb-4 uppercase tracking-widest">
+            Penawaran Spesial
+          </span>
+          <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4 uppercase tracking-tighter">
+            Promo Suzuki Jogja
+          </h2>
+          <p className="text-gray-500 text-sm md:text-base leading-relaxed">
+            Dapatkan diskon maksimal, DP super ringan, dan hadiah undian menarik khusus untuk pembelian di wilayah Yogyakarta dan sekitarnya bulan ini.
+          </p>
+        </motion.div>
+
+        {/* BENTO GRID LAYOUT */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+          {/* 1. FEATURED PROMO (Sisi Kiri/Atas) - Mengambil 8 Kolom */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="text-left max-w-2xl"
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-8 group relative bg-gray-900 overflow-hidden shadow-2xl flex flex-col"
           >
-            <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
-              Promo Bulan Ini
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight">
-              Promo Suzuki Jogja Terbaru
-            </h2>
-            <p className="text-gray-500 text-sm md:text-base">
-              Jangan lewatkan promo eksklusif yang terbatas untuk wilayah Jogja dan sekitarnya.
-            </p>
+            <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-10" aria-label={`Lihat detail promo ${featuredPromo.title}`} />
+            
+            <div className="relative aspect-square md:aspect-[16/9] lg:aspect-auto lg:h-[500px] w-full bg-black">
+              <Image 
+                src={featuredPromo.image} 
+                alt={featuredPromo.title} 
+                fill
+                priority // Load gambar ini paling pertama
+                sizes="(max-width: 1024px) 100vw, 66vw"
+                className="object-contain md:object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none" />
+              
+              {/* Teks Overlay pada Featured Promo */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 z-20 pointer-events-none">
+                <span className="inline-block bg-red-600 text-white text-[10px] uppercase tracking-widest font-black px-4 py-2 mb-4 shadow-lg">
+                  {featuredPromo.badge}
+                </span>
+                <h3 className="font-black text-white text-2xl md:text-4xl uppercase tracking-tighter leading-tight mb-3">
+                  {featuredPromo.title}
+                </h3>
+                <p className="text-gray-300 text-sm md:text-base font-medium max-w-xl line-clamp-2">
+                  {featuredPromo.highlight}
+                </p>
+                <div className="mt-6 flex items-center gap-4">
+                  <span className="bg-white text-gray-900 px-6 py-3 text-[10px] uppercase tracking-widest font-black inline-flex items-center gap-2 transition-transform group-hover:bg-red-600 group-hover:text-white">
+                    Lihat Detail <ArrowRight size={14} />
+                  </span>
+                </div>
+              </div>
+            </div>
           </motion.div>
 
-          <div className="hidden lg:flex items-center gap-2">
-            <button
-              onClick={() => emblaApi?.scrollPrev()}
-              className="w-14 h-14 bg-transparent flex items-center justify-center text-gray-900 hover:text-gray-200 hover:bg-red-500 transition-all duration-300 rounded-none active:scale-95"
-              aria-label="Promo Sebelumnya"
-            >
-              <ChevronLeft size={32} strokeWidth={1.5} />
-            </button>
-            <button
-              onClick={() => emblaApi?.scrollNext()}
-              className="w-14 h-14 bg-transparent flex items-center justify-center text-gray-900 hover:text-gray-200 hover:bg-red-500 transition-all duration-300 rounded-none active:scale-95"
-              aria-label="Promo Selanjutnya"
-            >
-              <ChevronRight size={32} strokeWidth={1.5} />
-            </button>
-          </div>
-        </div>
-
-        {/* Area Slider Carousel */}
-        <div className="embla overflow-hidden -mx-4 px-4 sm:mx-0 sm:px-0" ref={emblaRef}>
-          <div className="embla__container flex gap-6 pb-4">
-            {promos.map((promo, i) => (
-              <div 
-                key={promo.slug} // <-- Menggunakan slug sebagai key
-                className="embla__slide flex-none w-[85vw] sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]"
-              >
-                <PromoCard promo={promo} index={i} />
-              </div>
+          {/* 2. REGULAR PROMOS (Sisi Kanan/Bawah) - Mengambil 4 Kolom */}
+          <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
+            {regularPromos.slice(0, 2).map((promo, i) => (
+              <PromoCard key={promo.slug} promo={promo} index={i + 1} />
             ))}
           </div>
+
         </div>
 
-        {/* Tombol Lihat Semua Promo */}
+        {/* Jika ada lebih dari 3 promo, tampilkan sisanya di baris bawah */}
+        {regularPromos.length > 2 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+            {regularPromos.slice(2).map((promo, i) => (
+              <PromoCard key={promo.slug} promo={promo} index={i + 3} />
+            ))}
+          </div>
+        )}
+
+        {/* Tombol CTA Bawah */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="text-center mt-8 md:mt-12"
+          className="text-center mt-12"
         >
           <Link 
             href="/promo" 
-            className="bg-transparent border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white text-sm uppercase tracking-widest font-bold px-8 py-4 rounded-none transition-all duration-300 inline-flex items-center gap-2"
+            className="inline-flex items-center gap-3 bg-transparent border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white text-[11px] uppercase tracking-widest font-black px-10 py-4 transition-all duration-300 shadow-sm hover:shadow-xl active:scale-95"
           >
-            Lihat Semua Promo <ArrowRight size={18} />
+            Lihat Semua Promo <ArrowRight size={16} />
           </Link>
         </motion.div>
         
