@@ -7,7 +7,24 @@ import { Calendar, MessageCircle, ArrowRight } from "lucide-react";
 import { promos } from "@/data/promos";
 import { buildWhatsAppUrl } from "@/lib/utils";
 
-// --- KOMPONEN KARTU PROMO REGULER (Baris Bawah) ---
+// --- FUNGSI PEMBANTU: PARSE TANGGAL INDONESIA KE DATE OBJECT ---
+const parseIndonesianDate = (dateStr: string) => {
+  const months: { [key: string]: number } = {
+    januari: 0, februari: 1, maret: 2, april: 3, mei: 4, juni: 5,
+    juli: 6, agustus: 7, september: 8, oktober: 9, november: 10, desember: 11
+  };
+
+  const parts = dateStr.toLowerCase().split(" ");
+  if (parts.length !== 3) return new Date(8640000000000000); // Tanggal jauh di masa depan jika format salah
+
+  const day = parseInt(parts[0]);
+  const month = months[parts[1]];
+  const year = parseInt(parts[2]);
+
+  return new Date(year, month, day);
+};
+
+// --- KOMPONEN KARTU PROMO REGULER ---
 function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index?: number }) {
   return (
     <motion.div
@@ -42,9 +59,6 @@ function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index?: numb
         <h3 className="font-black text-gray-900 text-lg uppercase tracking-tight mb-2 line-clamp-2 group-hover:text-red-600 transition-colors">
           {promo.title}
         </h3>
-        <p className="text-gray-500 text-xs leading-relaxed mb-4 line-clamp-2 flex-grow">
-          {promo.description}
-        </p>
         
         <div className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-4">
           <Calendar size={12} />
@@ -64,7 +78,6 @@ function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index?: numb
             }}
             href="#"
             className="relative z-20 w-10 h-10 bg-gray-100 hover:bg-[#25D366] hover:text-white text-gray-500 flex items-center justify-center transition-colors"
-            title="Chat WhatsApp"
           >
             <MessageCircle size={18} />
           </a>
@@ -74,20 +87,24 @@ function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index?: numb
   );
 }
 
-// --- KOMPONEN UTAMA SECTION PROMO (Bento Grid Style) ---
+// --- KOMPONEN UTAMA ---
 export default function PromoSection() {
-  // Jika tidak ada promo, jangan render apa-apa
   if (!promos || promos.length === 0) return null;
 
-  // Pisahkan promo pertama (Featured) dan sisanya
-  const featuredPromo = promos[0];
-  const regularPromos = promos.slice(1);
+  // LOGIKA OTOMATIS: Sortir berdasarkan tanggal terdekat (Urgency)
+  const sortedPromos = [...promos].sort((a, b) => {
+    const dateA = parseIndonesianDate(a.validUntil).getTime();
+    const dateB = parseIndonesianDate(b.validUntil).getTime();
+    return dateA - dateB; // Mengurutkan dari yang paling cepat berakhir
+  });
+
+  const featuredPromo = sortedPromos[0];
+  const regularPromos = sortedPromos.slice(1);
 
   return (
     <section className="pt-16 pb-24 bg-gray-50 overflow-hidden border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -95,20 +112,19 @@ export default function PromoSection() {
           className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
         >
           <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 mb-4 uppercase tracking-widest">
-            Penawaran Spesial
+            Penawaran Terbatas
           </span>
           <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4 uppercase tracking-tighter">
-            Promo Suzuki Jogja
+            Promo Dealer Suzuki
           </h2>
-          <p className="text-gray-500 text-sm md:text-base leading-relaxed">
-            Dapatkan diskon maksimal, DP super ringan, dan hadiah undian menarik khusus untuk pembelian di wilayah Yogyakarta dan sekitarnya bulan ini.
+          <p className="text-gray-500 text-sm md:text-base leading-relaxed font-medium">
+            Manfaatkan penawaran spesial ini sebelum masa berlaku berakhir. Hubungi Yusuf Suzuki untuk konsultasi unit & simulasi kredit terbaik.
           </p>
         </motion.div>
 
-        {/* BENTO GRID LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           
-          {/* 1. FEATURED PROMO (Sisi Kiri/Atas) - Mengambil 8 Kolom */}
+          {/* FEATURED: Muncul otomatis berdasarkan deadline terdekat */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -116,49 +132,49 @@ export default function PromoSection() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-8 group relative bg-gray-900 overflow-hidden shadow-2xl flex flex-col"
           >
-            <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-10" aria-label={`Lihat detail promo ${featuredPromo.title}`} />
+            <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-10" />
             
             <div className="relative aspect-square md:aspect-[16/9] lg:aspect-auto lg:h-[500px] w-full bg-black">
               <Image 
                 src={featuredPromo.image} 
                 alt={featuredPromo.title} 
                 fill
-                priority // Load gambar ini paling pertama
-                sizes="(max-width: 1024px) 100vw, 66vw"
+                priority
                 className="object-contain md:object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
               
-              {/* Teks Overlay pada Featured Promo */}
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 z-20 pointer-events-none">
-                <span className="inline-block bg-red-600 text-white text-[10px] uppercase tracking-widest font-black px-4 py-2 mb-4 shadow-lg">
-                  {featuredPromo.badge}
-                </span>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="bg-red-600 text-white text-[10px] uppercase tracking-widest font-black px-4 py-2 shadow-lg">
+                    {featuredPromo.badge}
+                  </span>
+                  <span className="bg-white/20 backdrop-blur-md text-white text-[9px] uppercase tracking-widest font-bold px-4 py-2 border border-white/20">
+                    Sisa waktu terbatas
+                  </span>
+                </div>
                 <h3 className="font-black text-white text-2xl md:text-4xl uppercase tracking-tighter leading-tight mb-3">
                   {featuredPromo.title}
                 </h3>
-                <p className="text-gray-300 text-sm md:text-base font-medium max-w-xl line-clamp-2">
+                <p className="text-gray-300 text-sm md:text-base font-bold max-w-xl line-clamp-2 uppercase tracking-wide">
                   {featuredPromo.highlight}
                 </p>
-                <div className="mt-6 flex items-center gap-4">
-                  <span className="bg-white text-gray-900 px-6 py-3 text-[10px] uppercase tracking-widest font-black inline-flex items-center gap-2 transition-transform group-hover:bg-red-600 group-hover:text-white">
-                    Lihat Detail <ArrowRight size={14} />
+                <div className="mt-6">
+                  <span className="bg-white text-gray-900 px-6 py-3 text-[10px] uppercase tracking-widest font-black inline-flex items-center gap-2 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                    Ambil Promo <ArrowRight size={14} />
                   </span>
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* 2. REGULAR PROMOS (Sisi Kanan/Bawah) - Mengambil 4 Kolom */}
           <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
             {regularPromos.slice(0, 2).map((promo, i) => (
               <PromoCard key={promo.slug} promo={promo} index={i + 1} />
             ))}
           </div>
-
         </div>
 
-        {/* Jika ada lebih dari 3 promo, tampilkan sisanya di baris bawah */}
         {regularPromos.length > 2 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
             {regularPromos.slice(2).map((promo, i) => (
@@ -166,22 +182,6 @@ export default function PromoSection() {
             ))}
           </div>
         )}
-
-        {/* Tombol CTA Bawah */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <Link 
-            href="/promo" 
-            className="inline-flex items-center gap-3 bg-transparent border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white text-[11px] uppercase tracking-widest font-black px-10 py-4 transition-all duration-300 shadow-sm hover:shadow-xl active:scale-95"
-          >
-            Lihat Semua Promo <ArrowRight size={16} />
-          </Link>
-        </motion.div>
-        
       </div>
     </section>
   );
