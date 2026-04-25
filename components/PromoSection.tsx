@@ -135,26 +135,27 @@ export default function PromoSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-8 group relative bg-gray-900 overflow-hidden shadow-2xl flex flex-col"
+            className="lg:col-span-8 group relative bg-gray-900 overflow-hidden shadow-2xl flex flex-col border border-gray-800"
           >
             <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-10" />
             
-            <div className="relative aspect-[3/2] md:aspect-[16/9] lg:aspect-auto lg:h-[500px] w-full bg-black">
+            {/* Perbaikan: aspect-[3/2] dan object-contain p-4 agar Flyer utuh */}
+            <div className="relative aspect-[3/2] md:aspect-[16/9] w-full bg-black flex items-center justify-center">
               <Image 
                 src={featuredPromo.image} 
                 alt={featuredPromo.title} 
                 fill
                 priority
-                className="object-contain md:object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
+                className="object-contain p-4 md:p-0 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10 pointer-events-none" />
               
               <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 z-20 pointer-events-none">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="bg-red-600 text-white text-[10px] uppercase tracking-widest font-black px-4 py-2 shadow-lg">
                     {featuredPromo.badge}
                   </span>
-                  <span className="bg-white/20 backdrop-blur-md text-white text-[9px] uppercase tracking-widest font-bold px-4 py-2 border border-white/20">
+                  <span className="bg-white/20 backdrop-blur-md text-white text-[9px] uppercase tracking-widest font-bold px-4 py-2 border border-white/20 hidden sm:inline-block">
                     Sisa waktu terbatas
                   </span>
                 </div>
