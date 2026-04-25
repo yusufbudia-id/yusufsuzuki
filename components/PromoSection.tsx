@@ -36,12 +36,14 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
     >
       <Link href={`/promo/${promo.slug}`} className="absolute inset-0 z-10" aria-label={`Lihat detail promo ${promo.title}`} />
       
+      {/* RASIO GAMBAR 3:2 */}
       <div className="relative aspect-[3/2] w-full overflow-hidden bg-gray-100">
         <Image 
           src={promo.image} 
           alt={promo.title} 
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          // MENGGUNAKAN object-cover & object-top (Sama seperti kartu besar)
           className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-in-out" 
         />
         <div className="absolute top-4 left-4 z-20">
@@ -91,7 +93,7 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
 export default function PromoSection() {
   if (!promos || promos.length === 0) return null;
 
-  // 1. Sortir otomatis berdasarkan urgensi (tanggal terdekat)
+  // 1. Sortir otomatis berdasarkan urgensi
   const sortedPromos = [...promos].sort((a, b) => {
     const dateA = parseIndonesianDate(a.validUntil).getTime();
     const dateB = parseIndonesianDate(b.validUntil).getTime();
@@ -127,56 +129,56 @@ export default function PromoSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           
-          {/* --- FEATURED PROMO (SPLIT LAYOUT) --- */}
+          {/* FEATURED PROMO */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            // Perubahan Utama: Menggunakan flex-col md:flex-row agar di laptop terbelah dua
-            className="lg:col-span-8 group relative bg-gray-900 overflow-hidden shadow-2xl flex flex-col md:flex-row border border-gray-800"
+            className="lg:col-span-8 group relative bg-gray-900 overflow-hidden shadow-2xl flex flex-col border border-gray-800"
           >
             <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-10" />
             
-            {/* SISI KIRI: GAMBAR (Mendapat jatah setengah layar di desktop) */}
-            <div className="relative w-full md:w-1/2 aspect-[4/3] md:aspect-auto bg-black flex items-center justify-center border-r border-gray-800">
+            {/* Perbaikan: aspect-[3/2] md:aspect-[16/9] tanpa tinggi tetap agar responsif */}
+            <div className="relative aspect-[3/2] md:aspect-[16/9] w-full bg-black">
               <Image 
                 src={featuredPromo.image} 
                 alt={featuredPromo.title} 
                 fill
                 priority
-                className="object-contain p-4 group-hover:scale-105 transition-transform duration-700 ease-out" 
+                // PERUBAHAN UTAMA: object-cover (penuh kotak) & object-top (wajib lihat atas)
+                className="object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
               />
-            </div>
-            
-            {/* SISI KANAN: TEKS & TOMBOL */}
-            <div className="relative w-full md:w-1/2 p-6 md:p-10 flex flex-col justify-center z-20">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="bg-red-600 text-white text-[10px] uppercase tracking-widest font-black px-3 py-1.5 shadow-lg">
-                  {featuredPromo.badge}
-                </span>
-                <span className="bg-gray-800 text-gray-300 text-[9px] uppercase tracking-widest font-bold px-3 py-1.5 border border-gray-700 hidden sm:inline-block">
-                  Sisa waktu terbatas
-                </span>
-              </div>
               
-              <h3 className="font-black text-white text-2xl md:text-3xl xl:text-4xl uppercase tracking-tighter leading-tight mb-4 group-hover:text-red-500 transition-colors">
-                {featuredPromo.title}
-              </h3>
+              {/* Gradasi Hitam Bawah */}
+              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent z-10 pointer-events-none" />
               
-              <p className="text-gray-400 text-sm md:text-base font-medium max-w-xl line-clamp-3 leading-relaxed">
-                {featuredPromo.highlight}
-              </p>
-              
-              <div className="mt-8">
-                <span className="bg-white text-gray-900 px-6 py-3.5 text-[10px] uppercase tracking-widest font-black inline-flex items-center gap-2 group-hover:bg-red-600 group-hover:text-white transition-colors">
-                  Ambil Promo <ArrowRight size={14} />
-                </span>
+              {/* Teks Konten */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-10 z-20 pointer-events-none">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="bg-red-600 text-white text-[10px] uppercase tracking-widest font-black px-4 py-2 shadow-lg">
+                    {featuredPromo.badge}
+                  </span>
+                  <span className="bg-white/20 backdrop-blur-md text-white text-[9px] uppercase tracking-widest font-bold px-4 py-2 border border-white/20 hidden sm:inline-block">
+                    Sisa waktu terbatas
+                  </span>
+                </div>
+                <h3 className="font-black text-white text-2xl md:text-4xl uppercase tracking-tighter leading-tight mb-3">
+                  {featuredPromo.title}
+                </h3>
+                <p className="text-gray-300 text-sm md:text-base font-bold max-w-xl line-clamp-2 uppercase tracking-wide">
+                  {featuredPromo.highlight}
+                </p>
+                <div className="mt-6">
+                  <span className="bg-white text-gray-900 px-6 py-3 text-[10px] uppercase tracking-widest font-black inline-flex items-center gap-2 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                    Ambil Promo <ArrowRight size={14} />
+                  </span>
+                </div>
               </div>
             </div>
           </motion.div>
 
-          {/* --- 2 PROMO KECIL (Kanan) --- */}
+          {/* 2 PROMO KECIL (Kanan) */}
           <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
             {regularPromos.slice(0, 2).map((promo, i) => (
               <PromoCard key={promo.slug} promo={promo} index={i + 1} />
@@ -184,7 +186,7 @@ export default function PromoSection() {
           </div>
         </div>
 
-        {/* --- 2 PROMO KECIL (Bawah) --- */}
+        {/* 2 PROMO KECIL (Bawah) */}
         {regularPromos.length > 2 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-6 lg:mt-8">
             {regularPromos.slice(2, 4).map((promo, i) => (
@@ -193,6 +195,7 @@ export default function PromoSection() {
           </div>
         )}
 
+        {/* TOMBOL LIHAT SEMUA PROMO */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
