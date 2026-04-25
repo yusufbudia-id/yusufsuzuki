@@ -15,7 +15,7 @@ const parseIndonesianDate = (dateStr: string) => {
   };
 
   const parts = dateStr.toLowerCase().split(" ");
-  if (parts.length !== 3) return new Date(8640000000000000); // Tanggal jauh di masa depan jika format salah
+  if (parts.length !== 3) return new Date(8640000000000000);
 
   const day = parseInt(parts[0]);
   const month = months[parts[1]];
@@ -36,7 +36,8 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
     >
       <Link href={`/promo/${promo.slug}`} className="absolute inset-0 z-10" aria-label={`Lihat detail promo ${promo.title}`} />
       
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+      {/* RASIO GAMBAR 3:2 */}
+      <div className="relative aspect-[3/2] w-full overflow-hidden bg-gray-100">
         <Image 
           src={promo.image} 
           alt={promo.title} 
@@ -91,15 +92,18 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
 export default function PromoSection() {
   if (!promos || promos.length === 0) return null;
 
-  // LOGIKA OTOMATIS: Sortir berdasarkan tanggal terdekat (Urgency)
+  // 1. Sortir otomatis berdasarkan urgensi (tanggal terdekat)
   const sortedPromos = [...promos].sort((a, b) => {
     const dateA = parseIndonesianDate(a.validUntil).getTime();
     const dateB = parseIndonesianDate(b.validUntil).getTime();
-    return dateA - dateB; // Mengurutkan dari yang paling cepat berakhir
+    return dateA - dateB;
   });
 
-  const featuredPromo = sortedPromos[0];
-  const regularPromos = sortedPromos.slice(1);
+  // 2. BATASI HANYA 5 PROMO YANG TAMPIL DI SECTION INI
+  const displayPromos = sortedPromos.slice(0, 5); 
+
+  const featuredPromo = displayPromos[0]; // 1 Promo Besar
+  const regularPromos = displayPromos.slice(1); // Maksimal 4 Promo Kecil
 
   return (
     <section className="pt-16 pb-24 bg-gray-50 overflow-hidden border-t border-gray-200">
@@ -122,9 +126,10 @@ export default function PromoSection() {
           </p>
         </motion.div>
 
+        {/* BARIS ATAS: 1 Besar (Kiri) + 2 Kecil (Kanan) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           
-          {/* FEATURED: Muncul otomatis berdasarkan deadline terdekat */}
+          {/* FEATURED PROMO (Kotak Besar 8 Kolom) */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -134,7 +139,7 @@ export default function PromoSection() {
           >
             <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-10" />
             
-            <div className="relative aspect-square md:aspect-[16/9] lg:aspect-auto lg:h-[500px] w-full bg-black">
+            <div className="relative aspect-[3/2] md:aspect-[16/9] lg:aspect-auto lg:h-[500px] w-full bg-black">
               <Image 
                 src={featuredPromo.image} 
                 alt={featuredPromo.title} 
@@ -168,6 +173,7 @@ export default function PromoSection() {
             </div>
           </motion.div>
 
+          {/* 2 PROMO KECIL (Sisi Kanan - 4 Kolom) */}
           <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
             {regularPromos.slice(0, 2).map((promo, i) => (
               <PromoCard key={promo.slug} promo={promo} index={i + 1} />
@@ -175,13 +181,30 @@ export default function PromoSection() {
           </div>
         </div>
 
+        {/* BARIS BAWAH: Maksimal 2 Promo Kecil */}
         {regularPromos.length > 2 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-            {regularPromos.slice(2).map((promo, i) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-6 lg:mt-8">
+            {regularPromos.slice(2, 4).map((promo, i) => (
               <PromoCard key={promo.slug} promo={promo} index={i + 3} />
             ))}
           </div>
         )}
+
+        {/* TOMBOL LIHAT SEMUA PROMO */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-center mt-12"
+        >
+          <Link 
+            href="/promo" 
+            className="inline-flex items-center gap-3 bg-transparent border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white text-[11px] uppercase tracking-widest font-black px-10 py-4 transition-all duration-300 shadow-sm hover:shadow-xl active:scale-95"
+          >
+            Lihat Semua Promo <ArrowRight size={16} />
+          </Link>
+        </motion.div>
+
       </div>
     </section>
   );
