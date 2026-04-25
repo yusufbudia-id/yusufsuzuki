@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { formatCurrency } from "@/lib/utils";
+import { formatCurrency, buildWhatsAppUrl } from "@/lib/utils";
+import { MessageCircle } from "lucide-react";
 
 interface Variant {
   name: string;
@@ -12,9 +13,10 @@ interface Variant {
 
 interface PricelistTableProps {
   variants: Variant[];
+  carName?: string; // Ditambahkan agar pesan WA lebih spesifik
 }
 
-export default function PricelistTable({ variants }: PricelistTableProps) {
+export default function PricelistTable({ variants, carName = "" }: PricelistTableProps) {
   // Secara default menampilkan harga Plat AB (Jogja)
   const [plat, setPlat] = useState<"AB" | "AA">("AB");
 
@@ -51,13 +53,16 @@ export default function PricelistTable({ variants }: PricelistTableProps) {
       </div>
 
       <div className="bg-white border border-gray-200 rounded-none overflow-hidden shadow-sm">
-        {/* Header Tabel */}
-        <div className="grid grid-cols-12 bg-gray-50 border-b border-gray-200 p-5">
-          <div className="col-span-7 md:col-span-8 text-[10px] font-black text-gray-500 uppercase tracking-widest">
+        {/* Header Tabel (Disembunyikan di HP agar lebih bersih, muncul di Tablet/Desktop) */}
+        <div className="hidden md:grid grid-cols-12 bg-gray-50 border-b border-gray-200 p-5">
+          <div className="col-span-6 text-[10px] font-black text-gray-500 uppercase tracking-widest">
             Tipe / Varian
           </div>
-          <div className="col-span-5 md:col-span-4 text-[10px] font-black text-gray-500 uppercase tracking-widest text-right">
+          <div className="col-span-3 text-[10px] font-black text-gray-500 uppercase tracking-widest">
             Harga OTR ({plat})
+          </div>
+          <div className="col-span-3 text-[10px] font-black text-gray-500 uppercase tracking-widest text-right">
+            Aksi
           </div>
         </div>
         
@@ -72,14 +77,42 @@ export default function PricelistTable({ variants }: PricelistTableProps) {
               displayPrice = v.priceAA || v.price || 0;
             }
 
+            // Logika untuk membersihkan nama agar tidak tumpang tindih (misal: "Fronx Fronx GL MT")
+            const cleanCarName = carName.replace(/Suzuki /i, "");
+            const isNameIncluded = v.name.toLowerCase().includes(cleanCarName.toLowerCase());
+            const finalVariantName = isNameIncluded ? v.name : `${cleanCarName} ${v.name}`;
+
+            // Pesan WA Spesifik per varian
+            const waText = `Halo Yusuf Suzuki, saya ingin tanya promo, diskon, dan ketersediaan unit untuk *${finalVariantName}*.`;
+
             return (
-              <div key={i} className="grid grid-cols-12 p-5 items-center hover:bg-gray-50 transition-colors">
-                <div className="col-span-7 md:col-span-8 font-bold text-gray-900 text-sm">
-                  {v.name}
+              <div key={i} className="flex flex-col md:grid md:grid-cols-12 p-5 gap-4 md:gap-0 md:items-center hover:bg-gray-50 transition-colors">
+                
+                {/* Kolom Nama */}
+                <div className="md:col-span-6 flex justify-between md:block items-center">
+                  <span className="md:hidden text-[10px] font-black text-gray-400 uppercase tracking-widest">Varian</span>
+                  <span className="font-bold text-gray-900 text-sm uppercase">{v.name}</span>
                 </div>
-                <div className="col-span-5 md:col-span-4 font-black text-gray-900 text-right">
-                  {safeFormat(displayPrice)}
+                
+                {/* Kolom Harga */}
+                <div className="md:col-span-3 flex justify-between md:block items-center">
+                  <span className="md:hidden text-[10px] font-black text-gray-400 uppercase tracking-widest">Harga OTR</span>
+                  <span className="font-black text-gray-900 text-sm md:text-base">{safeFormat(displayPrice)}</span>
                 </div>
+                
+                {/* Kolom Tombol Aksi */}
+                <div className="md:col-span-3 md:text-right mt-2 md:mt-0">
+                  <a
+                    href={buildWhatsAppUrl(waText)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full md:w-auto inline-flex justify-center items-center gap-2 bg-gray-100 hover:bg-[#25D366] text-gray-600 hover:text-white py-3 md:py-2.5 px-4 font-black text-[10px] uppercase tracking-widest rounded-none transition-all duration-300 border border-gray-200 hover:border-[#25D366]"
+                  >
+                    <MessageCircle size={14} />
+                    Tanya Promo
+                  </a>
+                </div>
+
               </div>
             );
           })}
