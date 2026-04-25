@@ -6,7 +6,7 @@ import { cars } from "@/data/cars";
 import { formatCurrency, WA_BASE_URL } from "@/lib/utils";
 import PricelistTable from "@/components/PricelistTable";
 import FadeIn from "@/components/FadeIn";
-import OtherCarsCarousel from "@/components/OtherCarsCarousel"; // IMPORT KOMPONEN CAROUSEL KARTU
+import OtherCarsCarousel from "@/components/OtherCarsCarousel";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -36,7 +36,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `Beli Suzuki ${car.name} di Jogja sekarang. DP Ringan, angsuran bisa disesuaikan, dan gratis test drive ke rumah Anda.`,
       images: [car.heroImage || "/logo.png"],
     },
-    // <-- Tambahkan baris di bawah ini
     alternates: {
       canonical: `https://suzukiautojogja.com/mobil/${car.slug}`,
     },
@@ -51,7 +50,6 @@ export default async function CarDetailPage({ params }: Props) {
     notFound();
   }
 
-  // Menggunakan data asli dari car.specifications (Bukan fallback statis)
   const specs = [
     { icon: Gauge, label: "Mesin", value: car.specifications.mesin },
     { icon: Settings, label: "Transmisi", value: car.specifications.transmisi },
@@ -60,9 +58,18 @@ export default async function CarDetailPage({ params }: Props) {
   ];
 
   const variants = car.variants || [];
-  // Kita ambil semua mobil kecuali yang sedang dilihat untuk carousel
   const otherCars = cars.filter((c) => c.slug !== car.slug);
   const waMsg = `Halo Yusuf Suzuki, saya ingin menanyakan detail, promo, dan ketersediaan unit untuk mobil *${car.name}*.`;
+
+  // --- LOGIKA PINTAR UNTUK AUTO-LINK BROSUR ---
+  // Jika di data cars.ts sudah ada link spesifik, gunakan itu. 
+  // Jika belum, buat link otomatis ke folder /brosur/
+  let brochureLink = car.brochureUrl;
+  if (!brochureLink) {
+    // Menyesuaikan jika slug-nya 'carry-pickup' tapi nama file-nya 'carry.pdf'
+    const fileName = car.slug === "carry-pickup" ? "carry" : car.slug;
+    brochureLink = `/brosur/${fileName}.pdf`;
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -161,7 +168,8 @@ export default async function CarDetailPage({ params }: Props) {
         <FadeIn delay={0.4}>
           <div className="mt-10 flex justify-start">
             <a
-              href={car.brochureUrl || "#"}
+              // Menggunakan variabel brochureLink yang sudah pintar mendeteksi file
+              href={brochureLink}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 bg-gray-100 hover:bg-gray-200 text-gray-900 py-4 px-8 font-black text-[10px] uppercase tracking-[0.2em] rounded-none transition-colors border border-gray-200"
@@ -225,7 +233,6 @@ export default async function CarDetailPage({ params }: Props) {
             </FadeIn>
             
             <FadeIn delay={0.2} direction="up">
-              {/* Memanggil komponen carousel kartu mobil yang baru kita buat */}
               <OtherCarsCarousel cars={otherCars} />
             </FadeIn>
 
