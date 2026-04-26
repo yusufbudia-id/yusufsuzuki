@@ -8,6 +8,7 @@ export interface Testimonial {
   avatar?: string; // <--- UBAH DI SINI: Tambahkan tanda tanya (?) agar jadi opsional
   date: string;
   gender?: "male" | "female";
+  deliveryPhoto?: string; // <--- TAMBAHKAN BARIS INI
 }
 
 export const testimonials: Testimonial[] = [

@@ -1,14 +1,30 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-// --- PERHATIKAN: Saya menambahkan 'User' ke dalam import lucide-react ---
-import { Star, Quote, User } from "lucide-react"; 
+// Tambahkan icon Camera dan X untuk modal
+import { Star, Quote, User, Camera, X } from "lucide-react"; 
 import { testimonials } from "@/data/testimonials";
 
 export default function TestimonialSection() {
+  // State untuk menyimpan foto mana yang sedang dibuka
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  // Mencegah layar bisa di-scroll saat foto sedang diperbesar
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [selectedImage]);
+
   return (
-    <section className="py-24 bg-white">
+    <section className="py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Section */}
@@ -40,28 +56,34 @@ export default function TestimonialSection() {
               transition={{ delay: i * 0.1, duration: 0.5 }}
               className="bg-white rounded-none p-8 border border-gray-200 hover:border-gray-900 hover:shadow-2xl transition-all duration-500 relative flex flex-col group h-full"
             >
-              {/* Icon Kutipan yang berubah warna saat di-hover */}
               <Quote size={28} className="text-gray-200 mb-5 group-hover:text-red-600 transition-colors duration-300" />
               
-              {/* Bintang Emas */}
               <div className="flex mb-4">
                 {Array.from({ length: t.rating }).map((_, j) => (
                   <Star key={j} size={13} className="fill-amber-400 text-amber-400" />
                 ))}
               </div>
               
-              {/* Teks Testimoni */}
-              <p className="text-gray-600 text-sm leading-relaxed mb-8 italic flex-grow line-clamp-6">
+              <p className="text-gray-600 text-sm leading-relaxed mb-6 italic flex-grow line-clamp-6">
                 "{t.review}"
               </p>
+
+              {/* TOMBOL FOTO SERAH TERIMA (Muncul hanya jika properti deliveryPhoto ada) */}
+              {t.deliveryPhoto && (
+                <div className="mb-6">
+                  <button
+                    onClick={() => setSelectedImage(t.deliveryPhoto as string)}
+                    className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-black text-gray-900 border border-gray-200 px-4 py-2 hover:bg-gray-900 hover:text-white transition-colors"
+                  >
+                    <Camera size={14} /> Lihat Foto
+                  </button>
+                </div>
+              )}
               
               {/* Info Pelanggan */}
               <div className="flex items-center gap-4 border-t border-gray-100 pt-6 mt-auto">
-                
-                {/* --- BAGIAN FOTO/AVATAR --- */}
                 <div className="relative w-12 h-12 shrink-0 overflow-hidden border border-gray-100">
                   {t.avatar ? (
-                    // Jika ada foto asli pelanggan, tampilkan fotonya
                     <Image 
                       src={t.avatar} 
                       alt={`Review dari ${t.name}`} 
@@ -70,7 +92,6 @@ export default function TestimonialSection() {
                       className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" 
                     />
                   ) : (
-                    // Jika tidak ada foto (KOSONG), tampilkan Icon Default Laki/Perempuan dari kode
                     <div className={`w-full h-full flex items-center justify-center transition-colors duration-500 ${
                       t.gender === "male" 
                         ? "bg-slate-100 text-slate-400 group-hover:bg-slate-900 group-hover:text-white" 
@@ -80,8 +101,6 @@ export default function TestimonialSection() {
                     </div>
                   )}
                 </div>
-                {/* --------------------------- */}
-
                 <div>
                   <p className="font-black text-gray-900 text-xs uppercase tracking-widest mb-1 group-hover:text-red-600 transition-colors">
                     {t.name}
@@ -92,7 +111,6 @@ export default function TestimonialSection() {
                 </div>
               </div>
 
-              {/* Tag Mobil - Pita Hitam di Sudut Kanan Atas */}
               <span className="absolute top-0 right-0 bg-gray-900 text-white text-[9px] font-black px-3 py-1.5 rounded-none uppercase tracking-widest">
                 {t.car}
               </span>
@@ -101,6 +119,48 @@ export default function TestimonialSection() {
         </div>
         
       </div>
+
+      {/* --- MODAL / LIGHTBOX UNTUK MENAMPILKAN FOTO --- */}
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
+            onClick={() => setSelectedImage(null)} // Tutup jika area luar di-klik
+          >
+            {/* Tombol Close */}
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-6 right-6 p-2 text-gray-400 hover:text-white bg-white/10 hover:bg-red-600 transition-colors rounded-full z-10"
+              aria-label="Tutup Foto"
+            >
+              <X size={24} />
+            </button>
+
+            {/* Area Gambar yang Diperbesar */}
+            <motion.div
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              className="relative w-full max-w-4xl h-[70vh] md:h-[85vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()} // Mencegah foto tertutup jika fotonya sendiri yang di-klik
+            >
+              <Image
+                src={selectedImage}
+                alt="Foto Serah Terima Kendaraan"
+                fill
+                className="object-contain" // object-contain agar foto tidak terpotong sama sekali
+                sizes="100vw"
+                quality={90}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      {/* ------------------------------------------------ */}
+
     </section>
   );
 }
