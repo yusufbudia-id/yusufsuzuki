@@ -30,23 +30,20 @@ export async function generateStaticParams() {
 export default async function PromoDetailPage({ params }: PromoPageProps) {
   const { slug } = await params;
   
-  // Promo yang sedang dibuka
   const promo = promos.find((p) => p.slug === slug);
   if (!promo) notFound();
 
-  // AMBIL PROMO LAINNYA: Filter agar promo saat ini tidak masuk daftar, dan ambil maksimal 4 saja
+  // Ambil maksimal 4 promo lainnya
   const otherPromos = promos.filter((p) => p.slug !== slug).slice(0, 4);
-
   const waMsg = `Halo Yusuf Suzuki, saya tertarik dengan promo: *${promo.title}* yang saya lihat di website. Mohon info lengkapnya.`;
 
   return (
     <main className="min-h-screen bg-white pt-24 pb-20">
-      {/* Blue & Red Accent Line (Identitas Suzuki) */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-700 via-red-600 to-blue-700 z-[60] md:hidden" />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Kontainer diperlebar menjadi max-w-7xl agar 3 kolom tidak sempit */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Tombol Kembali - Gaya Minimalis */}
         <Link 
           href="/" 
           className="inline-flex items-center gap-2 text-gray-400 hover:text-black transition-colors font-bold text-[10px] uppercase tracking-[0.2em] mb-8"
@@ -55,12 +52,12 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
           Kembali ke Beranda
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+        {/* PEMBAGIAN 3 KOLOM DI LAYAR BESAR */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12">
           
-          {/* SISI KIRI: Gambar (Full Display) */}
-          <div className="lg:col-span-7">
+          {/* KOLOM 1: GAMBAR (5 Kolom) */}
+          <div className="lg:col-span-5">
             <div className="relative w-full bg-gray-100 border border-gray-200 overflow-hidden shadow-sm sticky top-28">
-              {/* Image menggunakan object-contain agar flyer pameran tidak terpotong */}
               <div className="relative aspect-square md:aspect-[4/5] w-full">
                 <Image
                   src={promo.image}
@@ -70,8 +67,6 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                   priority
                 />
               </div>
-              
-              {/* Badge Overlay */}
               <div className="absolute top-6 left-6">
                 <span className="bg-gray-900 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 shadow-2xl">
                   {promo.badge}
@@ -80,27 +75,25 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
             </div>
           </div>
 
-          {/* SISI KANAN: Detail Konten & List Rekomendasi */}
-          <div className="lg:col-span-5 flex flex-col">
+          {/* KOLOM 2: TEKS & TOMBOL (4 Kolom) */}
+          <div className="lg:col-span-4 flex flex-col">
             <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-red-600 mb-4">
               <Calendar size={14} />
               Berlaku s/d {promo.validUntil}
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-black text-gray-900 leading-[1.1] uppercase tracking-tighter mb-6">
+            <h1 className="text-3xl xl:text-4xl font-black text-gray-900 leading-[1.1] uppercase tracking-tighter mb-6">
               {promo.title}
             </h1>
 
             <div className="h-1 w-20 bg-gray-900 mb-8" />
 
-            {/* Deskripsi */}
             <div className="prose prose-sm max-w-none">
-              <p className="text-gray-600 leading-relaxed whitespace-pre-line text-base font-medium">
+              <p className="text-gray-600 leading-relaxed whitespace-pre-line text-sm xl:text-base font-medium">
                 {promo.description}
               </p>
             </div>
 
-            {/* Action Area (Tombol & S&K) */}
             <div className="mt-10 space-y-4">
               <a
                 href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
@@ -109,7 +102,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                 className="w-full bg-gray-900 hover:bg-black text-white py-5 px-8 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.3em] shadow-xl active:scale-95"
               >
                 <MessageCircle size={20} />
-                Klaim Promo Sekarang
+                Klaim Promo 
               </a>
               
               <div className="flex items-start gap-3 bg-gray-50 p-5 border-l-4 border-gray-900">
@@ -119,26 +112,28 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                 </p>
               </div>
             </div>
+          </div>
 
-            {/* --- BAGIAN BARU: LIST REKOMENDASI PROMO LAIN (STYLE ARTIKEL) --- */}
-            {otherPromos.length > 0 && (
-              <div className="mt-14 pt-10 border-t border-gray-200">
+          {/* KOLOM 3: SIDEBAR PROMO LAINNYA (3 Kolom) */}
+          {otherPromos.length > 0 && (
+            <div className="lg:col-span-3 mt-12 lg:mt-0 lg:pl-6 xl:pl-8 lg:border-l border-gray-200">
+              <div className="sticky top-28">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-2 h-2 bg-red-600 rounded-full" />
-                  <h3 className="text-xs font-black uppercase tracking-widest text-gray-900 m-0">
-                    Promo Menarik Lainnya
+                  <h3 className="text-[11px] font-black uppercase tracking-[0.15em] text-gray-900 m-0">
+                    Promo Lainnya
                   </h3>
                 </div>
                 
-                <div className="space-y-6">
+                <div className="flex flex-col gap-6">
                   {otherPromos.map((other) => (
                     <Link 
                       key={other.slug} 
                       href={`/promo/${other.slug}`} 
-                      className="group flex gap-4 items-start"
+                      className="group flex flex-row lg:flex-col xl:flex-row gap-4 items-start"
                     >
-                      {/* Thumbnail Gambar */}
-                      <div className="relative w-24 h-20 shrink-0 bg-gray-100 overflow-hidden border border-gray-200">
+                      {/* Thumbnail (Diperkecil sedikit agar pas di sidebar) */}
+                      <div className="relative w-24 h-16 lg:w-full lg:h-32 xl:w-20 xl:h-14 shrink-0 bg-gray-100 overflow-hidden border border-gray-200">
                         <Image 
                           src={other.image} 
                           alt={other.title} 
@@ -147,12 +142,12 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                         />
                       </div>
                       
-                      {/* Teks List */}
-                      <div className="flex flex-col justify-center min-h-[5rem]">
-                        <span className="text-[9px] text-red-600 font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
+                      {/* Teks */}
+                      <div className="flex flex-col justify-center">
+                        <span className="text-[8px] text-red-600 font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
                           <Calendar size={10} /> s/d {other.validUntil}
                         </span>
-                        <h4 className="text-sm font-black text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors leading-snug tracking-tight uppercase">
+                        <h4 className="text-[11px] font-black text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors leading-snug tracking-wider uppercase">
                           {other.title}
                         </h4>
                       </div>
@@ -160,10 +155,9 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                   ))}
                 </div>
               </div>
-            )}
-            {/* --------------------------------------------------------------- */}
+            </div>
+          )}
 
-          </div>
         </div>
       </div>
     </main>
