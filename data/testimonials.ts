@@ -34,6 +34,7 @@ export const testimonials: Testimonial[] = [
     rating: 5,
     gender: "male",
     date: "September 2025",
+    deliveryPhoto: "/testimonial/foto-yuli.jpg",
     // Sengaja dikosongkan agar kamu bisa lihat tombolnya otomatis hilang
   },
   {
@@ -58,6 +59,7 @@ export const testimonials: Testimonial[] = [
     rating: 5,
     gender: "male",
     date: "November 2025",
+    deliveryPhoto: "/testimonial/foto-sugiono.jpg",
     // Sengaja dikosongkan juga
   },
 ];
