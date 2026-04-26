@@ -7,12 +7,13 @@ export interface Testimonial {
   rating: number;
   avatar: string;
   date: string;
+  gender?: "male" | "female"; // <--- TAMBAHKAN BARIS INI DI SINI
 }
 
 export const testimonials: Testimonial[] = [
   {
     id: "t1",
-    name: "Budi Santoso",
+    name: "Bertha Lisa Permata Sari",
     location: "Sleman, Jogja",
     car: "Suzuki XL7",
     review:
@@ -23,33 +24,33 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: "t2",
-    name: "Dewi Rahayu",
+    name: "Yuli Supriyanto",
     location: "Magelang",
-    car: "Suzuki Ertiga",
+    car: "Suzuki Carry Pick Up",
     review:
-      "Beli Ertiga untuk keperluan keluarga. Mas Yusuf sangat helpful, kasih info promo terbaik dan bantu pilih warna yang cocok. Recommended banget buat yang mau beli Suzuki di Jogja!",
+      "Beli Carry Pick Up untuk keperluan usaha. Mas Yusuf sangat helpful, kasih info promo terbaik dan bantu pilih warna yang cocok. Recommended banget buat yang mau beli Suzuki di Jogja!",
     rating: 5,
     avatar: "https://i.pravatar.cc/80?img=5",
     date: "September 2025",
   },
   {
     id: "t3",
-    name: "Hendra Wijaya",
-    location: "Muntilan",
-    car: "Suzuki Carry Pick Up",
+    name: "Danang Pranoto Sudrajat, S.IP.",
+    location: "Bantul",
+    car: "Suzuki APV Blindvan",
     review:
-      "Sudah ambil 2 unit Carry Pick Up untuk usaha. Prosesnya mudah, DP terjangkau, dan after sales servicenya bagus. Yusuf selalu fast response via WhatsApp. Pasti balik lagi!",
+      "Sudah ambil APV Blindvan untuk usaha. Prosesnya mudah dan after sales servicenya bagus. Yusuf selalu fast response via WhatsApp. Pasti balik lagi!",
     rating: 5,
     avatar: "https://i.pravatar.cc/80?img=3",
     date: "Agustus 2025",
   },
   {
     id: "t4",
-    name: "Sari Puspita",
-    location: "Kulon Progo",
-    car: "Suzuki S-Presso",
+    name: "Sugiono",
+    location: "Purworejo",
+    car: "Suzuki Carry Pick Up",
     review:
-      "S-Presso pilihan pertamaku! Lucu, irit, dan bisa parkir di mana aja. Mas Yusuf sabar jelasin semua fiturnya. Harga juga sesuai budget. Sangat puas dengan pelayanannya!",
+      "Pengambilan Carry Pick Up kedua saya. Mas Yusuf sabar jelasin semua fiturnya. Harga juga sesuai budget. Sangat puas dengan pelayanannya!",
     rating: 5,
     avatar: "https://i.pravatar.cc/80?img=9",
     date: "November 2025",
