@@ -5,10 +5,10 @@ export interface Testimonial {
   car: string;
   review: string;
   rating: number;
-  avatar?: string; // <--- UBAH DI SINI: Tambahkan tanda tanya (?) agar jadi opsional
+  avatar?: string;
   date: string;
   gender?: "male" | "female";
-  deliveryPhoto?: string; // <--- TAMBAHKAN BARIS INI
+  deliveryPhoto?: string; // <--- SUDAH ADA
 }
 
 export const testimonials: Testimonial[] = [
@@ -20,9 +20,9 @@ export const testimonials: Testimonial[] = [
     review:
       "Pelayanan Yusuf sangat ramah dan profesional. Proses kredit cepat, hanya 3 hari langsung ACC. Mobilnya bagus banget, keluarga puas! Terima kasih Suzuki Sumber Baru Mobil.",
     rating: 5,
-    gender: "female", // <--- Tambahkan jenis kelamin
-    // avatar: "https://i.pravatar.cc/80?img=1", <--- Link dihapus agar icon default muncul
+    gender: "female",
     date: "Oktober 2025",
+    deliveryPhoto: "/testimonial/foto-bertha.jpg", // <--- SAYA TAMBAHKAN DI SINI
   },
   {
     id: "t2",
@@ -32,8 +32,9 @@ export const testimonials: Testimonial[] = [
     review:
       "Beli Carry Pick Up untuk keperluan usaha. Mas Yusuf sangat helpful, kasih info promo terbaik dan bantu pilih warna yang cocok. Recommended banget buat yang mau beli Suzuki di Jogja!",
     rating: 5,
-    gender: "male", // <--- Tambahkan jenis kelamin
+    gender: "male",
     date: "September 2025",
+    // Sengaja dikosongkan agar kamu bisa lihat tombolnya otomatis hilang
   },
   {
     id: "t3",
@@ -43,8 +44,9 @@ export const testimonials: Testimonial[] = [
     review:
       "Sudah ambil APV Blindvan untuk usaha. Prosesnya mudah dan after sales servicenya bagus. Yusuf selalu fast response via WhatsApp. Pasti balik lagi!",
     rating: 5,
-    gender: "male", // <--- Tambahkan jenis kelamin
+    gender: "male",
     date: "Agustus 2025",
+    deliveryPhoto: "/testimonial/foto-danang.jpg", // <--- SAYA TAMBAHKAN DI SINI
   },
   {
     id: "t4",
@@ -54,8 +56,9 @@ export const testimonials: Testimonial[] = [
     review:
       "Pengambilan Carry Pick Up kedua saya. Mas Yusuf sabar jelasin semua fiturnya. Harga juga sesuai budget. Sangat puas dengan pelayanannya!",
     rating: 5,
-    gender: "male", // <--- Tambahkan jenis kelamin
+    gender: "male",
     date: "November 2025",
+    // Sengaja dikosongkan juga
   },
 ];
 
