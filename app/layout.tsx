@@ -5,7 +5,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsappFloatingButton from "@/components/WhatsappFloatingButton";
-import BottomNavigation from "@/components/BottomNavigation"; // <-- 1. Import BottomNavigation
+import BottomNavigation from "@/components/BottomNavigation";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -16,19 +16,24 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://suzukiautojogja.com"), 
+  
+  // 1. TAMBAHAN: Canonical URL agar Google tidak bingung (Mencegah Duplicate Content)
+  alternates: {
+    canonical: "/",
+  },
+
   title: {
-    // Judul Utama (Opsi 1): Ringkas, Tanpa Repetisi, Sangat Kuat di SEO Lokal
     default: "Suzuki Sumber Baru Mobil Jogja | Dealer Resmi Jl. Magelang",
     template: "%s | Sumber Baru Mobil Jogja", 
   },
   description:
-    "Cari mobil Suzuki di Jogja? Hubungi Sales Konsultan Resmi Yusuf Suzuki: 0821 7463 5218.",
+    "Cari mobil Suzuki di Jogja? Hubungi Sales Konsultan Resmi Yusuf Suzuki: 0821 7463 5218. Dapatkan promo DP ringan dan cicilan murah.",
   icons: {
-    icon: "/favicon.ico", // Pastikan kamu punya file favicon.ico di folder public/
+    icon: "/favicon.ico", 
     shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png", // (Opsional) Ikon khusus kalau website disave ke Home Screen iPhone
+    apple: "/apple-touch-icon.png", 
   },
-    keywords: [
+  keywords: [
     "dealer suzuki jogja",
     "suzuki sumber baru mobil",
     "harga suzuki jogja",
@@ -45,23 +50,25 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: "https://suzukiautojogja.com", 
     siteName: "Suzuki Sumber Baru Mobil",
-    title: "Suzuki Sumber Baru Mobil Jogja | Dealer Resmi Jl. Magelang",
+    // 2. PERBAIKAN: Dibuat lebih 'menjual' saat link disebar ke WA/Medsos
+    title: "Promo Suzuki Jogja | DP Ringan & Angsuran Murah", 
     description:
-      "Cari mobil Suzuki di Jogja? Hubungi Sales Konsultan Resmi Yusuf Suzuki: 0821 7463 5218.",
+      "Hubungi Yusuf Suzuki (0821-7463-5218) untuk promo mobil Suzuki terbaru di Yogyakarta dan sekitarnya. Proses cepat, dibantu sampai ACC!",
     images: [
       {
-        url: "/og-image.jpg", 
+        url: "/og-image.jpg", // <-- WAJIB: Pastikan file og-image.jpg ada di folder public/
         width: 1200,
         height: 630,
-        alt: "Suzuki Sumber Baru Mobil Jogja",
+        alt: "Promo Suzuki Sumber Baru Mobil Jogja",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Suzuki Sumber Baru Mobil Jogja | Dealer Resmi Jl. Magelang",
+    title: "Promo Suzuki Jogja | Dealer Resmi Jl. Magelang",
     description:
       "Dealer resmi Suzuki Jogja & sekitarnya. Promo terbaik, kredit mudah, DP ringan.",
+    images: ["/og-image.jpg"], // <-- TAMBAHAN: Agar di Twitter/X gambar juga muncul
   },
   robots: {
     index: true,
@@ -159,7 +166,7 @@ export default function RootLayout({
 
         <Navbar />
         
-        {/* 2. Tambahkan pb-16 khusus di layar HP (md:pb-0) agar konten terbawah tidak tertutup bottom bar */}
+        {/* Tambahkan pb-16 khusus di layar HP (md:pb-0) agar konten terbawah tidak tertutup bottom bar */}
         <main className="min-h-screen pb-16 md:pb-0">
           {children}
         </main>
@@ -167,7 +174,7 @@ export default function RootLayout({
         <Footer />
         <WhatsappFloatingButton />
         
-        {/* 3. Panggil komponen BottomNavigation di bagian paling bawah body */}
+        {/* Panggil komponen BottomNavigation di bagian paling bawah body */}
         <BottomNavigation />
       </body>
     </html>
