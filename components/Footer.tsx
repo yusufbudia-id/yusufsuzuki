@@ -77,9 +77,10 @@ export default function Footer() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={label}
                   className="w-11 h-11 border border-gray-700 hover:border-white text-gray-500 hover:text-white rounded-none flex items-center justify-center transition-all duration-300 group"
                 >
+                  {/* Teks gaib untuk dibaca oleh Robot Google / Tool SEO */}
+                  <span className="sr-only">Kunjungi {label} Kami</span>
                   <Icon size={18} strokeWidth={1.5} className="group-hover:scale-110 transition-transform" />
                 </a>
               ))}
