@@ -65,11 +65,11 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
         )}
 
         <div className="mb-8 flex-grow">
-          <h3 className="font-black text-gray-900 text-2xl leading-tight uppercase tracking-tight mb-2 group-hover:text-red-600 transition-colors">
+          <p className="font-black text-gray-900 text-2xl leading-tight uppercase tracking-tight mb-2 group-hover:text-red-600 transition-colors">
             <Link href={`/mobil/${car.slug}`} className="before:absolute before:inset-0">
               {car.name}
             </Link>
-          </h3>
+          </p>
           <p className="text-gray-900 font-bold text-xl">{car.startingPrice}</p>
           <p className="text-gray-500 text-sm font-medium mt-1">Cicilan mulai {car.monthlyInstallment}/bln</p>
         </div>

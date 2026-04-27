@@ -88,7 +88,7 @@ export default function Footer() {
 
           {/* Kolom 2: Quick Links */}
           <div>
-            <h3 className="font-bold text-xs uppercase tracking-widest text-white mb-7">Menu Cepat</h3>
+            <p className="font-bold text-xs uppercase tracking-widest text-white mb-7">Menu Cepat</p>
             <ul className="space-y-3.5">
               {quickLinks.map((link) => (
                 <li key={link.href}>
@@ -105,7 +105,7 @@ export default function Footer() {
 
           {/* Kolom 3: Car Links */}
           <div>
-            <h3 className="font-bold text-xs uppercase tracking-widest text-white mb-7">Produk Suzuki</h3>
+            <p className="font-bold text-xs uppercase tracking-widest text-white mb-7">Produk Suzuki</p>
             <ul className="space-y-3.5">
               {carLinks.map((link) => (
                 <li key={link.href}>
@@ -122,7 +122,7 @@ export default function Footer() {
 
           {/* Kolom 4: Area Layanan (DIBUAT OTOMATIS) */}
           <div>
-            <h3 className="font-bold text-xs uppercase tracking-widest text-white mb-7">Area Layanan</h3>
+            <p className="font-bold text-xs uppercase tracking-widest text-white mb-7">Area Layanan</p>
             <ul className="space-y-3.5">
               {areas.map((area) => (
                 <li key={area.slug}>
@@ -139,7 +139,7 @@ export default function Footer() {
 
           {/* Kolom 5: Contact */}
           <div>
-            <h3 className="font-bold text-xs uppercase tracking-widest text-white mb-7">Kontak & Lokasi</h3>
+            <p className="font-bold text-xs uppercase tracking-widest text-white mb-7">Kontak & Lokasi</p>
             <ul className="space-y-5">
               <li className="flex gap-4 text-sm text-gray-400 group cursor-default">
                 <MapPin size={20} strokeWidth={1.5} className="shrink-0 text-gray-600 group-hover:text-white transition-colors mt-0.5" />

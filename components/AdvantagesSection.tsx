@@ -59,9 +59,9 @@ export default function AdvantagesSection({ cityName }: { cityName?: string }) {
                 <item.icon size={26} strokeWidth={1.5} />
               </div>
               
-              <h3 className="font-black text-gray-900 text-lg uppercase tracking-tight mb-3">
+              <p className="font-black text-gray-900 text-lg uppercase tracking-tight mb-3">
                 {item.title}
-              </h3>
+              </p>
               
               <p className="text-gray-500 text-sm leading-relaxed">
                 {item.desc}
