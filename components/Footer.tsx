@@ -117,8 +117,20 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-
-          {/* Kolom 4: Contact */}
+          {/* Kolom 4: kota */}
+          <div>
+            <h3 className="text-white font-bold mb-4 uppercase tracking-widest text-sm">Area Layanan</h3>
+            <ul className="space-y-2 text-gray-400 text-sm">
+              <li><Link href="/dealer/sleman" className="hover:text-red-500 transition-colors">Suzuki Sleman</Link></li>
+              <li><Link href="/dealer/bantul" className="hover:text-red-500 transition-colors">Suzuki Bantul</Link></li>
+              <li><Link href="/dealer/kulon-progo" className="hover:text-red-500 transition-colors">Suzuki Kulon Progo</Link></li>
+              <li><Link href="/dealer/gunungkidul" className="hover:text-red-500 transition-colors">Suzuki Gunungkidul</Link></li>
+              <li><Link href="/dealer/magelang" className="hover:text-red-500 transition-colors">Suzuki Magelang</Link></li>
+              <li><Link href="/dealer/purworejo" className="hover:text-red-500 transition-colors">Suzuki Purworejo</Link></li>
+              {/* ... tambahkan kota lainnya ... */}
+            </ul>
+          </div>
+          {/* Kolom 5: Contact */}
           <div>
             <h3 className="font-bold text-xs uppercase tracking-widest text-white mb-7">Kontak & Lokasi</h3>
             <ul className="space-y-5">
