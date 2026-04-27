@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Users, Award, Car, ThumbsUp, MapPin, Phone } from "lucide-react";
+import Link from "next/link";
+import { Users, Award, Car, ThumbsUp, MapPin, Phone, ArrowRight } from "lucide-react";
 import ContactCTA from "@/components/ContactCTA";
+import { areas } from "@/data/areas"; // <-- IMPORT DATA AREA KOTA
 
 export const metadata: Metadata = {
   title: "Tentang Kami – Suzuki Sumber Baru Mobil Jogja",
@@ -33,8 +35,9 @@ export default function TentangKamiPage() {
         </div>
       </div>
 
-      {/* Story Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+        
+        {/* Story Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-20 items-center mb-24">
           
           {/* Teks Cerita */}
@@ -64,7 +67,7 @@ export default function TentangKamiPage() {
               <img 
                 src="/showroom/showroom.jpg" 
                 alt="Showroom Suzuki" 
-                className="w-full h-[400px] transition-all duration-700 ease-in-out scale-100 group-hover:scale-105" 
+                className="w-full h-[400px] transition-all duration-700 ease-in-out scale-100 group-hover:scale-105 object-cover" 
               />
             </div>
             {/* Badge Tahun */}
@@ -89,12 +92,10 @@ export default function TentangKamiPage() {
         </div>
 
         {/* Yusuf Profile - Gaya Editorial Hitam Pekat */}
-        <div className="bg-gray-900 rounded-none p-8 md:p-16 text-white relative overflow-hidden group shadow-2xl">
-          {/* Garis Dekoratif Latar Belakang */}
+        <div className="bg-gray-900 rounded-none p-8 md:p-16 text-white relative overflow-hidden group shadow-2xl mb-24">
           <div className="absolute top-0 right-0 w-64 h-full bg-white/5 skew-x-12 translate-x-32 group-hover:translate-x-20 transition-transform duration-1000" />
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 items-center relative z-10">
-            {/* Foto Profile Yusuf */}
             <div className="aspect-[3/4] w-full max-w-[260px] mx-auto md:mx-0 overflow-hidden bg-gray-800 rounded-none shadow-2xl relative border border-gray-700">
               <img 
                 src="/kontak/photo.jpg" 
@@ -104,16 +105,14 @@ export default function TentangKamiPage() {
               <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-gray-900 to-transparent" />
             </div>
             
-            {/* Teks Deskripsi Yusuf */}
             <div className="md:col-span-2 text-center md:text-left">
               <p className="text-gray-400 text-[10px] uppercase tracking-[0.3em] font-bold mb-3">Sales Executive</p>
               <h3 className="text-3xl md:text-5xl font-black mb-6 uppercase tracking-tight text-white">Yusuf Suzuki</h3>
               
-              <p className="text-gray-400 leading-relaxed mb-10 text-sm md:text-base max-w-2xl">
+              <p className="text-gray-400 leading-relaxed mb-10 text-sm md:text-base max-w-2xl mx-auto md:mx-0">
                 Sebagai konsultan penjualan otomotif profesional, Yusuf selalu menempatkan integritas dan kepuasan pelanggan di atas segalanya. Dengan penguasaan produk yang mendalam, Yusuf siap menjadi mitra Anda dalam menganalisis kebutuhan, memberikan simulasi pembiayaan paling rasional, hingga memastikan unit mendarat sempurna di garasi Anda.
               </p>
               
-              {/* Info Kontak Sharp */}
               <div className="flex flex-wrap justify-center md:justify-start gap-4">
                 <div className="flex items-center gap-3 border border-gray-700 hover:border-white transition-colors bg-white/5 px-6 py-3.5 rounded-none cursor-default">
                   <Phone size={16} className="text-gray-400" />
@@ -128,8 +127,51 @@ export default function TentangKamiPage() {
           </div>
         </div>
 
-      </div>
+        {/* --- BAGIAN BARU: JANGKAUAN LAYANAN --- */}
+        <div className="pt-10 border-t border-gray-200">
+          <div className="text-center mb-16">
+            <span className="inline-block bg-gray-100 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
+              Area Cover Penjualan
+            </span>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 uppercase tracking-tight leading-tight">
+              Hadir Lebih Dekat di Kota Anda
+            </h2>
+            <p className="text-gray-500 mt-4 text-sm md:text-base max-w-2xl mx-auto">
+              Kami melayani pembelian unit Suzuki, proses kredit, hingga pengiriman mobil langsung ke depan rumah Anda untuk wilayah-wilayah berikut.
+            </p>
+          </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {areas.map((area) => (
+              <Link 
+                key={area.slug} 
+                href={`/dealer/${area.slug}`} 
+                className="group block bg-white border border-gray-200 p-8 hover:border-gray-900 hover:shadow-xl transition-all duration-500"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-12 h-12 bg-gray-50 flex items-center justify-center text-gray-900 group-hover:bg-red-600 group-hover:text-white transition-colors duration-500 shrink-0">
+                    <MapPin size={20} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="text-xl font-black uppercase tracking-tight text-gray-900 group-hover:text-red-600 transition-colors line-clamp-1">
+                    Suzuki {area.name}
+                  </h3>
+                </div>
+                <p className="text-gray-500 text-sm leading-relaxed mb-8 line-clamp-3">
+                  {area.description}
+                </p>
+                <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-900 group-hover:text-red-600 transition-colors">
+                  Kunjungi Dealer <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform duration-300" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+        {/* -------------------------------------- */}
+
+      </div>
+      
+      {/* Panggil komponen ContactCTA di bagian paling bawah agar calon pembeli langsung bisa menghubungi */}
+      <ContactCTA />
       
     </div>
   );
