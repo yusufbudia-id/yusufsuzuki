@@ -25,7 +25,8 @@ const parseIndonesianDate = (dateStr: string) => {
 };
 
 // --- KOMPONEN KARTU PROMO REGULER ---
-export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index?: number }) {
+// 1. Tambahkan penerima cityName di properti PromoCard
+export function PromoCard({ promo, index = 0, cityName }: { promo: typeof promos[0]; index?: number; cityName?: string }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -73,7 +74,10 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
             onClick={(e) => {
               e.stopPropagation();
               const domain = window.location.origin;
-              const waText = `Halo Yusuf Suzuki, saya tertarik dengan promo:\n*${promo.title}*\n\nCek promo: ${domain}${promo.image}`;
+              // 2. Buat pesan WA dinamis di dalam Promo Card
+              const waText = cityName 
+                ? `Halo Yusuf Suzuki, saya warga ${cityName} dan tertarik dengan promo:\n*${promo.title}*\n\nCek promo: ${domain}${promo.image}`
+                : `Halo Yusuf Suzuki, saya tertarik dengan promo:\n*${promo.title}*\n\nCek promo: ${domain}${promo.image}`;
               window.open(buildWhatsAppUrl(waText), "_blank");
             }}
             href="#"
@@ -88,7 +92,8 @@ export function PromoCard({ promo, index = 0 }: { promo: typeof promos[0]; index
 }
 
 // --- KOMPONEN UTAMA ---
-export default function PromoSection() {
+// 3. Tambahkan penerima cityName di komponen utama
+export default function PromoSection({ cityName }: { cityName?: string }) {
   if (!promos || promos.length === 0) return null;
 
   const sortedPromos = [...promos].sort((a, b) => {
@@ -114,8 +119,9 @@ export default function PromoSection() {
           <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 mb-4 uppercase tracking-widest">
             Penawaran Terbatas
           </span>
+          {/* 4. Buat Judul Promo Dinamis */}
           <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4 uppercase tracking-tighter">
-            Promo Dealer Suzuki
+            Promo Dealer Suzuki {cityName ? cityName : "Jogja"}
           </h2>
           <p className="text-gray-500 text-sm md:text-base leading-relaxed font-medium">
             Manfaatkan penawaran spesial ini sebelum masa berlaku berakhir. Hubungi Yusuf Suzuki untuk konsultasi unit & simulasi kredit terbaik.
@@ -130,12 +136,10 @@ export default function PromoSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            // PERUBAHAN: Menghapus bg-gray-900, menambahkan min-h agar di HP tetap aman
             className="lg:col-span-8 group relative overflow-hidden shadow-2xl flex flex-col border border-gray-200 min-h-[400px] md:min-h-[500px]"
           >
             <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-20" />
             
-            {/* PERUBAHAN UTAMA: Wrapper absolut agar gambar memakan 100% ruang kotak yang ditarik Grid */}
             <div className="absolute inset-0 w-full h-full">
               <Image 
                 src={featuredPromo.image} 
@@ -144,11 +148,9 @@ export default function PromoSection() {
                 priority
                 className="object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out" 
               />
-              {/* Gradasi yang dinaikkan persentasenya agar teks terbaca jelas */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-10 pointer-events-none" />
             </div>
             
-            {/* KONTEN TEKS: Ditekan ke paling bawah dengan mt-auto */}
             <div className="relative z-20 p-6 md:p-10 mt-auto flex flex-col justify-end h-full pointer-events-none">
               <div className="flex items-center gap-2 mb-4 mt-auto">
                 <span className="bg-red-600 text-white text-[10px] uppercase tracking-widest font-black px-4 py-2 shadow-lg">
@@ -175,7 +177,8 @@ export default function PromoSection() {
           {/* 2 PROMO KECIL (Kanan) */}
           <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
             {regularPromos.slice(0, 2).map((promo, i) => (
-              <PromoCard key={promo.slug} promo={promo} index={i + 1} />
+              {/* 5. Jangan lupa oper cityName ke PromoCard! */}
+              <PromoCard key={promo.slug} promo={promo} index={i + 1} cityName={cityName} />
             ))}
           </div>
         </div>
@@ -184,7 +187,8 @@ export default function PromoSection() {
         {regularPromos.length > 2 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-6 lg:mt-8">
             {regularPromos.slice(2, 4).map((promo, i) => (
-              <PromoCard key={promo.slug} promo={promo} index={i + 3} />
+              {/* 5. Oper cityName ke PromoCard baris bawah! */}
+              <PromoCard key={promo.slug} promo={promo} index={i + 3} cityName={cityName} />
             ))}
           </div>
         )}
