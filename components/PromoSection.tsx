@@ -177,7 +177,6 @@ export default function PromoSection({ cityName }: { cityName?: string }) {
           {/* 2 PROMO KECIL (Kanan) */}
           <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
             {regularPromos.slice(0, 2).map((promo, i) => (
-              {/* 5. Jangan lupa oper cityName ke PromoCard! */}
               <PromoCard key={promo.slug} promo={promo} index={i + 1} cityName={cityName} />
             ))}
           </div>
@@ -187,7 +186,6 @@ export default function PromoSection({ cityName }: { cityName?: string }) {
         {regularPromos.length > 2 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-6 lg:mt-8">
             {regularPromos.slice(2, 4).map((promo, i) => (
-              {/* 5. Oper cityName ke PromoCard baris bawah! */}
               <PromoCard key={promo.slug} promo={promo} index={i + 3} cityName={cityName} />
             ))}
           </div>
