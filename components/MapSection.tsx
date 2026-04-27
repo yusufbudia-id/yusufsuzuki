@@ -1,6 +1,7 @@
 import { MapPin, Clock, Phone } from "lucide-react";
 
-export default function MapSection() {
+// 1. Tambahkan penerima cityName
+export default function MapSection({ cityName }: { cityName?: string }) {
   return (
     <section className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -9,13 +10,15 @@ export default function MapSection() {
           {/* Sisi Kiri: Informasi Teks */}
           <div>
             <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-6 uppercase tracking-widest">
-              Lokasi Kami
+              Lokasi Showroom
             </span>
             <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6 uppercase tracking-tight">
-              Kunjungi Showroom Kami
+              Kunjungi Dealer Kami
             </h2>
+            
+            {/* 2. Deskripsi dibuat dinamis dan meyakinkan untuk warga luar kota */}
             <p className="text-gray-500 mb-12 text-base leading-relaxed max-w-lg">
-              Datang langsung ke showroom kami untuk melihat unit display secara detail, konsultasi, dan jadwalkan test drive Anda.
+              Datang langsung ke showroom pusat kami untuk melihat unit display secara detail. Kami siap melayani pengiriman unit dan test drive langsung ke rumah Anda khusus untuk wilayah <strong className="text-gray-900">{cityName ? cityName : "Yogyakarta dan sekitarnya"}</strong>.
             </p>
             
             <div className="space-y-8">
@@ -25,7 +28,7 @@ export default function MapSection() {
                   <MapPin size={20} strokeWidth={1.5} />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900 text-xs uppercase tracking-widest mb-1.5">Alamat</p>
+                  <p className="font-bold text-gray-900 text-xs uppercase tracking-widest mb-1.5">Alamat Pusat</p>
                   <p className="text-gray-500 text-sm leading-relaxed">
                     Suzuki Sumber Baru Mobil<br />
                     Jl. Magelang KM 8, Mlati, Yogyakarta

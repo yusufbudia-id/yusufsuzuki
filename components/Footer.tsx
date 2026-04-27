@@ -59,7 +59,7 @@ export default function Footer() {
               <img 
                 src="/logo.png" 
                 alt="Logo Suzuki Sumber Baru Jogja" 
-                className="h-6 md:h-8 w-auto object-contain bg-white p-1 rounded-sm" // Diberi bg putih sedikit agar logo suzuki terlihat jelas di background gelap
+                className="h-6 md:h-8 w-auto object-contain" 
               />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-8 pr-4">

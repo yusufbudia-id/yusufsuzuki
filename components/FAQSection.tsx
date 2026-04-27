@@ -4,39 +4,43 @@ import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
 import { ChevronDown, HelpCircle } from "lucide-react";
 
-// Data FAQ disatukan di sini agar mudah diedit dan disesuaikan
-const faqs = [
-  {
-    question: "Apa saja syarat pengajuan kredit mobil Suzuki?",
-    answer: "Untuk perorangan: KTP Suami Istri, Kartu Keluarga, NPWP, PBB/Rekening Listrik, Slip Gaji (karyawan) atau NIB/SKU (wiraswasta), dan Mutasi Rekening 3 bulan terakhir. Untuk perusahaan: SIUP, TDP, NIB, KTP Direksi, dan Rekening Koran."
-  },
-  {
-    question: "Apakah melayani pembelian dengan KTP luar Jogja?",
-    answer: "Tentu bisa! Kami melayani pembelian untuk wilayah DIY, Kedu, dan Banyumas. Untuk KTP luar daerah tersebut, tetap bisa diproses dengan penyesuaian syarat dan ketentuan leasing terkait pelat nomor (BBN)."
-  },
-  {
-    question: "Berapa lama proses ACC leasing setelah berkas masuk?",
-    answer: "Jika data Anda lengkap dan kooperatif saat disurvei, proses persetujuan (ACC) dari pihak leasing biasanya hanya memakan waktu 1 hingga 3 hari kerja."
-  },
-  {
-    question: "Apakah bisa tukar tambah (Trade-In) dengan mobil lama saya?",
-    answer: "Sangat bisa! Kami menerima tukar tambah mobil bekas segala merk dengan harga penawaran yang transparan dan kompetitif. Hasil penjualan mobil lama Anda bisa langsung dijadikan Uang Muka (DP) untuk Suzuki baru Anda."
-  },
-  {
-    question: "Tipe mobil Suzuki apa saja yang ready stock saat ini?",
-    answer: "Sebagian besar lineup unggulan kami ready stock, seperti Suzuki XL7, Ertiga, Grand Vitara, S-Presso, Baleno, dan Carry Pick Up. Untuk Jimny (3-door & 5-door) mungkin memerlukan inden, silakan hubungi Yusuf untuk cek ketersediaan warna."
-  },
-  {
-    question: "Apa saja bonus yang saya dapatkan untuk pembelian mobil baru?",
-    answer: "Setiap pembelian unit baru akan mendapatkan Free Kaca Film, Karpet Lembaran, APAR (Alat Pemadam Api Ringan), Tatakan Plat Nomor, Payung Suzuki, serta Gratis Biaya Jasa Servis hingga 50.000 KM atau 3 Tahun."
-  },
-  {
-    question: "Apakah layanan Test Drive dipungut biaya?",
-    answer: "100% Gratis! Anda tidak akan dipungut biaya apapun. Unit test drive bahkan bisa kami antarkan langsung ke rumah atau kantor Anda (khusus wilayah Jogja dan sekitarnya) sesuai dengan jadwal yang Anda tentukan."
-  }
-];
+// 1. Tambahkan penerima cityName
+export default function FAQSection({ cityName }: { cityName?: string }) {
+  
+  // 2. Pindahkan data FAQ ke dalam sini agar bisa membaca variabel cityName
+  const faqs = [
+    {
+      question: "Apa saja syarat pengajuan kredit mobil Suzuki?",
+      answer: "Untuk perorangan: KTP Suami Istri, Kartu Keluarga, NPWP, PBB/Rekening Listrik, Slip Gaji (karyawan) atau NIB/SKU (wiraswasta), dan Mutasi Rekening 3 bulan terakhir. Untuk perusahaan: SIUP, TDP, NIB, KTP Direksi, dan Rekening Koran."
+    },
+    {
+      // 3. Ubah pertanyaan dan jawaban menjadi dinamis
+      question: `Apakah melayani pembelian dengan KTP luar ${cityName ? cityName : "Jogja"}?`,
+      answer: `Tentu bisa! Kami melayani pembelian untuk wilayah ${cityName ? cityName : "DIY, Kedu, dan Banyumas"}. Untuk KTP luar daerah tersebut, tetap bisa diproses dengan penyesuaian syarat dan ketentuan leasing terkait pelat nomor (BBN).`
+    },
+    {
+      question: "Berapa lama proses ACC leasing setelah berkas masuk?",
+      answer: "Jika data Anda lengkap dan kooperatif saat disurvei, proses persetujuan (ACC) dari pihak leasing biasanya hanya memakan waktu 1 hingga 3 hari kerja."
+    },
+    {
+      question: "Apakah bisa tukar tambah (Trade-In) dengan mobil lama saya?",
+      answer: "Sangat bisa! Kami menerima tukar tambah mobil bekas segala merk dengan harga penawaran yang transparan dan kompetitif. Hasil penjualan mobil lama Anda bisa langsung dijadikan Uang Muka (DP) untuk Suzuki baru Anda."
+    },
+    {
+      question: "Tipe mobil Suzuki apa saja yang ready stock saat ini?",
+      answer: "Sebagian besar lineup unggulan kami ready stock, seperti Suzuki XL7, Ertiga, Grand Vitara, S-Presso, Baleno, dan Carry Pick Up. Untuk Jimny (3-door & 5-door) mungkin memerlukan inden, silakan hubungi Yusuf untuk cek ketersediaan warna."
+    },
+    {
+      question: "Apa saja bonus yang saya dapatkan untuk pembelian mobil baru?",
+      answer: "Setiap pembelian unit baru akan mendapatkan Free Kaca Film, Karpet Lembaran, APAR (Alat Pemadam Api Ringan), Tatakan Plat Nomor, Payung Suzuki, serta Gratis Biaya Jasa Servis hingga 50.000 KM atau 3 Tahun."
+    },
+    {
+      // 4. Ubah area layanan Test Drive menjadi dinamis
+      question: "Apakah layanan Test Drive dipungut biaya?",
+      answer: `100% Gratis! Anda tidak akan dipungut biaya apapun. Unit test drive bahkan bisa kami antarkan langsung ke rumah atau kantor Anda (khusus wilayah ${cityName ? cityName : "Jogja"} dan sekitarnya) sesuai dengan jadwal yang Anda tentukan.`
+    }
+  ];
 
-export default function FAQSection() {
   return (
     <section className="py-24 bg-white border-t border-gray-100">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,7 +59,7 @@ export default function FAQSection() {
             FAQ & Informasi
           </h2>
           <p className="text-gray-500 text-sm md:text-base font-medium">
-            Pertanyaan yang sering diajukan seputar proses pembelian Suzuki.
+            Pertanyaan yang sering diajukan seputar proses pembelian Suzuki di {cityName ? cityName : "Jogja"}.
           </p>
         </motion.div>
 

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { cn, WA_BASE_URL } from "@/lib/utils";
+import { areas } from "@/data/areas"; // <-- 1. Import data area kota
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -29,11 +30,26 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 2. DETEKSI KOTA DARI URL
+  let cityName = "";
+  if (pathname && pathname.startsWith("/dealer/")) {
+    const slug = pathname.split("/")[2];
+    const currentArea = areas.find((a) => a.slug === slug);
+    if (currentArea) {
+      cityName = currentArea.name;
+    }
+  }
+
+  // 3. BUAT PESAN WA DINAMIS
+  const waMsg = cityName
+    ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
+    : `Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.`;
+
   // OTOMATIS: Semua halaman dalam list ini akan memiliki Navbar transparan di posisi paling atas
   const darkHeaderPages = ["/", "/mobil", "/promo", "/kontak", "/tentang-kami", "/simulasi-kredit", "/test-drive", "/faq"];
   
-  // UPDATE: Cek list ATAU URL berawalan /mobil/
-  const isTransparent = !scrolled && (darkHeaderPages.includes(pathname) || pathname.startsWith("/mobil/"));
+  // 4. UPDATE TRANSPARENSI: Tambahkan deteksi pathname.startsWith("/dealer/")
+  const isTransparent = !scrolled && (darkHeaderPages.includes(pathname) || pathname.startsWith("/mobil/") || pathname.startsWith("/dealer/"));
 
   const navBg = !isTransparent
     ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100"
@@ -72,7 +88,6 @@ export default function Navbar() {
             {/* Desktop Nav - Editorial Premium Style */}
             <div className="hidden lg:flex items-center gap-6">
               {navLinks.map((link) => {
-                // UPDATE: Menu Produk Mobil akan tetap aktif (tebal) saat masuk ke detail /mobil/xxx
                 const isActive = pathname === link.href || (link.href === "/mobil" && pathname.startsWith("/mobil/"));
                 
                 return (
@@ -101,7 +116,7 @@ export default function Navbar() {
             {/* CTA Button Desktop - Monokrom Tajam */}
             <div className="hidden lg:flex items-center">
               <a
-                href={`${WA_BASE_URL}?text=Halo%20Yusuf%20Suzuki%2C%20saya%20ingin%20tanya%20tentang%20mobil%20Suzuki`}
+                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`} // <-- 5. Gunakan pesan WA dinamis
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
@@ -143,7 +158,6 @@ export default function Navbar() {
           >
             <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-1">
               {navLinks.map((link) => {
-                 // UPDATE JUGA DI SINI UNTUK MOBILE
                  const isActive = pathname === link.href || (link.href === "/mobil" && pathname.startsWith("/mobil/"));
                  
                  return (
@@ -163,7 +177,7 @@ export default function Navbar() {
                 );
               })}
               <a
-                href={`${WA_BASE_URL}?text=Halo%20Yusuf%20Suzuki%2C%20saya%20ingin%20tanya%20tentang%20mobil%20Suzuki`}
+                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`} // <-- 6. Gunakan pesan WA dinamis juga di Mobile
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMenuOpen(false)}

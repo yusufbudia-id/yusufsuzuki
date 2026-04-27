@@ -10,16 +10,22 @@ import { buildWhatsAppUrl } from "@/lib/utils";
 interface CarCardProps {
   car: Car;
   index?: number;
+  cityName?: string; // <-- 1. Tambahkan penerima cityName di sini
 }
 
-export default function CarCard({ car, index = 0 }: CarCardProps) {
+export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
+  
+  // 2. BUAT PESAN WHATSAPP OTOMATIS BERDASARKAN KOTA & NAMA MOBIL
+  const customWaMsg = cityName
+    ? `Halo Yusuf Suzuki, saya warga ${cityName} dan tertarik dengan mobil ${car.name}. Mohon info harga dan promo terbarunya.`
+    : car.whatsappMessage; // Jika tidak ada kota (di Beranda Utama), pakai pesan default dari data
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.07 }}
-      // 'relative' digunakan sebagai pembatas area link yang ditarik (stretched)
       className="group relative bg-white rounded-none overflow-hidden border border-gray-200 hover:border-gray-900 hover:shadow-2xl transition-all duration-500 flex flex-col"
     >
       {/* Image Section */}
@@ -60,7 +66,6 @@ export default function CarCard({ car, index = 0 }: CarCardProps) {
 
         <div className="mb-8 flex-grow">
           <h3 className="font-black text-gray-900 text-2xl leading-tight uppercase tracking-tight mb-2 group-hover:text-red-600 transition-colors">
-            {/* STRETCHED LINK: before:absolute before:inset-0 akan menarik link ini hingga menutupi seluruh kartu */}
             <Link href={`/mobil/${car.slug}`} className="before:absolute before:inset-0">
               {car.name}
             </Link>
@@ -71,16 +76,12 @@ export default function CarCard({ car, index = 0 }: CarCardProps) {
 
         {/* Actions */}
         <div className="flex items-center gap-3 mt-auto">
-          {/* Tombol Visual (Palsu) - Otomatis terklik karena tertutup Stretched Link dari Judul */}
-          <div
-            className="flex-1 bg-gray-900 group-hover:bg-black text-white text-sm uppercase tracking-widest font-bold py-3.5 rounded-none text-center transition-colors flex items-center justify-center gap-2"
-          >
+          <div className="flex-1 bg-gray-900 group-hover:bg-black text-white text-sm uppercase tracking-widest font-bold py-3.5 rounded-none text-center transition-colors flex items-center justify-center gap-2">
             Lihat Detail <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </div>
           
-          {/* Tombol WhatsApp ASLI: Diberi relative dan z-20 agar posisinya berada DI ATAS stretched link */}
           <a
-            href={buildWhatsAppUrl(car.whatsappMessage)}
+            href={buildWhatsAppUrl(customWaMsg)} // <-- 3. PANGGIL PESAN WHATSAPP YANG SUDAH DINAMIS
             target="_blank"
             rel="noopener noreferrer"
             className="relative z-20 flex items-center justify-center bg-white border border-gray-300 hover:border-[#25D366] hover:bg-[#25D366] hover:text-white text-[#25D366] p-3.5 rounded-none transition-all duration-300 group/wa"
