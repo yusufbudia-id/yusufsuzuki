@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { cars } from "@/data/cars";
-import { promos } from "@/data/promos"; // <-- Tambahkan import data promos
+import { promos } from "@/data/promos";
+import { areas } from "@/data/areas"; // <-- Import data area yang baru
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://suzukiautojogja.com";
@@ -12,7 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/promo", 
     "/simulasi-kredit", 
     "/test-drive"
-    // Catatan: Jika kamu punya halaman "/kontak" atau "/tentang-kami", tambahkan di atas ini.
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
@@ -24,18 +24,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const carRoutes = cars.map((car) => ({
     url: `${baseUrl}/mobil/${car.slug}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: "monthly" as const, // Mobil jarang berubah, jadi monthly
+    changeFrequency: "monthly" as const,
     priority: 0.9,
   }));
 
-  // 3. Rute Dinamis Detail Promo (/promo/[slug]) <-- TAMBAHAN BARU
+  // 3. Rute Dinamis Detail Promo (/promo/[slug])
   const promoRoutes = promos.map((promo) => ({
     url: `${baseUrl}/promo/${promo.slug}`,
     lastModified: new Date().toISOString(),
-    changeFrequency: "weekly" as const, // Promo sering berubah/berakhir, jadi weekly
+    changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
-  // Gabungkan semua rute dan serahkan ke Google
-  return [...routes, ...carRoutes, ...promoRoutes];
+  // 4. Rute Dinamis Dealer per Area (/dealer/[slug]) <-- TAMBAHAN BARU
+  const areaRoutes = areas.map((area) => ({
+    url: `${baseUrl}/dealer/${area.slug}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: "monthly" as const, // Karena konten wilayah jarang berubah drastis
+    priority: 0.7, // Prioritas sedikit di bawah promo/mobil
+  }));
+
+  // Gabungkan semua rute: Statis + Mobil + Promo + Area Kota
+  return [...routes, ...carRoutes, ...promoRoutes, ...areaRoutes];
 }
