@@ -3,15 +3,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-// Tambahkan icon Camera dan X untuk modal
 import { Star, Quote, User, Camera, X } from "lucide-react"; 
 import { testimonials } from "@/data/testimonials";
 
-export default function TestimonialSection() {
-  // State untuk menyimpan foto mana yang sedang dibuka
+// 1. TAMBAHKAN PENERIMA cityName DI SINI
+export default function TestimonialSection({ cityName }: { cityName?: string }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  // Mencegah layar bisa di-scroll saat foto sedang diperbesar
   useEffect(() => {
     if (selectedImage) {
       document.body.style.overflow = "hidden";
@@ -37,11 +35,13 @@ export default function TestimonialSection() {
           <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
             Testimoni Pelanggan
           </span>
+          {/* 2. UBAH JUDUL MENJADI DINAMIS */}
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tighter leading-tight">
-            Review Pembeli Suzuki Jogja
+            Review Pembeli Suzuki {cityName ? cityName : "Jogja"}
           </h2>
+          {/* 3. UBAH DESKRIPSI MENJADI DINAMIS */}
           <p className="text-gray-500 max-w-2xl mx-auto text-sm md:text-base font-medium leading-relaxed">
-            Kepercayaan pelanggan adalah prioritas utama dan bukti nyata komitmen Yusuf Suzuki dalam memberikan pelayanan terbaik.
+            Kepercayaan pelanggan adalah prioritas utama dan bukti nyata komitmen Yusuf Suzuki dalam memberikan pelayanan terbaik untuk warga {cityName ? cityName : "Jogja dan sekitarnya"}.
           </p>
         </motion.div>
 
@@ -68,7 +68,6 @@ export default function TestimonialSection() {
                 "{t.review}"
               </p>
 
-              {/* TOMBOL FOTO SERAH TERIMA (Muncul hanya jika properti deliveryPhoto ada) */}
               {t.deliveryPhoto && (
                 <div className="mb-6">
                   <button
@@ -80,7 +79,6 @@ export default function TestimonialSection() {
                 </div>
               )}
               
-              {/* Info Pelanggan */}
               <div className="flex items-center gap-4 border-t border-gray-100 pt-6 mt-auto">
                 <div className="relative w-12 h-12 shrink-0 overflow-hidden border border-gray-100">
                   {t.avatar ? (
@@ -120,7 +118,7 @@ export default function TestimonialSection() {
         
       </div>
 
-      {/* --- MODAL / LIGHTBOX UNTUK MENAMPILKAN FOTO --- */}
+      {/* --- MODAL / LIGHTBOX --- */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
@@ -128,9 +126,8 @@ export default function TestimonialSection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
-            onClick={() => setSelectedImage(null)} // Tutup jika area luar di-klik
+            onClick={() => setSelectedImage(null)}
           >
-            {/* Tombol Close */}
             <button
               onClick={() => setSelectedImage(null)}
               className="absolute top-6 right-6 p-2 text-gray-400 hover:text-white bg-white/10 hover:bg-red-600 transition-colors rounded-full z-10"
@@ -139,19 +136,18 @@ export default function TestimonialSection() {
               <X size={24} />
             </button>
 
-            {/* Area Gambar yang Diperbesar */}
             <motion.div
               initial={{ scale: 0.95 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.95 }}
               className="relative w-full max-w-4xl h-[70vh] md:h-[85vh] flex items-center justify-center"
-              onClick={(e) => e.stopPropagation()} // Mencegah foto tertutup jika fotonya sendiri yang di-klik
+              onClick={(e) => e.stopPropagation()}
             >
               <Image
                 src={selectedImage}
                 alt="Foto Serah Terima Kendaraan"
                 fill
-                className="object-contain" // object-contain agar foto tidak terpotong sama sekali
+                className="object-contain"
                 sizes="100vw"
                 quality={90}
               />
@@ -159,8 +155,6 @@ export default function TestimonialSection() {
           </motion.div>
         )}
       </AnimatePresence>
-      {/* ------------------------------------------------ */}
-
     </section>
   );
 }

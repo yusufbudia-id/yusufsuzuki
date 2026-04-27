@@ -2,10 +2,10 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image"; // <-- Import sudah benar
 import useEmblaCarousel from "embla-carousel-react";
 import { formatCurrency } from "@/lib/utils";
 
-// Tipe data sederhana untuk mobil
 interface SimpleCar {
   slug: string;
   name: string;
@@ -15,14 +15,11 @@ interface SimpleCar {
 }
 
 export default function OtherCarsCarousel({ cars }: { cars: SimpleCar[] }) {
-  // Setup Embla dengan opsi align start dan loop
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
 
-  // Efek Auto Sliding
   useEffect(() => {
     if (!emblaApi) return;
     
-    // Bergeser setiap 3 detik
     const autoplay = setInterval(() => {
       if (emblaApi.canScrollNext()) {
         emblaApi.scrollNext();
@@ -34,12 +31,9 @@ export default function OtherCarsCarousel({ cars }: { cars: SimpleCar[] }) {
 
   return (
     <div className="relative">
-      {/* Container Embla */}
       <div className="overflow-hidden" ref={emblaRef}>
-        {/* Negative margin untuk mengakali gap/jarak antar kartu */}
         <div className="flex -ml-6">
           {cars.map((otherCar) => (
-            // Ukuran responsif: 1 kartu di HP, 2 di Tablet, 4 di Desktop
             <div 
               key={otherCar.slug} 
               className="flex-none w-full sm:w-1/2 lg:w-1/4 pl-6"
@@ -48,14 +42,17 @@ export default function OtherCarsCarousel({ cars }: { cars: SimpleCar[] }) {
                 href={`/mobil/${otherCar.slug}`} 
                 className="group bg-gray-50 border border-gray-200 rounded-none overflow-hidden hover:border-gray-900 transition-colors duration-300 flex flex-col h-full"
               >
-                {/* Image Box */}
-                <div className="aspect-[4/3] bg-gray-100 p-6 flex items-center justify-center overflow-hidden border-b border-gray-200">
-                  <img 
-                    src={otherCar.heroImage} 
-                    alt={otherCar.name} 
-                    className="w-full h-full object-contain scale-100 group-hover:scale-110 transition-transform duration-700" 
+                {/* Image Box - MENGGUNAKAN NEXT/IMAGE */}
+                <div className="relative aspect-[4/3] bg-gray-100 p-6 flex items-center justify-center overflow-hidden border-b border-gray-200">
+                  <Image 
+                    src={otherCar.heroImage || "/logo.png"} 
+                    alt={otherCar.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    className="object-contain scale-100 group-hover:scale-110 transition-transform duration-700 p-4" 
                   />
                 </div>
+                
                 {/* Info Box */}
                 <div className="p-6 flex flex-col flex-grow justify-between bg-white">
                   <div>
