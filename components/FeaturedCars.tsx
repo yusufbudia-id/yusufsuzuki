@@ -8,7 +8,7 @@ import CarCard from "./CarCard";
 import { cars } from "@/data/cars";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function FeaturedCars() {
+export default function FeaturedCars({ cityName }: { cityName?: string }) {
   const featured = cars.slice(0, 6);
   
   // Mengganti useRef manual dengan Embla Carousel
