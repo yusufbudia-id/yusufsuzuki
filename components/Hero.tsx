@@ -6,10 +6,8 @@ import Image from "next/image";
 import { MessageCircle, Car, CalendarCheck, ChevronDown } from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
 
-// 1. TAMBAHKAN PROPS cityName DI SINI
 export default function Hero({ cityName }: { cityName?: string }) {
   
-  // 2. PESAN WHATSAPP DINAMIS SESUAI KOTA
   const waMessage = cityName 
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
     : `Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.`;
@@ -53,37 +51,33 @@ export default function Hero({ cityName }: { cityName?: string }) {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.9)] group-hover:bg-cyan-400 transition-colors"></span>
             </div>
             
-            {/* 3. UBAH TEKS BADGE (Yogyakarta -> Dinamis) */}
             <span className="tracking-widest uppercase text-[10px] font-bold text-cyan-50 group-hover:text-white transition-colors">
               Dealer Resmi Suzuki {cityName ? cityName : "Yogyakarta"}
             </span>
           </motion.div>
 
-          {/* Heading SEO */}
+          {/* Heading SEO: Menambahkan kata "Mobil" dan "Terbaru" agar sinkron dengan Page Title */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-5"
           >
-            {/* 4. UBAH H1 (Jogja -> Dinamis) */}
-            Dealer Resmi Suzuki {cityName ? cityName : "Jogja"}
+            Dealer Resmi Mobil Suzuki {cityName ? cityName : "Jogja"}
             <br />
             <span className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-300 mt-2 block">
-              Pusat Promo & Harga Terbaik
+              Pusat Promo & Harga Terbaru
             </span>
           </motion.h1>
 
-          {/* Subheading SEO */}
+          {/* Subheading SEO: Digabungkan menjadi 1 kalimat panjang yang mengalir (28 kata) */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-gray-300 text-lg sm:text-xl max-w-xl leading-relaxed mb-10"
           >
-            {/* 5. UBAH TEKS PARAGRAF (Jogja -> Dinamis) */}
-            Sebagai <strong className="text-white font-normal">dealer resmi Suzuki {cityName ? cityName : "Jogja"}</strong>, kami hadir sebagai pusat promo dan harga terbaik untuk mobil impian Anda. Dapatkan kemudahan kredit bersama{" "}
-            <strong className="text-white font-semibold">Yusuf Suzuki</strong>.
+            Sebagai <strong className="text-white font-normal">dealer resmi Suzuki di wilayah {cityName ? cityName : "Jogja"}</strong>, kami hadir memberikan solusi pembelian mobil impian Anda dengan penawaran harga terbaik, promo eksklusif, serta kemudahan proses kredit bersama <strong className="text-white font-semibold">Yusuf Suzuki</strong>.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -101,7 +95,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
               Lihat Mobil
             </Link>
 
-            {/* 6. UBAH LINK WA MENJADI DINAMIS */}
             <a
               href={`${WA_BASE_URL}?text=${encodeURIComponent(waMessage)}`}
               target="_blank"
