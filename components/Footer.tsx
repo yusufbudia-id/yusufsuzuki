@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { MapPin, Phone, Clock, MessageCircle, Facebook, Instagram, Youtube } from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
+import { areas } from "@/data/areas"; // <-- IMPORT DATA KOTA DI SINI
 
-// Komponen SVG khusus untuk ikon TikTok (karena lucide-react tidak memiliki icon TikTok bawaan)
+// Komponen SVG khusus untuk ikon TikTok
 function TiktokIcon({ size = 24, strokeWidth = 2, className = "" }) {
   return (
     <svg
@@ -48,16 +49,17 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-10">
+        
+        {/* PERBAIKAN: Ubah lg:grid-cols-4 menjadi lg:grid-cols-5 agar muat 5 kolom sejajar */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           
           {/* Kolom 1: Brand Info */}
           <div className="lg:col-span-1">
-            {/* Logo Image - Diperkecil & Menggunakan Warna Asli */}
             <div className="mb-8">
               <img 
                 src="/logo.png" 
                 alt="Logo Suzuki Sumber Baru Jogja" 
-                className="h-6 md:h-8 w-auto object-contain"
+                className="h-6 md:h-8 w-auto object-contain bg-white p-1 rounded-sm" // Diberi bg putih sedikit agar logo suzuki terlihat jelas di background gelap
               />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed mb-8 pr-4">
@@ -117,19 +119,24 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          {/* Kolom 4: kota */}
+
+          {/* Kolom 4: Area Layanan (DIBUAT OTOMATIS) */}
           <div>
-            <h3 className="text-white font-bold mb-4 uppercase tracking-widest text-sm">Area Layanan</h3>
-            <ul className="space-y-2 text-gray-400 text-sm">
-              <li><Link href="/dealer/sleman" className="hover:text-red-500 transition-colors">Suzuki Sleman</Link></li>
-              <li><Link href="/dealer/bantul" className="hover:text-red-500 transition-colors">Suzuki Bantul</Link></li>
-              <li><Link href="/dealer/kulon-progo" className="hover:text-red-500 transition-colors">Suzuki Kulon Progo</Link></li>
-              <li><Link href="/dealer/gunungkidul" className="hover:text-red-500 transition-colors">Suzuki Gunungkidul</Link></li>
-              <li><Link href="/dealer/magelang" className="hover:text-red-500 transition-colors">Suzuki Magelang</Link></li>
-              <li><Link href="/dealer/purworejo" className="hover:text-red-500 transition-colors">Suzuki Purworejo</Link></li>
-              {/* ... tambahkan kota lainnya ... */}
+            <h3 className="font-bold text-xs uppercase tracking-widest text-white mb-7">Area Layanan</h3>
+            <ul className="space-y-3.5">
+              {areas.map((area) => (
+                <li key={area.slug}>
+                  <Link
+                    href={`/dealer/${area.slug}`}
+                    className="text-gray-400 hover:text-white text-sm transition-colors duration-300 group flex items-center gap-1"
+                  >
+                    <span className="transition-transform group-hover:translate-x-1">Suzuki {area.name}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
+
           {/* Kolom 5: Contact */}
           <div>
             <h3 className="font-bold text-xs uppercase tracking-widest text-white mb-7">Kontak & Lokasi</h3>
@@ -157,6 +164,7 @@ export default function Footer() {
               Chat WhatsApp
             </a>
           </div>
+          
         </div>
       </div>
 
