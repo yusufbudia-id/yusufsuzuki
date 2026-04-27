@@ -82,7 +82,7 @@ export default function PricelistTable({ variants, carName = "" }: PricelistTabl
             const isNameIncluded = v.name.toLowerCase().includes(cleanCarName.toLowerCase());
             const finalVariantName = isNameIncluded ? v.name : `${cleanCarName} ${v.name}`;
 
-            // Pesan WA Spesifik per varian
+            // Pesan WA Spesifik per varian (Diubah menjadi "tanya diskon")
             const waText = `Halo Yusuf Suzuki, saya ingin tanya promo, diskon, dan ketersediaan unit untuk *${finalVariantName}*.`;
 
             return (
@@ -106,11 +106,11 @@ export default function PricelistTable({ variants, carName = "" }: PricelistTabl
                     href={buildWhatsAppUrl(waText)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    // ---> CLASS DIUBAH DI SINI: Langsung menggunakan warna background hijau WA <---
-                    className="w-full md:w-auto inline-flex justify-center items-center gap-2 bg-[#25D366] hover:bg-[#1ebd50] text-white py-3 md:py-2.5 px-4 font-black text-[10px] uppercase tracking-widest rounded-none transition-all duration-300 shadow-md hover:shadow-lg active:scale-95"
+                    // ---> CLASS DIUBAH DI SINI: Warna merah (bg-red-600) dan teks 'Tanya Diskon' <---
+                    className="w-full md:w-auto inline-flex justify-center items-center gap-2 bg-red-600 hover:bg-red-700 text-white py-3 md:py-2.5 px-4 font-black text-[10px] uppercase tracking-widest rounded-none transition-all duration-300 shadow-md hover:shadow-lg active:scale-95"
                   >
                     <MessageCircle size={14} />
-                    Tanya Promo
+                    Tanya Diskon
                   </a>
                 </div>
 
