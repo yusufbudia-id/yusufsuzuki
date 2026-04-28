@@ -11,7 +11,7 @@ export interface Promo {
 }
 
 export const promos: Promo[] = [
-  // EVENT BARU: Diletakkan paling atas karena sedang berlangsung
+  // 1. EVENT BARU
   {
     slug: "promo-otomotif-expo-pakuwon",
     title: "Kunjungi Otomotif Expo Suzuki di Pakuwon Mall Jogja!",
@@ -40,9 +40,10 @@ Pilihan Hadiah Spesial (FREE)*:
 Juga ikuti program Test Drive Berhadiah Suzuki Fronx di lokasi! Tunggu apa lagi? Segera hubungi Yusuf Suzuki untuk janjian bertemu di pameran.`,
     badge: "EVENT SPESIAL",
     validUntil: "19 April 2026",
-    image: "/promo/otomotif-expo.jpg", // Pastikan gambar brosur diubah namanya menjadi otomotif-expo.jpg dan ditaruh di public/promo/
+    image: "/promo/otomotif-expo.jpg", 
     highlight: "14-19 April 2026 di Pakuwon Mall Jogja!",
   },
+  // 2. PROMO PRIMADONA ALL IN ONE
   {
     slug: "promo-all-in-one-april",
     title: "Special Promo PRIMADONA: Momen April Diskon Optimal & Hadiah Melimpah!",
@@ -76,6 +77,7 @@ Hadiah Penjualan Melimpah (Pilih FREE):
     image: "/promo/primadona.jpg", 
     highlight: "Bunga 1,8%, DP 20%, Diskon s/d 43 JT!",
   },
+  // 3. TEST DRIVE FRONX
   {
     slug: "promo-test-drive-fronx",
     title: "Ayo Test Drive! Dapatkan Kesempatan Bawa Pulang Fronx!",
@@ -98,6 +100,7 @@ Hadiah Lainnya:
     image: "/promo/testdrive_fronx.jpg", 
     highlight: "Menangkan 1 Unit Fronx GL AT",
   },
+  // 4. PROMO JURAGAN CARRY (KODE ASLI MILIKMU)
   {
     slug: "promo-khusus-carry",
     title: "Promo Juragan Carry: Diskon 34 Juta + Gratis Motor Suzuki Burgman!",
@@ -119,5 +122,34 @@ Layanan Purna Jual & Garansi:
     validUntil: "30 April 2026",
     image: "/promo/promo_carry.jpg", 
     highlight: "Diskon 34 JT + Gratis Burgman!",
+  },
+  // 5. PROMO PRIMADONA CARRY (DARI GAMBAR TERBARU)
+  {
+    slug: "promo-primadona-carry",
+    title: "Special Promo PRIMADONA Carry: DP 8 Jutaan & Bonus Motor Burgman!",
+    description: `Kembangkan bisnis Anda di bulan penuh berkah ini dengan **Special Promo PRIMADONA (Promo Istimewa Suzuki, Momen April Diskon Optimal Nyaman & Aman)** khusus untuk pembelian armada niaga Suzuki New Carry Pick Up di wilayah Jogja dan sekitarnya.
+
+Sebagai "Rajanya Pick Up", Suzuki Carry telah terbukti tangguh menjadi mitra usaha andalan para pengusaha di Indonesia. Kini, Anda bisa memilikinya dengan penawaran paling fantastis dan hemat modal usaha!
+
+**Rincian Penawaran Spesial New Carry (Plat AB):**
+- **Harga OTR Super Spesial:** Mulai dari 140 Jutaan*
+- **DP Sangat Ringan:** Mulai dari 8 Jutaan* saja!
+- **Angsuran Terjangkau:** Mulai dari 3 Jutaan* per bulan.
+
+**Keuntungan Ekstra (Hadiah Penjualan Senilai 34 Jutaan*):**
+- **GRATIS 1 Unit Motor Suzuki Burgman***
+- **GRATIS Biaya KEUR Pertama***
+
+*(Keterangan: Unit NIK 2026. Syarat dan ketentuan berlaku).*
+
+Suzuki Carry Pick Up hadir dengan dimensi bak yang lebih luas, kabin lega untuk 3 penumpang, dan mesin K15CC yang terkenal bandel namun sangat irit bahan bakar. Sangat cocok dan tangguh untuk berbagai jenis muatan usaha Anda, mulai dari logistik, distribusi barang, hingga angkutan hasil bumi.
+
+Jangan biarkan kompetitor mendahului Anda. Promo istimewa ini sangat terbatas di momen April saja! Segera hubungi Yusuf Suzuki untuk konsultasi kebutuhan armada bisnis Anda. Kami siap membantu proses kredit dengan cepat, data dijemput, dan diusahakan maksimal sampai ACC.`,
+    carSlug: "carry-pickup",
+    carName: "Suzuki Carry Pick Up",
+    badge: "PRIMADONA CARRY",
+    validUntil: "30 April 2026",
+    image: "/promo/primadona-carry.png", // Pastikan gambar postermu dinamai primadona-carry.jpg
+    highlight: "DP 8 JT, OTR 140 JT + Free Burgman!",
   }
 ];
