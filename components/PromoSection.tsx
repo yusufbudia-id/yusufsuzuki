@@ -15,17 +15,18 @@ const parseIndonesianDate = (dateStr: string) => {
   };
 
   const parts = dateStr.toLowerCase().split(" ");
-  if (parts.length !== 3) return new Date(8640000000000000);
+  // Jika format aneh, kembalikan tanggal jauh di masa depan agar tidak terfilter
+  if (parts.length !== 3) return new Date(8640000000000000); 
 
   const day = parseInt(parts[0]);
   const month = months[parts[1]];
   const year = parseInt(parts[2]);
 
-  return new Date(year, month, day);
+  // Set waktu kadaluwarsa ke akhir hari tersebut (23:59:59)
+  return new Date(year, month, day, 23, 59, 59);
 };
 
 // --- KOMPONEN KARTU PROMO REGULER ---
-// 1. Tambahkan penerima cityName di properti PromoCard
 export function PromoCard({ promo, index = 0, cityName }: { promo: typeof promos[0]; index?: number; cityName?: string }) {
   return (
     <motion.div
@@ -35,7 +36,9 @@ export function PromoCard({ promo, index = 0, cityName }: { promo: typeof promos
       transition={{ delay: index * 0.1, duration: 0.5 }}
       className="group relative bg-white border border-gray-200 hover:border-gray-900 hover:shadow-2xl transition-all duration-500 flex flex-col h-full rounded-none overflow-hidden"
     >
-      <Link href={`/promo/${promo.slug}`} className="absolute inset-0 z-10" aria-label={`Lihat detail promo ${promo.title}`} />
+      <Link href={`/promo/${promo.slug}`} className="absolute inset-0 z-10">
+        <span className="sr-only">Lihat detail promo {promo.title}</span>
+      </Link>
       
       <div className="relative aspect-[3/2] w-full overflow-hidden bg-gray-100">
         <Image 
@@ -74,7 +77,6 @@ export function PromoCard({ promo, index = 0, cityName }: { promo: typeof promos
             onClick={(e) => {
               e.stopPropagation();
               const domain = window.location.origin;
-              // 2. Buat pesan WA dinamis di dalam Promo Card
               const waText = cityName 
                 ? `Halo Yusuf Suzuki, saya warga ${cityName} dan tertarik dengan promo:\n*${promo.title}*\n\nCek promo: ${domain}${promo.image}`
                 : `Halo Yusuf Suzuki, saya tertarik dengan promo:\n*${promo.title}*\n\nCek promo: ${domain}${promo.image}`;
@@ -92,11 +94,23 @@ export function PromoCard({ promo, index = 0, cityName }: { promo: typeof promos
 }
 
 // --- KOMPONEN UTAMA ---
-// 3. Tambahkan penerima cityName di komponen utama
 export default function PromoSection({ cityName }: { cityName?: string }) {
   if (!promos || promos.length === 0) return null;
 
-  const sortedPromos = [...promos].sort((a, b) => {
+  // --- LOGIKA CERDAS: FILTER PROMO YANG MASIH AKTIF ---
+  const today = new Date();
+  
+  const validPromos = promos.filter((promo) => {
+    const expiryDate = parseIndonesianDate(promo.validUntil);
+    // Jika tanggal expiry sudah lewat (kurang dari hari ini), buang dari daftar
+    return expiryDate >= today;
+  });
+
+  // Jika setelah difilter tidak ada promo yang tersisa, sembunyikan section
+  if (validPromos.length === 0) return null;
+
+  // --- URUTKAN PROMO AKTIF BERDASARKAN TANGGAL KADALUWARSA TERDEKAT ---
+  const sortedPromos = [...validPromos].sort((a, b) => {
     const dateA = parseIndonesianDate(a.validUntil).getTime();
     const dateB = parseIndonesianDate(b.validUntil).getTime();
     return dateA - dateB;
@@ -119,7 +133,6 @@ export default function PromoSection({ cityName }: { cityName?: string }) {
           <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 mb-4 uppercase tracking-widest">
             Penawaran Terbatas
           </span>
-          {/* 4. Buat Judul Promo Dinamis */}
           <h2 className="text-3xl md:text-5xl font-black text-gray-900 mb-4 uppercase tracking-tighter">
             Promo Dealer Suzuki {cityName ? cityName : "Jogja"}
           </h2>
@@ -138,7 +151,9 @@ export default function PromoSection({ cityName }: { cityName?: string }) {
             transition={{ duration: 0.6 }}
             className="lg:col-span-8 group relative overflow-hidden shadow-2xl flex flex-col border border-gray-200 min-h-[400px] md:min-h-[500px]"
           >
-            <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-20" />
+            <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-20">
+              <span className="sr-only">Lihat detail {featuredPromo.title}</span>
+            </Link>
             
             <div className="absolute inset-0 w-full h-full">
               <Image 
