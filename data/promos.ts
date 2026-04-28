@@ -151,5 +151,32 @@ Jangan biarkan kompetitor mendahului Anda. Promo istimewa ini sangat terbatas di
     validUntil: "30 April 2026",
     image: "/promo/primadona-carry.jpg", // Pastikan gambar postermu dinamai primadona-carry.jpg
     highlight: "DP 8 JT, OTR 140 JT + Free Burgman!",
+  },
+  // 6. PROMO PRIMADONA S-PRESSO (DARI GAMBAR TERBARU)
+  {
+    slug: "promo-primadona-spresso",
+    title: "Special Promo PRIMADONA S-Presso: DP 12 Jutaan & Gratis Motor Suzuki Nex!",
+    description: `Wujudkan impian memiliki city car berjiwa SUV dengan Special Promo PRIMADONA (Promo Istimewa Suzuki, Momen April Diskon Optimal Nyaman & Aman) khusus untuk pembelian Suzuki S-Presso di wilayah Jogja dan sekitarnya.
+
+Suzuki S-Presso adalah pilihan cerdas bagi Anda yang berjiwa muda dan dinamis. Tampil memukau dengan desain eksterior yang bold, ground clearance tinggi layaknya SUV, serta mesin yang terbukti sangat irit bahan bakar untuk menemani mobilitas harian Anda menembus kemacetan kota.
+
+Rincian Penawaran Spesial S-Presso (Plat AB):
+- Harga OTR: Mulai dari Rp 160 Jutaan
+- DP Sangat Ringan: Mulai dari Rp 12 Jutaan
+- Angsuran Terjangkau: Mulai dari Rp 3 Jutaan per bulan
+
+Keuntungan Ekstra (Hadiah Penjualan Senilai 16 Jutaan):
+- GRATIS 1 Unit Motor Suzuki Nex
+- GRATIS Suku Cadang dan Jasa Servis Berkala hingga 50.000 KM
+
+(Keterangan: Unit NIK 2026. Syarat dan ketentuan berlaku).
+
+Momen April ini adalah kesempatan terbaik Anda untuk mendapatkan penawaran paling menguntungkan. Jangan sampai kehabisan kuota hadiahnya! Segera hubungi Yusuf Suzuki sekarang untuk booking unit, konsultasi simulasi kredit, atau menjadwalkan test drive S-Presso langsung ke rumah Anda. Proses kredit dijamin mudah, cepat, dan dibantu sampai ACC.`,
+    carSlug: "s-presso",
+    carName: "Suzuki S-Presso",
+    badge: "PRIMADONA S-PRESSO",
+    validUntil: "30 April 2026",
+    image: "/promo/primadona-spresso.jpg", // Pastikan gambar postermu dinamai primadona-spresso.jpg
+    highlight: "DP 12 JT, OTR 160 JT + Free Nex!",
   }
 ]
