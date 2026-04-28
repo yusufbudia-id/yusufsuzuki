@@ -7,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/", "/admin/"],
     },
-    sitemap: "https://suzukiautojogja.com/sitemap.xml", // <-- Domain diperbarui
+    // PERBAIKAN: Tambahkan 'www' pada URL sitemap
+    sitemap: "https://www.suzukiautojogja.com/sitemap.xml", 
   };
 }

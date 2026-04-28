@@ -4,7 +4,8 @@ import { promos } from "@/data/promos";
 import { areas } from "@/data/areas"; // <-- Import data area yang baru
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://suzukiautojogja.com";
+  // PERBAIKAN: Tambahkan 'www' pada baseUrl
+  const baseUrl = "https://www.suzukiautojogja.com";
 
   // 1. Rute Halaman Statis (Menu Utama)
   const routes = [
