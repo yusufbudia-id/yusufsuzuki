@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [car.heroImage || "/logo.png"],
     },
     alternates: {
-      canonical: `https://suzukiautojogja.com/mobil/${car.slug}`,
+      canonical: `https://www.suzukiautojogja.com/mobil/${car.slug}`,
     },
   };
 }
