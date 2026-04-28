@@ -127,29 +127,29 @@ Layanan Purna Jual & Garansi:
   {
     slug: "promo-primadona-carry",
     title: "Special Promo PRIMADONA Carry: DP 8 Jutaan & Bonus Motor Burgman!",
-    description: `Kembangkan bisnis Anda di bulan penuh berkah ini dengan **Special Promo PRIMADONA (Promo Istimewa Suzuki, Momen April Diskon Optimal Nyaman & Aman)** khusus untuk pembelian armada niaga Suzuki New Carry Pick Up di wilayah Jogja dan sekitarnya.
+    description: `Kembangkan bisnis Anda di bulan penuh berkah ini dengan Special Promo PRIMADONA (Promo Istimewa Suzuki, Momen April Diskon Optimal Nyaman & Aman) khusus untuk pembelian armada niaga Suzuki New Carry Pick Up di wilayah Jogja dan sekitarnya.
 
 Sebagai "Rajanya Pick Up", Suzuki Carry telah terbukti tangguh menjadi mitra usaha andalan para pengusaha di Indonesia. Kini, Anda bisa memilikinya dengan penawaran paling fantastis dan hemat modal usaha!
 
-**Rincian Penawaran Spesial New Carry (Plat AB):**
-- **Harga OTR Super Spesial:** Mulai dari 140 Jutaan*
-- **DP Sangat Ringan:** Mulai dari 8 Jutaan* saja!
-- **Angsuran Terjangkau:** Mulai dari 3 Jutaan* per bulan.
+Rincian Penawaran Spesial New Carry (Plat AB):
+- Harga OTR: Mulai dari Rp 140 Jutaan
+- DP Sangat Ringan: Mulai dari Rp 8 Jutaan
+- Angsuran: Mulai dari Rp 3 Jutaan per bulan
 
-**Keuntungan Ekstra (Hadiah Penjualan Senilai 34 Jutaan*):**
-- **GRATIS 1 Unit Motor Suzuki Burgman***
-- **GRATIS Biaya KEUR Pertama***
+Keuntungan Ekstra (Hadiah Penjualan Senilai 34 Jutaan):
+- GRATIS 1 Unit Motor Suzuki Burgman
+- GRATIS Biaya KEUR Pertama
 
-*(Keterangan: Unit NIK 2026. Syarat dan ketentuan berlaku).*
+(Keterangan: Unit NIK 2026. Syarat dan ketentuan berlaku).
 
-Suzuki Carry Pick Up hadir dengan dimensi bak yang lebih luas, kabin lega untuk 3 penumpang, dan mesin K15CC yang terkenal bandel namun sangat irit bahan bakar. Sangat cocok dan tangguh untuk berbagai jenis muatan usaha Anda, mulai dari logistik, distribusi barang, hingga angkutan hasil bumi.
+Suzuki Carry Pick Up hadir dengan dimensi bak yang lebih luas, kabin lega untuk 3 penumpang, dan mesin K15C yang terkenal bandel namun sangat irit bahan bakar. Sangat cocok dan tangguh untuk berbagai jenis muatan usaha Anda, mulai dari logistik, distribusi barang, hingga angkutan hasil bumi.
 
 Jangan biarkan kompetitor mendahului Anda. Promo istimewa ini sangat terbatas di momen April saja! Segera hubungi Yusuf Suzuki untuk konsultasi kebutuhan armada bisnis Anda. Kami siap membantu proses kredit dengan cepat, data dijemput, dan diusahakan maksimal sampai ACC.`,
     carSlug: "carry-pickup",
     carName: "Suzuki Carry Pick Up",
     badge: "PRIMADONA CARRY",
     validUntil: "30 April 2026",
-    image: "/promo/primadona-carry.png", // Pastikan gambar postermu dinamai primadona-carry.jpg
+    image: "/promo/primadona-carry.jpg", // Pastikan gambar postermu dinamai primadona-carry.jpg
     highlight: "DP 8 JT, OTR 140 JT + Free Burgman!",
   }
-];
+]
