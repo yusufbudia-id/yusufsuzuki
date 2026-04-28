@@ -15,9 +15,9 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://suzukiautojogja.com"), 
+  // 1. PERBAIKAN: Ditambahkan 'www' agar sesuai dengan Production Vercel
+  metadataBase: new URL("https://www.suzukiautojogja.com"), 
   
-  // 1. TAMBAHAN: Canonical URL agar Google tidak bingung (Mencegah Duplicate Content)
   alternates: {
     canonical: "/",
   },
@@ -48,15 +48,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://suzukiautojogja.com", 
+    // 2. PERBAIKAN: Ditambahkan 'www'
+    url: "https://www.suzukiautojogja.com", 
     siteName: "Suzuki Sumber Baru Mobil",
-    // 2. PERBAIKAN: Dibuat lebih 'menjual' saat link disebar ke WA/Medsos
     title: "Promo Suzuki Jogja | DP Ringan & Angsuran Murah", 
     description:
       "Hubungi Yusuf Suzuki (0821-7463-5218) untuk promo mobil Suzuki terbaru di Yogyakarta dan sekitarnya. Proses cepat, dibantu sampai ACC!",
     images: [
       {
-        url: "/og-image.jpg", // <-- WAJIB: Pastikan file og-image.jpg ada di folder public/
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Promo Suzuki Sumber Baru Mobil Jogja",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: "Promo Suzuki Jogja | Dealer Resmi Jl. Magelang",
     description:
       "Dealer resmi Suzuki Jogja & sekitarnya. Promo terbaik, kredit mudah, DP ringan.",
-    images: ["/og-image.jpg"], // <-- TAMBAHAN: Agar di Twitter/X gambar juga muncul
+    images: ["/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -86,9 +86,10 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "AutoDealer",
     "name": "Suzuki Sumber Baru Mobil",
-    "image": "https://suzukiautojogja.com/logo.png",
-    "@id": "https://suzukiautojogja.com",
-    "url": "https://suzukiautojogja.com",
+    // 3. PERBAIKAN: Semua URL di Schema Markup diseragamkan memakai 'www'
+    "image": "https://www.suzukiautojogja.com/logo.png",
+    "@id": "https://www.suzukiautojogja.com",
+    "url": "https://www.suzukiautojogja.com",
     "telephone": "+6282174635218",
     "address": {
       "@type": "PostalAddress",
@@ -166,7 +167,6 @@ export default function RootLayout({
 
         <Navbar />
         
-        {/* Tambahkan pb-16 khusus di layar HP (md:pb-0) agar konten terbawah tidak tertutup bottom bar */}
         <main className="min-h-screen pb-16 md:pb-0">
           {children}
         </main>
@@ -174,7 +174,6 @@ export default function RootLayout({
         <Footer />
         <WhatsappFloatingButton />
         
-        {/* Panggil komponen BottomNavigation di bagian paling bawah body */}
         <BottomNavigation />
       </body>
     </html>
