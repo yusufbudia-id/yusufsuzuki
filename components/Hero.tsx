@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { MessageCircle, Car, CalendarCheck, Award, ThumbsUp, ArrowRight } from "lucide-react";
+import { MessageCircle, CalendarCheck, ArrowRight } from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
 
 const banners = [
@@ -54,7 +54,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Indikator Slider - Tetap di tengah gambar */}
+        {/* Indikator Slider */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20 bg-black/40 px-3 py-2 backdrop-blur-sm">
           {banners.map((_, idx) => (
             <button
@@ -75,16 +75,11 @@ export default function Hero({ cityName }: { cityName?: string }) {
       {/* ============================= */}
       {/* BAGIAN 2: KONTEN TEKS & TOMBOL */}
       {/* ============================= */}
-      {/* Container utama diubah agar align-nya sesuai dengan padding kiri */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 w-full flex-1 flex flex-col justify-start">
         
         {/* Tekstur Background */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none -z-10" />
 
-        {/* 
-          WRAPPER KONTEN: Diubah menjadi items-start dan text-left. 
-          max-w-2xl memastikan teks tidak melebar tak terkendali ke kanan.
-        */}
         <div className="flex flex-col items-start text-left max-w-2xl">
           
           {/* Badge */}
@@ -99,7 +94,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             </span>
           </motion.div>
 
-          {/* Heading: Diperkecil dari 6xl ke 5xl */}
+          {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -109,7 +104,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             Temukan Suzuki Impian Anda di {cityName ? cityName : "Jogja"}
           </motion.h1>
 
-          {/* Subheading: Diperkecil dari 2xl ke xl */}
+          {/* Subheading */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -119,7 +114,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             Dealer Resmi &bull; Promo Terbaru &bull; Proses Kredit Mudah
           </motion.p>
 
-          {/* Body Text: Diperkecil dari lg ke base, max-w dikurangi */}
+          {/* Body Text */}
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -129,14 +124,13 @@ export default function Hero({ cityName }: { cityName?: string }) {
             Dapatkan penawaran harga terbaik, diskon eksklusif, serta kemudahan proses pembelian mobil baru Anda bersama <strong className="text-gray-200">Yusuf Suzuki</strong>.
           </motion.p>
 
-          {/* CTA Buttons: justify-start (rata kiri) */}
+          {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="flex flex-col sm:flex-row items-start sm:items-center justify-start gap-4 w-full"
           >
-            {/* Primary */}
             <a
               href={`${WA_BASE_URL}?text=${encodeURIComponent(waMessage)}`}
               target="_blank"
@@ -147,7 +141,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
               Chat Sekarang
             </a>
 
-            {/* Secondary */}
             <Link 
               href="/test-drive" 
               className="bg-transparent text-white border border-white/40 hover:bg-white hover:text-black font-semibold py-3.5 px-7 transition-colors uppercase tracking-wider text-xs sm:text-sm inline-flex items-center justify-center gap-2 w-full sm:w-auto rounded-none"
@@ -156,7 +149,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
               Test Drive
             </Link>
 
-            {/* Tertiary */}
             <Link 
               href="/mobil" 
               className="text-gray-400 hover:text-white font-medium py-3.5 px-4 sm:px-2 transition-colors text-xs sm:text-sm inline-flex items-center justify-center gap-2 w-full sm:w-auto group mt-1 sm:mt-0"
@@ -164,41 +156,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
               Lihat Katalog
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
-          </motion.div>
-
-          {/* Stats Section: Tata letak diubah untuk rata kiri. Ikon dipindah ke sebelah angka. */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="mt-16 sm:mt-20 flex flex-wrap gap-8 sm:gap-14 w-full border-t border-white/10 pt-8"
-          >
-            {/* Stat 1 */}
-            <div className="flex flex-col items-start">
-              <div className="flex items-center gap-3 mb-1">
-                <Car className="text-gray-500" size={24} strokeWidth={1.5} />
-                <p className="text-3xl font-bold text-white">500+</p>
-              </div>
-              <p className="text-gray-400 text-[10px] sm:text-xs uppercase tracking-widest font-medium">Mobil Terjual</p>
-            </div>
-            
-            {/* Stat 2 */}
-            <div className="flex flex-col items-start">
-              <div className="flex items-center gap-3 mb-1">
-                <Award className="text-gray-500" size={24} strokeWidth={1.5} />
-                <p className="text-3xl font-bold text-white">10+ <span className="text-lg font-normal text-gray-500 uppercase tracking-wide">Thn</span></p>
-              </div>
-              <p className="text-gray-400 text-[10px] sm:text-xs uppercase tracking-widest font-medium">Pengalaman</p>
-            </div>
-
-            {/* Stat 3 */}
-            <div className="flex flex-col items-start">
-              <div className="flex items-center gap-3 mb-1">
-                <ThumbsUp className="text-gray-500" size={24} strokeWidth={1.5} />
-                <p className="text-3xl font-bold text-white">98%</p>
-              </div>
-              <p className="text-gray-400 text-[10px] sm:text-xs uppercase tracking-widest font-medium">Pelanggan Puas</p>
-            </div>
           </motion.div>
 
         </div>
