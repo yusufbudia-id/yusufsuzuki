@@ -4,7 +4,15 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { MessageCircle, CalendarCheck, ArrowRight, ShieldCheck } from "lucide-react";
+import { 
+  MessageCircle, 
+  CalendarCheck, 
+  ArrowRight, 
+  BatteryCharging, 
+  Cpu, 
+  Wrench,
+  ShieldCheck
+} from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
 
 const banners = [
@@ -33,7 +41,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
       {/* ======================= */}
       {/* BAGIAN 1: BANNER SLIDER */}
       {/* ======================= */}
-      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.5/1] bg-gray-900 z-10 overflow-hidden shadow-xl">
+      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.5/1] bg-gray-900 z-10 overflow-hidden shadow-xl border-b border-white/10">
         <AnimatePresence initial={false}>
           <motion.div
             key={currentIndex}
@@ -69,20 +77,22 @@ export default function Hero({ cityName }: { cityName?: string }) {
         </div>
       </div>
 
-      <div className="w-full h-1.5 bg-gradient-to-r from-suzuki-blue via-suzuki-red to-suzuki-blue z-20 relative" />
+      {/* Garis Aksen Bawah Banner */}
+      <div className="w-full h-1 bg-gradient-to-r from-suzuki-blue via-suzuki-red to-suzuki-blue z-20 relative" />
 
       {/* ============================= */}
       {/* BAGIAN 2: KONTEN BAWAH (GRID) */}
       {/* ============================= */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 w-full flex-1 flex flex-col justify-start">
         
-        {/* Tekstur Background Grid */}
+        {/* Tekstur Background Grid Minimalis */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none -z-10" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center h-full">
           
-          {/* --- KOLOM KIRI (7 Kolom): Teks & Tombol CTA --- */}
+          {/* --- KOLOM KIRI (7 Kolom): Teks Utama & CTA --- */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
+            
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -155,52 +165,54 @@ export default function Hero({ cityName }: { cityName?: string }) {
             </motion.div>
           </div>
 
-          {/* --- KOLOM KANAN (5 Kolom): Trust Badges / Logo Keunggulan --- */}
+          {/* --- KOLOM KANAN (4 Kolom, digeser ke ujung kanan): Minimalist Trust Badges --- */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="lg:col-span-5 w-full flex flex-col mt-8 lg:mt-0"
+            className="lg:col-span-4 lg:col-start-9 w-full flex flex-col mt-12 lg:mt-0"
           >
-            {/* Header Mini di Kanan */}
-            <div className="flex items-center gap-2 mb-6 border-b border-white/10 pb-3">
-              <ShieldCheck className="text-suzuki-blue" size={20} />
-              <h3 className="text-white uppercase tracking-widest text-xs font-bold">
+            <div className="flex items-center gap-2 mb-5 border-b border-white/10 pb-3">
+              <ShieldCheck className="text-gray-400" size={18} />
+              <h3 className="text-gray-300 uppercase tracking-widest text-[10px] font-bold">
                 Keunggulan Resmi Suzuki
               </h3>
             </div>
 
-            {/* Susunan Logo Mengkotak */}
-            <div className="flex flex-col gap-4">
+            {/* List Keunggulan Minimalis */}
+            <div className="flex flex-col gap-3">
               
-              {/* Logo 1: Baterai Garansi */}
-              <div className="relative w-full h-20 sm:h-24 bg-white border border-white/20 p-2 group transition-all duration-300 hover:border-suzuki-blue hover:shadow-[0_0_15px_rgba(0,102,204,0.3)]">
-                <Image
-                  src="/logos/battery-warranty.png" // Sesuaikan path jika berbeda
-                  alt="8 Years 160.000km Lithium-Ion Battery Warranty"
-                  fill
-                  className="object-contain p-2"
-                />
+              {/* Benefit 1: Baterai */}
+              <div className="flex items-center gap-4 bg-white/5 border border-white/10 p-4 hover:bg-white/10 hover:border-suzuki-blue transition-all duration-300 rounded-none group cursor-default">
+                <div className="bg-[#050B14] p-2 border border-white/10 group-hover:border-suzuki-blue/50 transition-colors">
+                  <BatteryCharging size={24} className="text-blue-400" />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold text-xs uppercase tracking-wide mb-0.5 group-hover:text-blue-400 transition-colors">Garansi Baterai 8 Thn</h4>
+                  <p className="text-gray-400 text-[10px] uppercase tracking-wider">Lithium-Ion s/d 160.000 KM</p>
+                </div>
               </div>
 
-              {/* Logo 2: Smart Hybrid */}
-              <div className="relative w-full h-20 sm:h-24 bg-[#1a1a1a] border border-white/20 p-2 group transition-all duration-300 hover:border-suzuki-blue hover:shadow-[0_0_15px_rgba(0,102,204,0.3)]">
-                <Image
-                  src="/logos/smart-hybrid.png" // Sesuaikan path jika berbeda
-                  alt="Smart Hybrid Vehicle By Suzuki"
-                  fill
-                  className="object-contain p-2"
-                />
+              {/* Benefit 2: Smart Hybrid */}
+              <div className="flex items-center gap-4 bg-white/5 border border-white/10 p-4 hover:bg-white/10 hover:border-suzuki-blue transition-all duration-300 rounded-none group cursor-default">
+                <div className="bg-[#050B14] p-2 border border-white/10 group-hover:border-suzuki-blue/50 transition-colors">
+                  <Cpu size={24} className="text-blue-400" />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold text-xs uppercase tracking-wide mb-0.5 group-hover:text-blue-400 transition-colors">Smart Hybrid Vehicle</h4>
+                  <p className="text-gray-400 text-[10px] uppercase tracking-wider">Teknologi ISG Hemat Energi</p>
+                </div>
               </div>
 
-              {/* Logo 3: Gratis Servis */}
-              <div className="relative w-full h-24 sm:h-28 bg-white border border-white/20 p-2 group transition-all duration-300 hover:border-suzuki-red hover:shadow-[0_0_15px_rgba(204,0,0,0.3)]">
-                <Image
-                  src="/logos/gratis-servis.png" // Sesuaikan path jika berbeda
-                  alt="Gratis Suku Cadang & Jasa Perawatan Berkala s/d 50.000 KM"
-                  fill
-                  className="object-contain p-2"
-                />
+              {/* Benefit 3: Gratis Servis */}
+              <div className="flex items-center gap-4 bg-white/5 border border-white/10 p-4 hover:bg-white/10 hover:border-suzuki-red transition-all duration-300 rounded-none group cursor-default">
+                <div className="bg-[#050B14] p-2 border border-white/10 group-hover:border-suzuki-red/50 transition-colors">
+                  <Wrench size={24} className="text-red-400" />
+                </div>
+                <div>
+                  <h4 className="text-white font-bold text-xs uppercase tracking-wide mb-0.5 group-hover:text-red-400 transition-colors">Gratis Servis Berkala</h4>
+                  <p className="text-gray-400 text-[10px] uppercase tracking-wider">Jasa & Suku Cadang s/d 50.000 KM</p>
+                </div>
               </div>
 
             </div>
