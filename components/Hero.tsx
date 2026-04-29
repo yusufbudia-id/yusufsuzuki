@@ -21,8 +21,48 @@ const banners = [
   "/hero/banner-3.jpg", 
 ];
 
+// Data Keunggulan agar mudah di-map untuk Desktop & Mobile
+const trustBadges = [
+  {
+    id: 1,
+    title: "Garansi Baterai 8 Thn",
+    desc: "Lithium-Ion s/d 160.000 KM",
+    icon: BatteryCharging,
+    iconColor: "text-blue-400",
+    hoverContainer: "hover:border-suzuki-blue hover:bg-white/10",
+    hoverIconBox: "group-hover:border-suzuki-blue/50",
+    hoverTitle: "group-hover:text-blue-400",
+    activeBorder: "border-suzuki-blue",
+  },
+  {
+    id: 2,
+    title: "Smart Hybrid Vehicle",
+    desc: "Teknologi ISG Hemat Energi",
+    icon: Cpu,
+    iconColor: "text-blue-400",
+    hoverContainer: "hover:border-suzuki-blue hover:bg-white/10",
+    hoverIconBox: "group-hover:border-suzuki-blue/50",
+    hoverTitle: "group-hover:text-blue-400",
+    activeBorder: "border-suzuki-blue",
+  },
+  {
+    id: 3,
+    title: "Gratis Servis Berkala",
+    desc: "Jasa & Suku Cadang s/d 50.000 KM",
+    icon: Wrench,
+    iconColor: "text-red-400",
+    hoverContainer: "hover:border-suzuki-red hover:bg-white/10",
+    hoverIconBox: "group-hover:border-suzuki-red/50",
+    hoverTitle: "group-hover:text-red-400",
+    activeBorder: "border-suzuki-red",
+  }
+];
+
 export default function Hero({ cityName }: { cityName?: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // State untuk melacak badge mana yang di-klik di Mobile
+  const [activeMobileBadge, setActiveMobileBadge] = useState<number | null>(null);
 
   const waMessage = cityName 
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
@@ -90,7 +130,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center h-full">
           
-          {/* --- KOLOM KIRI (7 Kolom): Teks Utama (SEO Optimized) & CTA --- */}
+          {/* --- KOLOM KIRI (7 Kolom): Teks Utama & CTA --- */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             
             <motion.div
@@ -165,57 +205,89 @@ export default function Hero({ cityName }: { cityName?: string }) {
             </motion.div>
           </div>
 
-          {/* --- KOLOM KANAN (4 Kolom, digeser ke ujung kanan): Minimalist Trust Badges --- */}
+          {/* --- KOLOM KANAN (5 Kolom, ditarik mendekat): Trust Badges --- */}
+          {/* Mengubah col-start-9 menjadi col-start-8 dan col-span-4 menjadi col-span-5 untuk mempersempit jarak */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="lg:col-span-4 lg:col-start-9 w-full flex flex-col mt-12 lg:mt-0"
+            className="lg:col-span-5 lg:col-start-8 w-full flex flex-col mt-12 lg:mt-0"
           >
-            <div className="flex items-center gap-2 mb-5 border-b border-white/10 pb-3">
+            <div className="flex items-center gap-2 mb-4 lg:mb-5 border-b border-white/10 pb-3">
               <ShieldCheck className="text-gray-400" size={18} />
               <h3 className="text-gray-300 uppercase tracking-widest text-[10px] font-bold">
                 Keunggulan Resmi Suzuki
               </h3>
             </div>
 
-            {/* List Keunggulan Minimalis */}
-            <div className="flex flex-col gap-3">
-              
-              {/* Benefit 1: Baterai */}
-              <div className="flex items-center gap-4 bg-white/5 border border-white/10 p-4 hover:bg-white/10 hover:border-suzuki-blue transition-all duration-300 rounded-none group cursor-default">
-                <div className="bg-[#050B14] p-2 border border-white/10 group-hover:border-suzuki-blue/50 transition-colors">
-                  <BatteryCharging size={24} className="text-blue-400" />
+            {/* ------------------------------- */}
+            {/* TAMPILAN DESKTOP (List Lengkap) */}
+            {/* ------------------------------- */}
+            <div className="hidden lg:flex flex-col gap-3">
+              {trustBadges.map((badge) => (
+                <div key={badge.id} className={`flex items-center gap-4 bg-white/5 border border-white/10 p-4 transition-all duration-300 rounded-none group cursor-default ${badge.hoverContainer}`}>
+                  <div className={`bg-[#050B14] p-2 border border-white/10 transition-colors ${badge.hoverIconBox}`}>
+                    <badge.icon size={24} className={badge.iconColor} />
+                  </div>
+                  <div>
+                    <h4 className={`text-white font-bold text-xs uppercase tracking-wide mb-0.5 transition-colors ${badge.hoverTitle}`}>
+                      {badge.title}
+                    </h4>
+                    <p className="text-gray-400 text-[10px] uppercase tracking-wider">
+                      {badge.desc}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-white font-bold text-xs uppercase tracking-wide mb-0.5 group-hover:text-blue-400 transition-colors">Garansi Baterai 8 Thn</h4>
-                  <p className="text-gray-400 text-[10px] uppercase tracking-wider">Lithium-Ion s/d 160.000 KM</p>
-                </div>
-              </div>
-
-              {/* Benefit 2: Smart Hybrid */}
-              <div className="flex items-center gap-4 bg-white/5 border border-white/10 p-4 hover:bg-white/10 hover:border-suzuki-blue transition-all duration-300 rounded-none group cursor-default">
-                <div className="bg-[#050B14] p-2 border border-white/10 group-hover:border-suzuki-blue/50 transition-colors">
-                  <Cpu size={24} className="text-blue-400" />
-                </div>
-                <div>
-                  <h4 className="text-white font-bold text-xs uppercase tracking-wide mb-0.5 group-hover:text-blue-400 transition-colors">Smart Hybrid Vehicle</h4>
-                  <p className="text-gray-400 text-[10px] uppercase tracking-wider">Teknologi ISG Hemat Energi</p>
-                </div>
-              </div>
-
-              {/* Benefit 3: Gratis Servis */}
-              <div className="flex items-center gap-4 bg-white/5 border border-white/10 p-4 hover:bg-white/10 hover:border-suzuki-red transition-all duration-300 rounded-none group cursor-default">
-                <div className="bg-[#050B14] p-2 border border-white/10 group-hover:border-suzuki-red/50 transition-colors">
-                  <Wrench size={24} className="text-red-400" />
-                </div>
-                <div>
-                  <h4 className="text-white font-bold text-xs uppercase tracking-wide mb-0.5 group-hover:text-red-400 transition-colors">Gratis Servis Berkala</h4>
-                  <p className="text-gray-400 text-[10px] uppercase tracking-wider">Jasa & Suku Cadang s/d 50.000 KM</p>
-                </div>
-              </div>
-
+              ))}
             </div>
+
+            {/* ------------------------------- */}
+            {/* TAMPILAN MOBILE (Tab Interaktif) */}
+            {/* ------------------------------- */}
+            <div className="flex lg:hidden flex-col gap-3">
+              {/* Row Tombol Ikon */}
+              <div className="grid grid-cols-3 gap-3">
+                {trustBadges.map((badge, idx) => (
+                  <button
+                    key={badge.id}
+                    onClick={() => setActiveMobileBadge(activeMobileBadge === idx ? null : idx)}
+                    className={`flex justify-center items-center p-3 sm:p-4 bg-white/5 border transition-all duration-300 rounded-none focus:outline-none ${
+                      activeMobileBadge === idx ? `${badge.activeBorder} bg-white/10` : 'border-white/10 hover:bg-white/10'
+                    }`}
+                  >
+                    <div className={`bg-[#050B14] p-2 border transition-colors ${
+                      activeMobileBadge === idx ? badge.activeBorder : 'border-white/10'
+                    }`}>
+                      <badge.icon size={24} className={badge.iconColor} />
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              {/* Teks Deskripsi Muncul Saat Di-klik */}
+              <AnimatePresence mode="wait">
+                {activeMobileBadge !== null && (
+                  <motion.div
+                    key={activeMobileBadge}
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="overflow-hidden"
+                  >
+                    <div className={`bg-white/5 border p-4 text-center rounded-none border-t-2 ${trustBadges[activeMobileBadge].activeBorder}`}>
+                      <h4 className={`font-bold text-xs sm:text-sm uppercase tracking-wide mb-1 ${trustBadges[activeMobileBadge].iconColor}`}>
+                        {trustBadges[activeMobileBadge].title}
+                      </h4>
+                      <p className="text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider">
+                        {trustBadges[activeMobileBadge].desc}
+                      </p>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
           </motion.div>
 
         </div>
