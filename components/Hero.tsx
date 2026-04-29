@@ -113,14 +113,14 @@ export default function Hero({ cityName }: { cityName?: string }) {
               Dealer Resmi Mobil Suzuki {cityName ? cityName : "Jogja"}
             </motion.h1>
 
-            <motion.p
+            <motion.h2
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 }}
               className="text-lg sm:text-xl font-medium text-blue-400 mb-5 tracking-wide"
             >
               Pusat Promo & Harga Terbaru &bull; Proses Kredit Mudah
-            </motion.p>
+            </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 10 }}
