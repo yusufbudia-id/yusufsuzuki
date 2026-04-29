@@ -22,9 +22,21 @@ const banners = [
   "/hero/banner-3.jpg", 
 ];
 
+// Menambahkan "Beli Suzuki Pasti Untung" ke dalam daftar Keunggulan
 const trustBadges = [
   {
     id: 1,
+    title: "Beli Suzuki Pasti Untung",
+    desc: "Harga Terbaik & Nilai Jual Tinggi",
+    icon: TrendingUp,
+    iconColor: "text-green-400",
+    hoverContainer: "hover:border-green-500 hover:bg-white/10",
+    hoverIconBox: "group-hover:border-green-500/50",
+    hoverTitle: "group-hover:text-green-400",
+    activeBorder: "border-green-500",
+  },
+  {
+    id: 2,
     title: "Garansi Baterai 8 Thn",
     desc: "Lithium-Ion s/d 160.000 KM",
     icon: BatteryCharging,
@@ -35,7 +47,7 @@ const trustBadges = [
     activeBorder: "border-suzuki-blue",
   },
   {
-    id: 2,
+    id: 3,
     title: "Smart Hybrid Vehicle",
     desc: "Teknologi ISG Hemat Energi",
     icon: Cpu,
@@ -46,7 +58,7 @@ const trustBadges = [
     activeBorder: "border-suzuki-blue",
   },
   {
-    id: 3,
+    id: 4,
     title: "Gratis Servis Berkala",
     desc: "Jasa & Suku Cadang s/d 50.000 KM",
     icon: Wrench,
@@ -76,13 +88,18 @@ export default function Hero({ cityName }: { cityName?: string }) {
   return (
     <section className="relative min-h-screen flex flex-col justify-start pt-16 md:pt-20 bg-[#050B14] overflow-hidden">
       
+      {/* ======================= */}
       {/* BACKGROUND BERTEKSTUR */}
-      {/* Lapisan 1: Noise Texture */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-      {/* Lapisan 2: Grid Dinamis */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:30px_30px] lg:bg-[size:50px_50px] pointer-events-none z-0" />
-      {/* Lapisan 3: Radial Glow Subtle */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(0,102,204,0.05),transparent_50%)] pointer-events-none z-0" />
+      {/* ======================= */}
+      {/* 1. SVG Noise Grain (Bintik-bintik industrial) */}
+      <div 
+        className="absolute inset-0 opacity-[0.05] pointer-events-none z-0 mix-blend-overlay"
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
+      />
+      {/* 2. Grid Kotak-kotak Blueprint */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0" />
+      {/* 3. Shadow Fade (Agar teks tetap terbaca jelas) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#050B14] via-[#050B14]/80 to-transparent pointer-events-none z-0" />
 
       {/* ======================= */}
       {/* BAGIAN 1: BANNER SLIDER */}
@@ -133,37 +150,20 @@ export default function Hero({ cityName }: { cityName?: string }) {
           
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             
-            <div className="flex flex-wrap gap-3 mb-5">
-              {/* Badge 1: Layanan */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="inline-flex items-center gap-3 border border-white/20 px-3 py-1.5 bg-white/5 backdrop-blur-sm"
-              >
-                <div className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
-                </div>
-                <span className="tracking-[0.15em] uppercase text-[11px] font-semibold text-gray-300">
-                  Layanan Penjualan Terpercaya
-                </span>
-              </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-3 border border-white/20 px-3 py-1.5 mb-5 bg-white/5 backdrop-blur-sm"
+            >
+              <div className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
+              </div>
+              <span className="tracking-[0.15em] uppercase text-[11px] font-semibold text-gray-300">
+                Layanan Penjualan Terpercaya
+              </span>
+            </motion.div>
 
-              {/* Badge 2: Keunggulan Utama (Beli Suzuki Pasti Untung) */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.05 }}
-                className="inline-flex items-center gap-2 border border-suzuki-red/50 px-3 py-1.5 bg-suzuki-red/10 backdrop-blur-sm"
-              >
-                <TrendingUp size={14} className="text-suzuki-red" />
-                <span className="tracking-[0.15em] uppercase text-[11px] font-bold text-white">
-                  Beli Suzuki Pasti Untung
-                </span>
-              </motion.div>
-            </div>
-
-            {/* Heading 1: Kapital Semua */}
             <motion.h1
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -173,7 +173,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
               Dealer Resmi Mobil Suzuki {cityName ? cityName : "Jogja"}
             </motion.h1>
 
-            {/* Heading 2: Berwarna Putih */}
             <motion.h2
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -239,11 +238,12 @@ export default function Hero({ cityName }: { cityName?: string }) {
               </h3>
             </div>
 
-            <div className="hidden lg:flex flex-col gap-3">
+            {/* Desktop: 4 Kotak Keunggulan Vertikal */}
+            <div className="hidden lg:flex flex-col gap-2.5">
               {trustBadges.map((badge) => (
-                <div key={badge.id} className={`flex items-center gap-4 bg-white/5 border border-white/10 p-4 transition-all duration-300 rounded-none group cursor-default ${badge.hoverContainer}`}>
+                <div key={badge.id} className={`flex items-center gap-4 bg-[#050B14]/60 backdrop-blur-sm border border-white/10 p-3.5 transition-all duration-300 rounded-none group cursor-default ${badge.hoverContainer}`}>
                   <div className={`bg-[#050B14] p-2 border border-white/10 transition-colors ${badge.hoverIconBox}`}>
-                    <badge.icon size={24} className={badge.iconColor} />
+                    <badge.icon size={22} className={badge.iconColor} />
                   </div>
                   <div>
                     <h4 className={`text-white font-bold text-xs uppercase tracking-wide mb-0.5 transition-colors ${badge.hoverTitle}`}>
@@ -257,20 +257,21 @@ export default function Hero({ cityName }: { cityName?: string }) {
               ))}
             </div>
 
+            {/* Mobile: 4 Kotak Ikon Horizontal */}
             <div className="flex lg:hidden flex-col gap-3">
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-4 gap-2">
                 {trustBadges.map((badge, idx) => (
                   <button
                     key={badge.id}
                     onClick={() => setActiveMobileBadge(activeMobileBadge === idx ? null : idx)}
-                    className={`flex justify-center items-center p-3 sm:p-4 bg-white/5 border transition-all duration-300 rounded-none focus:outline-none ${
+                    className={`flex justify-center items-center p-3 bg-white/5 border transition-all duration-300 rounded-none focus:outline-none ${
                       activeMobileBadge === idx ? `${badge.activeBorder} bg-white/10` : 'border-white/10 hover:bg-white/10'
                     }`}
                   >
-                    <div className={`bg-[#050B14] p-2 border transition-colors ${
+                    <div className={`bg-[#050B14] p-1.5 border transition-colors ${
                       activeMobileBadge === idx ? badge.activeBorder : 'border-white/10'
                     }`}>
-                      <badge.icon size={24} className={badge.iconColor} />
+                      <badge.icon size={22} className={badge.iconColor} />
                     </div>
                   </button>
                 ))}
@@ -286,7 +287,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden"
                   >
-                    <div className={`bg-white/5 border p-4 text-center rounded-none border-t-2 ${trustBadges[activeMobileBadge].activeBorder}`}>
+                    <div className={`bg-[#050B14]/80 backdrop-blur-sm border p-4 text-center rounded-none border-t-2 ${trustBadges[activeMobileBadge].activeBorder}`}>
                       <h4 className={`font-bold text-xs sm:text-sm uppercase tracking-wide mb-1 ${trustBadges[activeMobileBadge].iconColor}`}>
                         {trustBadges[activeMobileBadge].title}
                       </h4>
