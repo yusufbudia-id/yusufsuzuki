@@ -15,7 +15,6 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  // 1. PERBAIKAN: Ditambahkan 'www' agar sesuai dengan Production Vercel
   metadataBase: new URL("https://www.suzukiautojogja.com"), 
   
   alternates: {
@@ -48,7 +47,6 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    // 2. PERBAIKAN: Ditambahkan 'www'
     url: "https://www.suzukiautojogja.com", 
     siteName: "Suzuki Sumber Baru Mobil",
     title: "Promo Suzuki Jogja | DP Ringan & Angsuran Murah", 
@@ -86,7 +84,6 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "AutoDealer",
     "name": "Suzuki Sumber Baru Mobil",
-    // 3. PERBAIKAN: Semua URL di Schema Markup diseragamkan memakai 'www'
     "image": "https://www.suzukiautojogja.com/logo.png",
     "@id": "https://www.suzukiautojogja.com",
     "url": "https://www.suzukiautojogja.com",
@@ -135,9 +132,9 @@ export default function RootLayout({
       </head>
       <body className={`${manrope.className} antialiased bg-white text-gray-900`}>
         
-        {/* Google Analytics Script */}
+        {/* Google Analytics Script (Ditarik Otomatis Dari .env) */}
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -145,7 +142,7 @@ export default function RootLayout({
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-G2TPXR1W56');
+            gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
           `}
         </Script>
 
