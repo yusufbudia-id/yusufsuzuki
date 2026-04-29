@@ -132,14 +132,14 @@ export default function Hero({ cityName }: { cityName?: string }) {
       {/* ============================= */}
       <div className="relative w-full flex-1 flex flex-col justify-start">
         
-        {/* TEKSTUR BACKGROUND DIPERJELAS DI SINI */}
-        {/* Lapisan 1: SVG Noise Grain (Opacity dinaikkan jadi 12%) */}
+        {/* TEKSTUR BACKGROUND LEBIH TEBAL */}
+        {/* Lapisan 1: SVG Noise Grain (Opacity dinaikkan jadi 25%) */}
         <div 
-          className="absolute inset-0 opacity-[0.12] pointer-events-none z-0 mix-blend-overlay"
+          className="absolute inset-0 opacity-[0.25] pointer-events-none z-0 mix-blend-overlay"
           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
         />
-        {/* Lapisan 2: Kotak Grid Blueprint (Warna putih lebih tebal/rgba) */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none z-0" />
+        {/* Lapisan 2: Kotak Grid Blueprint (Warna putih lebih tebal: rgba 0.12) */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none z-0" />
         
         {/* Lapisan 3: Fade atas/bawah agar teksturnya halus dan tidak menabrak teks */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#050B14] via-transparent to-[#050B14] pointer-events-none z-0 opacity-80" />
