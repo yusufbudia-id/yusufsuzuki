@@ -9,9 +9,9 @@ import { WA_BASE_URL } from "@/lib/utils";
 
 // Daftar gambar banner (Silakan sesuaikan path/nama filenya)
 const banners = [
-  "/hero/banner-1.jpg", // Gambar 1 (Misal: Fronx seperti gambar di atas)
-  "/hero/banner-2.jpg", // Gambar 2
-  "/hero/banner-3.jpg", // Gambar 3
+  "/hero/banner-1.jpg", 
+  "/hero/banner-2.jpg", 
+  "/hero/banner-3.jpg", 
 ];
 
 export default function Hero({ cityName }: { cityName?: string }) {
@@ -30,12 +30,16 @@ export default function Hero({ cityName }: { cityName?: string }) {
   }, []);
 
   return (
-    <section className="relative w-full bg-[#050B14] min-h-screen">
+    // Tambahkan pt-16 atau pt-20 di sini untuk memberi ruang pada Navbar
+    <section className="relative min-h-screen flex flex-col justify-start pt-16 md:pt-20">
       
+      {/* Background warna solid ditaruh di layer paling belakang (-z-20) agar Navbar tidak tertutup */}
+      <div className="absolute inset-0 bg-[#050B14] -z-20" />
+
       {/* ======================= */}
       {/* BAGIAN 1: BANNER SLIDER */}
       {/* ======================= */}
-      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.5/1] overflow-hidden bg-gray-900 mt-16 md:mt-20">
+      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.5/1] overflow-hidden bg-gray-900 z-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -56,11 +60,11 @@ export default function Hero({ cityName }: { cityName?: string }) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Gradient overlay opsional agar tidak terlalu flat */}
+        {/* Gradient overlay agar gambar tidak terlalu flat di bagian bawah */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#050B14] via-transparent to-transparent opacity-80" />
 
-        {/* Indikator Titik (Dots) di bawah banner */}
-        <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {/* Indikator Titik (Dots) */}
+        <div className="absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
           {banners.map((_, idx) => (
             <button
               key={idx}
@@ -75,12 +79,12 @@ export default function Hero({ cityName }: { cityName?: string }) {
       </div>
 
       {/* Garis Aksen Suzuki */}
-      <div className="w-full h-1 bg-gradient-to-r from-suzuki-blue via-suzuki-red to-suzuki-blue z-0" />
+      <div className="w-full h-1 bg-gradient-to-r from-suzuki-blue via-suzuki-red to-suzuki-blue relative z-10 shadow-[0_0_15px_rgba(0,0,0,0.5)]" />
 
       {/* ============================= */}
       {/* BAGIAN 2: KONTEN TEKS & TOMBOL */}
       {/* ============================= */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-24 w-full">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16 flex-1 flex flex-col justify-center w-full">
         <div className="flex flex-col items-center text-center">
           
           {/* Badge: Modern Premium */}
@@ -88,7 +92,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 120, damping: 12 }}
-            className="cursor-default inline-flex items-center gap-3 bg-[#0a192f]/60 backdrop-blur-md border border-cyan-500/30 px-5 py-2.5 rounded-full mb-6 shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:border-cyan-400/50 transition-all duration-300 group"
+            className="cursor-default inline-flex items-center gap-3 bg-[#0a192f]/60 backdrop-blur-md border border-cyan-500/30 px-5 py-2.5 rounded-full mb-6 shadow-[0_0_20px_rgba(6,182,212,0.15)] hover:border-cyan-400/50 transition-all duration-300"
           >
             <div className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75 duration-1000"></span>
@@ -105,11 +109,11 @@ export default function Hero({ cityName }: { cityName?: string }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-5"
+            className="text-3xl sm:text-4xl lg:text-5xl font-black text-white leading-tight mb-4"
           >
             Dealer Resmi Mobil Suzuki {cityName ? cityName : "Jogja"}
             <br />
-            <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-300 mt-3 block">
+            <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-300 mt-2 block">
               Pusat Promo & Harga Terbaru
             </span>
           </motion.h1>
@@ -119,7 +123,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-300 text-base sm:text-lg max-w-3xl leading-relaxed mb-10"
+            className="text-gray-300 text-base sm:text-lg max-w-3xl leading-relaxed mb-8"
           >
             Sebagai <strong className="text-white font-normal">dealer resmi Suzuki di wilayah {cityName ? cityName : "Jogja"}</strong>, kami hadir memberikan solusi pembelian mobil impian Anda dengan penawaran harga terbaik, promo eksklusif, serta kemudahan proses kredit bersama <strong className="text-white font-semibold">Yusuf Suzuki</strong>.
           </motion.p>
@@ -163,7 +167,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-16 grid grid-cols-3 gap-4 sm:gap-8 w-full max-w-2xl border-t border-white/10 pt-10"
+            className="mt-12 grid grid-cols-3 gap-4 sm:gap-8 w-full max-w-2xl border-t border-white/10 pt-8"
           >
             {[
               { value: "500+", label: "Mobil Terjual" },
