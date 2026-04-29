@@ -90,7 +90,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center h-full">
           
-          {/* --- KOLOM KIRI (7 Kolom): Teks Utama & CTA --- */}
+          {/* --- KOLOM KIRI (7 Kolom): Teks Utama (SEO Optimized) & CTA --- */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             
             <motion.div
@@ -100,7 +100,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             >
               <div className="h-1.5 w-1.5 bg-blue-500 rounded-none"></div>
               <span className="tracking-[0.15em] uppercase text-[11px] font-semibold text-gray-300">
-                Dealer Resmi Suzuki {cityName ? cityName : "Yogyakarta"}
+                Layanan Penjualan Terpercaya
               </span>
             </motion.div>
 
@@ -110,7 +110,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
               transition={{ delay: 0.1 }}
               className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4 tracking-tight"
             >
-              Temukan Suzuki Impian Anda di {cityName ? cityName : "Jogja"}
+              Dealer Resmi Mobil Suzuki {cityName ? cityName : "Jogja"}
             </motion.h1>
 
             <motion.p
@@ -119,7 +119,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
               transition={{ delay: 0.15 }}
               className="text-lg sm:text-xl font-medium text-blue-400 mb-5 tracking-wide"
             >
-              Dealer Resmi &bull; Promo Terbaru &bull; Proses Kredit Mudah
+              Pusat Promo & Harga Terbaru &bull; Proses Kredit Mudah
             </motion.p>
 
             <motion.p
@@ -128,7 +128,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
               transition={{ delay: 0.2 }}
               className="text-gray-400 font-normal text-sm sm:text-base max-w-xl leading-relaxed mb-10"
             >
-              Dapatkan penawaran harga terbaik, diskon eksklusif, serta kemudahan proses pembelian mobil baru Anda bersama <strong className="text-gray-200">Yusuf Suzuki</strong>.
+              Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan mobil impian dengan penawaran harga paling kompetitif, diskon eksklusif bulanan, serta layanan purna jual yang terjamin kualitasnya bersama <strong className="text-gray-200">Yusuf Suzuki</strong>.
             </motion.p>
 
             <motion.div
