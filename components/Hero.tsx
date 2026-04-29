@@ -21,7 +21,6 @@ const banners = [
   "/hero/banner-3.jpg", 
 ];
 
-// Data Keunggulan agar mudah di-map untuk Desktop & Mobile
 const trustBadges = [
   {
     id: 1,
@@ -60,8 +59,6 @@ const trustBadges = [
 
 export default function Hero({ cityName }: { cityName?: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  
-  // State untuk melacak badge mana yang di-klik di Mobile
   const [activeMobileBadge, setActiveMobileBadge] = useState<number | null>(null);
 
   const waMessage = cityName 
@@ -117,7 +114,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
         </div>
       </div>
 
-      {/* Garis Aksen Bawah Banner */}
       <div className="w-full h-1 bg-gradient-to-r from-suzuki-blue via-suzuki-red to-suzuki-blue z-20 relative" />
 
       {/* ============================= */}
@@ -125,40 +121,43 @@ export default function Hero({ cityName }: { cityName?: string }) {
       {/* ============================= */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 w-full flex-1 flex flex-col justify-start">
         
-        {/* Tekstur Background Grid Minimalis */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none -z-10" />
 
-        {/* PERUBAHAN DI SINI: gap-12 menjadi gap-8 untuk merapatkan jarak atas-bawah di mobile */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center h-full">
           
-          {/* --- KOLOM KIRI (7 Kolom): Teks Utama & CTA --- */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 border border-white/20 px-3 py-1.5 mb-5 bg-white/5 backdrop-blur-sm"
+              className="inline-flex items-center gap-3 border border-white/20 px-3 py-1.5 mb-5 bg-white/5 backdrop-blur-sm"
             >
-              <div className="h-1.5 w-1.5 bg-blue-500 rounded-none"></div>
+              {/* Titik Biru Bulat dan Hidup */}
+              <div className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
+              </div>
               <span className="tracking-[0.15em] uppercase text-[11px] font-semibold text-gray-300">
                 Layanan Penjualan Terpercaya
               </span>
             </motion.div>
 
+            {/* Heading 1: Kapital Semua */}
             <motion.h1
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4 tracking-tight"
+              className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4 tracking-tight uppercase"
             >
               Dealer Resmi Mobil Suzuki {cityName ? cityName : "Jogja"}
             </motion.h1>
 
+            {/* Heading 2: Berwarna Putih */}
             <motion.h2
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15 }}
-              className="text-lg sm:text-xl font-medium text-blue-400 mb-5 tracking-wide"
+              className="text-lg sm:text-xl font-medium text-white mb-5 tracking-wide"
             >
               Pusat Promo & Harga Terbaru &bull; Proses Kredit Mudah
             </motion.h2>
@@ -198,7 +197,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
 
               <Link 
                 href="/mobil" 
-                className="text-gray-400 hover:text-white font-medium py-3.5 px-4 transition-colors text-xs sm:text-sm inline-flex items-center justify-center gap-2 w-full sm:w-auto group mt-1 sm:mt-0"
+                className="text-gray-400 hover:text-white font-medium py-3.5 px-4 sm:px-2 transition-colors text-xs sm:text-sm inline-flex items-center justify-center gap-2 w-full sm:w-auto group mt-1 sm:mt-0"
               >
                 Lihat Katalog
                 <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -206,8 +205,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
             </motion.div>
           </div>
 
-          {/* --- KOLOM KANAN (5 Kolom): Trust Badges --- */}
-          {/* PERUBAHAN DI SINI: mt-12 dikurangi jadi mt-2 agar di mobile menempel lebih dekat dengan teks Katalog */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -221,9 +218,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
               </h3>
             </div>
 
-            {/* ------------------------------- */}
-            {/* TAMPILAN DESKTOP (List Lengkap) */}
-            {/* ------------------------------- */}
             <div className="hidden lg:flex flex-col gap-3">
               {trustBadges.map((badge) => (
                 <div key={badge.id} className={`flex items-center gap-4 bg-white/5 border border-white/10 p-4 transition-all duration-300 rounded-none group cursor-default ${badge.hoverContainer}`}>
@@ -242,11 +236,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
               ))}
             </div>
 
-            {/* ------------------------------- */}
-            {/* TAMPILAN MOBILE (Tab Interaktif) */}
-            {/* ------------------------------- */}
             <div className="flex lg:hidden flex-col gap-3">
-              {/* Row Tombol Ikon */}
               <div className="grid grid-cols-3 gap-3">
                 {trustBadges.map((badge, idx) => (
                   <button
@@ -265,7 +255,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
                 ))}
               </div>
 
-              {/* Teks Deskripsi Muncul Saat Di-klik */}
               <AnimatePresence mode="wait">
                 {activeMobileBadge !== null && (
                   <motion.div
@@ -288,9 +277,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
                 )}
               </AnimatePresence>
             </div>
-
           </motion.div>
-
         </div>
       </div>
     </section>
