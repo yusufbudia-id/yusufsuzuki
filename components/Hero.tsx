@@ -247,7 +247,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
                         <div className="relative w-full h-full z-10 transition-transform duration-500 group-hover:scale-105">
                           {/* Sesuaikan property car.image dengan struktur datamu, misal: car.images[0] */}
                           <Image
-                            src={car.image || (car.images && car.images[0]) || "/placeholder-car.png"}
+                            src={car.images?.[0] || "/placeholder-car.png"}
                             alt={car.name}
                             fill
                             className="object-contain drop-shadow-2xl"
