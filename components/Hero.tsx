@@ -123,12 +123,13 @@ export default function Hero({ cityName }: { cityName?: string }) {
       {/* ============================= */}
       {/* BAGIAN 2: KONTEN BAWAH (GRID) */}
       {/* ============================= */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 w-full flex-1 flex flex-col justify-start">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 w-full flex-1 flex flex-col justify-start">
         
         {/* Tekstur Background Grid Minimalis */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none -z-10" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center h-full">
+        {/* PERUBAHAN DI SINI: gap-12 menjadi gap-8 untuk merapatkan jarak atas-bawah di mobile */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center h-full">
           
           {/* --- KOLOM KIRI (7 Kolom): Teks Utama & CTA --- */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
@@ -205,13 +206,13 @@ export default function Hero({ cityName }: { cityName?: string }) {
             </motion.div>
           </div>
 
-          {/* --- KOLOM KANAN (5 Kolom, ditarik mendekat): Trust Badges --- */}
-          {/* Mengubah col-start-9 menjadi col-start-8 dan col-span-4 menjadi col-span-5 untuk mempersempit jarak */}
+          {/* --- KOLOM KANAN (5 Kolom): Trust Badges --- */}
+          {/* PERUBAHAN DI SINI: mt-12 dikurangi jadi mt-2 agar di mobile menempel lebih dekat dengan teks Katalog */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4 }}
-            className="lg:col-span-5 lg:col-start-8 w-full flex flex-col mt-12 lg:mt-0"
+            className="lg:col-span-5 lg:col-start-8 w-full flex flex-col mt-2 lg:mt-0"
           >
             <div className="flex items-center gap-2 mb-4 lg:mb-5 border-b border-white/10 pb-3">
               <ShieldCheck className="text-gray-400" size={18} />
