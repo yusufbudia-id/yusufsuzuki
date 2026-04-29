@@ -33,14 +33,17 @@ export default function Hero({ cityName }: { cityName?: string }) {
       {/* ======================= */}
       {/* BAGIAN 1: BANNER SLIDER */}
       {/* ======================= */}
-      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.5/1] bg-gray-900 z-0">
-        <AnimatePresence mode="wait">
+      {/* Ditambahkan overflow-hidden agar efek slide tidak melebar keluar batas */}
+      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.5/1] bg-gray-900 z-0 overflow-hidden">
+        {/* initial={false} mencegah animasi berjalan saat halaman pertama kali dirender */}
+        <AnimatePresence initial={false}>
           <motion.div
             key={currentIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            // Mulai dari kanan layar (100%), geser ke tengah (0), lalu keluar ke kiri (-100%)
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "-100%" }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
             className="absolute inset-0"
           >
             <Image
@@ -70,7 +73,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
       </div>
 
       {/* Garis Aksen Bawah Banner - Tajam & Solid */}
-      <div className="w-full h-1.5 bg-gradient-to-r from-suzuki-blue via-suzuki-red to-suzuki-blue z-10" />
+      <div className="w-full h-1.5 bg-gradient-to-r from-suzuki-blue via-suzuki-red to-suzuki-blue z-10 relative" />
 
       {/* ============================= */}
       {/* BAGIAN 2: KONTEN TEKS & TOMBOL */}
@@ -90,7 +93,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             </span>
           </motion.div>
 
-          {/* Heading: Tidak banyak format aneh-aneh, murni tipografi tebal */}
+          {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -114,7 +117,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             Sebagai dealer resmi Suzuki di wilayah {cityName ? cityName : "Jogja"}, kami memberikan solusi pembelian mobil impian Anda dengan penawaran harga terbaik, promo eksklusif, serta kemudahan proses kredit bersama <strong className="text-white">Yusuf Suzuki</strong>.
           </motion.p>
 
-          {/* CTA Buttons: Kotak Tajam (rounded-none), Border Tebal, Efek Solid */}
+          {/* CTA Buttons: Kotak Tajam (rounded-none), Border Tebal */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -148,7 +151,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             </Link>
           </motion.div>
 
-          {/* Stats: Terstruktur dengan Grid yang dipisahkan oleh Garis Tajam */}
+          {/* Stats */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
