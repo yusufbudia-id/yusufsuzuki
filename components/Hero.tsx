@@ -11,7 +11,8 @@ import {
   BatteryCharging, 
   Cpu, 
   Wrench,
-  ShieldCheck
+  ShieldCheck,
+  TrendingUp
 } from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
 
@@ -75,6 +76,14 @@ export default function Hero({ cityName }: { cityName?: string }) {
   return (
     <section className="relative min-h-screen flex flex-col justify-start pt-16 md:pt-20 bg-[#050B14] overflow-hidden">
       
+      {/* BACKGROUND BERTEKSTUR */}
+      {/* Lapisan 1: Noise Texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+      {/* Lapisan 2: Grid Dinamis */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:30px_30px] lg:bg-[size:50px_50px] pointer-events-none z-0" />
+      {/* Lapisan 3: Radial Glow Subtle */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(0,102,204,0.05),transparent_50%)] pointer-events-none z-0" />
+
       {/* ======================= */}
       {/* BAGIAN 1: BANNER SLIDER */}
       {/* ======================= */}
@@ -99,7 +108,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Indikator Slider */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20 bg-black/40 px-3 py-2 backdrop-blur-sm">
           {banners.map((_, idx) => (
             <button
@@ -121,26 +129,39 @@ export default function Hero({ cityName }: { cityName?: string }) {
       {/* ============================= */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 w-full flex-1 flex flex-col justify-start">
         
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none -z-10" />
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center h-full">
           
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-3 border border-white/20 px-3 py-1.5 mb-5 bg-white/5 backdrop-blur-sm"
-            >
-              {/* Titik Biru Bulat dan Hidup */}
-              <div className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
-              </div>
-              <span className="tracking-[0.15em] uppercase text-[11px] font-semibold text-gray-300">
-                Layanan Penjualan Terpercaya
-              </span>
-            </motion.div>
+            <div className="flex flex-wrap gap-3 mb-5">
+              {/* Badge 1: Layanan */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="inline-flex items-center gap-3 border border-white/20 px-3 py-1.5 bg-white/5 backdrop-blur-sm"
+              >
+                <div className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></span>
+                </div>
+                <span className="tracking-[0.15em] uppercase text-[11px] font-semibold text-gray-300">
+                  Layanan Penjualan Terpercaya
+                </span>
+              </motion.div>
+
+              {/* Badge 2: Keunggulan Utama (Beli Suzuki Pasti Untung) */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.05 }}
+                className="inline-flex items-center gap-2 border border-suzuki-red/50 px-3 py-1.5 bg-suzuki-red/10 backdrop-blur-sm"
+              >
+                <TrendingUp size={14} className="text-suzuki-red" />
+                <span className="tracking-[0.15em] uppercase text-[11px] font-bold text-white">
+                  Beli Suzuki Pasti Untung
+                </span>
+              </motion.div>
+            </div>
 
             {/* Heading 1: Kapital Semua */}
             <motion.h1
