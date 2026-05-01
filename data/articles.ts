@@ -1,26 +1,10 @@
 export const articles = [
   {
-    slug: "kelebihan-suzuki-xl7-hybrid",
-    title: "5 Kelebihan Suzuki XL7 Hybrid untuk Keluarga Modern",
-    excerpt: "Temukan mengapa Suzuki XL7 Hybrid menjadi SUV 7-seater paling diminati tahun ini. Mulai dari teknologi SHVS hingga efisiensi BBM yang luar biasa.",
-    category: "Review Mobil",
-    date: "10 Mei 2026",
-    imageUrl: "/hero/banner-1.jpg", // Gunakan gambar banner yang sudah kamu punya sementara
+    slug: "cara-unik-buka-kaca-suzuki-spresso",
+    title: "Sering Bikin Kebingungan! Di Sini Lho Letak Tombol Kaca Suzuki S-Presso",
+    excerpt: "Pertama kali naik S-Presso dan refleks meraba pintu untuk buka kaca? Tenang, Anda tidak sendirian! Suzuki mendesain tombol power window S-Presso dengan sangat unik, yakni diletakkan di tengah dashboard tepat mengapit tombol lampu hazard. Gaya anti-mainstream ala mobil Eropa ini bikin area pintu jadi lebih lega lho!",
+    category: "Review & Fitur",
+    date: "01 Mei 2026",
+    imageUrl: "/berita/kaca-spresso.jpg",
   },
-  {
-    slug: "tips-merawat-cat-mobil-hitam",
-    title: "Cara Merawat Cat Mobil Warna Hitam Agar Selalu Mengkilap",
-    excerpt: "Mobil hitam memang terlihat sangat elegan dan premium, namun butuh perawatan ekstra. Simak 3 tips mudah merawat cat mobil hitam di rumah.",
-    category: "Tips & Trik",
-    date: "05 Mei 2026",
-    imageUrl: "/hero/banner-2.jpg",
-  },
-  {
-    slug: "syarat-kredit-mobil-suzuki-baru",
-    title: "Syarat dan Cara Pengajuan Kredit Mobil Suzuki Agar Cepat ACC",
-    excerpt: "Ingin proses kredit mobil barumu lancar? Persiapkan dokumen-dokumen penting ini agar pengajuan kreditmu langsung di-ACC oleh pihak leasing.",
-    category: "Panduan Pembeli",
-    date: "28 April 2026",
-    imageUrl: "/hero/banner-3.jpg",
-  }
 ];
