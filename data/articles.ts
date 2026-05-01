@@ -21,14 +21,14 @@ export const articles = [
     excerpt: "Pernah membayangkan menyetir dengan informasi kecepatan melayang di depan mata seperti di film fiksi ilmiah? Sensasi ini kini hadir di Suzuki Fronx lewat fitur Head-Up Display (HUD). Yuk pelajari cara mudah mengaktifkannya!",
     category: "Tips & Tutorial",
     date: "05 Mei 2026",
-    imageUrl: "/berita/hud-fronx1.webp", // Gambar pantulan kaca HUD
+    imageUrl: "/berita/hud-fronx1.jpg", // Gambar pantulan kaca HUD
     content: [
       "Pernahkah Anda membayangkan menyetir mobil dengan informasi kecepatan atau RPM melayang transparan di depan mata layaknya pesawat tempur atau mobil di film fiksi ilmiah? Nah, sensasi canggih tersebut bukan lagi sekadar angan-angan. Suzuki Fronx hadir membawa teknologi masa depan ke dalam kabin Anda melalui fitur Head-Up Display (HUD)!",
       "Namun perlu dicatat, fitur eksklusif dan super mewah ini <strong>hanya tersedia khusus pada Fronx tipe tertinggi, yaitu tipe SGX</strong> (atau yang juga dikenal dengan trim GLX). Jadi, pastikan Anda memilih tipe yang paling atas ini agar tidak kelewatan fitur keren yang akan membuat tetangga Anda kagum.",
       "Lalu, bagaimana cara memunculkan layar kaca canggih ini? Sangat mudah! Saat Anda sudah duduk nyaman di kursi pengemudi, coba perhatikan area dashboard di sebelah kanan setir Anda, tepat di atas tombol bundar <em>Engine Start Stop</em>.",
       
       // Sisipkan Gambar Kedua Menggunakan HTML agar tampil di tengah artikel
-      "<img src='/berita/hud-fronx2.webp' alt='Letak Tombol HUD Suzuki Fronx' class='w-full rounded-lg my-8 shadow-sm border border-gray-100 object-cover' />",
+      "<img src='/berita/hud-fronx2.jpg' alt='Letak Tombol HUD Suzuki Fronx' class='w-full rounded-lg my-8 shadow-sm border border-gray-100 object-cover' />",
       
       "Di deretan panel tombol tersebut, Anda akan menemukan tombol yang secara jelas bertuliskan <strong>'HUD'</strong>. Cukup tekan tombol tersebut satu kali, dan <em>voila!</em> Kaca transparan yang elegan akan perlahan muncul dari atas dashboard Anda secara otomatis, diiringi animasi sapaan yang memanjakan mata.",
       "Tidak hanya sekadar menyala, sistem ini sangat bisa disesuaikan dengan postur tubuh Anda. Di sebelah tombol HUD, terdapat tombol berlambang panah atas (^) dan bawah (v). Tombol ini berfungsi untuk menyesuaikan posisi tinggi-rendahnya pantulan cahaya agar pas dan presisi dengan jarak pandang mata Anda. Ada pula tombol sebelahnya untuk mengatur tingkat kecerahan layarnya.",
