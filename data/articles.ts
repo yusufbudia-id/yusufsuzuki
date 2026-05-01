@@ -14,5 +14,26 @@ export const articles = [
       "Desain interior yang out-of-the-box ini dipadukan dengan ground clearance tinggi yang siap melibas jalanan berlubang, membuat S-Presso benar-benar tampil beda dan menjadi pilihan sempurna untuk membelah kemacetan kota dengan gaya.",
       "Penasaran ingin melihat lebih detail wujud interiornya atau sekadar ingin cek diskon bulan ini? Anda bisa melihat spesifikasi lengkap, pilihan warna, dan simulasi cicilannya langsung di halaman <a href='/mobil/s-presso' class='text-blue-600 font-bold hover:underline'>Katalog Suzuki S-Presso</a> kami."
     ]
+  },
+  {
+    slug: "cara-mengaktifkan-hud-suzuki-fronx",
+    title: "Merasakan Sensasi Mobil Masa Depan: Cara Mengaktifkan HUD di Suzuki Fronx",
+    excerpt: "Pernah membayangkan menyetir dengan informasi kecepatan melayang di depan mata seperti di film fiksi ilmiah? Sensasi ini kini hadir di Suzuki Fronx lewat fitur Head-Up Display (HUD). Yuk pelajari cara mudah mengaktifkannya!",
+    category: "Tips & Tutorial",
+    date: "05 Mei 2026",
+    imageUrl: "/berita/hud-fronx1.webp", // Gambar pantulan kaca HUD
+    content: [
+      "Pernahkah Anda membayangkan menyetir mobil dengan informasi kecepatan atau RPM melayang transparan di depan mata layaknya pesawat tempur atau mobil di film fiksi ilmiah? Nah, sensasi canggih tersebut bukan lagi sekadar angan-angan. Suzuki Fronx hadir membawa teknologi masa depan ke dalam kabin Anda melalui fitur Head-Up Display (HUD)!",
+      "Namun perlu dicatat, fitur eksklusif dan super mewah ini <strong>hanya tersedia khusus pada Fronx tipe tertinggi, yaitu tipe SGX</strong> (atau yang juga dikenal dengan trim GLX). Jadi, pastikan Anda memilih tipe yang paling atas ini agar tidak kelewatan fitur keren yang akan membuat tetangga Anda kagum.",
+      "Lalu, bagaimana cara memunculkan layar kaca canggih ini? Sangat mudah! Saat Anda sudah duduk nyaman di kursi pengemudi, coba perhatikan area dashboard di sebelah kanan setir Anda, tepat di atas tombol bundar <em>Engine Start Stop</em>.",
+      
+      // Sisipkan Gambar Kedua Menggunakan HTML agar tampil di tengah artikel
+      "<img src='/berita/hud-fronx2.webp' alt='Letak Tombol HUD Suzuki Fronx' class='w-full rounded-lg my-8 shadow-sm border border-gray-100 object-cover' />",
+      
+      "Di deretan panel tombol tersebut, Anda akan menemukan tombol yang secara jelas bertuliskan <strong>'HUD'</strong>. Cukup tekan tombol tersebut satu kali, dan <em>voila!</em> Kaca transparan yang elegan akan perlahan muncul dari atas dashboard Anda secara otomatis, diiringi animasi sapaan yang memanjakan mata.",
+      "Tidak hanya sekadar menyala, sistem ini sangat bisa disesuaikan dengan postur tubuh Anda. Di sebelah tombol HUD, terdapat tombol berlambang panah atas (^) dan bawah (v). Tombol ini berfungsi untuk menyesuaikan posisi tinggi-rendahnya pantulan cahaya agar pas dan presisi dengan jarak pandang mata Anda. Ada pula tombol sebelahnya untuk mengatur tingkat kecerahan layarnya.",
+      "Dengan aktifnya HUD, Anda bisa memantau kecepatan kendaraan, putaran mesin (RPM), hingga indikator konsumsi BBM tanpa perlu menundukkan pandangan ke layar speedometer di balik setir. Hasilnya? Mata Anda tetap fokus 100% ke arah jalan, membuat berkendara jadi jauh lebih aman dan tak kenal lelah.",
+      "Penasaran ingin melihat secara langsung bagaimana kaca transparan ini muncul perlahan dari dashboard Anda? Anda wajib mencobanya sendiri! Cek spesifikasi lengkap, varian warna, dan jadwalkan <em>test drive</em> Anda sekarang juga melalui halaman <a href='/mobil/fronx' class='text-blue-600 font-bold hover:underline'>Katalog Suzuki Fronx</a> kami."
+    ]
   }
 ];
