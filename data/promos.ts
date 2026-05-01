@@ -206,7 +206,7 @@ Kerja makin mudah, usaha makin berkah!`,
     carSlug: "carry-pickup",
     carName: "Suzuki New Carry",
     badge: "MEGA PROMO CARRY",
-    validUntil: "Selama Periode Promo",
+    validUntil: "31 Mei 2026",
     image: "/promo/mega-promo-carry.jpg", // Ganti dengan nama file gambar banner promomu jika ada
     highlight: "DP 8 Jutaan, OTR 140 Jutaan, Angsuran 3 Jutaan!",
   }
