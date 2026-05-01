@@ -100,7 +100,7 @@ Hadiah Lainnya:
     image: "/promo/testdrive_fronx.jpg", 
     highlight: "Menangkan 1 Unit Fronx GL AT",
   },
-  // 4. PROMO JURAGAN CARRY (KODE ASLI MILIKMU)
+  // 4. PROMO JURAGAN CARRY
   {
     slug: "promo-khusus-carry",
     title: "Promo Juragan Carry: Diskon 34 Juta + Gratis Motor Suzuki Burgman!",
@@ -123,7 +123,7 @@ Layanan Purna Jual & Garansi:
     image: "/promo/promo_carry.jpg", 
     highlight: "Diskon 34 JT + Gratis Burgman!",
   },
-  // 5. PROMO PRIMADONA CARRY (DARI GAMBAR TERBARU)
+  // 5. PROMO PRIMADONA CARRY
   {
     slug: "promo-primadona-carry",
     title: "Special Promo PRIMADONA Carry: DP 8 Jutaan & Bonus Motor Burgman!",
@@ -149,10 +149,10 @@ Jangan biarkan kompetitor mendahului Anda. Promo istimewa ini sangat terbatas di
     carName: "Suzuki Carry Pick Up",
     badge: "PRIMADONA CARRY",
     validUntil: "30 April 2026",
-    image: "/promo/primadona-carry.jpg", // Pastikan gambar postermu dinamai primadona-carry.jpg
+    image: "/promo/primadona-carry.jpg", 
     highlight: "DP 8 JT, OTR 140 JT + Free Burgman!",
   },
-  // 6. PROMO PRIMADONA S-PRESSO (DARI GAMBAR TERBARU)
+  // 6. PROMO PRIMADONA S-PRESSO
   {
     slug: "promo-primadona-spresso",
     title: "Special Promo PRIMADONA S-Presso: DP 12 Jutaan & Gratis Motor Suzuki Nex!",
@@ -176,7 +176,38 @@ Momen April ini adalah kesempatan terbaik Anda untuk mendapatkan penawaran palin
     carName: "Suzuki S-Presso",
     badge: "PRIMADONA S-PRESSO",
     validUntil: "30 April 2026",
-    image: "/promo/primadona-spresso.jpg", // Pastikan gambar postermu dinamai primadona-spresso.jpg
+    image: "/promo/primadona-spresso.jpg", 
     highlight: "DP 12 JT, OTR 160 JT + Free Nex!",
+  },
+  // 7. MEGA PROMO CARRY (BARU DITAMBAHKAN)
+  {
+    slug: "mega-promo-carry-solusi-usaha",
+    title: "Mega Promo Carry: Solusi Tepat untuk Usaha Makin Berkembang",
+    description: `Bagi para pelaku usaha, memiliki kendaraan niaga yang tangguh, irit, dan mudah dalam perawatan tentu menjadi kebutuhan penting untuk mendukung operasional sehari-hari. Kini saat yang tepat untuk memiliki mobil niaga andalan dengan penawaran spesial melalui Mega Promo Carry, program promo menarik yang memberikan banyak keuntungan bagi Anda.
+
+Suzuki Carry sudah lama dikenal sebagai kendaraan niaga favorit masyarakat Indonesia. Dengan desain yang compact namun tetap memiliki daya angkut optimal, Carry sangat cocok digunakan untuk berbagai kebutuhan usaha seperti distribusi barang, usaha kuliner, florist, logistik, hingga bisnis retail.
+
+Melalui promo spesial kali ini, Anda bisa membawa pulang New Carry dengan penawaran yang sangat ringan dan menguntungkan. Mulai dari DP ringan mulai 8 jutaan, harga OTR mulai 140 jutaan, hingga angsuran mulai 3 jutaan per bulan. Penawaran ini tentu menjadi kesempatan emas bagi Anda yang ingin mengembangkan usaha tanpa harus terbebani biaya besar di awal.
+
+Tak hanya itu, tersedia juga berbagai bonus menarik yang semakin menambah nilai keuntungan pembelian Anda. Promo ini dirancang khusus untuk memberikan kemudahan bagi para pelaku usaha agar bisa segera memiliki kendaraan operasional berkualitas dengan proses yang praktis.
+
+Mengapa memilih New Carry?
+Pertama, irit bahan bakar, sehingga sangat efisien untuk penggunaan harian. Kedua, mesin tangguh dan bertenaga, siap mendukung aktivitas usaha dalam berbagai kondisi jalan. Ketiga, biaya perawatan terjangkau, menjadikannya investasi jangka panjang yang menguntungkan.
+
+Selain performa, New Carry juga menawarkan kenyamanan berkendara yang lebih baik dengan kabin yang lega serta fitur-fitur modern yang mendukung produktivitas Anda.
+
+Promo ini sangat cocok bagi Anda yang sedang merintis usaha maupun ingin menambah armada operasional bisnis. Jangan lewatkan kesempatan terbatas ini karena penawaran hanya berlaku selama periode promo berlangsung.
+
+Untuk informasi lebih lengkap mengenai detail promo, simulasi kredit, dan konsultasi pembelian, silakan kunjungi:
+www.suzukiautojogja.com
+
+Segera manfaatkan kesempatan ini dan wujudkan usaha yang lebih maju bersama New Carry.
+Kerja makin mudah, usaha makin berkah!`,
+    carSlug: "carry-pickup",
+    carName: "Suzuki New Carry",
+    badge: "MEGA PROMO CARRY",
+    validUntil: "Selama Periode Promo",
+    image: "/promo/mega-promo-carry.jpg", // Ganti dengan nama file gambar banner promomu jika ada
+    highlight: "DP 8 Jutaan, OTR 140 Jutaan, Angsuran 3 Jutaan!",
   }
-]
+];
