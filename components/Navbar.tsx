@@ -53,7 +53,7 @@ export default function Navbar() {
 
   const darkHeaderPages = ["/", "/mobil", "/promo", "/kontak", "/tentang-kami", "/simulasi-kredit", "/test-drive", "/berita", "/faq"];
   
-  const isTransparent = !scrolled && (darkHeaderPages.includes(pathname) || pathname.startsWith("/mobil/") || pathname.startsWith("/dealer/") || pathname.startsWith("/berita/"));
+  const isTransparent = !scrolled && (darkHeaderPages.includes(pathname) || pathname.startsWith("/mobil/") || pathname.startsWith("/dealer/"));
 
   const navBg = !isTransparent
     ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100"
