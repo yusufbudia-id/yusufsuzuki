@@ -6,8 +6,9 @@ import { articles } from "@/data/articles";
 import ContactCTA from "@/components/ContactCTA";
 
 // 1. FUNGSI SEO OTOMATIS: Google akan membaca ini untuk setiap halaman artikel yang berbeda
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const article = articles.find((a) => a.slug === params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  const article = articles.find((a) => a.slug === resolvedParams.slug);
   
   if (!article) return { title: "Artikel Tidak Ditemukan" };
   
@@ -18,9 +19,11 @@ export function generateMetadata({ params }: { params: { slug: string } }) {
 }
 
 // 2. KOMPONEN HALAMAN UTAMA
-export default function ArticleDetailPage({ params }: { params: { slug: string } }) {
+export default async function ArticleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const resolvedParams = await params;
+  
   // Cari data artikel yang slug-nya cocok dengan URL
-  const article = articles.find((a) => a.slug === params.slug);
+  const article = articles.find((a) => a.slug === resolvedParams.slug);
 
   // Jika tidak ketemu di data, langsung lempar ke halaman 404 (Not Found)
   if (!article) {
