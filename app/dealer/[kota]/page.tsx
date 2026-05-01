@@ -27,6 +27,24 @@ export async function generateMetadata({ params }: AreaPageProps): Promise<Metad
     alternates: {
       canonical: `/dealer/${area.slug}`,
     },
+    // INI KODE BARUNYA: Memaksa Google dan WA menggunakan gambar XL7
+    openGraph: {
+      title: `Dealer Resmi Suzuki ${area.name} | Promo & Harga Terbaru`,
+      description: area.description,
+      url: `https://suzukiautojogja.com/dealer/${area.slug}`,
+      siteName: 'Suzuki Auto Jogja',
+      images: [
+        {
+          // Gunakan banner XL7 milikmu. Pastikan gambar ini ada di folder public/hero/
+          url: '/hero/banner-1.jpg', 
+          width: 1200,
+          height: 630,
+          alt: `Promo Suzuki XL7 di ${area.name}`,
+        },
+      ],
+      locale: 'id_ID',
+      type: 'website',
+    },
   };
 }
 
