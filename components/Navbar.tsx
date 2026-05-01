@@ -6,8 +6,9 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { cn, WA_BASE_URL } from "@/lib/utils";
-import { areas } from "@/data/areas"; // <-- 1. Import data area kota
+import { areas } from "@/data/areas"; 
 
+// 1. PERBAIKAN: Mengganti menu FAQ menjadi Berita
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Produk Mobil", href: "/mobil" },
@@ -15,7 +16,7 @@ const navLinks = [
   { label: "Simulasi Kredit", href: "/simulasi-kredit" },
   { label: "Test Drive", href: "/test-drive" },
   { label: "Tentang Kami", href: "/tentang-kami" },
-  { label: "FAQ", href: "/faq" },
+  { label: "Berita", href: "/berita" }, 
   { label: "Kontak", href: "/kontak" },
 ];
 
@@ -30,7 +31,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 2. DETEKSI KOTA DARI URL
   let cityName = "";
   if (pathname && pathname.startsWith("/dealer/")) {
     const slug = pathname.split("/")[2];
@@ -40,22 +40,20 @@ export default function Navbar() {
     }
   }
 
-  // 3. BUAT PESAN WA DINAMIS
   const waMsg = cityName
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
     : `Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.`;
 
-  // OTOMATIS: Semua halaman dalam list ini akan memiliki Navbar transparan di posisi paling atas
-  const darkHeaderPages = ["/", "/mobil", "/promo", "/kontak", "/tentang-kami", "/simulasi-kredit", "/test-drive", "/faq"];
+  // 2. PERBAIKAN: Memasukkan "/berita" ke daftar halaman dengan header transparan
+  const darkHeaderPages = ["/", "/mobil", "/promo", "/kontak", "/tentang-kami", "/simulasi-kredit", "/test-drive", "/berita"];
   
-  // 4. UPDATE TRANSPARENSI: Tambahkan deteksi pathname.startsWith("/dealer/")
-  const isTransparent = !scrolled && (darkHeaderPages.includes(pathname) || pathname.startsWith("/mobil/") || pathname.startsWith("/dealer/"));
+  // 3. PERBAIKAN: Tambahkan deteksi pathname.startsWith("/berita/") untuk halaman detail artikel
+  const isTransparent = !scrolled && (darkHeaderPages.includes(pathname) || pathname.startsWith("/mobil/") || pathname.startsWith("/dealer/") || pathname.startsWith("/berita/"));
 
   const navBg = !isTransparent
     ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100"
     : "bg-transparent";
 
-  // Mode teks: Putih saat di Header Gelap, Abu-abu Gelap saat scroll turun
   const textColorClass = !isTransparent ? "text-gray-600 hover:text-gray-900" : "text-white/80 hover:text-white";
   const activeColorClass = !isTransparent ? "text-gray-900 font-bold" : "text-white font-bold";
 
@@ -73,7 +71,6 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             
-            {/* Logo Image */}
             <Link href="/" className="flex items-center group">
               <img 
                 src="/logo.png" 
@@ -85,10 +82,12 @@ export default function Navbar() {
               />
             </Link>
 
-            {/* Desktop Nav - Editorial Premium Style */}
             <div className="hidden lg:flex items-center gap-6">
               {navLinks.map((link) => {
-                const isActive = pathname === link.href || (link.href === "/mobil" && pathname.startsWith("/mobil/"));
+                // 4. PERBAIKAN: Aktifkan garis bawah jika sedang di halaman detail berita
+                const isActive = pathname === link.href || 
+                                 (link.href === "/mobil" && pathname.startsWith("/mobil/")) ||
+                                 (link.href === "/berita" && pathname.startsWith("/berita/"));
                 
                 return (
                   <Link
@@ -102,7 +101,6 @@ export default function Navbar() {
                     )}>
                       {link.label}
                     </span>
-                    {/* Garis Bawah Aktif (Underline Animasi) */}
                     <span className={cn(
                       "absolute bottom-0 left-0 h-[2px] transition-all duration-300",
                       isActive ? "w-full" : "w-0 group-hover:w-full",
@@ -113,10 +111,9 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* CTA Button Desktop - Monokrom Tajam */}
             <div className="hidden lg:flex items-center">
               <a
-                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`} // <-- 5. Gunakan pesan WA dinamis
+                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`} 
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
@@ -131,7 +128,6 @@ export default function Navbar() {
               </a>
             </div>
 
-            {/* Mobile Menu Toggle */}
             <button
               className={cn(
                 "lg:hidden p-2 transition-colors",
@@ -146,7 +142,6 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* Mobile Menu - Monokrom Bersih */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -158,7 +153,9 @@ export default function Navbar() {
           >
             <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-1">
               {navLinks.map((link) => {
-                 const isActive = pathname === link.href || (link.href === "/mobil" && pathname.startsWith("/mobil/"));
+                 const isActive = pathname === link.href || 
+                                  (link.href === "/mobil" && pathname.startsWith("/mobil/")) ||
+                                  (link.href === "/berita" && pathname.startsWith("/berita/"));
                  
                  return (
                   <Link
@@ -177,7 +174,7 @@ export default function Navbar() {
                 );
               })}
               <a
-                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`} // <-- 6. Gunakan pesan WA dinamis juga di Mobile
+                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMenuOpen(false)}
