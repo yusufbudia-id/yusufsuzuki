@@ -385,7 +385,7 @@ export const cars: Car[] = [
     slug: "apv",
     name: "Suzuki APV",
     category: "MPV",
-    startingPrice: "Rp 184.500.000",
+    startingPrice: "Rp 186.000.000",
     startingPriceNum: 186000000,
     startingPriceAB: 186000000,
     startingPriceAA: 192000000,
