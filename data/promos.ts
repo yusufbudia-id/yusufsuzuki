@@ -209,5 +209,38 @@ Kerja makin mudah, usaha makin berkah!`,
     validUntil: "31 Mei 2026",
     image: "/promo/mega-promo-carry.jpg", // Ganti dengan nama file gambar banner promomu jika ada
     highlight: "DP 8 Jutaan, OTR 140 Jutaan, Angsuran 3 Jutaan!",
+  },
+  // 8. PROMO FRONXZY GIRL (BARU DITAMBAHKAN)
+  {
+    slug: "promo-fronxzy-girl-diskon",
+    title: "Program Fronxzy Girl: Wujudkan Mobil Suzuki Fronx Impianmu!",
+    description: `Hai Ladies! Saatnya tampil beda dan ekspresikan dirimu di jalanan dengan "Program FRONXZY Girl - Build Your Own Car". Ini adalah momen terbaik bagi perempuan masa kini untuk memiliki mobil yang stylish, compact, irit, namun tetap powerfull!
+
+Jadikan setiap hari-harimu sebagai petualangan baru dengan deretan warna Fronx yang "kamu banget":
+Pink, Salem, Ivory, Burgundi, Coklat, Biru Tua, Oranye, Hijau, hingga Tosca. Pilih warna yang paling mewakili kepribadianmu!
+
+PROMO SPESIAL UNTUKMU BULAN INI:
+- Diskon Fantastis Up To Rp 15 Juta!
+- DP Sangat Ringan Mulai 20%
+- Angsuran Terjangkau Mulai 5 Jutaan*
+- Tenor Super Panjang Sampai 8 Tahun
+- Bunga 0% (Khusus menggunakan Suzuki Finance)
+
+Kenapa Suzuki Fronx adalah pilihan paling tepat untukmu?
+1. Desain Modern dan Trendy: Bikin kamu selalu jadi pusat perhatian.
+2. Kabin Nyaman dan Luas: Muat banyak barang belanjaan atau asyik buat carpool bareng bestie.
+3. Fitur Canggih & Keamanan Tinggi: Berkendara dengan rasa tenang dan aman.
+4. Irit Bahan Bakar: Nggak bikin kantong jebol, siap diajak jelajah ke mana saja.
+5. Performa Bertenaga: Lincah di kemacetan kota maupun jalan tol.
+
+Tunggu apa lagi? Ayo upgrade kendaraan lamamu dengan Suzuki Fronx sekarang juga. Promo warna favoritmu bisa jadi sangat terbatas! 
+
+Langsung mampir ke Showroom Suzuki Mlati atau hubungi Yusuf di 0821-7463-5218 untuk konsultasi dan booking warna favoritmu.`,
+    carSlug: "fronx",
+    carName: "Suzuki Fronx",
+    badge: "FRONXZY GIRL",
+    validUntil: "30 Juni 2026",
+    image: "/promo/promo-fronxzy-girl.jpg", // Pastikan gambar poster diubah namanya jadi promo-fronxzy-girl.jpg dan ditaruh di folder public/promo
+    highlight: "Diskon 15 JT, Bunga 0%, DP 20%!",
   }
 ];
