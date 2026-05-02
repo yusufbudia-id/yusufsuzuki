@@ -69,17 +69,45 @@ const trustBadges = [
   }
 ];
 
+// VARIANT ANIMASI UNTUK SLIDER (Kiri / Kanan)
+const sliderVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? "100%" : "-100%",
+  }),
+  center: {
+    zIndex: 1,
+    x: 0,
+  },
+  exit: (direction: number) => ({
+    zIndex: 0,
+    x: direction < 0 ? "100%" : "-100%",
+  })
+};
+
 export default function Hero({ cityName }: { cityName?: string }) {
+  // Tambahan state `direction` untuk mendeteksi arah gesekan
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const [activeMobileBadge, setActiveMobileBadge] = useState<number | null>(null);
 
   const waMessage = cityName 
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
     : `Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.`;
 
+  // FUNGSI UNTUK PINDAH SLIDE
+  const paginate = (newDirection: number) => {
+    setDirection(newDirection);
+    setCurrentIndex((prevIndex) => {
+      let nextIndex = prevIndex + newDirection;
+      if (nextIndex >= banners.length) return 0;
+      if (nextIndex < 0) return banners.length - 1;
+      return nextIndex;
+    });
+  };
+
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % banners.length);
+      paginate(1);
     }, 5000);
     return () => clearInterval(timer);
   }, []);
@@ -91,14 +119,28 @@ export default function Hero({ cityName }: { cityName?: string }) {
       {/* BAGIAN 1: BANNER SLIDER */}
       {/* ======================= */}
       <div className="relative w-full aspect-[16/9] md:aspect-[21/9] lg:aspect-[2.5/1] bg-gray-900 z-20 overflow-hidden shadow-xl border-b border-white/10">
-        <AnimatePresence initial={false}>
+        <AnimatePresence initial={false} custom={direction}>
           <motion.div
             key={currentIndex}
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "-100%" }}
+            custom={direction}
+            variants={sliderVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="absolute inset-0"
+            // --- FITUR DRAG / SWIPE DITAMBAHKAN DI SINI ---
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={(e, { offset }) => {
+              const swipeThreshold = 50; // Jarak minimal gesekan agar slide berpindah
+              if (offset.x < -swipeThreshold) {
+                paginate(1); // Geser ke kiri -> Slide Selanjutnya
+              } else if (offset.x > swipeThreshold) {
+                paginate(-1); // Geser ke kanan -> Slide Sebelumnya
+              }
+            }}
+            className="absolute inset-0 cursor-grab active:cursor-grabbing"
           >
             <Image
               src={banners[currentIndex]}
@@ -106,16 +148,20 @@ export default function Hero({ cityName }: { cityName?: string }) {
               fill
               priority
               quality={90}
-              className="object-cover object-center"
+              className="object-cover object-center pointer-events-none" // pointer-events-none agar tidak ganggu drag
             />
           </motion.div>
         </AnimatePresence>
 
+        {/* Indikator Titik (Bullets) */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-30 bg-black/40 px-3 py-2 backdrop-blur-sm">
           {banners.map((_, idx) => (
             <button
               key={idx}
-              onClick={() => setCurrentIndex(idx)}
+              onClick={() => {
+                setDirection(idx > currentIndex ? 1 : -1);
+                setCurrentIndex(idx);
+              }}
               className={`h-1 transition-all duration-300 rounded-none ${
                 currentIndex === idx ? "w-10 bg-white" : "w-4 bg-white/40 hover:bg-white/80"
               }`}
@@ -133,18 +179,14 @@ export default function Hero({ cityName }: { cityName?: string }) {
       <div className="relative w-full flex-1 flex flex-col justify-start">
         
         {/* TEKSTUR BACKGROUND LEBIH TEBAL */}
-        {/* Lapisan 1: SVG Noise Grain (Opacity dinaikkan jadi 25%) */}
         <div 
           className="absolute inset-0 opacity-[0.25] pointer-events-none z-0 mix-blend-overlay"
           style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
         />
-        {/* Lapisan 2: Kotak Grid Blueprint (Warna putih lebih tebal: rgba 0.12) */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_1px,transparent_1px)] bg-[size:36px_36px] pointer-events-none z-0" />
-        
-        {/* Lapisan 3: Fade atas/bawah agar teksturnya halus dan tidak menabrak teks */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#050B14] via-transparent to-[#050B14] pointer-events-none z-0 opacity-80" />
 
-        {/* CONTAINER KONTEN (Teks & Badge) */}
+        {/* CONTAINER KONTEN */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20 w-full h-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center h-full">
             
