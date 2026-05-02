@@ -406,16 +406,18 @@ Mohon info persyaratannya.`;
                 
                 <div className="max-w-[250px]">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">Upping Bunga (%)</span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">Upping / Subsidi Bunga (%)</span>
                     <span className="text-sm font-black text-gray-900">{uping.toFixed(1)}%</span>
                   </div>
+                  {/* UBAH min MENJADI -2 DI SINI */}
                   <input
-                    type="range" min={0} max={5} step={0.1} value={uping}
+                    type="range" min={-2} max={5} step={0.1} value={uping}
                     onChange={(e) => setUping(Number(e.target.value))}
                     className="w-full h-1.5 bg-gray-200 accent-gray-900 appearance-none cursor-pointer"
                   />
                   <div className="flex justify-between mt-1">
-                    <span className="text-[9px] text-gray-400 font-bold">0%</span>
+                    {/* UBAH LABEL TEKS BAWAHNYA JUGA */}
+                    <span className="text-[9px] text-gray-400 font-bold">-2%</span>
                     <span className="text-[9px] text-gray-400 font-bold">5%</span>
                   </div>
                 </div>
