@@ -5,60 +5,66 @@ import { ShieldCheck, MapPin, CreditCard, BadgePercent, CarFront, MessageCircle 
 
 export default function AdvantagesSection({ cityName }: { cityName?: string }) {
   
-  // Array diperbarui dengan penambahan kelas warna dinamis dari Tailwind
+  // Konfigurasi warna DIBALIK: Solid di awal, Pastel saat di-hover
   const advantages = [
     { 
       icon: ShieldCheck, 
       title: "Dealer Resmi", 
       desc: "Suzuki Sumber Baru Mobil adalah dealer resmi PT Suzuki Indomobil Sales dengan garansi resmi pabrik.",
-      iconBg: "bg-blue-50",
-      iconText: "text-blue-600",
-      hoverIconBg: "group-hover:bg-blue-600",
+      iconBg: "bg-blue-600",
+      iconText: "text-white",
+      hoverIconBg: "group-hover:bg-blue-50",
+      hoverIconText: "group-hover:text-blue-600",
       hoverBorder: "hover:border-blue-500"
     },
     { 
       icon: MapPin, 
       title: `Area ${cityName ? cityName : "Jogja"} & Sekitarnya`, 
       desc: `Kami melayani pengiriman dan layanan sales untuk seluruh warga ${cityName ? cityName : "Yogyakarta, Magelang, Klaten, Purworejo, dan sekitarnya"}.`,
-      iconBg: "bg-teal-50",
-      iconText: "text-teal-600",
-      hoverIconBg: "group-hover:bg-teal-600",
+      iconBg: "bg-teal-600",
+      iconText: "text-white",
+      hoverIconBg: "group-hover:bg-teal-50",
+      hoverIconText: "group-hover:text-teal-600",
       hoverBorder: "hover:border-teal-500"
     },
     { 
       icon: CreditCard, 
       title: "Kredit Mudah", 
       desc: "Proses kredit cepat, ACC 2-3 hari kerja. Didukung multi-finance terpercaya.",
-      iconBg: "bg-orange-50",
-      iconText: "text-orange-600",
-      hoverIconBg: "group-hover:bg-orange-600",
+      iconBg: "bg-orange-600",
+      iconText: "text-white",
+      hoverIconBg: "group-hover:bg-orange-50",
+      hoverIconText: "group-hover:text-orange-600",
       hoverBorder: "hover:border-orange-500"
     },
     { 
       icon: BadgePercent, 
       title: "DP Ringan", 
       desc: "Program DP ringan mulai 15% dengan tenor fleksibel hingga 60 bulan.",
-      iconBg: "bg-red-50",
-      iconText: "text-red-600",
-      hoverIconBg: "group-hover:bg-red-600",
+      iconBg: "bg-red-600",
+      iconText: "text-white",
+      hoverIconBg: "group-hover:bg-red-50",
+      hoverIconText: "group-hover:text-red-600",
       hoverBorder: "hover:border-red-500"
     },
     { 
       icon: CarFront, 
       title: "Test Drive Gratis", 
       desc: "Coba dulu sebelum beli! Test drive gratis ke lokasi Anda, tanpa perlu ke showroom.",
-      iconBg: "bg-violet-50",
-      iconText: "text-violet-600",
-      hoverIconBg: "group-hover:bg-violet-600",
+      iconBg: "bg-violet-600",
+      iconText: "text-white",
+      hoverIconBg: "group-hover:bg-violet-50",
+      hoverIconText: "group-hover:text-violet-600",
       hoverBorder: "hover:border-violet-500"
     },
     { 
       icon: MessageCircle, 
       title: "Fast Response", 
       desc: "Yusuf Suzuki siap membantu via WhatsApp. Fast response, ramah, dan profesional.",
-      iconBg: "bg-[#25D366]/10", // Warna Hijau khas WhatsApp
-      iconText: "text-[#25D366]",
-      hoverIconBg: "group-hover:bg-[#25D366]",
+      iconBg: "bg-[#25D366]", // Hijau WA Solid
+      iconText: "text-white",
+      hoverIconBg: "group-hover:bg-[#25D366]/10", // Pastel WA
+      hoverIconText: "group-hover:text-[#25D366]",
       hoverBorder: "hover:border-[#25D366]"
     },
   ];
@@ -94,11 +100,11 @@ export default function AdvantagesSection({ cityName }: { cityName?: string }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              // Tambahan border dinamis saat di-hover
+              // Animasi border dan shadow
               className={`bg-white border border-gray-200 rounded-none p-8 transition-all duration-500 group flex flex-col hover:shadow-2xl ${item.hoverBorder}`}
             >
-              {/* Ikon dengan warna dinamis */}
-              <div className={`w-14 h-14 flex items-center justify-center mb-6 rounded-none transition-colors duration-300 ${item.iconBg} ${item.iconText} ${item.hoverIconBg} group-hover:text-white`}>
+              {/* Ikon dengan warna awal solid, lalu berubah pudar saat hover */}
+              <div className={`w-14 h-14 flex items-center justify-center mb-6 rounded-none transition-colors duration-300 ${item.iconBg} ${item.iconText} ${item.hoverIconBg} ${item.hoverIconText}`}>
                 <item.icon size={26} strokeWidth={1.5} />
               </div>
               
