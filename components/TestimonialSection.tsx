@@ -6,7 +6,6 @@ import Image from "next/image";
 import { Star, Quote, User, Camera, X } from "lucide-react"; 
 import { testimonials } from "@/data/testimonials";
 
-// 1. TAMBAHKAN PENERIMA cityName DI SINI
 export default function TestimonialSection({ cityName }: { cityName?: string }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -22,7 +21,8 @@ export default function TestimonialSection({ cityName }: { cityName?: string }) 
   }, [selectedImage]);
 
   return (
-    <section className="py-24 bg-white relative">
+    // 1. Ubah background section menjadi abu-abu sangat terang agar kartu putih lebih menonjol
+    <section className="py-24 bg-gray-50 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Section */}
@@ -32,14 +32,12 @@ export default function TestimonialSection({ cityName }: { cityName?: string }) 
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
+          <span className="inline-block bg-red-100 text-red-600 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest border border-red-200">
             Testimoni Pelanggan
           </span>
-          {/* 2. UBAH JUDUL MENJADI DINAMIS */}
           <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tighter leading-tight">
             Review Pembeli Suzuki {cityName ? cityName : "Jogja"}
           </h2>
-          {/* 3. UBAH DESKRIPSI MENJADI DINAMIS */}
           <p className="text-gray-500 max-w-2xl mx-auto text-sm md:text-base font-medium leading-relaxed">
             Kepercayaan pelanggan adalah prioritas utama dan bukti nyata komitmen Yusuf Suzuki dalam memberikan pelayanan terbaik untuk warga {cityName ? cityName : "Jogja dan sekitarnya"}.
           </p>
@@ -54,62 +52,71 @@ export default function TestimonialSection({ cityName }: { cityName?: string }) 
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="bg-white rounded-none p-8 border border-gray-200 hover:border-gray-900 hover:shadow-2xl transition-all duration-500 relative flex flex-col group h-full"
+              // 2. Tambahkan overflow-hidden dan ubah warna hover menjadi merah dengan shadow yang elegan
+              className="bg-white rounded-none p-8 border border-gray-200 hover:border-red-600 hover:shadow-[0_20px_40px_rgba(220,38,38,0.08)] transition-all duration-500 relative flex flex-col group h-full overflow-hidden"
             >
-              <Quote size={28} className="text-gray-200 mb-5 group-hover:text-red-600 transition-colors duration-300" />
+              {/* 3. WATERMARK RAKSASA DI BACKGROUND KARTU */}
+              <Quote 
+                size={140} 
+                className="absolute -bottom-8 -right-8 text-gray-50 -rotate-12 z-0 group-hover:text-red-50 transition-colors duration-700" 
+              />
               
-              <div className="flex mb-4">
-                {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} size={13} className="fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              
-              <p className="text-gray-600 text-sm leading-relaxed mb-6 italic flex-grow line-clamp-6">
-                "{t.review}"
-              </p>
+              {/* KONTEN KARTU (Dibungkus dengan z-10 agar berada di atas watermark) */}
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="flex mb-6 gap-1">
+                  {Array.from({ length: t.rating }).map((_, j) => (
+                    <Star key={j} size={14} className="fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                
+                <p className="text-gray-700 text-sm leading-relaxed mb-6 font-medium italic flex-grow line-clamp-6">
+                  "{t.review}"
+                </p>
 
-              {t.deliveryPhoto && (
-                <div className="mb-6">
-                  <button
-                    onClick={() => setSelectedImage(t.deliveryPhoto as string)}
-                    className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-black text-gray-900 border border-gray-200 px-4 py-2 hover:bg-gray-900 hover:text-white transition-colors"
-                  >
-                    <Camera size={14} /> Lihat Foto
-                  </button>
-                </div>
-              )}
-              
-              <div className="flex items-center gap-4 border-t border-gray-100 pt-6 mt-auto">
-                <div className="relative w-12 h-12 shrink-0 overflow-hidden border border-gray-100">
-                  {t.avatar ? (
-                    <Image 
-                      src={t.avatar} 
-                      alt={`Review dari ${t.name}`} 
-                      fill
-                      sizes="48px"
-                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" 
-                    />
-                  ) : (
-                    <div className={`w-full h-full flex items-center justify-center transition-colors duration-500 ${
-                      t.gender === "male" 
-                        ? "bg-slate-100 text-slate-400 group-hover:bg-slate-900 group-hover:text-white" 
-                        : "bg-rose-50 text-rose-400 group-hover:bg-rose-600 group-hover:text-white"
-                    }`}>
-                      <User size={24} strokeWidth={1.5} />
-                    </div>
-                  )}
-                </div>
-                <div>
-                  <p className="font-black text-gray-900 text-xs uppercase tracking-widest mb-1 group-hover:text-red-600 transition-colors">
-                    {t.name}
-                  </p>
-                  <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
-                    {t.location}
-                  </p>
+                {t.deliveryPhoto && (
+                  <div className="mb-6">
+                    <button
+                      onClick={() => setSelectedImage(t.deliveryPhoto as string)}
+                      className="flex items-center justify-center gap-2 w-full text-[10px] uppercase tracking-widest font-black text-gray-600 border border-gray-200 px-4 py-2.5 hover:bg-red-600 hover:border-red-600 hover:text-white transition-colors"
+                    >
+                      <Camera size={14} /> Lihat Foto Serah Terima
+                    </button>
+                  </div>
+                )}
+                
+                <div className="flex items-center gap-4 border-t border-gray-100 pt-6 mt-auto">
+                  <div className="relative w-12 h-12 shrink-0 overflow-hidden border border-gray-100">
+                    {t.avatar ? (
+                      <Image 
+                        src={t.avatar} 
+                        alt={`Review dari ${t.name}`} 
+                        fill
+                        sizes="48px"
+                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" 
+                      />
+                    ) : (
+                      <div className={`w-full h-full flex items-center justify-center transition-colors duration-500 ${
+                        t.gender === "male" 
+                          ? "bg-slate-100 text-slate-400 group-hover:bg-slate-900 group-hover:text-white" 
+                          : "bg-rose-50 text-rose-400 group-hover:bg-rose-600 group-hover:text-white"
+                      }`}>
+                        <User size={24} strokeWidth={1.5} />
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <p className="font-black text-gray-900 text-xs uppercase tracking-widest mb-1 group-hover:text-red-600 transition-colors">
+                      {t.name}
+                    </p>
+                    <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">
+                      {t.location}
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <span className="absolute top-0 right-0 bg-gray-900 text-white text-[9px] font-black px-3 py-1.5 rounded-none uppercase tracking-widest">
+              {/* 4. LABEL MOBIL MENGGUNAKAN MERAH SUZUKI */}
+              <span className="absolute top-0 right-0 bg-red-600 text-white text-[9px] font-black px-3 py-1.5 rounded-none uppercase tracking-widest z-20 shadow-sm">
                 {t.car}
               </span>
             </motion.div>
@@ -118,7 +125,7 @@ export default function TestimonialSection({ cityName }: { cityName?: string }) 
         
       </div>
 
-      {/* --- MODAL / LIGHTBOX --- */}
+      {/* --- MODAL / LIGHTBOX (Tetap sama) --- */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
