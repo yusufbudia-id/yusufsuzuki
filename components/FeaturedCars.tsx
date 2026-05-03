@@ -81,16 +81,33 @@ export default function FeaturedCars({ cityName }: { cityName?: string }) {
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex gap-6 pb-12 pt-4">
               
+              // ... kode sebelumnya ...
+
               {featured.map((car, i) => (
                 <div 
                   key={car.slug} 
-                  className="flex-[0_0_85vw] sm:flex-[0_0_340px] lg:flex-[0_0_380px] min-w-0"
+                  // UBAH DISINI: Ganti 85vw menjadi 65vw atau 70vw untuk tampilan mobile
+                  className="flex-[0_0_65vw] sm:flex-[0_0_340px] lg:flex-[0_0_380px] min-w-0"
                 >
                   {/* 3. MENGOPER cityName KE DALAM CarCard AGAR PESAN WA BERUBAH OTOMATIS */}
                   <CarCard car={car} index={i} cityName={cityName} />
                 </div>
               ))}
               
+              {/* JANGAN LUPA UBAH JUGA UNTUK KARTU "LIHAT SEMUA" AGAR SERAGAM */}
+              <div className="flex-[0_0_65vw] sm:flex-[0_0_340px] lg:flex-[0_0_380px] min-w-0 flex items-center justify-center p-6 bg-gray-100/50 border border-dashed border-gray-300">
+                <Link 
+                  href="/mobil" 
+                  className="flex flex-col items-center justify-center gap-4 text-gray-400 hover:text-gray-900 transition-colors group w-full h-full min-h-[300px]"
+                >
+                  <div className="w-16 h-16 rounded-none border-2 border-dashed border-gray-300 group-hover:border-gray-900 flex items-center justify-center transition-colors">
+                    <ArrowRight size={24} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
+                  <span className="text-sm uppercase tracking-widest font-bold">Lihat Semua Mobil</span>
+                </Link>
+              </div>
+
+// ... kode selanjutnya ...
               <div className="flex-[0_0_85vw] sm:flex-[0_0_340px] lg:flex-[0_0_380px] min-w-0 flex items-center justify-center p-6 bg-gray-100/50 border border-dashed border-gray-300">
                 <Link 
                   href="/mobil" 
