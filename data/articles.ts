@@ -35,5 +35,23 @@ export const articles = [
       "Dengan aktifnya HUD, Anda bisa memantau kecepatan kendaraan, putaran mesin (RPM), hingga indikator konsumsi BBM tanpa perlu menundukkan pandangan ke layar speedometer di balik setir. Hasilnya? Mata Anda tetap fokus 100% ke arah jalan, membuat berkendara jadi jauh lebih aman dan tak kenal lelah.",
       "Penasaran ingin melihat secara langsung bagaimana kaca transparan ini muncul perlahan dari dashboard Anda? Anda wajib mencobanya sendiri! Cek spesifikasi lengkap, varian warna, dan jadwalkan <em>test drive</em> Anda sekarang juga melalui halaman <a href='/mobil/fronx' class='text-blue-600 font-bold hover:underline'>Katalog Suzuki Fronx</a> kami."
     ]
+  },
+  {
+    slug: "kisah-suzuki-spresso-dulu-dibully-sekarang-dicari",
+    title: "Dulu Dibully Habis-habisan Karena Bentuknya Aneh, Suzuki S-Presso Kini Malah Jadi Rebutan! Kok Bisa?",
+    excerpt: "Sempat jadi bahan nyinyiran netizen karena desainnya yang dianggap 'nyeleneh', Suzuki S-Presso kini justru menjelma jadi primadona jalanan. Usut punya usut, ini dia rahasia yang bikin mobil mungil ini mendadak viral dan banyak dicari!",
+    category: "Berita & Review",
+    date: "3 Mei 2026",
+    imageUrl: "/berita/kisah-spresso.webp", // Pastikan gambar disimpan di public/artikel/kisah-spresso.webp
+    content: [
+      "Ingat masa-masa awal kehadiran Suzuki S-Presso di Indonesia? Waktu itu, lini masa media sosial sempat dipenuhi dengan berbagai komentar nyinyir. Ada yang bilang bentuknya aneh, mirip sepatu <em>sneakers</em>, sampai dibilang proporsinya nggak masuk akal untuk ukuran sebuah mobil. Pokoknya, S-Presso sempat jadi 'anak bawang' yang dibully habis-habisan oleh netizen.",
+      "Tapi, siapa sangka roda nasib berputar begitu cepat? Mobil mungil yang dulunya diremehkan ini, sekarang justru menjelma menjadi primadona baru yang paling dicari-cari! Bahkan di pasar mobil bekas pun, unitnya sering kali jadi rebutan dan cepat laku. Lalu, apa sih rahasia di balik fenomena <em>'from zero to hero'</em> ini?",
+      "Usut punya usut, kunci kebangkitan S-Presso ada di tangan para pecinta modifikasi. Desain bodi S-Presso yang serba kotak dan <em>nyeleneh</em> ini ternyata adalah sebuah 'kanvas kosong' yang luar biasa asyik untuk diotak-atik. Ditambah dengan aura <em>crossover</em>-nya yang kental, mobil ini gampang banget dibikin ganteng hanya dengan sedikit sentuhan!",
+      "Coba deh intip grup-grup komunitas Suzuki S-Presso. Kamu dijamin bakal kaget melihat hasil ubahannya! Ada yang mendandaninya dengan gaya JDM (<em>Japanese Domestic Market</em>) ceper pakai velg <em>racing</em> lebar, gaya <em>Rally Look</em> lengkap dengan kepet lumpur dan lampu tembak besar, sampai gaya <em>Mini Off-Road</em> ala Suzuki Jimny dengan ban pacul All-Terrain (AT).",
+      "Bentuknya yang tadinya dibilang \"aneh\" malah berubah menjadi keunikan tersendiri. Karakter kuat inilah yang bikin S-Presso modifikasi selalu berhasil membuat mata orang <em>auto-melirik</em> saat melintas di jalan raya. Benar-benar *head-turner* sejati!",
+      "Selain potensi modifikasinya yang <em>unlimited</em>, masyarakat juga mulai sadar akan kepraktisan S-Presso yang sebenarnya. <em>Ground clearance</em>-nya yang tergolong tinggi bikin pengendara pede melibas polisi tidur dan jalanan berlubang atau genangan air. Mesin K10C 1.0L yang diusungnya juga sudah terbukti super bandel dan <strong>konsumsi BBM-nya luar biasa irit</strong>. Sangat cocok buat <em>daily driven</em> menembus kemacetan kota tanpa bikin kantong jebol.",
+      "Nah, buat kamu yang mulai <em>kepo</em>, gatal ingin modifikasi, dan berniat menjadikan S-Presso sebagai mainan barumu, ini adalah saat yang paling tepat! Harganya yang sangat terjangkau bikin sisa <em>budget</em>-mu bisa dialokasikan penuh untuk beli velg dan aksesoris modifikasi. Daripada cuma membayangkan, mending langsung cek spesifikasi lengkap dan harga terbarunya di halaman <a href='/mobil/s-presso' class='text-blue-600 font-bold hover:underline'>Katalog Suzuki S-Presso</a> kami.",
+      "Jangan sampai ketinggalan trennya, Bosku! Buktikan sendiri serunya ngebangun mobil mungil nan ikonik ini. Yuk, langsung chat Yusuf di <strong>0821-7463-5218</strong> untuk <em>booking</em> unitnya sekarang juga. Mumpung lagi ada promo DP super ringan khusus bulan ini. Siap-siap jadi pusat perhatian di tongkrongan!"
+    ]
   }
 ];
