@@ -5,7 +5,6 @@ import { ShieldCheck, MapPin, CreditCard, BadgePercent, CarFront, MessageCircle 
 
 export default function AdvantagesSection({ cityName }: { cityName?: string }) {
   
-  // Konfigurasi warna DIBALIK: Solid di awal, Pastel saat di-hover
   const advantages = [
     { 
       icon: ShieldCheck, 
@@ -20,7 +19,7 @@ export default function AdvantagesSection({ cityName }: { cityName?: string }) {
     { 
       icon: MapPin, 
       title: `Area ${cityName ? cityName : "Jogja"} & Sekitarnya`, 
-      desc: `Kami melayani pengiriman dan layanan sales untuk seluruh warga ${cityName ? cityName : "Yogyakarta, Magelang, Klaten, Purworejo, dan sekitarnya"}.`,
+      desc: `Kami melayani pengiriman dan layanan sales untuk warga ${cityName ? cityName : "Yogyakarta, Magelang, Klaten, Purworejo, dan sekitarnya"}.`,
       iconBg: "bg-teal-600",
       iconText: "text-white",
       hoverIconBg: "group-hover:bg-teal-50",
@@ -61,24 +60,24 @@ export default function AdvantagesSection({ cityName }: { cityName?: string }) {
       icon: MessageCircle, 
       title: "Fast Response", 
       desc: "Yusuf Suzuki siap membantu via WhatsApp. Fast response, ramah, dan profesional.",
-      iconBg: "bg-[#25D366]", // Hijau WA Solid
+      iconBg: "bg-[#25D366]",
       iconText: "text-white",
-      hoverIconBg: "group-hover:bg-[#25D366]/10", // Pastel WA
+      hoverIconBg: "group-hover:bg-[#25D366]/10",
       hoverIconText: "group-hover:text-[#25D366]",
       hoverBorder: "hover:border-[#25D366]"
     },
   ];
 
   return (
-    <section className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 md:py-24 bg-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8">
         
-        {/* Header Section */}
+        {/* Header Section (Diberi padding di mobile karena container atasnya px-0) */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16 px-4 sm:px-0"
         >
           <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
             Mengapa Kami?
@@ -91,28 +90,27 @@ export default function AdvantagesSection({ cityName }: { cityName?: string }) {
           </p>
         </motion.div>
 
-        {/* Grid Container */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* CONTAINER BERUBAH: Flex/Scroll di HP, Grid di Desktop */}
+        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 overflow-x-auto sm:overflow-visible snap-x snap-mandatory px-4 sm:px-0 pb-8 sm:pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {advantages.map((item, i) => (
             <motion.div
               key={item.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.08 }}
-              // Animasi border dan shadow
-              className={`bg-white border border-gray-200 rounded-none p-8 transition-all duration-500 group flex flex-col hover:shadow-2xl ${item.hoverBorder}`}
+              // KARTU BERUBAH: Punya lebar fixed di HP (85vw) agar bisa digeser
+              className={`shrink-0 w-[85vw] sm:w-auto snap-center bg-white border border-gray-200 rounded-none p-6 md:p-8 transition-all duration-500 group flex flex-col hover:shadow-2xl ${item.hoverBorder}`}
             >
-              {/* Ikon dengan warna awal solid, lalu berubah pudar saat hover */}
-              <div className={`w-14 h-14 flex items-center justify-center mb-6 rounded-none transition-colors duration-300 ${item.iconBg} ${item.iconText} ${item.hoverIconBg} ${item.hoverIconText}`}>
-                <item.icon size={26} strokeWidth={1.5} />
+              <div className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center mb-5 md:mb-6 rounded-none transition-colors duration-300 ${item.iconBg} ${item.iconText} ${item.hoverIconBg} ${item.hoverIconText}`}>
+                <item.icon size={24} strokeWidth={1.5} />
               </div>
               
-              <p className="font-black text-gray-900 text-lg uppercase tracking-tight mb-3 group-hover:text-gray-900 transition-colors">
+              <p className="font-black text-gray-900 text-base md:text-lg uppercase tracking-tight mb-2 md:mb-3 group-hover:text-gray-900 transition-colors">
                 {item.title}
               </p>
               
-              <p className="text-gray-500 text-sm leading-relaxed">
+              <p className="text-gray-500 text-xs md:text-sm leading-relaxed">
                 {item.desc}
               </p>
             </motion.div>
