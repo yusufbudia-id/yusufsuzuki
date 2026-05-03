@@ -80,8 +80,6 @@ export default function FeaturedCars({ cityName }: { cityName?: string }) {
         <div className="relative -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8">
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex gap-6 pb-12 pt-4">
-              
-              // ... kode sebelumnya ...
 
               {featured.map((car, i) => (
                 <div 
@@ -107,7 +105,6 @@ export default function FeaturedCars({ cityName }: { cityName?: string }) {
                 </Link>
               </div>
 
-// ... kode selanjutnya ...
               <div className="flex-[0_0_85vw] sm:flex-[0_0_340px] lg:flex-[0_0_380px] min-w-0 flex items-center justify-center p-6 bg-gray-100/50 border border-dashed border-gray-300">
                 <Link 
                   href="/mobil" 
