@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Star, Quote, User, Camera, X } from "lucide-react"; 
+// Tambahan import ArrowRight
+import { Star, Quote, User, Camera, X, ArrowRight } from "lucide-react"; 
 import { testimonials } from "@/data/testimonials";
 
 export default function TestimonialSection({ cityName }: { cityName?: string }) {
@@ -21,7 +22,6 @@ export default function TestimonialSection({ cityName }: { cityName?: string }) 
   }, [selectedImage]);
 
   return (
-    // 1. Ubah background section menjadi abu-abu sangat terang agar kartu putih lebih menonjol
     <section className="py-24 bg-gray-50 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
@@ -52,16 +52,13 @@ export default function TestimonialSection({ cityName }: { cityName?: string }) 
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              // 2. Tambahkan overflow-hidden dan ubah warna hover menjadi merah dengan shadow yang elegan
               className="bg-white rounded-none p-8 border border-gray-200 hover:border-red-600 hover:shadow-[0_20px_40px_rgba(220,38,38,0.08)] transition-all duration-500 relative flex flex-col group h-full overflow-hidden"
             >
-              {/* 3. WATERMARK RAKSASA DI BACKGROUND KARTU */}
               <Quote 
                 size={140} 
                 className="absolute -bottom-8 -right-8 text-gray-50 -rotate-12 z-0 group-hover:text-red-50 transition-colors duration-700" 
               />
               
-              {/* KONTEN KARTU (Dibungkus dengan z-10 agar berada di atas watermark) */}
               <div className="relative z-10 flex flex-col h-full">
                 <div className="flex mb-6 gap-1">
                   {Array.from({ length: t.rating }).map((_, j) => (
@@ -73,13 +70,18 @@ export default function TestimonialSection({ cityName }: { cityName?: string }) 
                   "{t.review}"
                 </p>
 
+                {/* --- TOMBOL LIHAT FOTO YANG SUDAH DIROMBAK --- */}
                 {t.deliveryPhoto && (
                   <div className="mb-6">
                     <button
                       onClick={() => setSelectedImage(t.deliveryPhoto as string)}
-                      className="flex items-center justify-center gap-2 w-full text-[10px] uppercase tracking-widest font-black text-gray-600 border border-gray-200 px-4 py-2.5 hover:bg-red-600 hover:border-red-600 hover:text-white transition-colors"
+                      className="group/btn flex items-center justify-between w-full text-[10px] uppercase tracking-widest font-black text-red-600 bg-red-50 border border-red-100 px-4 py-3 hover:bg-red-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
                     >
-                      <Camera size={14} /> Lihat Foto Serah Terima
+                      <span className="flex items-center gap-2">
+                        <Camera size={14} className="group-hover/btn:scale-110 transition-transform duration-300" /> 
+                        Lihat Momen Serah Terima
+                      </span>
+                      <ArrowRight size={14} className="opacity-0 -translate-x-4 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-300" />
                     </button>
                   </div>
                 )}
@@ -115,7 +117,6 @@ export default function TestimonialSection({ cityName }: { cityName?: string }) 
                 </div>
               </div>
 
-              {/* 4. LABEL MOBIL MENGGUNAKAN MERAH SUZUKI */}
               <span className="absolute top-0 right-0 bg-red-600 text-white text-[9px] font-black px-3 py-1.5 rounded-none uppercase tracking-widest z-20 shadow-sm">
                 {t.car}
               </span>
@@ -125,7 +126,7 @@ export default function TestimonialSection({ cityName }: { cityName?: string }) 
         
       </div>
 
-      {/* --- MODAL / LIGHTBOX (Tetap sama) --- */}
+      {/* --- MODAL / LIGHTBOX --- */}
       <AnimatePresence>
         {selectedImage && (
           <motion.div
