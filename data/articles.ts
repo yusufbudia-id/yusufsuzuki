@@ -53,5 +53,22 @@ export const articles = [
       "Nah, buat kamu yang mulai <em>kepo</em>, gatal ingin modifikasi, dan berniat menjadikan S-Presso sebagai mainan barumu, ini adalah saat yang paling tepat! Harganya yang sangat terjangkau bikin sisa <em>budget</em>-mu bisa dialokasikan penuh untuk beli velg dan aksesoris modifikasi. Daripada cuma membayangkan, mending langsung cek spesifikasi lengkap dan harga terbarunya di halaman <a href='/mobil/s-presso' class='text-blue-600 font-bold hover:underline'>Katalog Suzuki S-Presso</a> kami.",
       "Jangan sampai ketinggalan trennya, Bosku! Buktikan sendiri serunya ngebangun mobil mungil nan ikonik ini. Yuk, langsung chat Yusuf di <strong>0821-7463-5218</strong> untuk <em>booking</em> unitnya sekarang juga. Mumpung lagi ada promo DP super ringan khusus bulan ini. Siap-siap jadi pusat perhatian di tongkrongan!"
     ]
+  },
+  {
+    slug: "kisah-heroik-tim-jago-jualan-suzuki-pecahkan-rekor",
+    title: "Bulan Pertama Jualan NOL Besar, Kumpulan 'Anak Baru' Ini Malah Pecahkan Rekor Penjualan Suzuki dalam 3 Bulan! Apa Rahasianya?",
+    excerpt: "Diremehkan karena mayoritas diisi oleh tenaga sales baru yang belum berpengalaman, Tim 'Jago Jualan' pimpinan Pak Regiansyah membuktikan bahwa kerja keras pantang menyerah bisa mengubah nol menjadi juara satu.",
+    category: "Kisah Inspiratif",
+    date: "6 Mei 2026",
+    imageUrl: "/artikel/tim-jago-jualan.webp", 
+    content: [
+      "Dunia <em>sales</em> otomotif itu kejam. Kalau tidak bisa jualan, siap-siap tergilas. Itulah realita pahit yang harus dihadapi oleh <strong>Tim Jago Jualan</strong> di awal masa pembentukannya. Dikomandoi oleh Pak Regiansyah, tim ini awalnya sempat dipandang sebelah mata. Alasannya cukup logis: mayoritas anggotanya adalah 'anak baru' yang sama sekali belum punya pengalaman atau <em>database</em> pelanggan.",
+      "Bulan pertama berjalan bagai mimpi buruk. Sepanjang bulan, angka penjualan tim ini adalah <strong>NOL besar</strong>. Tidak ada satupun mobil yang berhasil dikirim ke garasi konsumen. Mental para anggota tim yang masih hijau tentu langsung jatuh. Banyak yang mulai ragu dan hampir menyerah dengan kerasnya target dunia otomotif.",
+      "Namun, di sinilah insting kepemimpinan Pak Regiansyah diuji. Alih-alih marah atau merombak tim, beliau justru merangkul mereka. Pak Regiansyah menyadari satu kekuatan tersembunyi: menjadi 'anak baru' berarti mereka ibarat gelas kosong yang siap diisi dengan ilmu dan semangat tempur, tanpa terbelenggu oleh rasa gengsi masa lalu.",
+      "Transformasi besar-besaran pun dimulai. Tim Jago Jualan digenjot dengan pelatihan intensif setiap pagi. Mulai dari penguasaan <em>product knowledge</em>, teknik melayani pelanggan layaknya keluarga, hingga yang paling krusial: <strong>adaptasi pemasaran digital secara masif</strong>. Mereka tidak lagi hanya menunggu bola di <em>showroom</em>, melainkan 'berburu' dengan gigih dan cerdas.",
+      "Kerja keras berdarah-darah itu akhirnya terbayar lunas. Di bulan ketiga, sebuah lompatan kuantum terjadi. Tim yang tadinya mendapat predikat 'nol jualan' ini tiba-tiba melesat tak terbendung. SPK (Surat Pesanan Kendaraan) mengalir deras. Puncaknya, di akhir bulan ketiga, Tim Jago Jualan secara dramatis berhasil merajai klasemen dan dinobatkan sebagai <strong>tim dengan penjualan terbanyak!</strong> Sebuah epik <em>from zero to hero</em> yang menggemparkan.",
+      "Kini, senyum kebanggaan terpancar dari wajah Tim Jago Jualan pimpinan Pak Regiansyah. Mereka telah menjadi standar emas pelayanan Suzuki yang tangguh, kompak, dan berintegritas tinggi dalam membantu ratusan keluarga mendapatkan mobil impiannya.",
+      "Ingin merasakan sendiri pelayanan prima dari tim juara ini? Anda bisa langsung melihat berbagai promo diskon puluhan juta, katalog lengkap, dan layanan konsultasi 24 jam mereka melalui website resmi di <a href='https://www.suzuki-jogja.com' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>www.suzuki-jogja.com</a>. Jangan ragu, urusan mobil impian Anda kini berada di tangan orang-orang hebat yang tepat!"
+    ]
   }
 ];
