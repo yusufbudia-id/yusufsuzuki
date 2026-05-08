@@ -5,11 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Calculator, MessageCircle, Info, Edit2, Copy, Check, Lock, Unlock } from "lucide-react";
 import { cars } from "@/data/cars";
 import { formatCurrency, buildWhatsAppUrl } from "@/lib/utils";
-
-// 1. IMPORT DATA DATABASE LEASING
 import leasingData from "@/data/leasingData.json";
 
-// 2. FUNGSI PENGHITUNG ASURANSI DINAMIS (Berdasarkan Penyusutan & OJK)
 const getOjkRate = (currentOtr: number) => {
   return leasingData.ojkWil3.find(
     (rate) => currentOtr > rate.minOtr && currentOtr <= rate.maxOtr
@@ -45,25 +42,22 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   const [region, setRegion] = useState<"AB" | "AA">("AB");
   const [paymentType, setPaymentType] = useState<"ADDM" | "ADDB">("ADDB");
   
-  // State Input REVERSE Calculation
-  const [hargaMobil, setHargaMobil] = useState(335200000); 
-  const [tdpPct, setTdpPct] = useState(20); 
-  const [diskon, setDiskon] = useState(10000000); 
-  const [uping, setUping] = useState(1.0); // Sekarang bisa diubah
+  // STATE BARU: Fokus pada DP Bayar & Diskon Dinamis
+  const [hargaMobil, setHargaMobil] = useState(0); 
+  const [dpBayar, setDpBayar] = useState(20000000); // Input utama customer
+  const [diskon, setDiskon] = useState(0); // Ditarik otomatis dari data
+  
+  const [uping, setUping] = useState(1.0); 
   const [tenor, setTenor] = useState(60);
   
   const [result, setResult] = useState({ 
     uangMukaAsli: 0, 
     cicilan: 0, 
     tdpKotor: 0,
-    tdpBayar: 0,
     pokokUtang: 0
   });
 
-  // State untuk efek Copy Clipboard
   const [isCopied, setIsCopied] = useState(false);
-
-  // State untuk Fitur Advanced (PIN Protected)
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [pinInput, setPinInput] = useState("");
@@ -73,33 +67,46 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
   const biayaAdminPH = 6300000; 
   const provisiRate = 0.01; 
 
-  const tdpNominal = Math.round(hargaMobil * (tdpPct / 100));
-
   const currentCar = cars.find((c) => c.slug === selectedSlug);
   // @ts-ignore
   const currentVariants = currentCar?.variants || [];
   const currentVariantName = currentVariants.length > 0 ? currentVariants[selectedVariantIndex]?.name : "";
 
-  const handleCarChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedSlug(e.target.value);
-    setSelectedVariantIndex(0); 
-  };
-
+  // 1. EFEK PERGANTIAN MOBIL: Otomatis Menarik Harga & Diskon Varian
   useEffect(() => {
     if (currentCar) {
+      let newHarga = 0;
+      let newDiskon = 0;
+      
       if (currentVariants.length > 0 && currentVariants[selectedVariantIndex]) {
         const variant = currentVariants[selectedVariantIndex];
-        setHargaMobil(region === "AB" ? variant.priceAB : variant.priceAA);
+        newHarga = region === "AB" ? variant.priceAB : variant.priceAA;
+        newDiskon = variant.discount || 0;
       } else {
-        setHargaMobil(currentCar.startingPriceNum);
+        newHarga = currentCar.startingPriceNum;
+        newDiskon = currentCar.maxDiscount || 0;
+      }
+      
+      setHargaMobil(newHarga);
+      setDiskon(newDiskon);
+
+      // Pastikan saat mobil berganti, TDP tidak di bawah 15%
+      const currentTdp = dpBayar + newDiskon;
+      const minTdp = newHarga * 0.15;
+      if (currentTdp < minTdp) {
+        const adjustedDp = minTdp - newDiskon;
+        setDpBayar(adjustedDp > 0 ? Math.round(adjustedDp) : 0);
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSlug, selectedVariantIndex, region]);
 
+  // 2. EFEK KALKULATOR KREDIT UTAMA
   useEffect(() => {
+    if (hargaMobil === 0) return;
+
     const tenorTahun = tenor / 12;
-    const tdpKotor = tdpNominal; 
+    const tdpKotor = dpBayar + diskon; // Rumus utamanya sekarang dari sini
     
     // @ts-ignore
     const rateBungaDasarString = paymentType === "ADDM" 
@@ -137,23 +144,25 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     let pokokHutangFinal = hargaMobil - uangMukaFinal;
     let provisiFinal = pokokHutangFinal * provisiRate;
     let tphFinal = pokokHutangFinal + provisiFinal + asuransiPH + biayaAdminPH;
-    let tdpBayar = tdpKotor - diskon;
 
     setResult({ 
       uangMukaAsli: uangMukaFinal, 
       cicilan: angsuranBulat, 
       tdpKotor: tdpKotor,
-      tdpBayar: tdpBayar > 0 ? tdpBayar : 0, 
       pokokUtang: tphFinal
     });
 
-  }, [hargaMobil, tdpNominal, diskon, tenor, paymentType, uping, selectedSlug]);
+  }, [hargaMobil, dpBayar, diskon, tenor, paymentType, uping, selectedSlug]);
 
   const handleNumChange = (setter: any) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setter(Number(e.target.value.replace(/[^0-9]/g, "")));
   };
 
-  // --- FUNGSI COPY KE CLIPBOARD ---
+  const handleCarChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSlug(e.target.value);
+    setSelectedVariantIndex(0); 
+  };
+
   const handleCopyText = async () => {
     const formatAngka = (num: number) => new Intl.NumberFormat('id-ID').format(num);
     const baseCarName = currentCar?.name.replace(/Suzuki /i, "") || ""; 
@@ -172,7 +181,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     const textToCopy = 
 `${finalTitle}
 OTR ${formatAngka(hargaMobil)}
-DP Bayar ${formatAngka(result.tdpBayar)}
+DP Bayar ${formatAngka(dpBayar)}
 Angsuran ${formatAngka(result.cicilan)} x ${tenor}`;
 
     try {
@@ -184,7 +193,6 @@ Angsuran ${formatAngka(result.cicilan)} x ${tenor}`;
     }
   };
 
-  // --- FUNGSI UNLOCK ADVANCED ---
   const handlePinSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (pinInput === "123456") {
@@ -207,11 +215,13 @@ Angsuran ${formatAngka(result.cicilan)} x ${tenor}`;
 - Unit: ${waCarTitle}
 - Harga OTR: ${formatCurrency(hargaMobil)}
 - Skema: ${paymentType} - ${tenor} Bulan
-- Total DP: ${formatCurrency(result.tdpKotor)}
-- Diskon: ${formatCurrency(diskon)}
-- DP Bayar (Nett): ${formatCurrency(result.tdpBayar)}
+- DP Bayar (Nett): ${formatCurrency(dpBayar)}
+- Diskon Promo: ${formatCurrency(diskon)}
 - Angsuran: ${formatCurrency(result.cicilan)}/bln
 Mohon info persyaratannya.`;
+
+  // Kalkulasi % TDP untuk tampilan Slider
+  const tdpPct = hargaMobil > 0 ? ((dpBayar + diskon) / hargaMobil) * 100 : 0;
 
   return (
     <div className="bg-white rounded-none border border-gray-200 shadow-2xl overflow-hidden">
@@ -303,37 +313,42 @@ Mohon info persyaratannya.`;
                 </div>
               </div>
 
-              {/* INPUT: Nominal TDP (Manual/Slider) & Diskon */}
+              {/* AREA INPUT DP BAYAR & DISKON YANG SUDAH CUSTOMER FRIENDLY */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="relative">
                   <div className="flex justify-between items-end mb-2">
-                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-blue-600">Total DP (TDP Kotor)</label>
-                    <span className="text-[10px] font-black text-blue-900">{tdpPct.toFixed(2)}%</span>
+                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-blue-600">DP Bayar (Nett)</label>
+                    <span className="text-[10px] font-black text-blue-900">Total DP (TDP): {tdpPct.toFixed(2)}%</span>
                   </div>
                   <div className="flex items-center border-b-2 border-blue-200 focus-within:border-blue-600 transition-colors">
                     <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
                     <input 
                       type="text" 
-                      value={tdpNominal === 0 ? "" : new Intl.NumberFormat('id-ID').format(tdpNominal)} 
-                      onChange={(e) => {
-                        const val = Number(e.target.value.replace(/[^0-9]/g, ""));
-                        setTdpPct((val / hargaMobil) * 100);
-                      }}
+                      value={dpBayar === 0 ? "" : new Intl.NumberFormat('id-ID').format(dpBayar)} 
+                      onChange={handleNumChange(setDpBayar)}
                       onBlur={() => {
-                        if (tdpPct < 15) setTdpPct(15);
-                        if (tdpPct > 100) setTdpPct(100);
+                        // Validasi agar Total DP tidak kurang dari 15% dari OTR
+                        const minTdp = hargaMobil * 0.15;
+                        if ((dpBayar + diskon) < minTdp) {
+                          setDpBayar(minTdp - diskon > 0 ? (minTdp - diskon) : 0);
+                        }
                       }}
                       className="w-full bg-transparent py-2 text-lg font-black text-blue-900 focus:outline-none" 
                     />
                   </div>
+                  {/* SLIDER mengontrol persentase TDP kotor, tapi mengubah nominal DP Bayar */}
                   <input
-                    type="range" min={15} max={100} step={1} value={tdpPct}
-                    onChange={(e) => setTdpPct(Number(e.target.value))}
+                    type="range" min={15} max={100} step={1} value={Math.max(15, Math.min(100, tdpPct))}
+                    onChange={(e) => {
+                      const newPct = Number(e.target.value);
+                      const newTdpNominal = hargaMobil * (newPct / 100);
+                      setDpBayar(newTdpNominal - diskon > 0 ? newTdpNominal - diskon : 0);
+                    }}
                     className="w-full h-1.5 bg-blue-100 accent-blue-600 appearance-none cursor-pointer mt-4"
                   />
                 </div>
                 <div className="relative flex flex-col justify-end">
-                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2 text-green-600">Diskon Unit (Potong TDP)</label>
+                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2 text-green-600">Diskon Unit / Subsidi</label>
                   <div className="flex items-center border-b-2 border-green-200 focus-within:border-green-600 transition-colors">
                     <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
                     <input type="text" value={diskon === 0 ? "" : new Intl.NumberFormat('id-ID').format(diskon)} onChange={handleNumChange(setDiskon)} className="w-full bg-transparent py-2 text-lg font-black text-green-900 focus:outline-none mb-[22px]" />
@@ -409,14 +424,12 @@ Mohon info persyaratannya.`;
                     <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">Upping / Subsidi Bunga (%)</span>
                     <span className="text-sm font-black text-gray-900">{uping.toFixed(1)}%</span>
                   </div>
-                  {/* UBAH min MENJADI -2 DI SINI */}
                   <input
                     type="range" min={-2} max={5} step={0.1} value={uping}
                     onChange={(e) => setUping(Number(e.target.value))}
                     className="w-full h-1.5 bg-gray-200 accent-gray-900 appearance-none cursor-pointer"
                   />
                   <div className="flex justify-between mt-1">
-                    {/* UBAH LABEL TEKS BAWAHNYA JUGA */}
                     <span className="text-[9px] text-gray-400 font-bold">-2%</span>
                     <span className="text-[9px] text-gray-400 font-bold">5%</span>
                   </div>
@@ -428,7 +441,7 @@ Mohon info persyaratannya.`;
 
         </div>
 
-        {/* Sisi Kanan: Hasil Kalkulasi Tampil Bersih */}
+        {/* Sisi Kanan: Hasil Kalkulasi */}
         <div className="lg:col-span-5 bg-gray-50 p-6 md:p-10 flex flex-col">
           <div className="mb-6">
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Estimasi Angsuran</p>
@@ -449,26 +462,24 @@ Mohon info persyaratannya.`;
               <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Harga OTR</span>
               <span className="text-xs font-black text-gray-900">{formatCurrency(hargaMobil)}</span>
             </div>
+            
+            {/* HIERARKI BARU: DP Bayar di Atas, Diskon di Tengah, TDP di Bawah */}
             <div className="flex justify-between py-2 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Total DP (TDP)</span>
+              <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Budget DP (DP Bayar)</span>
+              <span className="text-xs font-black text-blue-600">{formatCurrency(dpBayar)}</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-gray-200">
+              <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">+ Diskon Unit</span>
+              <span className="text-xs font-black text-green-600">{formatCurrency(diskon)}</span>
+            </div>
+            <div className="flex justify-between py-2 border-b border-gray-200">
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">= Total DP (TDP)</span>
               <span className="text-xs font-black text-gray-900">{formatCurrency(result.tdpKotor)}</span>
             </div>
+            
             <div className="flex justify-between py-2 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Total Pokok Hutang</span>
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Pokok Hutang</span>
               <span className="text-xs font-black text-gray-900">{formatCurrency(result.pokokUtang)}</span>
-            </div>
-            <div className="flex justify-between py-2 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">Diskon / Subsidi</span>
-              <span className="text-xs font-black text-green-600">- {formatCurrency(diskon)}</span>
-            </div>
-
-            {/* HIGHLIGHT DP BAYAR */}
-            <div className="flex justify-between py-5 mt-4 bg-gray-900 px-4 text-white shadow-lg rounded-sm">
-              <div>
-                <span className="block text-xs font-bold uppercase tracking-[0.2em]">DP Bayar (Nett)</span>
-                <span className="block text-[9px] text-gray-400 mt-0.5">Disetor ke Dealer</span>
-              </div>
-              <span className="text-xl font-black self-center text-white">{formatCurrency(result.tdpBayar)}</span>
             </div>
           </div>
 
@@ -476,7 +487,7 @@ Mohon info persyaratannya.`;
             <div className="flex gap-3 text-gray-500 mb-6 bg-gray-200/50 p-4 border-l-4 border-gray-900">
               <Info size={16} className="shrink-0 mt-0.5" />
               <p className="text-[9px] uppercase leading-relaxed font-bold">
-                TDP di atas sudah mencakup DP Murni, Biaya Fidusia, Admin, Asuransi, {paymentType === "ADDM" && "Angsuran Bulan ke-1, "} dan sudah dipotong Diskon Unit.
+                TDP di atas merupakan kalkulasi otomatis dari DP Bayar ditambah Diskon, sudah mencakup Biaya Fidusia, Admin, Asuransi, {paymentType === "ADDM" && "dan Angsuran Bulan ke-1."}
               </p>
             </div>
 
