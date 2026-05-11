@@ -60,7 +60,7 @@ export const articles = [
     excerpt: "Diremehkan karena mayoritas diisi oleh tenaga sales baru yang belum berpengalaman, Tim 'Jago Jualan' pimpinan Pak Regiansyah membuktikan bahwa kerja keras pantang menyerah bisa mengubah nol menjadi juara satu.",
     category: "Kisah Inspiratif",
     date: "6 Mei 2026",
-    imageUrl: "/artikel/tim-jago-jualan.webp", 
+    imageUrl: "/berita/tim-jago-jualan.webp", 
     content: [
       "Dunia <em>sales</em> otomotif itu kejam. Kalau tidak bisa jualan, siap-siap tergilas. Itulah realita pahit yang harus dihadapi oleh <strong>Tim Jago Jualan</strong> di awal masa pembentukannya. Dikomandoi oleh Pak Regiansyah, tim ini awalnya sempat dipandang sebelah mata. Alasannya cukup logis: mayoritas anggotanya adalah 'anak baru' yang sama sekali belum punya pengalaman atau <em>database</em> pelanggan.",
       "Bulan pertama berjalan bagai mimpi buruk. Sepanjang bulan, angka penjualan tim ini adalah <strong>NOL besar</strong>. Tidak ada satupun mobil yang berhasil dikirim ke garasi konsumen. Mental para anggota tim yang masih hijau tentu langsung jatuh. Banyak yang mulai ragu dan hampir menyerah dengan kerasnya target dunia otomotif.",
@@ -77,7 +77,7 @@ export const articles = [
     excerpt: "Update resmi Pricelist Harga OTR Suzuki Bulan Mei untuk wilayah Jogja (Plat AB), Kedu, Magelang (Plat AA) dan sekitarnya. Jangan lewatkan program diskon maksimal bulan ini!",
     category: "Promo & Harga",
     date: "11 Mei 2026",
-    imageUrl: "/artikel/pricelist-ab-mei.jpg", // Cover artikel menggunakan gambar brosur AB
+    imageUrl: "/berita/pricelist-ab-mei.jpg", // Cover artikel menggunakan gambar brosur AB
     content: [
       "Kabar gembira bagi Anda warga Daerah Istimewa Yogyakarta, Magelang, Kedu, dan sekitarnya! Memasuki bulan Mei ini, Suzuki Sumber Baru Mobil secara resmi merilis <em>update</em> daftar harga OTR (On The Road) terbaru untuk kategori kendaraan penumpang maupun niaga.",
       "Tidak hanya pembaruan harga, bulan ini Suzuki juga memberikan kejutan spesial berupa program <strong>Diskon Maksimal hingga puluhan juta rupiah</strong>, subsidi <em>trade-in</em> (tukar tambah), dan paket kredit dengan uang muka (DP) super ringan.",
