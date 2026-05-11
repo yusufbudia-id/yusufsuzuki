@@ -70,5 +70,29 @@ export const articles = [
       "Kini, senyum kebanggaan terpancar dari wajah Tim Jago Jualan pimpinan Pak Regiansyah. Mereka telah menjadi standar emas pelayanan Suzuki yang tangguh, kompak, dan berintegritas tinggi dalam membantu ratusan keluarga mendapatkan mobil impiannya.",
       "Ingin merasakan sendiri pelayanan prima dari tim juara ini? Anda bisa langsung melihat berbagai promo diskon puluhan juta, katalog lengkap, dan layanan konsultasi 24 jam mereka melalui website resmi di <a href='https://www.suzuki-jogja.com' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>www.suzuki-jogja.com</a>. Jangan ragu, urusan mobil impian Anda kini berada di tangan orang-orang hebat yang tepat!"
     ]
+  },
+  {
+    slug: "daftar-harga-mobil-suzuki-terbaru-bulan-mei-plat-ab-dan-aa",
+    title: "Daftar Harga Mobil Suzuki Terbaru Bulan Mei (Plat AB & AA), Dapatkan Diskon Puluhan Juta!",
+    excerpt: "Update resmi Pricelist Harga OTR Suzuki Bulan Mei untuk wilayah Jogja (Plat AB), Kedu, Magelang (Plat AA) dan sekitarnya. Jangan lewatkan program diskon maksimal bulan ini!",
+    category: "Promo & Harga",
+    date: "11 Mei 2026",
+    imageUrl: "/artikel/pricelist-ab-mei.jpg", // Cover artikel menggunakan gambar brosur AB
+    content: [
+      "Kabar gembira bagi Anda warga Daerah Istimewa Yogyakarta, Magelang, Kedu, dan sekitarnya! Memasuki bulan Mei ini, Suzuki Sumber Baru Mobil secara resmi merilis <em>update</em> daftar harga OTR (On The Road) terbaru untuk kategori kendaraan penumpang maupun niaga.",
+      "Tidak hanya pembaruan harga, bulan ini Suzuki juga memberikan kejutan spesial berupa program <strong>Diskon Maksimal hingga puluhan juta rupiah</strong>, subsidi <em>trade-in</em> (tukar tambah), dan paket kredit dengan uang muka (DP) super ringan.",
+      "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Pricelist Resmi Plat AB (Yogyakarta & Sekitarnya)</h3>",
+      "<p>Berikut adalah tabel brosur harga lengkap untuk OTR Plat AB meliputi wilayah Kota Jogja, Sleman, Bantul, Gunungkidul, dan Kulon Progo:</p>",
+      "",
+      "<img src='/artikel/pricelist-ab-mei.jpg' alt='Brosur Harga Suzuki Jogja Plat AB Mei' class='w-full h-auto border border-gray-200 shadow-md my-6 hover:shadow-xl transition-shadow duration-300' />",
+      "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Pricelist Resmi Plat AA & R (Kedu, Magelang, Banyumas)</h3>",
+      "<p>Dan berikut adalah tabel brosur harga lengkap untuk OTR Plat AA (Magelang, Purworejo, Temanggung, Wonosobo, Kebumen) serta Plat R (Banyumas, Cilacap, Purbalingga, Banjarnegara):</p>",
+      "",
+      "<img src='/artikel/pricelist-aa-mei.jpg' alt='Brosur Harga Suzuki Magelang Plat AA Mei' class='w-full h-auto border border-gray-200 shadow-md my-6 hover:shadow-xl transition-shadow duration-300' />",
+      "<em class='text-sm text-gray-500 block mt-2'>*Catatan: Harga yang tertera pada brosur di atas adalah harga OTR dasar (belum dipotong diskon/cashback spesial bulan ini).</em>",
+      "Selain potongan harga besar-besaran, nikmati juga keuntungan ekstra seperti gratis asuransi untuk paket kredit tertentu, bonus aksesoris eksklusif (Kaca Film Premium, Karpet Set, dll), serta jaminan proses pemberkasan yang akan dibantu sampai <strong>100% Approved (ACC)!</strong>",
+      "Punya <em>budget</em> DP tertentu? Jangan khawatir, saya siap menghitungkan simulasi angsuran yang paling pas dan tidak memberatkan keuangan keluarga Anda.",
+      "Jangan tunda lagi, konsultasikan kebutuhan kendaraan Anda sekarang juga. Hubungi <strong>Yusuf Suzuki</strong> melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> atau lihat spesifikasi lengkap tiap mobil di katalog <a href='https://www.suzukiautojogja.com/mobil' class='text-blue-600 font-bold hover:underline'>www.suzukiautojogja.com</a>."
+    ]
   }
 ];

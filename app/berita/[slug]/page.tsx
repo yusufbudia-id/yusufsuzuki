@@ -17,6 +17,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+// Fungsi pembantu untuk membaca tanggal bahasa Indonesia
+function parseIndonesianDate(dateStr: string) {
+  const months: { [key: string]: number } = {
+    "Januari": 0, "Februari": 1, "Maret": 2, "April": 3, "Mei": 4, "Juni": 5,
+    "Juli": 6, "Agustus": 7, "September": 8, "Oktober": 9, "November": 10, "Desember": 11
+  };
+  
+  const parts = dateStr.split(" ");
+  if (parts.length !== 3) return 0; // fallback jika format bukan "DD Bulan YYYY"
+
+  const day = parseInt(parts[0], 10);
+  const month = months[parts[1]] || 0;
+  const year = parseInt(parts[2], 10);
+
+  return new Date(year, month, day).getTime();
+}
+
 export default async function ArticleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const article = articles.find((a) => a.slug === resolvedParams.slug);
@@ -25,9 +42,13 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
     notFound();
   }
 
-  // MENGAMBIL ARTIKEL TERKAIT: Saring artikel selain yang sedang dibaca (maksimal 3)
+  // MENGAMBIL ARTIKEL TERBARU: 
+  // 1. Saring agar artikel yang sedang dibaca tidak muncul di sidebar
+  // 2. Urutkan berdasarkan tanggal terbaru ke terlama
+  // 3. Ambil 3 teratas
   const recommendedArticles = articles
     .filter((a) => a.slug !== resolvedParams.slug)
+    .sort((a, b) => parseIndonesianDate(b.date) - parseIndonesianDate(a.date))
     .slice(0, 3);
 
   return (
@@ -86,21 +107,21 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
               </p>
 
               {article.content?.map((paragraph, index) => (
-                <p 
+                <div 
                     key={index} 
-                    className="mb-6"
+                    className="mb-6 article-content-block"
                     dangerouslySetInnerHTML={{ __html: paragraph }} 
                 />
               ))}
             </div>
           </article>
 
-          {/* KOLOM KANAN: SIDEBAR REKOMENDASI (Lebar 33%) */}
+          {/* KOLOM KANAN: SIDEBAR ARTIKEL TERBARU (Lebar 33%) */}
           <aside className="lg:w-1/3">
             {/* Sticky membuat sidebar tetap mengikut saat discroll ke bawah */}
             <div className="sticky top-28"> 
               <h3 className="text-base font-black text-gray-900 uppercase tracking-widest border-b-2 border-gray-900 pb-3 mb-6">
-                Artikel Terkait
+                Artikel Terbaru
               </h3>
 
               <div className="flex flex-col gap-4">
@@ -145,7 +166,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
                 )}
               </div>
 
-              {/* Bonus: Banner Promo Kecil di Sidebar */}
+              {/* Banner Promo Kecil di Sidebar */}
               <div className="mt-8 bg-[#050B14] p-6 text-white text-center shadow-lg border-t-4 border-red-600">
                 <h4 className="font-bold text-lg mb-2">Tertarik dengan Suzuki?</h4>
                 <p className="text-gray-400 text-xs mb-6 leading-relaxed">
