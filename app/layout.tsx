@@ -23,11 +23,11 @@ export const metadata: Metadata = {
   },
 
   title: {
-    default: "Dealer Suzuki Jogja - Promo & Harga Sumber Baru Mobil",
+    default: "Dealer Suzuki Jogja Resmi | Harga OTR & Promo Terbaru",
     template: "%s | Dealer Suzuki Jogja", 
   },
   description:
-    "Kunjungi Dealer Suzuki Jogja resmi. Dapatkan info harga OTR terbaru, promo DP ringan, dan cicilan murah bersama Yusuf Suzuki (0821-7463-5218).",
+    "Cari mobil Suzuki di Jogja? Dapatkan promo DP ringan, diskon besar, dan harga OTR terbaru di Dealer Resmi Suzuki Sumber Baru Mobil bersama Yusuf Suzuki (0821-7463-5218).",
   icons: {
     icon: "/favicon.ico", 
     shortcut: "/favicon.ico",
