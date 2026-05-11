@@ -205,12 +205,12 @@ export const cars: Car[] = [
     startingPriceAA: 221500000,
     maxDiscount: 0,
     variants: [
-      { name: "PU FD BOX PAKET HEMAT", priceAB: 215750000, priceAA: 221500000, discount: 0 },
-      { name: "PU FD PS BOX PAKET HEMAT", priceAB: 223750000, priceAA: 229800000, discount: 0 },
-      { name: "PU FD BOX MBG TANPA RAK", priceAB: 257500000, priceAA: 263400000, discount: 0 },
-      { name: "PU FD PS BOX MBG TANPA RAK", priceAB: 265900000, priceAA: 271900000, discount: 0 },
-      { name: "PU FD BOX STANDARD MBG", priceAB: 261400000, priceAA: 267400000, discount: 0 },
-      { name: "PU FD AC PS BOX STANDARD MBG", priceAB: 269900000, priceAA: 275900000, discount: 0 }
+      { name: "PU FD BOX PAKET HEMAT", priceAB: 215750000, priceAA: 221500000, discount: 34000000 },
+      { name: "PU FD PS BOX PAKET HEMAT", priceAB: 223750000, priceAA: 229800000, discount: 34000000 },
+      { name: "PU FD BOX MBG TANPA RAK", priceAB: 257500000, priceAA: 263400000, discount: 34000000 },
+      { name: "PU FD PS BOX MBG TANPA RAK", priceAB: 265900000, priceAA: 271900000, discount: 34000000 },
+      { name: "PU FD BOX STANDARD MBG", priceAB: 261400000, priceAA: 267400000, discount: 34000000 },
+      { name: "PU FD AC PS BOX STANDARD MBG", priceAB: 269900000, priceAA: 275900000, discount: 34000000 }
     ],
     monthlyInstallment: "Rp 2.600.000",
     description: "Tingkatkan efisiensi bisnis ekspedisi, katering, dan distribusi barang Anda di wilayah Yogyakarta dengan Suzuki Carry Box. Dilengkapi bak tertutup aluminium kokoh yang dijamin aman dari cuaca panas maupun hujan deras, mobil niaga ini siap mendukung mobilitas usaha Anda beroperasi 24 jam penuh tanpa henti. Kapasitas kargo yang sangat lega memudahkan proses bongkar muat barang dalam jumlah besar, menjadikannya kendaraan ideal untuk logistik perkotaan hingga pengiriman antar kota. Didukung oleh jaringan servis resmi Suzuki yang tersebar luas di seluruh Jogja dan Jawa Tengah, perawatan kendaraan operasional Anda dipastikan lebih mudah dan terjamin ketersediaan suku cadangnya. Segera cek promo diskon Suzuki Carry Box terbaru khusus pelat AB dan AA, serta nikmati kemudahan persetujuan kredit usaha bunga rendah bersama Yusuf Suzuki.",
