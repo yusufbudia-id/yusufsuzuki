@@ -209,13 +209,16 @@ export default function Hero({ cityName }: { cityName?: string }) {
                 </motion.div>
               </div>
 
+              {/* LOGIKA BUNGLON UNTUK H1 DITERAPKAN DI SINI */}
               <motion.h1
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
                 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-4 tracking-tight uppercase"
               >
-                Dealer Resmi Mobil Suzuki {cityName ? cityName : "Jogja"}
+                {cityName 
+                  ? `Dealer Resmi Mobil Suzuki ${cityName}` 
+                  : "Dealer Suzuki Jogja Resmi Terpercaya"}
               </motion.h1>
 
               <motion.h2
@@ -227,13 +230,14 @@ export default function Hero({ cityName }: { cityName?: string }) {
                 Pusat Promo & Harga Terbaru &bull; Proses Kredit Mudah
               </motion.h2>
 
+              {/* LOGIKA BUNGLON UNTUK PARAGRAF DITERAPKAN DI SINI */}
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
                 className="text-gray-400 font-normal text-sm sm:text-base max-w-xl leading-relaxed mb-10"
               >
-                Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan mobil impian dengan penawaran harga paling kompetitif, diskon eksklusif bulanan, serta layanan purna jual yang terjamin kualitasnya bersama <strong className="text-gray-200">Yusuf Suzuki</strong>.
+                Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan mobil impian dengan penawaran harga paling kompetitif di wilayah {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon eksklusif bulanan, serta layanan purna jual yang terjamin kualitasnya bersama <strong className="text-gray-200">Yusuf Suzuki</strong>.
               </motion.p>
 
               <motion.div

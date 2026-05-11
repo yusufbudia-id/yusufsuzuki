@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import Script from "next/script";
@@ -22,11 +23,11 @@ export const metadata: Metadata = {
   },
 
   title: {
-    default: "Suzuki Sumber Baru Mobil Jogja | Dealer Resmi Jl. Magelang",
-    template: "%s | Sumber Baru Mobil Jogja", 
+    default: "Dealer Suzuki Jogja - Promo & Harga Sumber Baru Mobil",
+    template: "%s | Dealer Suzuki Jogja", 
   },
   description:
-    "Cari mobil Suzuki di Jogja? Hubungi Sales Konsultan Resmi Yusuf Suzuki: 0821 7463 5218. Dapatkan promo DP ringan dan cicilan murah.",
+    "Kunjungi Dealer Suzuki Jogja resmi. Dapatkan info harga OTR terbaru, promo DP ringan, dan cicilan murah bersama Yusuf Suzuki (0821-7463-5218).",
   icons: {
     icon: "/favicon.ico", 
     shortcut: "/favicon.ico",
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: "https://www.suzukiautojogja.com", 
     siteName: "Suzuki Sumber Baru Mobil",
-    title: "Promo Suzuki Jogja | DP Ringan & Angsuran Murah", 
+    title: "Dealer Suzuki Jogja | Promo DP Ringan & Angsuran Murah", 
     description:
       "Hubungi Yusuf Suzuki (0821-7463-5218) untuk promo mobil Suzuki terbaru di Yogyakarta dan sekitarnya. Proses cepat, dibantu sampai ACC!",
     images: [
@@ -64,7 +65,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Promo Suzuki Jogja | Dealer Resmi Jl. Magelang",
+    title: "Dealer Suzuki Jogja | Promo & Harga Terbaru Jl. Magelang",
     description:
       "Dealer resmi Suzuki Jogja & sekitarnya. Promo terbaik, kredit mudah, DP ringan.",
     images: ["/og-image.jpg"],
@@ -80,11 +81,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Data Schema Markup untuk LocalBusiness
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoDealer",
-    "name": "Suzuki Sumber Baru Mobil",
+    "name": "Dealer Suzuki Jogja - Sumber Baru Mobil",
     "image": "https://www.suzukiautojogja.com/logo.png",
     "@id": "https://www.suzukiautojogja.com",
     "url": "https://www.suzukiautojogja.com",
@@ -133,7 +133,6 @@ export default function RootLayout({
       </head>
       <body className={`${manrope.className} antialiased bg-white text-gray-900`}>
         
-        {/* Google Analytics Script (Ditarik Otomatis Dari .env) */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
           strategy="afterInteractive"
@@ -147,7 +146,6 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* Meta / Facebook Pixel Script */}
         <Script id="meta-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
