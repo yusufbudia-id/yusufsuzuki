@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { MessageCircle, ArrowRight, Sparkles, TrendingUp, Tag } from "lucide-react";
 import { Car } from "@/data/cars";
-import { buildWhatsAppUrl, formatCurrency } from "@/lib/utils";
+import { buildWhatsAppUrl } from "@/lib/utils";
 
 interface CarCardProps {
   car: Car;
@@ -19,6 +19,17 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan tertarik dengan mobil ${car.name}. Mohon info harga dan promo terbarunya.`
     : car.whatsappMessage;
 
+  // Fungsi pintar untuk menyensor diskon (Marketing Strategy)
+  const formatMaskedDiscount = (amount: number) => {
+    const millions = Math.floor(amount / 1000000).toString();
+    if (millions.length > 1) {
+      // Jika puluhan juta (contoh 34 -> ambil '3' lalu tambah 'x')
+      return `${millions[0]}x.000.000`;
+    }
+    // Jika satuan juta (contoh 8 juta -> tetap 8.000.000)
+    return `${millions}.000.000`; 
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -27,7 +38,7 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
       transition={{ duration: 0.5, delay: index * 0.07 }}
       className="group relative bg-white rounded-none overflow-hidden border border-gray-200 hover:border-gray-900 hover:shadow-xl transition-all duration-500 flex flex-col h-full"
     >
-      {/* 1. IMAGE SECTION - Tetap Bersih dan Elegan */}
+      {/* 1. IMAGE SECTION */}
       <div className="relative aspect-[4/3] sm:aspect-auto sm:h-60 overflow-hidden bg-gray-50 shrink-0">
         <Link href={`/mobil/${car.slug}`} className="absolute inset-0 z-10" aria-label={`Lihat detail ${car.name}`}></Link>
         <Image
@@ -68,12 +79,12 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
           
           {/* Harga & Promo Info */}
           <div className="flex flex-col gap-1">
-            {/* Info Diskon yang rapi dan tidak merusak layout */}
-            {car.maxDiscount && car.maxDiscount > 0 && (
+            {/* Tampilan Diskon Tersensor */}
+            {car.maxDiscount && car.maxDiscount > 0 ? (
               <span className="text-green-600 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest flex items-center gap-1">
-                <Tag size={10} /> Diskon s/d {formatCurrency(car.maxDiscount).replace('Rp', '').trim()}
+                <Tag size={10} /> Diskon s/d {formatMaskedDiscount(car.maxDiscount)}
               </span>
-            )}
+            ) : null}
             
             <p className="text-gray-900 font-black text-base sm:text-xl truncate">
               {car.startingPrice}
@@ -84,7 +95,7 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
           </div>
         </div>
 
-        {/* 3. ACTIONS BUTTON - Sejajar 50:50 */}
+        {/* 3. ACTIONS BUTTON */}
         <div className="grid grid-cols-2 gap-2 mt-auto relative z-20">
           <Link 
             href={`/mobil/${car.slug}`} 
