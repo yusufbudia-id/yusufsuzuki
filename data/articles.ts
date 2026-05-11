@@ -60,7 +60,7 @@ export const articles = [
     excerpt: "Diremehkan karena mayoritas diisi oleh tenaga sales baru yang belum berpengalaman, Tim 'Jago Jualan' pimpinan Pak Regiansyah membuktikan bahwa kerja keras pantang menyerah bisa mengubah nol menjadi juara satu.",
     category: "Kisah Inspiratif",
     date: "6 Mei 2026",
-    imageUrl: "/berita/tim-jago-jualan.webp", 
+    imageUrl: "/berita/tim-jago-jualan.jpg", 
     content: [
       "Dunia <em>sales</em> otomotif itu kejam. Kalau tidak bisa jualan, siap-siap tergilas. Itulah realita pahit yang harus dihadapi oleh <strong>Tim Jago Jualan</strong> di awal masa pembentukannya. Dikomandoi oleh Pak Regiansyah, tim ini awalnya sempat dipandang sebelah mata. Alasannya cukup logis: mayoritas anggotanya adalah 'anak baru' yang sama sekali belum punya pengalaman atau <em>database</em> pelanggan.",
       "Bulan pertama berjalan bagai mimpi buruk. Sepanjang bulan, angka penjualan tim ini adalah <strong>NOL besar</strong>. Tidak ada satupun mobil yang berhasil dikirim ke garasi konsumen. Mental para anggota tim yang masih hijau tentu langsung jatuh. Banyak yang mulai ragu dan hampir menyerah dengan kerasnya target dunia otomotif.",
