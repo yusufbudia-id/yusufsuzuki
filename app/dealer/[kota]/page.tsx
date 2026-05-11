@@ -21,13 +21,30 @@ export async function generateMetadata({ params }: AreaPageProps): Promise<Metad
   
   if (!area) return { title: "Dealer Tidak Ditemukan" };
 
+  // --- KODE BARU: Array Keywords Dinamis (Hyper-Local SEO) ---
+  // Pastikan huruf kecil semua agar rapi di mata Google
+  const cityName = area.name.toLowerCase();
+  const dynamicKeywords = [
+    `suzuki ${cityName}`,
+    `dealer suzuki ${cityName}`,
+    `promo suzuki ${cityName}`,
+    `harga suzuki ${cityName}`,
+    `kredit suzuki ${cityName}`,
+    `harga fronx ${cityName}`,
+    `promo xl7 ${cityName}`,
+    `kredit carry pick up ${cityName}`,
+    `harga ertiga ${cityName}`,
+    `showroom suzuki ${cityName}`,
+    `sales suzuki ${cityName}`
+  ];
+
   return {
     title: `Dealer Resmi Suzuki ${area.name} | Promo & Harga Terbaru`,
     description: area.description,
+    keywords: dynamicKeywords, // <--- Menanamkan 11 kata kunci dinamis
     alternates: {
       canonical: `/dealer/${area.slug}`,
     },
-    // INI KODE BARUNYA: Memaksa Google dan WA menggunakan gambar XL7
     openGraph: {
       title: `Dealer Resmi Suzuki ${area.name} | Promo & Harga Terbaru`,
       description: area.description,
@@ -35,7 +52,6 @@ export async function generateMetadata({ params }: AreaPageProps): Promise<Metad
       siteName: 'Suzuki Auto Jogja',
       images: [
         {
-          // Gunakan banner XL7 milikmu. Pastikan gambar ini ada di folder public/hero/
           url: '/hero/banner-1.jpg', 
           width: 1200,
           height: 630,
@@ -62,7 +78,6 @@ export default async function AreaPage({ params }: AreaPageProps) {
 
   return (
     <>
-      {/* Semua komponen sekarang tinggal menerima "titipan" nama kota! */}
       <Hero cityName={area.name} />
       <FeaturedCars cityName={area.name} />
       
