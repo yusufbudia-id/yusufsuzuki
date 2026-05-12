@@ -123,8 +123,8 @@ export default async function CarDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* 1. HERO SECTION - REDESIGN PREMIUM SHOWROOM */}
-      <div className="relative bg-[#050B14] pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden border-b border-gray-900">
+      {/* 1. HERO SECTION - SPACING DIPERBAIKI */}
+      <div className="relative bg-[#050B14] pt-24 pb-20 md:pt-28 md:pb-32 overflow-hidden border-b border-gray-900">
         
         {/* Ornamen Latar Belakang agar tidak flat */}
         <div className="absolute top-0 right-0 w-full md:w-2/3 h-full bg-gradient-to-bl from-gray-800/40 via-transparent to-transparent opacity-60 pointer-events-none" />
@@ -132,7 +132,7 @@ export default async function CarDetailPage({ params }: Props) {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          <nav className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 mb-10 md:mb-16">
+          <nav className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 mb-8 md:mb-10">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <ChevronRight size={12} className="text-gray-700" />
             <Link href="/mobil" className="hover:text-white transition-colors">Produk</Link>
