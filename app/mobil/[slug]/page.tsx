@@ -197,7 +197,7 @@ export default async function CarDetailPage({ params }: Props) {
         </div>
       </div>
 
-      {/* 2. SPESIFIKASI UMUM (TATA LETAK DIRAPIKAN) */}
+      {/* 2. SPESIFIKASI UMUM */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b border-gray-200">
         <FadeIn>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
@@ -229,10 +229,12 @@ export default async function CarDetailPage({ params }: Props) {
         </div>
       </div>
 
-      {/* 3. PRICELIST & VARIAN (KINI LEBIH LEGA) */}
+      {/* 3. PRICELIST & VARIAN */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b border-gray-200">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          <div className="lg:col-span-4 sticky top-28">
+          
+          {/* PERBAIKAN: lg:sticky lg:top-28 agar di HP tidak ngunci */}
+          <div className="lg:col-span-4 lg:sticky lg:top-28">
             <FadeIn direction="left">
               <span className="inline-block bg-gray-900 text-white text-[10px] font-bold px-3 py-1 rounded-none mb-4 uppercase tracking-[0.2em]">
                 Pricelist 2026
@@ -264,7 +266,7 @@ export default async function CarDetailPage({ params }: Props) {
         </div>
       </div>
 
-      {/* 4. PROMO TERBARU (SECTION BARU - GRID 3 PROPORSIONAL) */}
+      {/* 4. PROMO TERBARU */}
       {latestPromos.length > 0 && (
         <div className="bg-gray-50 border-b border-gray-200 py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
