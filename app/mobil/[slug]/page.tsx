@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Download, CheckCircle2, ChevronRight, Gauge, Settings, ShieldCheck, Car } from "lucide-react";
+import Image from "next/image"; // Pastikan Image di-import
+import { Download, CheckCircle2, ChevronRight, Gauge, Settings, ShieldCheck, Car, Calendar } from "lucide-react"; // Tambahkan Calendar
 import { cars } from "@/data/cars";
+import { articles } from "@/data/articles"; // Import data artikel
 import { formatCurrency, WA_BASE_URL } from "@/lib/utils";
 import PricelistTable from "@/components/PricelistTable";
 import FadeIn from "@/components/FadeIn";
@@ -11,6 +13,20 @@ import OtherCarsCarousel from "@/components/OtherCarsCarousel";
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+// --- FUNGSI BANTUAN UNTUK SEO & SORTING TANGGAL ---
+function parseIndonesianDate(dateStr: string) {
+  const months: { [key: string]: number } = {
+    "Januari": 0, "Februari": 1, "Maret": 2, "April": 3, "Mei": 4, "Juni": 5,
+    "Juli": 6, "Agustus": 7, "September": 8, "Oktober": 9, "November": 10, "Desember": 11
+  };
+  const parts = dateStr.split(" ");
+  if (parts.length !== 3) return 0;
+  const day = parseInt(parts[0], 10);
+  const month = months[parts[1]] || 0;
+  const year = parseInt(parts[2], 10);
+  return new Date(year, month, day).getTime();
+}
 
 // 1. META DATA SEO PRODUK SUPER KUAT
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -88,6 +104,11 @@ export default async function CarDetailPage({ params }: Props) {
     const fileName = car.slug === "carry-pickup" ? "carry" : car.slug;
     brochureLink = `/brosur/${fileName}.pdf`;
   }
+
+  // Mengambil 3 Artikel Terbaru
+  const latestArticles = [...articles]
+    .sort((a, b) => parseIndonesianDate(b.date) - parseIndonesianDate(a.date))
+    .slice(0, 3);
 
   // 2. SCHEMA MARKUP PRODUCT & AGGREGATE OFFER
   const jsonLd = {
@@ -246,9 +267,10 @@ export default async function CarDetailPage({ params }: Props) {
         </FadeIn>
       </div>
 
-      {/* 3. PRICELIST & VARIAN */}
+      {/* 3. PRICELIST, VARIAN & ARTIKEL TERBARU */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+          
           <div className="lg:col-span-4">
             <FadeIn direction="left">
               <span className="inline-block bg-gray-900 text-white text-[10px] font-bold px-3 py-1 rounded-none mb-4 uppercase tracking-[0.2em]">
@@ -264,6 +286,45 @@ export default async function CarDetailPage({ params }: Props) {
               >
                 Hitung Simulasi Kredit
               </Link>
+
+              {/* MUNCULKAN 3 ARTIKEL TERBARU DI SINI */}
+              <div className="mt-16 border-t border-gray-200 pt-10">
+                <h3 className="text-xs font-black text-gray-900 uppercase tracking-widest mb-6">
+                  Berita & Update Terbaru
+                </h3>
+                <div className="flex flex-col gap-5">
+                  {latestArticles.map((article) => (
+                    <Link
+                      key={article.slug}
+                      href={`/berita/${article.slug}`}
+                      className="group flex gap-4 items-start"
+                    >
+                      <div className="relative w-20 h-16 shrink-0 bg-gray-100 overflow-hidden border border-gray-200">
+                        <Image
+                          src={article.imageUrl}
+                          alt={article.title}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                      </div>
+                      <div className="flex flex-col justify-center">
+                        <span className="text-[8px] text-red-600 font-bold uppercase tracking-widest mb-1 flex items-center gap-1">
+                          <Calendar size={10} /> {article.date}
+                        </span>
+                        <h4 className="text-[11px] font-bold text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors leading-snug">
+                          {article.title}
+                        </h4>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+                <Link 
+                  href="/berita" 
+                  className="inline-block mt-6 text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-gray-900 border-b border-gray-300 hover:border-gray-900 transition-all pb-1"
+                >
+                  Lihat Semua Berita &rarr;
+                </Link>
+              </div>
             </FadeIn>
           </div>
 
