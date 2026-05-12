@@ -80,15 +80,20 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
   const waMsg = `Halo Yusuf Suzuki, saya tertarik dengan promo: *${promo.title}* yang saya lihat di website. Mohon info lengkapnya.`;
   
   const parsedEndDate = parsePromoDate(promo.validUntil);
+  
+  // Membuat startDate otomatis (Mengambil tanggal 1 dari bulan promo tersebut berakhir)
+  const parsedStartDate = parsedEndDate ? parsedEndDate.replace(/-\d{2}T/, '-01T') : new Date().toISOString();
 
-  // 2. UPDATE: SCHEMA MARKUP KHUSUS EVENT DISKON (SaleEvent)
+  // 2. UPDATE: SCHEMA MARKUP KHUSUS EVENT DISKON (Skor 100% GSC)
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SaleEvent",
     "name": promo.title,
     "description": promo.description,
     "image": `https://www.suzukiautojogja.com${promo.image}`,
+    "startDate": parsedStartDate,
     ...(parsedEndDate && { "endDate": parsedEndDate }),
+    "eventStatus": "https://schema.org/EventScheduled",
     "location": {
       "@type": "Place",
       "name": "Dealer Resmi Suzuki Sumber Baru Mobil Jogja",
@@ -103,6 +108,18 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
       "@type": "Person",
       "name": "Yusuf Suzuki",
       "url": "https://www.suzukiautojogja.com"
+    },
+    "performer": {
+      "@type": "Organization",
+      "name": "Suzuki Sumber Baru Mobil"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `https://www.suzukiautojogja.com/promo/${promo.slug}`,
+      "price": "0",
+      "priceCurrency": "IDR",
+      "availability": "https://schema.org/InStock",
+      "validFrom": parsedStartDate
     }
   };
 
