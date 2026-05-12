@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       authors: ['Yusuf Suzuki'],
       images: [
         {
-          url: article.imageUrl,
+          url: `https://www.suzukiautojogja.com${article.imageUrl}`,
           width: 1200,
           height: 630,
           alt: article.title,
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       card: "summary_large_image",
       title: article.title,
       description: article.excerpt,
-      images: [article.imageUrl],
+      images: [`https://www.suzukiautojogja.com${article.imageUrl}`],
     },
   };
 }
