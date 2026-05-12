@@ -12,7 +12,7 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// 1. UPDATE: META DATA SEO PRODUK SUPER KUAT
+// 1. META DATA SEO PRODUK SUPER KUAT
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const car = cars.find((c) => c.slug === resolvedParams.slug);
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
       ],
       locale: "id_ID",
-      type: "website", // Bisa diubah jadi "product" jika didukung penuh oleh OG
+      type: "website", 
     },
     twitter: {
       card: "summary_large_image",
@@ -89,7 +89,7 @@ export default async function CarDetailPage({ params }: Props) {
     brochureLink = `/brosur/${fileName}.pdf`;
   }
 
-  // 2. UPDATE: SCHEMA MARKUP PRODUCT & AGGREGATE OFFER (Trik Rahasia SEO)
+  // 2. SCHEMA MARKUP PRODUCT & AGGREGATE OFFER
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -118,43 +118,55 @@ export default async function CarDetailPage({ params }: Props) {
   return (
     <div className="bg-gray-50 min-h-screen">
       
-      {/* SUNTIKAN JSON-LD KE DALAM HTML */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* 1. HERO SECTION */}
-      <div className="bg-gray-900 pt-32 pb-20 md:pt-40 md:pb-28 border-b border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* 1. HERO SECTION - REDESIGN PREMIUM SHOWROOM */}
+      <div className="relative bg-[#050B14] pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden border-b border-gray-900">
+        
+        {/* Ornamen Latar Belakang agar tidak flat */}
+        <div className="absolute top-0 right-0 w-full md:w-2/3 h-full bg-gradient-to-bl from-gray-800/40 via-transparent to-transparent opacity-60 pointer-events-none" />
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-900/20 blur-3xl rounded-full pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           
-          <nav className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 mb-8">
+          <nav className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 mb-10 md:mb-16">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
-            <ChevronRight size={12} />
+            <ChevronRight size={12} className="text-gray-700" />
             <Link href="/mobil" className="hover:text-white transition-colors">Produk</Link>
-            <ChevronRight size={12} />
+            <ChevronRight size={12} className="text-gray-700" />
             <span className="text-white">{car.name}</span>
           </nav>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div>
+          {/* Menggunakan proporsi 5 kolom untuk teks, 7 kolom untuk gambar mobil */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            
+            {/* BAGIAN TEKS KIRI */}
+            <div className="lg:col-span-5 flex flex-col order-2 lg:order-1">
               <FadeIn delay={0.1} direction="left">
-                <span className="inline-block bg-white/5 text-gray-400 text-[10px] font-bold px-3 py-1 rounded-none mb-6 uppercase tracking-[0.2em] border border-white/10">
+                <span className="inline-block bg-white/10 backdrop-blur-sm text-gray-300 text-[10px] font-bold px-3 py-1 rounded-none mb-6 uppercase tracking-[0.2em] border border-white/10">
                   {car.category || "Mobil Suzuki"}
                 </span>
-                <h1 className="text-4xl md:text-6xl font-black text-white mb-6 uppercase tracking-tight leading-tight">
+                
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 uppercase tracking-tighter leading-[1.1]">
                   {car.name}
                 </h1>
-                <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-8">
+                
+                <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-8 max-w-md">
                   {car.description || `Temukan ketangguhan dan kenyamanan berkendara bersama Suzuki ${car.name}. Dirancang khusus untuk memenuhi gaya hidup dan kebutuhan Anda di setiap perjalanan.`}
                 </p>
 
-                <div className="mb-10">
-                  <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">Harga Mulai Dari</p>
-                  <p className="text-3xl font-black text-white tracking-tighter">
-                    {formatCurrency(car.startingPriceNum)}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">*OTR Yogyakarta (Plat AB)</p>
+                <div className="mb-10 relative">
+                  <div className="absolute left-0 top-0 w-1 h-full bg-red-600"></div>
+                  <div className="pl-5">
+                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">Mulai Dari</p>
+                    <p className="text-3xl md:text-4xl font-black text-white tracking-tighter">
+                      {formatCurrency(car.startingPriceNum)}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-2 font-medium">OTR Yogyakarta (Plat AB)</p>
+                  </div>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -162,14 +174,14 @@ export default async function CarDetailPage({ params }: Props) {
                     href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-white hover:bg-gray-200 text-gray-900 py-4 px-8 flex justify-center items-center gap-3 transition-all font-black text-[10px] uppercase tracking-[0.2em] rounded-none shadow-xl"
+                    className="bg-white hover:bg-gray-200 text-gray-900 py-4 px-8 flex justify-center items-center gap-3 transition-all font-black text-[10px] uppercase tracking-[0.2em] rounded-none shadow-lg shadow-white/10 hover:shadow-white/20"
                   >
                     <CheckCircle2 size={16} />
                     Minta Penawaran
                   </a>
                   <Link
                     href="/test-drive"
-                    className="bg-transparent border border-gray-600 hover:border-white text-gray-300 hover:text-white py-4 px-8 flex justify-center items-center gap-3 transition-all font-black text-[10px] uppercase tracking-[0.2em] rounded-none"
+                    className="bg-transparent border border-gray-600 hover:border-white text-gray-300 hover:text-white py-4 px-8 flex justify-center items-center gap-3 transition-all font-black text-[10px] uppercase tracking-[0.2em] rounded-none backdrop-blur-sm"
                   >
                     Booking Test Drive
                   </Link>
@@ -177,17 +189,21 @@ export default async function CarDetailPage({ params }: Props) {
               </FadeIn>
             </div>
 
-            <div className="relative group">
+            {/* BAGIAN GAMBAR KANAN (Floating Car) */}
+            <div className="lg:col-span-7 relative order-1 lg:order-2">
               <FadeIn delay={0.3} direction="none">
-                <div className="aspect-[4/3] bg-gray-800 rounded-none overflow-hidden border border-gray-700 shadow-2xl relative flex items-center justify-center p-8">
+                <div className="relative w-full aspect-video lg:aspect-[4/3] flex items-center justify-center">
+                  {/* Efek Glow di belakang mobil */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-1/2 bg-white/5 blur-3xl rounded-full"></div>
+                  
                   {car.heroImage ? (
                     <img 
                       src={car.heroImage} 
                       alt={`Suzuki ${car.name}`} 
-                      className="w-full h-full object-contain scale-100 group-hover:scale-105 transition-transform duration-700" 
+                      className="relative z-10 w-full h-full object-contain drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)] hover:scale-105 transition-transform duration-700 ease-out" 
                     />
                   ) : (
-                    <h1 className="text-gray-700 text-4xl font-black uppercase tracking-widest">FOTO {car.name}</h1>
+                    <h1 className="text-gray-700 text-4xl font-black uppercase tracking-widest relative z-10">FOTO {car.name}</h1>
                   )}
                 </div>
               </FadeIn>
