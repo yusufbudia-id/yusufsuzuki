@@ -12,6 +12,7 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+// 1. UPDATE: META DATA SEO PRODUK SUPER KUAT
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const car = cars.find((c) => c.slug === resolvedParams.slug);
@@ -20,24 +21,45 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Mobil Tidak Ditemukan - Suzuki Sumber Baru" };
   }
 
+  const carUrl = `https://www.suzukiautojogja.com/mobil/${car.slug}`;
+  const fullImageUrl = `https://www.suzukiautojogja.com${car.heroImage || "/logo.png"}`;
+
   return {
-    title: `Harga & Promo ${car.name} Jogja 2026 | Dealer Resmi Suzuki`,
-    description: `Dapatkan informasi lengkap spesifikasi, harga terbaru, dan promo kredit DP ringan untuk Suzuki ${car.name} di Yogyakarta. Hubungi Yusuf Suzuki 0821-7463-5218.`,
+    title: `Harga & Promo Suzuki ${car.name} Jogja Terbaru 2026`,
+    description: `Dapatkan informasi lengkap spesifikasi, harga OTR terbaru, dan promo kredit DP ringan untuk Suzuki ${car.name} di Yogyakarta & Magelang. Hubungi Yusuf Suzuki 0821-7463-5218.`,
     keywords: [
       `suzuki ${car.name.toLowerCase()} jogja`,
-      `promo mobil suzuki jogja`,
-      `kredit mobil suzuki ${car.name.toLowerCase()} jogja`,
       `harga suzuki ${car.name.toLowerCase()} jogja`,
+      `kredit suzuki ${car.name.toLowerCase()} magelang`,
+      `promo dp ringan suzuki ${car.name.toLowerCase()}`,
+      `spesifikasi suzuki ${car.name.toLowerCase()}`,
       `dealer suzuki mlati`,
-      `spesifikasi ${car.name.toLowerCase()}`
+      `beli suzuki ${car.name.toLowerCase()} plat ab`
     ].join(", "),
-    openGraph: {
-      title: `Promo Suzuki ${car.name} Jogja Terbaru`,
-      description: `Beli Suzuki ${car.name} di Jogja sekarang. DP Ringan, angsuran bisa disesuaikan, dan gratis test drive ke rumah Anda.`,
-      images: [car.heroImage || "/logo.png"],
-    },
     alternates: {
-      canonical: `https://www.suzukiautojogja.com/mobil/${car.slug}`,
+      canonical: carUrl,
+    },
+    openGraph: {
+      title: `Suzuki ${car.name} - Harga & Promo Jogja Terkini`,
+      description: `Beli Suzuki ${car.name} di Jogja sekarang. DP Ringan, angsuran bisa disesuaikan, dan gratis test drive ke rumah Anda.`,
+      url: carUrl,
+      siteName: "Suzuki Auto Jogja",
+      images: [
+        {
+          url: fullImageUrl,
+          width: 1200,
+          height: 630,
+          alt: `Promo Suzuki ${car.name} di Jogja`,
+        },
+      ],
+      locale: "id_ID",
+      type: "website", // Bisa diubah jadi "product" jika didukung penuh oleh OG
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `Harga Suzuki ${car.name} OTR Jogja`,
+      description: `Cek promo DP ringan dan spesifikasi lengkap Suzuki ${car.name} di dealer resmi Suzuki Sumber Baru Mobil.`,
+      images: [fullImageUrl],
     },
   };
 }
@@ -61,16 +83,47 @@ export default async function CarDetailPage({ params }: Props) {
   const otherCars = cars.filter((c) => c.slug !== car.slug);
   const waMsg = `Halo Yusuf Suzuki, saya ingin menanyakan detail, promo, dan ketersediaan unit untuk mobil *${car.name}*.`;
 
-  // --- LOGIKA PINTAR UNTUK AUTO-LINK BROSUR ---
   let brochureLink = car.brochureUrl;
   if (!brochureLink) {
     const fileName = car.slug === "carry-pickup" ? "carry" : car.slug;
     brochureLink = `/brosur/${fileName}.pdf`;
   }
 
+  // 2. UPDATE: SCHEMA MARKUP PRODUCT & AGGREGATE OFFER (Trik Rahasia SEO)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": `Suzuki ${car.name}`,
+    "image": `https://www.suzukiautojogja.com${car.heroImage || "/logo.png"}`,
+    "description": car.description || `Spesifikasi dan harga OTR Yogyakarta untuk Suzuki ${car.name}.`,
+    "brand": {
+      "@type": "Brand",
+      "name": "Suzuki"
+    },
+    "category": car.category,
+    "offers": {
+      "@type": "AggregateOffer",
+      "lowPrice": car.startingPriceNum,
+      "priceCurrency": "IDR",
+      "offerCount": variants.length > 0 ? variants.length : 1,
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "Suzuki Sumber Baru Mobil Jogja",
+        "url": "https://www.suzukiautojogja.com"
+      }
+    }
+  };
+
   return (
     <div className="bg-gray-50 min-h-screen">
       
+      {/* SUNTIKAN JSON-LD KE DALAM HTML */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* 1. HERO SECTION */}
       <div className="bg-gray-900 pt-32 pb-20 md:pt-40 md:pb-28 border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -201,7 +254,6 @@ export default async function CarDetailPage({ params }: Props) {
           <div className="lg:col-span-8">
             <FadeIn delay={0.2} direction="up">
               {variants.length > 0 ? (
-                // ---> INI DIA PERUBAHANNYA: carName={car.name} <---
                 <PricelistTable variants={variants} carName={car.name} />
               ) : (
                 <div className="bg-gray-50 border border-gray-200 p-10 text-center">
