@@ -94,5 +94,28 @@ export const articles = [
       "Punya <em>budget</em> DP tertentu? Jangan khawatir, saya siap menghitungkan simulasi angsuran yang paling pas dan tidak memberatkan keuangan keluarga Anda.",
       "Jangan tunda lagi, konsultasikan kebutuhan kendaraan Anda sekarang juga. Hubungi <strong>Yusuf Suzuki</strong> melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> atau lihat spesifikasi lengkap tiap mobil di katalog <a href='https://www.suzukiautojogja.com/mobil' class='text-blue-600 font-bold hover:underline'>www.suzukiautojogja.com</a>."
     ]
+  },
+  {
+    slug: "geger-harga-diesel-naik-pengusaha-beralih-ke-suzuki-carry",
+    title: "Geger Harga Diesel Tembus Rp 28 Ribu! Pengusaha Jogja & Jateng Ramai-Ramai Beralih ke Mobil Ini Buat Selamatkan Bisnis",
+    excerpt: "Harga BBM Diesel meroket ugal-ugalan di bulan Mei 2026. Jangan biarkan biaya operasional mencekik margin untung Anda. Ini rahasia kenapa bos-bos ekspedisi beralih ke Suzuki New Carry!",
+    category: "Tips Bisnis & Otomotif",
+    date: "12 Mei 2026",
+    imageUrl: "/berita/promo-carry-bbm.jpg", 
+    content: [
+      "Dunia usaha di wilayah Jawa Tengah dan DIY sedang dilanda kepanikan. Memasuki bulan Mei 2026, harga bahan bakar mesin (BBM) jenis Diesel meroket tajam alias <strong>'naik ugal-ugalan'</strong>. Berdasarkan pantauan <em>update</em> terbaru, harga Pertamina Dex menembus angka <strong>Rp 28.500/liter</strong> dan Dexlite berada di <strong>Rp 26.600/liter</strong>.",
+      "Bagi para pengusaha ekspedisi, armada logistik, maupun UMKM yang selama ini mengandalkan mobil <em>pick-up</em> bermesin diesel, ini adalah mimpi buruk. Biaya operasional seketika bengkak drastis, dan margin keuntungan bisnis terancam hangus tak bersisa.",
+      "<strong>Lalu, apa solusinya agar bisnis tetap cuan maksimal?</strong>",
+      "Saatnya mengambil langkah cerdas dengan beralih ke 'Rajanya Pick-Up': <strong>Suzuki New Carry!</strong> Berbeda dengan kompetitor yang menguras kantong dengan BBM Diesel mahal, New Carry menggunakan mesin bensin perkasa yang sangat efisien. Anda cukup menggunakan BBM standar seperti Pertalite yang harganya sangat bersahabat di <strong>Rp 10.000/liter</strong>. Coba hitung penghematan mutlak yang akan Anda dapatkan setiap bulannya!",
+      "",
+      "<img src='/artikel/promo-carry-bbm.jpg' alt='Promo Suzuki Carry Efisiensi BBM Diesel Naik' class='w-full h-auto border border-gray-200 shadow-md my-8 hover:shadow-xl transition-shadow duration-300' />",
+      "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>Bukan Cuma Irit, Kapasitas Angkutnya 'Monster'!</h3>",
+      "Menekan biaya BBM bukan berarti mengorbankan daya angkut. Suzuki New Carry justru dirancang khusus untuk memanjakan para pebisnis dengan segudang keunggulan telak dibandingkan merk kompetitor:",
+      "<ul class='list-disc pl-5 space-y-3 mb-8 text-gray-700'><li><strong>Daya Angkut Ekstra (1 TON):</strong> Mampu menahan beban hingga 1.000 KG, jauh meninggalkan merk kompetitor yang rata-rata hanya mentok di kapasitas 800 KG. Sekali jalan, angkut lebih banyak!</li><li><strong>Dimensi Bak Super Luas:</strong> Memiliki luas bak yang sejajar dan lega, siap menampung muatan volume besar tanpa kendala.</li><li><strong>Lincah Bermanuver:</strong> Dengan radius putar hanya <strong>4,3 meter</strong>, menyusuri gang sempit di perkotaan Jogja atau blusukan ke pasar tradisional bukan lagi masalah hambatan.</li><li><strong>Kabin Nyaman Anti Gerah:</strong> Tersedia pilihan varian STD maupun AC PS (Air Conditioner & Power Steering) agar <em>driver</em> Anda tetap segar dan produktif sepanjang hari.</li></ul>",
+      "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Peluang Emas: Diskon Khusus Pembelian Fleet/Borongan</h3>",
+      "Merespon tingginya angka migrasi pengusaha ke Suzuki Carry bulan ini, Sumber Baru Mobil membuka <strong>OPPORTUNITY (Peluang Emas)</strong> berupa harga khusus dan penawaran sangat menarik untuk pembelian Fleet / Perusahaan / Individu dalam jumlah banyak.",
+      "Nikmati kemudahan tak tertandingi dengan pilihan <strong>DP mulai 20%</strong>, tenor panjang hingga <strong>5 tahun</strong>, ditambah <strong>GRATIS Servis dan Oli selama 30 bulan (atau 50.000 KM)!</strong> Anda benar-benar tinggal pakai cari duit tanpa pusing memikirkan biaya perawatan di awal.",
+      "Jangan biarkan keuntungan bisnis Anda tergerus harga Solar yang ugal-ugalan. Selamatkan bisnis Anda sekarang juga. Hubungi <strong>Yusuf Suzuki</strong> melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> untuk mendapatkan penawaran harga <em>net</em> armada termurah se-Jateng & DIY!"
+    ]
   }
 ];

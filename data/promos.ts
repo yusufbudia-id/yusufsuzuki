@@ -242,5 +242,38 @@ Langsung mampir ke Showroom Suzuki Mlati atau hubungi Yusuf di 0821-7463-5218 un
     validUntil: "30 Juni 2026",
     image: "/promo/promo-fronxzy-girl.jpg", // Pastikan gambar poster diubah namanya jadi promo-fronxzy-girl.jpg dan ditaruh di folder public/promo
     highlight: "Diskon 15 JT, Bunga 0%, DP 20%!",
+  },
+  // 9. PROMO SEMESTA JIMNY (BARU DITAMBAHKAN)
+  {
+    slug: "promo-semesta-suzuki-jimny",
+    title: "Spesial Promo SEMESTA: Beli Jimny Bulan Ini Langsung Bawa Pulang iPad Air 11 & Voucher MAP Puluhan Juta!",
+    description: `Memanggil para pecinta off-road dan gaya hidup petualang! Suzuki Sumber Baru Mobil menghadirkan "Spesial Promo SEMESTA" edisi Mei dengan Ekstra Surprise terbaik khusus untuk Anda para sultan jalanan.
+
+Punya impian bawa pulang Suzuki Jimny idaman? Berhenti menunda, karena inilah momen yang paling tepat! Khusus untuk setiap pembelian unit Suzuki Jimny (NIK 2025) di bulan ini, Anda tidak perlu ikut undian. Anda akan LANGSUNG dihujani bonus senilai puluhan juta rupiah!
+
+EKSTRA SURPRISE MAP GIFT VOUCHER:
+- Beli Jimny 3 Door -> Langsung dapat MAP Gift Voucher senilai Rp 20 JUTA!*
+- Beli Jimny 5 Door -> Langsung dapat MAP Gift Voucher senilai Rp 10 JUTA!*
+
+BELUM CUKUP? INI BONUS PROGRAM PENJUALAN TAMBAHAN (Khusus Jimny 3 Door & 5 Door):
+1. GRATIS Kaca Film Premium V-KOOL (Senilai Rp 8 Jutaan*)
+2. GRATIS Apple iPad Air 11 (Senilai Rp 10 Jutaan*)
+
+Kenapa harus beli Suzuki Jimny sekarang bersama Yusuf Suzuki?
+- Kuota promo sangat terbatas (Siapa Cepat, Dia Dapat).
+- Jimny adalah investasi gaya hidup yang unitnya sangat eksklusif.
+- Proses kredit dibantu sampai ACC (100% Approved) atau melayani pembelian tunai.
+- Menerima layanan Trade-In (tukar tambah) mobil lama Anda dari merk apapun dengan harga penawaran tertinggi.
+
+Jangan sampai kelewatan promo "SEMESTA" yang tak akan terulang ini. Unit cepat habis!
+Segera amankan Jimny impian Anda. Hubungi Yusuf Suzuki di 0821-7463-5218 sekarang juga untuk konsultasi dan pemesanan.
+
+*Syarat & Ketentuan Berlaku. Khusus NIK 2025.`,
+    carSlug: "jimny",
+    carName: "Suzuki Jimny (3 & 5 Door)",
+    badge: "PROMO SEMESTA",
+    validUntil: "31 Mei 2026",
+    image: "/promo/promo-semesta-jimny.jpg", // Pastikan gambar brosur diubah namanya jadi promo-semesta-jimny.jpg dan ditaruh di folder public/promo
+    highlight: "Voucher MAP Up To 20JT, Free iPad Air 11 & Kaca Film V-KOOL!",
   }
 ];
