@@ -14,6 +14,23 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+// --- FUNGSI PINTAR UNTUK MEMBACA TANGGAL INDONESIA ---
+function parseIndonesianDate(dateStr: string) {
+  const months: { [key: string]: number } = {
+    "Januari": 0, "Februari": 1, "Maret": 2, "April": 3, "Mei": 4, "Juni": 5,
+    "Juli": 6, "Agustus": 7, "September": 8, "Oktober": 9, "November": 10, "Desember": 11
+  };
+  const parts = dateStr.split(" ");
+  if (parts.length !== 3) return 0;
+  
+  const day = parseInt(parts[0], 10);
+  const month = months[parts[1]] || 0;
+  const year = parseInt(parts[2], 10);
+  
+  // Set waktu ke pukul 23:59:59 pada hari terakhir promo tersebut
+  return new Date(year, month, day, 23, 59, 59).getTime();
+}
+
 // 1. META DATA SEO
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
@@ -75,9 +92,14 @@ export default async function CarDetailPage({ params }: Props) {
     brochureLink = `/brosur/${fileName}.pdf`;
   }
 
-  // Mengambil 3 Promo Teratas
-  const relatedPromos = promos.filter(p => p.carSlug === car.slug);
-  const otherTopPromos = promos.filter(p => p.carSlug !== car.slug);
+  // --- FILTER PROMO OTOMATIS ---
+  const now = Date.now();
+  // Hanya ambil promo yang tanggal validUntil-nya masih di masa depan (belum expired)
+  const activePromos = promos.filter(p => parseIndonesianDate(p.validUntil) >= now);
+  
+  // Memprioritaskan promo mobil ini, baru ditambah promo aktif lainnya (maksimal 3)
+  const relatedPromos = activePromos.filter(p => p.carSlug === car.slug);
+  const otherTopPromos = activePromos.filter(p => p.carSlug !== car.slug);
   const latestPromos = [...relatedPromos, ...otherTopPromos].slice(0, 3);
 
   const jsonLd = {
@@ -178,7 +200,6 @@ export default async function CarDetailPage({ params }: Props) {
       {/* 2. SPESIFIKASI UMUM (TATA LETAK DIRAPIKAN) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b border-gray-200">
         <FadeIn>
-          {/* Judul dan Tombol Brosur Kini Sejajar Secara Proporsional */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
               <h2 className="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tighter">Highlight Spesifikasi</h2>
