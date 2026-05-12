@@ -10,14 +10,57 @@ interface PromoPageProps {
   params: Promise<{ slug: string }>;
 }
 
+// --- FUNGSI BANTUAN UNTUK SEO: Mengubah "31 Mei 2026" jadi format kalender komputer ---
+function parsePromoDate(dateStr: string) {
+  const months: { [key: string]: string } = {
+    "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
+    "Juli": "07", "Agustus": "08", "September": "09", "Oktober": "10", "November": "11", "Desember": "12"
+  };
+  const parts = dateStr.split(" ");
+  if (parts.length === 3) {
+    const day = parts[0].padStart(2, '0');
+    const month = months[parts[1]] || "01";
+    const year = parts[2];
+    return `${year}-${month}-${day}T23:59:59+07:00`; // Format ISO untuk robot Google
+  }
+  return null;
+}
+
+// 1. UPDATE: META DATA SEO LENGKAP (OpenGraph, WhatsApp Thumbnail, Canonical)
 export async function generateMetadata({ params }: PromoPageProps): Promise<Metadata> {
   const { slug } = await params;
   const promo = promos.find((p) => p.slug === slug);
   if (!promo) return { title: "Promo Tidak Ditemukan" };
 
+  const promoUrl = `https://www.suzukiautojogja.com/promo/${promo.slug}`;
+
   return {
-    title: `${promo.title} | Dealer Resmi Suzuki Jogja`,
-    description: promo.highlight,
+    title: `${promo.title} | Promo Suzuki Jogja Terbaru`,
+    description: promo.highlight || promo.description.substring(0, 150),
+    alternates: {
+      canonical: promoUrl,
+    },
+    openGraph: {
+      title: `🚨 PROMO: ${promo.title}`,
+      description: promo.highlight,
+      url: promoUrl,
+      siteName: 'Suzuki Auto Jogja',
+      type: 'website',
+      images: [
+        {
+          url: promo.image,
+          width: 1200,
+          height: 630,
+          alt: `Promo Suzuki: ${promo.title}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: promo.title,
+      description: promo.highlight,
+      images: [promo.image],
+    },
   };
 }
 
@@ -33,15 +76,47 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
   const promo = promos.find((p) => p.slug === slug);
   if (!promo) notFound();
 
-  // Ambil maksimal 4 promo lainnya
   const otherPromos = promos.filter((p) => p.slug !== slug).slice(0, 4);
   const waMsg = `Halo Yusuf Suzuki, saya tertarik dengan promo: *${promo.title}* yang saya lihat di website. Mohon info lengkapnya.`;
+  
+  const parsedEndDate = parsePromoDate(promo.validUntil);
+
+  // 2. UPDATE: SCHEMA MARKUP KHUSUS EVENT DISKON (SaleEvent)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SaleEvent",
+    "name": promo.title,
+    "description": promo.description,
+    "image": `https://www.suzukiautojogja.com${promo.image}`,
+    ...(parsedEndDate && { "endDate": parsedEndDate }),
+    "location": {
+      "@type": "Place",
+      "name": "Dealer Resmi Suzuki Sumber Baru Mobil Jogja",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Yogyakarta",
+        "addressRegion": "DIY",
+        "addressCountry": "ID"
+      }
+    },
+    "organizer": {
+      "@type": "Person",
+      "name": "Yusuf Suzuki",
+      "url": "https://www.suzukiautojogja.com"
+    }
+  };
 
   return (
     <main className="min-h-screen bg-white pt-24 pb-20">
+      
+      {/* SUNTIKAN KODE RAHASIA UNTUK ROBOT GOOGLE */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-700 via-red-600 to-blue-700 z-[60] md:hidden" />
 
-      {/* Kontainer diperlebar menjadi max-w-7xl agar 3 kolom tidak sempit */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <Link 
@@ -132,7 +207,6 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                       href={`/promo/${other.slug}`} 
                       className="group flex flex-row lg:flex-col xl:flex-row gap-4 items-start"
                     >
-                      {/* Thumbnail (Diperkecil sedikit agar pas di sidebar) */}
                       <div className="relative w-24 h-16 lg:w-full lg:h-32 xl:w-20 xl:h-14 shrink-0 bg-gray-100 overflow-hidden border border-gray-200">
                         <Image 
                           src={other.image} 
@@ -142,7 +216,6 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                         />
                       </div>
                       
-                      {/* Teks */}
                       <div className="flex flex-col justify-center">
                         <span className="text-[8px] text-red-600 font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
                           <Calendar size={10} /> s/d {other.validUntil}
