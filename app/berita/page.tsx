@@ -7,7 +7,29 @@ import { ArrowRight, Calendar } from "lucide-react";
 import { articles } from "@/data/articles";
 import ContactCTA from "@/components/ContactCTA";
 
+// Fungsi pembantu untuk membaca tanggal bahasa Indonesia
+function parseIndonesianDate(dateStr: string) {
+  const months: { [key: string]: number } = {
+    "Januari": 0, "Februari": 1, "Maret": 2, "April": 3, "Mei": 4, "Juni": 5,
+    "Juli": 6, "Agustus": 7, "September": 8, "Oktober": 9, "November": 10, "Desember": 11
+  };
+  
+  const parts = dateStr.split(" ");
+  if (parts.length !== 3) return 0;
+
+  const day = parseInt(parts[0], 10);
+  const month = months[parts[1]] || 0;
+  const year = parseInt(parts[2], 10);
+
+  return new Date(year, month, day).getTime();
+}
+
 export default function BeritaPage() {
+  // Mengurutkan artikel dari yang paling baru (teratas) ke yang paling lama
+  const sortedArticles = [...articles].sort(
+    (a, b) => parseIndonesianDate(b.date) - parseIndonesianDate(a.date)
+  );
+
   return (
     <div className="bg-gray-50 min-h-screen">
       
@@ -36,7 +58,7 @@ export default function BeritaPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mb-20">
           
-          {articles.map((article, i) => (
+          {sortedArticles.map((article, i) => (
             <motion.div
               key={article.slug}
               initial={{ opacity: 0, y: 20 }}
@@ -66,7 +88,6 @@ export default function BeritaPage() {
                 </div>
 
                 <h2 className="text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-blue-600 transition-colors">
-                  {/* Link ini disiapkan menuju halaman detail artikel nantinya */}
                   <Link href={`/berita/${article.slug}`}>
                     {article.title}
                   </Link>
