@@ -136,12 +136,13 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {/* === TOMBOL KEMBALI MENGARAH KE DAFTAR PROMO === */}
         <Link 
-          href="/" 
+          href="/promo" 
           className="inline-flex items-center gap-2 text-gray-400 hover:text-black transition-colors font-bold text-[10px] uppercase tracking-[0.2em] mb-8"
         >
           <ArrowLeft size={14} />
-          Kembali ke Beranda
+          Kembali ke Daftar Promo
         </Link>
 
         {/* PEMBAGIAN 3 KOLOM DI LAYAR BESAR */}
