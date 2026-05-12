@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image"; // Pastikan Image di-import
-import { Download, CheckCircle2, ChevronRight, Gauge, Settings, ShieldCheck, Car, Calendar } from "lucide-react"; // Tambahkan Calendar
+import Image from "next/image";
+import { Download, CheckCircle2, ChevronRight, Gauge, Settings, ShieldCheck, Car, Calendar } from "lucide-react";
 import { cars } from "@/data/cars";
-import { articles } from "@/data/articles"; // Import data artikel
+import { promos } from "@/data/promos"; // <-- UPDATE: Menggunakan data Promo
 import { formatCurrency, WA_BASE_URL } from "@/lib/utils";
 import PricelistTable from "@/components/PricelistTable";
 import FadeIn from "@/components/FadeIn";
@@ -13,20 +13,6 @@ import OtherCarsCarousel from "@/components/OtherCarsCarousel";
 type Props = {
   params: Promise<{ slug: string }>;
 };
-
-// --- FUNGSI BANTUAN UNTUK SEO & SORTING TANGGAL ---
-function parseIndonesianDate(dateStr: string) {
-  const months: { [key: string]: number } = {
-    "Januari": 0, "Februari": 1, "Maret": 2, "April": 3, "Mei": 4, "Juni": 5,
-    "Juli": 6, "Agustus": 7, "September": 8, "Oktober": 9, "November": 10, "Desember": 11
-  };
-  const parts = dateStr.split(" ");
-  if (parts.length !== 3) return 0;
-  const day = parseInt(parts[0], 10);
-  const month = months[parts[1]] || 0;
-  const year = parseInt(parts[2], 10);
-  return new Date(year, month, day).getTime();
-}
 
 // 1. META DATA SEO PRODUK SUPER KUAT
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -105,10 +91,11 @@ export default async function CarDetailPage({ params }: Props) {
     brochureLink = `/brosur/${fileName}.pdf`;
   }
 
-  // Mengambil 3 Artikel Terbaru
-  const latestArticles = [...articles]
-    .sort((a, b) => parseIndonesianDate(b.date) - parseIndonesianDate(a.date))
-    .slice(0, 3);
+  // <-- UPDATE: Mengambil 3 Promo Teratas
+  // Kita coba memprioritaskan promo yang berkaitan dengan mobil ini, jika tidak ada, ambil promo umum teratas.
+  const relatedPromos = promos.filter(p => p.carSlug === car.slug);
+  const otherTopPromos = promos.filter(p => p.carSlug !== car.slug);
+  const latestPromos = [...relatedPromos, ...otherTopPromos].slice(0, 3);
 
   // 2. SCHEMA MARKUP PRODUCT & AGGREGATE OFFER
   const jsonLd = {
@@ -144,10 +131,9 @@ export default async function CarDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* 1. HERO SECTION - SPACING DIPERBAIKI */}
+      {/* 1. HERO SECTION */}
       <div className="relative bg-[#050B14] pt-24 pb-20 md:pt-28 md:pb-32 overflow-hidden border-b border-gray-900">
         
-        {/* Ornamen Latar Belakang agar tidak flat */}
         <div className="absolute top-0 right-0 w-full md:w-2/3 h-full bg-gradient-to-bl from-gray-800/40 via-transparent to-transparent opacity-60 pointer-events-none" />
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-blue-900/20 blur-3xl rounded-full pointer-events-none" />
 
@@ -161,10 +147,8 @@ export default async function CarDetailPage({ params }: Props) {
             <span className="text-white">{car.name}</span>
           </nav>
 
-          {/* Menggunakan proporsi 5 kolom untuk teks, 7 kolom untuk gambar mobil */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             
-            {/* BAGIAN TEKS KIRI */}
             <div className="lg:col-span-5 flex flex-col order-2 lg:order-1">
               <FadeIn delay={0.1} direction="left">
                 <span className="inline-block bg-white/10 backdrop-blur-sm text-gray-300 text-[10px] font-bold px-3 py-1 rounded-none mb-6 uppercase tracking-[0.2em] border border-white/10">
@@ -210,11 +194,9 @@ export default async function CarDetailPage({ params }: Props) {
               </FadeIn>
             </div>
 
-            {/* BAGIAN GAMBAR KANAN (Floating Car) */}
             <div className="lg:col-span-7 relative order-1 lg:order-2">
               <FadeIn delay={0.3} direction="none">
                 <div className="relative w-full aspect-video lg:aspect-[4/3] flex items-center justify-center">
-                  {/* Efek Glow di belakang mobil */}
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-1/2 bg-white/5 blur-3xl rounded-full"></div>
                   
                   {car.heroImage ? (
@@ -267,7 +249,7 @@ export default async function CarDetailPage({ params }: Props) {
         </FadeIn>
       </div>
 
-      {/* 3. PRICELIST, VARIAN & ARTIKEL TERBARU */}
+      {/* 3. PRICELIST, VARIAN & PROMO TERBARU */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           
@@ -287,44 +269,46 @@ export default async function CarDetailPage({ params }: Props) {
                 Hitung Simulasi Kredit
               </Link>
 
-              {/* MUNCULKAN 3 ARTIKEL TERBARU DI SINI */}
-              <div className="mt-16 border-t border-gray-200 pt-10">
-                <h3 className="text-xs font-black text-gray-900 uppercase tracking-widest mb-6">
-                  Berita & Update Terbaru
-                </h3>
-                <div className="flex flex-col gap-5">
-                  {latestArticles.map((article) => (
-                    <Link
-                      key={article.slug}
-                      href={`/berita/${article.slug}`}
-                      className="group flex gap-4 items-start"
-                    >
-                      <div className="relative w-20 h-16 shrink-0 bg-gray-100 overflow-hidden border border-gray-200">
-                        <Image
-                          src={article.imageUrl}
-                          alt={article.title}
-                          fill
-                          className="object-cover group-hover:scale-110 transition-transform duration-500"
-                        />
-                      </div>
-                      <div className="flex flex-col justify-center">
-                        <span className="text-[8px] text-red-600 font-bold uppercase tracking-widest mb-1 flex items-center gap-1">
-                          <Calendar size={10} /> {article.date}
-                        </span>
-                        <h4 className="text-[11px] font-bold text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors leading-snug">
-                          {article.title}
-                        </h4>
-                      </div>
-                    </Link>
-                  ))}
+              {/* MUNCULKAN 3 PROMO TERBARU DI SINI */}
+              {latestPromos.length > 0 && (
+                <div className="mt-16 border-t border-gray-200 pt-10">
+                  <h3 className="text-xs font-black text-gray-900 uppercase tracking-widest mb-6">
+                    Promo & Penawaran Terbaru
+                  </h3>
+                  <div className="flex flex-col gap-5">
+                    {latestPromos.map((promoItem) => (
+                      <Link
+                        key={promoItem.slug}
+                        href={`/promo/${promoItem.slug}`}
+                        className="group flex gap-4 items-start"
+                      >
+                        <div className="relative w-20 h-16 shrink-0 bg-gray-100 overflow-hidden border border-gray-200">
+                          <Image
+                            src={promoItem.image}
+                            alt={promoItem.title}
+                            fill
+                            className="object-cover group-hover:scale-110 transition-transform duration-500"
+                          />
+                        </div>
+                        <div className="flex flex-col justify-center">
+                          <span className="text-[8px] text-red-600 font-bold uppercase tracking-widest mb-1 flex items-center gap-1">
+                            <Calendar size={10} /> s/d {promoItem.validUntil}
+                          </span>
+                          <h4 className="text-[11px] font-bold text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors leading-snug uppercase">
+                            {promoItem.title}
+                          </h4>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                  <Link 
+                    href="/promo" 
+                    className="inline-block mt-6 text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-gray-900 border-b border-gray-300 hover:border-gray-900 transition-all pb-1"
+                  >
+                    Lihat Semua Promo &rarr;
+                  </Link>
                 </div>
-                <Link 
-                  href="/berita" 
-                  className="inline-block mt-6 text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:text-gray-900 border-b border-gray-300 hover:border-gray-900 transition-all pb-1"
-                >
-                  Lihat Semua Berita &rarr;
-                </Link>
-              </div>
+              )}
             </FadeIn>
           </div>
 
