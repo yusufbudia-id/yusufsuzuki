@@ -1,19 +1,50 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { Calendar, ChevronLeft, User, Tag, ArrowRight } from "lucide-react";
 import { articles } from "@/data/articles";
 import ContactCTA from "@/components/ContactCTA";
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+// 1. UPDATE: META DATA SEO YANG JAUH LEBIH KUAT (OpenGraph, Twitter Card, Canonical)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const resolvedParams = await params;
   const article = articles.find((a) => a.slug === resolvedParams.slug);
   
   if (!article) return { title: "Artikel Tidak Ditemukan" };
   
+  // Membuat URL absolut untuk keperluan SEO
+  const articleUrl = `https://www.suzukiautojogja.com/berita/${article.slug}`;
+  
   return {
     title: `${article.title} | Berita Suzuki Jogja`,
     description: article.excerpt,
+    alternates: {
+      canonical: articleUrl,
+    },
+    openGraph: {
+      title: article.title,
+      description: article.excerpt,
+      url: articleUrl,
+      siteName: 'Suzuki Auto Jogja',
+      type: 'article',
+      publishedTime: new Date(parseIndonesianDate(article.date)).toISOString(),
+      authors: ['Yusuf Suzuki'],
+      images: [
+        {
+          url: article.imageUrl,
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [article.imageUrl],
+    },
   };
 }
 
@@ -25,7 +56,7 @@ function parseIndonesianDate(dateStr: string) {
   };
   
   const parts = dateStr.split(" ");
-  if (parts.length !== 3) return 0; // fallback jika format bukan "DD Bulan YYYY"
+  if (parts.length !== 3) return 0;
 
   const day = parseInt(parts[0], 10);
   const month = months[parts[1]] || 0;
@@ -42,17 +73,47 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
     notFound();
   }
 
-  // MENGAMBIL ARTIKEL TERBARU: 
-  // 1. Saring agar artikel yang sedang dibaca tidak muncul di sidebar
-  // 2. Urutkan berdasarkan tanggal terbaru ke terlama
-  // 3. Ambil 3 teratas
   const recommendedArticles = articles
     .filter((a) => a.slug !== resolvedParams.slug)
     .sort((a, b) => parseIndonesianDate(b.date) - parseIndonesianDate(a.date))
     .slice(0, 3);
 
+  // 2. UPDATE: SCHEMA MARKUP KHUSUS ARTIKEL (Biar disukai Robot Google)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": article.title,
+    "image": `https://www.suzukiautojogja.com${article.imageUrl}`,
+    "author": {
+      "@type": "Person",
+      "name": "Yusuf Suzuki",
+      "url": "https://www.suzukiautojogja.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Suzuki Sumber Baru Mobil Jogja",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.suzukiautojogja.com/logo.png"
+      }
+    },
+    "datePublished": new Date(parseIndonesianDate(article.date)).toISOString(),
+    "description": article.excerpt,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://www.suzukiautojogja.com/berita/${article.slug}`
+    }
+  };
+
   return (
     <div className="bg-gray-50 min-h-screen pt-24 md:pt-32 pb-0">
+      
+      {/* SUNTIKAN JSON-LD KE DALAM HTML */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         
         {/* Navigasi Kembali */}
@@ -67,7 +128,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
         {/* LAYOUT DUA KOLOM */}
         <div className="flex flex-col lg:flex-row gap-10 md:gap-12">
           
-          {/* KOLOM KIRI: ISI ARTIKEL UTAMA (Lebar 66%) */}
+          {/* KOLOM KIRI: ISI ARTIKEL UTAMA */}
           <article className="lg:w-2/3 bg-white p-6 md:p-10 shadow-sm border border-gray-100">
             <header className="mb-10 text-center md:text-left">
               <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-600 text-[10px] font-bold px-3 py-1.5 uppercase tracking-widest mb-4">
@@ -116,9 +177,8 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
             </div>
           </article>
 
-          {/* KOLOM KANAN: SIDEBAR ARTIKEL TERBARU (Lebar 33%) */}
+          {/* KOLOM KANAN: SIDEBAR ARTIKEL TERBARU */}
           <aside className="lg:w-1/3">
-            {/* Sticky membuat sidebar tetap mengikut saat discroll ke bawah */}
             <div className="sticky top-28"> 
               <h3 className="text-base font-black text-gray-900 uppercase tracking-widest border-b-2 border-gray-900 pb-3 mb-6">
                 Artikel Terbaru
@@ -132,7 +192,6 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
                       key={rec.slug} 
                       className="group flex gap-4 items-start bg-white p-3 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300"
                     >
-                      {/* Thumbnail Rekomendasi */}
                       <div className="relative w-24 h-24 shrink-0 bg-gray-200 overflow-hidden">
                         <Image
                           src={rec.imageUrl}
@@ -142,7 +201,6 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
                         />
                       </div>
                       
-                      {/* Teks Rekomendasi */}
                       <div className="flex flex-col justify-between py-1 h-full">
                         <div>
                           <span className="text-[9px] font-bold text-blue-600 uppercase tracking-wider block mb-1">
@@ -166,7 +224,6 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
                 )}
               </div>
 
-              {/* Banner Promo Kecil di Sidebar */}
               <div className="mt-8 bg-[#050B14] p-6 text-white text-center shadow-lg border-t-4 border-red-600">
                 <h4 className="font-bold text-lg mb-2">Tertarik dengan Suzuki?</h4>
                 <p className="text-gray-400 text-xs mb-6 leading-relaxed">
@@ -180,13 +237,10 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
                   <ArrowRight size={14} />
                 </Link>
               </div>
-
             </div>
           </aside>
-
         </div>
       </div>
-
       <ContactCTA />
     </div>
   );
