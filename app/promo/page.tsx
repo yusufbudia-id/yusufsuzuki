@@ -23,16 +23,18 @@ const parseIndonesianDate = (dateStr: string) => {
 };
 
 export default function PromoPage() {
-  // --- LOGIKA PENGURUTAN PROMO ---
+  // --- LOGIKA PENGURUTAN PROMO (SUDAH DIPERBAIKI) ---
   const today = new Date();
 
-  // 1. Ambil Promo Aktif & Urutkan berdasarkan waktu berakhir terdekat
-  const activePromos = promos
+  // 1. Ambil Promo Aktif & Urutkan agar yang TERBARU di kiri/atas
+  const activePromos = [...promos]
+    .reverse() // Trik 1: Balik urutan asli dari database agar yang baru diinput muncul duluan
     .filter((promo) => parseIndonesianDate(promo.validUntil) >= today)
-    .sort((a, b) => parseIndonesianDate(a.validUntil).getTime() - parseIndonesianDate(b.validUntil).getTime());
+    .sort((a, b) => parseIndonesianDate(b.validUntil).getTime() - parseIndonesianDate(a.validUntil).getTime()); // Trik 2: Urutkan b - a (Descending)
 
   // 2. Ambil Promo Kedaluwarsa & Urutkan berdasarkan yang paling baru lewat
-  const expiredPromos = promos
+  const expiredPromos = [...promos]
+    .reverse()
     .filter((promo) => parseIndonesianDate(promo.validUntil) < today)
     .sort((a, b) => parseIndonesianDate(b.validUntil).getTime() - parseIndonesianDate(a.validUntil).getTime());
 
@@ -95,7 +97,6 @@ export default function PromoPage() {
               <div className="h-px bg-gray-200 flex-grow"></div>
             </div>
 
-            {/* Tambahkan opacity-60 atau grayscale pada kontainer ini jika ingin promo lama terlihat sedikit pudar */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 opacity-70 hover:opacity-100 transition-opacity duration-300">
               {expiredPromos.map((promo, i) => (
                 <PromoCard key={promo.slug} promo={promo} index={i} />
