@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google"; // <-- UPDATE DI SINI
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -8,10 +8,9 @@ import Footer from "@/components/Footer";
 import WhatsappFloatingButton from "@/components/WhatsappFloatingButton";
 import BottomNavigation from "@/components/BottomNavigation";
 
-const manrope = Manrope({
+// <-- INISIALISASI PLUS JAKARTA SANS
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
-  variable: "--font-manrope",
   display: "swap",
 });
 
@@ -131,7 +130,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${manrope.className} antialiased bg-white text-gray-900`}>
+      {/* <-- UPDATE: MEMASUKKAN CLASS FONT PLUS JAKARTA SANS KE BODY --> */}
+      <body className={`${plusJakarta.className} antialiased bg-white text-gray-900`}>
         
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
