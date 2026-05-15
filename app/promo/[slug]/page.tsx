@@ -10,7 +10,7 @@ interface PromoPageProps {
   params: Promise<{ slug: string }>;
 }
 
-// --- FUNGSI BANTUAN UNTUK SEO: Mengubah "31 Mei 2026" jadi format kalender komputer ---
+// --- FUNGSI BANTUAN UNTUK SEO & WAKTU ---
 function parsePromoDate(dateStr: string) {
   const months: { [key: string]: string } = {
     "Januari": "01", "Februari": "02", "Maret": "03", "April": "04", "Mei": "05", "Juni": "06",
@@ -26,7 +26,7 @@ function parsePromoDate(dateStr: string) {
   return null;
 }
 
-// 1. UPDATE: META DATA SEO LENGKAP (OpenGraph, WhatsApp Thumbnail, Canonical)
+// 1. UPDATE: META DATA SEO LENGKAP
 export async function generateMetadata({ params }: PromoPageProps): Promise<Metadata> {
   const { slug } = await params;
   const promo = promos.find((p) => p.slug === slug);
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: PromoPageProps): Promise<Meta
       type: 'website',
       images: [
         {
-          url: promo.image,
+          url: `https://www.suzukiautojogja.com${promo.image}`,
           width: 1200,
           height: 630,
           alt: `Promo Suzuki: ${promo.title}`,
@@ -59,7 +59,7 @@ export async function generateMetadata({ params }: PromoPageProps): Promise<Meta
       card: "summary_large_image",
       title: promo.title,
       description: promo.highlight,
-      images: [promo.image],
+      images: [`https://www.suzukiautojogja.com${promo.image}`],
     },
   };
 }
@@ -76,7 +76,18 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
   const promo = promos.find((p) => p.slug === slug);
   if (!promo) notFound();
 
-  const otherPromos = promos.filter((p) => p.slug !== slug).slice(0, 4);
+  // --- LOGIKA FILTER PROMO AKTIF ---
+  const now = Date.now();
+  const otherPromos = promos
+    .filter((p) => p.slug !== slug) // Kecualikan promo yang sedang dibuka
+    .filter((p) => {
+      const isoDate = parsePromoDate(p.validUntil);
+      // Jika isoDate ada, cek apakah waktunya masih di masa depan
+      return isoDate ? new Date(isoDate).getTime() >= now : true;
+    })
+    .reverse() // Balik urutannya agar promo terbaru (yang ditulis di bawah di data) muncul duluan
+    .slice(0, 4); // Ambil maksimal 4 promo
+
   const waMsg = `Halo Yusuf Suzuki, saya tertarik dengan promo: *${promo.title}* yang saya lihat di website. Mohon info lengkapnya.`;
   
   const parsedEndDate = parsePromoDate(promo.validUntil);
@@ -84,7 +95,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
   // Membuat startDate otomatis (Mengambil tanggal 1 dari bulan promo tersebut berakhir)
   const parsedStartDate = parsedEndDate ? parsedEndDate.replace(/-\d{2}T/, '-01T') : new Date().toISOString();
 
-  // 2. UPDATE: SCHEMA MARKUP KHUSUS EVENT DISKON (Skor 100% GSC)
+  // 2. UPDATE: SCHEMA MARKUP KHUSUS EVENT DISKON
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SaleEvent",
