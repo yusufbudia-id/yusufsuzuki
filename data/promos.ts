@@ -275,5 +275,31 @@ Segera amankan Jimny impian Anda. Hubungi Yusuf Suzuki di 0821-7463-5218 sekaran
     validUntil: "31 Mei 2026",
     image: "/promo/promo-semesta-jimny.jpg", // Pastikan gambar brosur diubah namanya jadi promo-semesta-jimny.jpg dan ditaruh di folder public/promo
     highlight: "Voucher MAP Up To 20JT, Free iPad Air 11 & Kaca Film V-KOOL!",
+  },
+  // PROMO XL7 DISKON BESAR
+  {
+    slug: "promo-gila-suzuki-xl7-diskon-33-juta",
+    title: "Bocor Lebat! Promo Suzuki XL7 Bulan Ini: Diskon Tembus 33 Juta & DP Cuma 18 Jutaan!",
+    description: `Kabar gembira buat keluarga modern yang lagi cari SUV tangguh tapi tetap ramah di kantong! Nggak perlu nabung bertahun-tahun untuk punya mobil keluarga impian. 
+
+Khusus bulan ini, Yusuf Suzuki kasih penawaran **"Super Deal XL7"** yang dijamin bikin tetangga melongo. Bawa pulang **New Suzuki XL7 Hybrid** — SUV 7-Seater yang stylish, gagah, dan super nyaman ini dengan promo paling gila se-DIY & Jateng!
+
+**RINCIAN PROMO SPESIAL XL7:**
+🔥 **Diskon Brutal hingga Rp 33 JUTA!** (Potongan harga langsung!)
+🔥 **DP Super Ringan mulai Rp 18 JUTA-an aja!** (Lebih ringan, lebih mudah)
+🔥 **Bunga 0%** (Nggak bikin pusing mikirin bunga cicilan)
+🔥 **Tenor Super Panjang hingga 8 Tahun!** (Angsuran bulanan jadi sangat enteng)
+
+Suzuki XL7 adalah pilihan paling cerdas untuk Anda. Kabin lega muat 7 orang, fitur keamanan canggih, <em>ground clearance</em> tinggi untuk libas segala medan, dan pastinya irit bensin berkat teknologi <em>Smart Hybrid</em>.
+
+**Peringatan:** Kuota diskon maksimal 33 Juta ini rebutan dan unitnya sangat terbatas! 
+
+Jangan kelamaan mikir, langsung amankan jatah promo Anda. Hubungi **Yusuf Suzuki** sekarang juga di 0821-7463-5218 untuk konsultasi, hitung simulasi angsuran, atau sekadar janjian <em>Test Drive</em> ke rumah Anda!`,
+    carSlug: "xl7",
+    carName: "Suzuki XL7",
+    badge: "SUPER DEAL XL7",
+    validUntil: "31 Mei 2026",
+    image: "/promo/promo-xl7-dp-18juta.jpg", // Pastikan nama file gambarnya disesuaikan
+    highlight: "Diskon 33JT, DP 18JT, Bunga 0%, Tenor 8 Thn!",
   }
 ];
