@@ -301,5 +301,32 @@ Jangan kelamaan mikir, langsung amankan jatah promo Anda. Hubungi Yusuf Suzuki s
     validUntil: "31 Mei 2026",
     image: "/promo/promo-xl7-dp-18juta.jpg", 
     highlight: "Diskon 33JT, DP 18JT, Bunga 0%, Tenor 8 Thn!",
+  },
+  // PROMO SUZUKI FRONX JULI (SOFT SELLING)
+  {
+    slug: "promo-santai-suzuki-fronx-juli",
+    title: "Mencari Crossover Nyaman & Irit untuk Keluarga? Ini Alasan Fronx Jadi Pilihan Paling Logis Bulan Ini",
+    description: `Mencari mobil yang pas untuk mobilitas harian dan liburan akhir pekan bersama keluarga seringkali membuat kita harus berkompromi. Ingin yang desainnya tangguh seperti SUV, tapi takut boros bensin. Ingin interior yang mewah, tapi biasanya harganya di luar anggaran.
+
+Menjawab dilema tersebut, Suzuki Fronx hadir sebagai jalan tengah yang sempurna. Sebagai sebuah Smart Hybrid Crossover, mobil ini menawarkan perpaduan yang jarang ada: tenaga yang responsif saat dibutuhkan, namun dengan efisiensi bahan bakar yang sangat menjaga pengeluaran bulanan Anda. 
+
+Begitu Anda masuk ke dalamnya, balutan Interior Premium dirancang khusus agar setiap perjalanan terasa santai dan tidak melelahkan. Tentu saja, karena ini adalah mobil keluarga, fitur keamanan canggih dan lengkap sudah disematkan untuk memberikan Anda ketenangan pikiran selama berkendara.
+
+Memiliki kendaraan senyaman ini mungkin terdengar membutuhkan persiapan dana yang besar. Namun, kami percaya setiap keluarga berhak mendapatkan kenyamanan terbaik dengan cara yang mudah. Khusus di bulan Juli ini, kami menghadirkan penawaran apresiasi untuk Anda:
+
+- Langkah awal yang ringan: Cukup siapkan DP mulai 25 Juta saja.
+- Pikiran lebih tenang: Tersedia fasilitas Bunga 0%.
+- Arus kas tetap aman: Cicilan bisa disesuaikan dengan pilihan tenor hingga 8 tahun.
+- Nilai tambah untuk Anda: Nikmati potongan harga langsung senilai puluhan juta rupiah.
+
+Membeli mobil adalah keputusan penting bagi keluarga. Jangan terburu-buru. Mari kita ngobrol santai terlebih dahulu mengenai kebutuhan mobilitas Anda, mencocokkan simulasi yang pas dengan anggaran, atau sekadar menjadwalkan Test Drive gratis di garasi rumah Anda.
+
+Silakan sapa Yusuf Suzuki melalui WhatsApp di 0821-7463-5218. Kami siap mendengarkan dan membantu Anda menemukan kendaraan yang paling tepat, tanpa tekanan.`,
+    carSlug: "fronx",
+    carName: "Suzuki Fronx",
+    badge: "PROMO JULI",
+    validUntil: "31 Juli 2026",
+    image: "/promo/promo-suzuki-fronx-juli.jpg", // Pastikan nama file gambar disesuaikan
+    highlight: "DP 25JT, Bunga 0%, Tenor 8 Thn, Diskon Puluhan Juta!",
   }
 ];
