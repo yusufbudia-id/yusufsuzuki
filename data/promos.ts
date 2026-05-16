@@ -304,7 +304,7 @@ Jangan kelamaan mikir, langsung amankan jatah promo Anda. Hubungi Yusuf Suzuki s
   },
   // PROMO SUZUKI FRONX JULI (SOFT SELLING)
   {
-    slug: "promo-santai-suzuki-fronx-juli",
+    slug: "promo-santai-suzuki-fronx-jogja",
     title: "Mencari Crossover Nyaman & Irit untuk Keluarga? Ini Alasan Fronx Jadi Pilihan Paling Logis Bulan Ini",
     description: `Mencari mobil yang pas untuk mobilitas harian dan liburan akhir pekan bersama keluarga seringkali membuat kita harus berkompromi. Ingin yang desainnya tangguh seperti SUV, tapi takut boros bensin. Ingin interior yang mewah, tapi biasanya harganya di luar anggaran.
 
@@ -324,7 +324,7 @@ Membeli mobil adalah keputusan penting bagi keluarga. Jangan terburu-buru. Mari 
 Silakan sapa Yusuf Suzuki melalui WhatsApp di 0821-7463-5218. Kami siap mendengarkan dan membantu Anda menemukan kendaraan yang paling tepat, tanpa tekanan.`,
     carSlug: "fronx",
     carName: "Suzuki Fronx",
-    badge: "PROMO JULI",
+    badge: "PROMO FRONX",
     validUntil: "31 Juli 2026",
     image: "/promo/promo-suzuki-fronx-juli.jpg", // Pastikan nama file gambar disesuaikan
     highlight: "DP 25JT, Bunga 0%, Tenor 8 Thn, Diskon Puluhan Juta!",
