@@ -186,7 +186,8 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
               Berlaku s/d {promo.validUntil}
             </div>
 
-            <h1 className="text-3xl xl:text-4xl font-black text-gray-900 leading-[1.1] uppercase tracking-tighter mb-6">
+            {/* ---> UPDATE: Mengganti uppercase menjadi capitalize <--- */}
+            <h1 className="text-3xl xl:text-4xl font-black text-gray-900 leading-[1.1] capitalize tracking-tighter mb-6">
               {promo.title}
             </h1>
 
@@ -249,7 +250,8 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                         <span className="text-[8px] text-red-600 font-bold uppercase tracking-widest mb-1.5 flex items-center gap-1">
                           <Calendar size={10} /> s/d {other.validUntil}
                         </span>
-                        <h4 className="text-[11px] font-black text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors leading-snug tracking-wider uppercase">
+                        {/* ---> UPDATE: Mengganti uppercase menjadi capitalize <--- */}
+                        <h4 className="text-[11px] font-black text-gray-900 line-clamp-2 group-hover:text-red-600 transition-colors leading-snug tracking-wider capitalize">
                           {other.title}
                         </h4>
                       </div>
