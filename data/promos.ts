@@ -329,7 +329,7 @@ Silakan sapa Yusuf Suzuki melalui WhatsApp di 0821-7463-5218. Kami siap mendenga
     image: "/promo/promo-suzuki-fronx-juli.jpg", 
     highlight: "DP 25JT, Bunga 0%, Tenor 8 Thn, Diskon Puluhan Juta!",
   },
-  // PROMO SUZUKI CARRY PICK UP MEI - JUNI (SOFT SELLING OPTIMIZED)
+// PROMO SUZUKI CARRY PICK UP MEI - JUNI (SOFT SELLING OPTIMIZED)
 {
   slug: "promo-suzuki-carry-pick-up-jogja",
   title: "Modal Mulai 5 Juta, Usaha Bisa Langsung Jalan? Ini Alasan New Carry Pick Up Jadi Andalan Pebisnis Jogja",
@@ -349,11 +349,10 @@ Kabar baiknya, selama periode Mei–Juni ini Anda tidak perlu menunggu terlalu l
 
 Kami paham, membeli kendaraan usaha adalah keputusan penting. Karena itu, Anda bisa konsultasi dulu tanpa harus langsung membeli. Kami bantu hitungkan simulasi kredit, pilihan tenor, kebutuhan unit, hingga promo terbaik yang paling sesuai dengan kondisi usaha Anda.
 
-Silakan hubungi Yusuf Suzuki melalui WhatsApp:
-<a href="https://wa.me/6282174635218" target="_blank" rel="noopener noreferrer">Klik di sini untuk chat WhatsApp Yusuf Suzuki</a>
+Silakan hubungi Yusuf Suzuki melalui WhatsApp di 0821-7463-5218.
 
-Anda juga bisa melihat katalog Suzuki Fronx di sini:
-<a href="https://www.suzukiautojogja.com/mobil/fronx" target="_blank" rel="noopener noreferrer">Lihat katalog Suzuki Fronx</a>
+Anda juga bisa melihat katalog Suzuki Fronx melalui link berikut:
+https://www.suzukiautojogja.com/mobil/fronx
 
 Yuk, mulai langkah lebih ringan untuk membuat usaha Anda bergerak lebih cepat bersama Suzuki New Carry Pick Up.`,
   carSlug: "carry-pick-up",
