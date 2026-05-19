@@ -328,5 +328,39 @@ Silakan sapa Yusuf Suzuki melalui WhatsApp di 0821-7463-5218. Kami siap mendenga
     validUntil: "31 Juli 2026",
     image: "/promo/promo-suzuki-fronx-juli.jpg", 
     highlight: "DP 25JT, Bunga 0%, Tenor 8 Thn, Diskon Puluhan Juta!",
-  }
+  },
+  // PROMO SUZUKI CARRY PICK UP MEI - JUNI (SOFT SELLING OPTIMIZED)
+{
+  slug: "promo-suzuki-carry-pick-up-jogja",
+  title: "Modal Mulai 5 Juta, Usaha Bisa Langsung Jalan? Ini Alasan New Carry Pick Up Jadi Andalan Pebisnis Jogja",
+  description: `Untuk Anda yang sedang menjalankan usaha, kendaraan bukan sekadar alat transportasi. Kendaraan adalah partner kerja yang membantu barang sampai tepat waktu, operasional lebih lancar, dan peluang bisnis bisa bergerak lebih cepat.
+
+Suzuki New Carry Pick Up hadir sebagai pilihan yang sangat logis untuk pelaku usaha di Jogja dan sekitarnya. Dikenal tangguh, irit, dan siap diajak kerja keras setiap hari, New Carry cocok untuk berbagai kebutuhan bisnis seperti distribusi barang, usaha toko, pertanian, kuliner, material, hingga operasional lapangan.
+
+Bak yang luas membuat angkut barang jadi lebih leluasa, sementara performanya tetap efisien untuk penggunaan harian. Inilah alasan mengapa Carry Pick Up sering disebut sebagai partner usaha yang sederhana, kuat, dan menguntungkan dalam jangka panjang.
+
+Kabar baiknya, selama periode Mei–Juni ini Anda tidak perlu menunggu terlalu lama untuk memiliki kendaraan niaga yang siap mendukung usaha. Tersedia promo khusus Suzuki New Carry Pick Up dengan penawaran menarik:
+
+- DP mulai 5 Juta saja.
+- Bunga mulai 0%.
+- Tenor hingga 5 tahun.
+- Diskon hingga 40 Juta.
+- Proses dibantu sampai tuntas oleh dealer resmi Suzuki.
+
+Kami paham, membeli kendaraan usaha adalah keputusan penting. Karena itu, Anda bisa konsultasi dulu tanpa harus langsung membeli. Kami bantu hitungkan simulasi kredit, pilihan tenor, kebutuhan unit, hingga promo terbaik yang paling sesuai dengan kondisi usaha Anda.
+
+Silakan hubungi Yusuf Suzuki melalui WhatsApp:
+<a href="https://wa.me/6282174635218" target="_blank" rel="noopener noreferrer">Klik di sini untuk chat WhatsApp Yusuf Suzuki</a>
+
+Anda juga bisa melihat katalog Suzuki Fronx di sini:
+<a href="https://www.suzukiautojogja.com/mobil/fronx" target="_blank" rel="noopener noreferrer">Lihat katalog Suzuki Fronx</a>
+
+Yuk, mulai langkah lebih ringan untuk membuat usaha Anda bergerak lebih cepat bersama Suzuki New Carry Pick Up.`,
+  carSlug: "carry-pick-up",
+  carName: "Suzuki New Carry Pick Up",
+  badge: "PROMO CARRY",
+  validUntil: "30 Juni 2026",
+  image: "/promo/promo-suzuki-carry-pick-up-mei-juni.jpg",
+  highlight: "DP 5JT, Bunga 0%, Tenor 5 Thn, Diskon Hingga 40JT!",
+}
 ];
