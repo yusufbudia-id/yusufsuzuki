@@ -1,6 +1,6 @@
 // app/layout.tsx
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Manrope } from "next/font/google"; // <-- KEMBALI MENGGUNAKAN MANROPE
 import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import WhatsappFloatingButton from "@/components/WhatsappFloatingButton";
 import BottomNavigation from "@/components/BottomNavigation";
 
+// INISIALISASI FONT MANROPE
 const manrope = Manrope({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
@@ -22,9 +23,10 @@ export const metadata: Metadata = {
     canonical: "/",
   },
 
+  // ---> UPDATE SEO: PENAMBAHAN KATA "MOBIL" <---
   title: {
-    default: "Dealer Suzuki Jogja Resmi | Harga OTR & Promo Terbaru",
-    template: "%s | Dealer Suzuki Jogja", 
+    default: "Dealer Mobil Suzuki Jogja Resmi | Harga OTR & Promo Terbaru",
+    template: "%s | Dealer Mobil Suzuki Jogja", 
   },
   description:
     "Cari mobil Suzuki di Jogja? Dapatkan promo DP ringan, diskon besar, dan harga OTR terbaru di Dealer Resmi Suzuki Sumber Baru Mobil bersama Yusuf Suzuki (0821-7463-5218).",
@@ -34,12 +36,12 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png", 
   },
   keywords: [
-    "suzuki jogja",
-    "dealer suzuki jogja",
+    "mobil suzuki jogja",
+    "dealer mobil suzuki jogja",
     "suzuki sumber baru mobil",
-    "harga suzuki jogja",
-    "kredit suzuki jogja",
-    "promo suzuki jogja",
+    "harga mobil suzuki jogja",
+    "kredit mobil suzuki jogja",
+    "promo mobil suzuki jogja",
     "suzuki xl7 jogja",
     "suzuki ertiga jogja",
     "suzuki fronx jogja",
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: "https://www.suzukiautojogja.com", 
     siteName: "Suzuki Sumber Baru Mobil",
-    title: "Dealer Suzuki Jogja | Promo DP Ringan & Angsuran Murah", 
+    title: "Dealer Mobil Suzuki Jogja | Promo DP Ringan & Angsuran Murah", 
     description:
       "Hubungi Yusuf Suzuki (0821-7463-5218) untuk promo mobil Suzuki terbaru di Yogyakarta dan sekitarnya. Proses cepat, dibantu sampai ACC!",
     images: [
@@ -65,9 +67,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dealer Suzuki Jogja | Promo & Harga Terbaru Jl. Magelang",
+    title: "Dealer Mobil Suzuki Jogja | Promo & Harga Terbaru",
     description:
-      "Dealer resmi Suzuki Jogja & sekitarnya. Promo terbaik, kredit mudah, DP ringan.",
+      "Dealer resmi mobil Suzuki Jogja & sekitarnya. Promo terbaik, kredit mudah, DP ringan.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -84,7 +86,7 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoDealer",
-    "name": "Dealer Suzuki Jogja - Sumber Baru Mobil",
+    "name": "Dealer Mobil Suzuki Jogja - Sumber Baru Mobil",
     "image": "https://www.suzukiautojogja.com/logo.png",
     "@id": "https://www.suzukiautojogja.com",
     "url": "https://www.suzukiautojogja.com",
@@ -131,6 +133,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
+      {/* MENGGUNAKAN CLASS MANROPE DI BODY */}
       <body className={`${manrope.className} antialiased bg-white text-gray-900`}>
         
         <Script
