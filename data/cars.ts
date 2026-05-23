@@ -15,7 +15,7 @@ export interface CarVariant {
   name: string;
   priceAB: number;
   priceAA: number;
-  discount: number; // <-- Diskon tetap dipertahankan
+  discount: number; 
 }
 
 export interface Car {
@@ -26,7 +26,7 @@ export interface Car {
   startingPriceNum: number;
   startingPriceAB: number;
   startingPriceAA: number;
-  maxDiscount?: number; // <-- Memudahkan untuk label Promo "Diskon Hingga..."
+  maxDiscount?: number;
   variants: CarVariant[];
   monthlyInstallment: string;
   description: string;
@@ -46,18 +46,18 @@ export const cars: Car[] = [
     slug: "fronx",
     name: "Suzuki Fronx",
     category: "SUV",
-    startingPrice: "Rp 266.300.000",
-    startingPriceNum: 266300000,
-    startingPriceAB: 266300000,
-    startingPriceAA: 274000000,
+    startingPrice: "Rp 267.300.000",
+    startingPriceNum: 267300000,
+    startingPriceAB: 267300000,
+    startingPriceAA: 275000000, // <-- UPDATE AA
     maxDiscount: 14000000,
     variants: [
-      { name: "FRONX GL MT", priceAB: 266300000, priceAA: 274000000, discount: 14000000 },
-      { name: "FRONX GL AT", priceAB: 277300000, priceAA: 285400000, discount: 14000000 },
-      { name: "FRONX GX MT", priceAB: 288700000, priceAA: 297000000, discount: 8000000 },
-      { name: "FRONX GX AT", priceAB: 307100000, priceAA: 315700000, discount: 8000000 },
-      { name: "FRONX SGX AT (ONE TONE)", priceAB: 333200000, priceAA: 342200000, discount: 8000000 },
-      { name: "FRONX SGX AT (TWO TONE)", priceAB: 335200000, priceAA: 344200000, discount: 8000000 }
+      { name: "FRONX GL MT", priceAB: 267300000, priceAA: 275000000, discount: 14000000 }, // <-- UPDATE AA
+      { name: "FRONX GL AT", priceAB: 278300000, priceAA: 286400000, discount: 14000000 }, // <-- UPDATE AA
+      { name: "FRONX GX MT", priceAB: 289700000, priceAA: 298000000, discount: 8000000 },  // <-- UPDATE AA
+      { name: "FRONX GX AT", priceAB: 308100000, priceAA: 316700000, discount: 8000000 },  // <-- UPDATE AA
+      { name: "FRONX SGX AT (ONE TONE)", priceAB: 334200000, priceAA: 343200000, discount: 8000000 }, // <-- UPDATE AA
+      { name: "FRONX SGX AT (TWO TONE)", priceAB: 336200000, priceAA: 345200000, discount: 8000000 }  // <-- UPDATE AA
     ],
     monthlyInstallment: "Rp 3.200.000",
     description: "Beli Suzuki Fronx terbaru di Jogja. SUV kompak stylish dengan desain coupe sport futuristis ini hadir membawa teknologi hybrid mild yang efisien. Dapatkan penawaran kredit Suzuki Fronx terbaik untuk area Yogyakarta, Sleman, Bantul, dan sekitarnya hanya di dealer resmi Suzuki Sumber Baru Mobil. Nikmati pengalaman berkendara yang responsif sekaligus irit bahan bakar berkat mesin 1.5L K15C Smart Hybrid. Kabin interior yang mewah dilengkapi dengan fitur keselamatan canggih seperti 6 Airbags, Head Up Display, dan 360-degree Camera, memastikan keamanan ekstra saat melintasi jalanan perkotaan Jogja yang padat maupun saat bepergian ke luar kota. Jangan lewatkan promo spesial bulan ini dengan cicilan ringan, proses approval cepat, dan berbagai bonus aksesoris eksklusif. Hubungi Yusuf Suzuki sekarang untuk mengatur jadwal test drive langsung di rumah atau kantor Anda!",
@@ -247,11 +247,11 @@ export const cars: Car[] = [
     startingPrice: "Rp 182.500.000",
     startingPriceNum: 182500000,
     startingPriceAB: 182500000,
-    startingPriceAA: 188900000,
+    startingPriceAA: 189400000, // <-- UPDATE AA
     maxDiscount: 16000000,
     variants: [
-      { name: "S-PRESSO MT", priceAB: 182500000, priceAA: 188900000, discount: 16000000 },
-      { name: "S-PRESSO AGS", priceAB: 193800000, priceAA: 199400000, discount: 16000000 }
+      { name: "S-PRESSO MT", priceAB: 182500000, priceAA: 189400000, discount: 16000000 }, // <-- UPDATE AA
+      { name: "S-PRESSO AGS", priceAB: 193800000, priceAA: 201400000, discount: 16000000 } // <-- UPDATE AA
     ],
     monthlyInstallment: "Rp 2.100.000",
     description: "Suzuki S-Presso adalah city car lincah bergaya SUV mini yang sangat cocok untuk bermanuver menembus kemacetan dan jalanan sempit di pusat kota Jogja. Selain sangat irit konsumsi BBM, mobil ini memiliki keunggulan ground clearance tinggi mencapai 180mm yang membuatnya aman melewati genangan air atau jalan bergelombang. Dimensinya yang ringkas memastikan S-Presso sangat mudah diparkir di area terbatas, baik itu di lingkungan kampus maupun area kafe yang padat pengunjung. Walaupun tampak mungil dari luar, ruang kabinnya didesain ergonomis dengan headroom yang tergolong lega dan telah dilengkapi fitur hiburan modern. Keselamatan berkendara pun terjamin berkat Dual SRS Airbags dan pengereman ABS+EBD. Dapatkan penawaran simulasi kredit Suzuki S-Presso dengan DP super ringan yang dirancang khusus untuk mahasiswa dan pekerja muda di Yogyakarta.",
@@ -299,10 +299,10 @@ export const cars: Car[] = [
       { name: "JIMNY (3 DOOR) AT (ONE TONE)", priceAB: 491100000, priceAA: 510400000, discount: 10000000 },
       { name: "JIMNY (3 DOOR) MT (TWO TONE)", priceAB: 480400000, priceAA: 499200000, discount: 10000000 },
       { name: "JIMNY (3 DOOR) AT (TWO TONE)", priceAB: 494100000, priceAA: 513400000, discount: 10000000 },
-      { name: "JIMNY (5 DOOR) MT (ONE TONE)", priceAB: 491800000, priceAA: 496200000, discount: 10000000 },
-      { name: "JIMNY (5 DOOR) AT (ONE TONE)", priceAB: 505500000, priceAA: 510400000, discount: 10000000 },
-      { name: "JIMNY (5 DOOR) MT (TWO TONE)", priceAB: 494800000, priceAA: 499200000, discount: 10000000 },
-      { name: "JIMNY (5 DOOR) AT (TWO TONE)", priceAB: 508500000, priceAA: 513400000, discount: 10000000 }
+      { name: "JIMNY (5 DOOR) MT (ONE TONE)", priceAB: 491800000, priceAA: 511900000, discount: 10000000 },
+      { name: "JIMNY (5 DOOR) AT (ONE TONE)", priceAB: 505500000, priceAA: 526300000, discount: 10000000 },
+      { name: "JIMNY (5 DOOR) MT (TWO TONE)", priceAB: 494800000, priceAA: 514900000, discount: 10000000 },
+      { name: "JIMNY (5 DOOR) AT (TWO TONE)", priceAB: 508500000, priceAA: 529300000, discount: 10000000 }
     ],
     monthlyInstallment: "Rp 5.100.000",
     description: "Wujudkan impian Anda untuk memiliki Suzuki Jimny, icon SUV off-road legendaris yang dibekali dengan sistem 4WD AllGrip Pro paling tangguh. Kendaraan ini sangat siap diandalkan untuk menaklukkan berbagai variasi medan jalan, mulai dari aspal mulus perkotaan Jogja hingga rute ekstrem bebatuan di lereng Gunung Merapi maupun pasir pantai pesisir selatan. Desain bodinya yang boxy ikonik, dipadukan secara sempurna dengan struktur sasis ladder frame otentik, menjadikan Jimny tampil tak tertandingi di kelasnya. Kini tersedia lengkap dalam varian 3 pintu bergaya klasik dan 5 pintu terbaru yang menawarkan ruang kabin lebih akomodatif untuk petualangan bersama rekan-rekan. Jangan biarkan kesempatan memiliki mobil incaran para kolektor ini terlewat. Segera amankan antrean inden Suzuki Jimny Anda hari ini, hubungi Yusuf di dealer resmi Suzuki Yogyakarta untuk update stok dan harga OTR terbaru.",
@@ -343,14 +343,14 @@ export const cars: Car[] = [
     slug: "ertiga",
     name: "Suzuki Ertiga",
     category: "MPV",
-    startingPrice: "Rp 268.150.000",
-    startingPriceNum: 268150000,
-    startingPriceAB: 268150000,
+    startingPrice: "Rp 268.500.000",
+    startingPriceNum: 268500000,
+    startingPriceAB: 268500000,
     startingPriceAA: 279000000,
     maxDiscount: 26000000,
     variants: [
-      { name: "ALL NEW ERTIGA GL MT", priceAB: 268150000, priceAA: 279000000, discount: 26000000 },
-      { name: "ALL NEW ERTIGA GL AT", priceAB: 279200000, priceAA: 290700000, discount: 26000000 },
+      { name: "ALL NEW ERTIGA GL MT", priceAB: 268500000, priceAA: 279000000, discount: 26000000 },
+      { name: "ALL NEW ERTIGA GL AT", priceAB: 279500000, priceAA: 290700000, discount: 26000000 },
       { name: "ALL NEW ERTIGA HYBRID GX MT", priceAB: 283250000, priceAA: 293200000, discount: 26000000 },
       { name: "ALL NEW ERTIGA HYBRID GX AT", priceAB: 294400000, priceAA: 304800000, discount: 26000000 }
     ],
@@ -397,10 +397,10 @@ export const cars: Car[] = [
     startingPrice: "Rp 186.000.000",
     startingPriceNum: 186000000,
     startingPriceAB: 186000000,
-    startingPriceAA: 192000000,
+    startingPriceAA: 193500000, // <-- UPDATE AA
     maxDiscount: 3000000,
     variants: [
-      { name: "APV BLIND VAN", priceAB: 186000000, priceAA: 192000000, discount: 3000000 },
+      { name: "APV BLIND VAN", priceAB: 186000000, priceAA: 193500000, discount: 3000000 }, // <-- UPDATE AA
       { name: "APV GE MT", priceAB: 227500000, priceAA: 236500000, discount: 3000000 },
       { name: "APV GL MT", priceAB: 235500000, priceAA: 245000000, discount: 3000000 },
       { name: "APV GX MT", priceAB: 249500000, priceAA: 259000000, discount: 3000000 },
