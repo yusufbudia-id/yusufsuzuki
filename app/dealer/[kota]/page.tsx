@@ -25,28 +25,30 @@ export async function generateMetadata({ params }: AreaPageProps): Promise<Metad
   // Pastikan huruf kecil semua agar rapi di mata Google
   const cityName = area.name.toLowerCase();
   const dynamicKeywords = [
-    `suzuki ${cityName}`,
-    `dealer suzuki ${cityName}`,
-    `promo suzuki ${cityName}`,
-    `harga suzuki ${cityName}`,
-    `kredit suzuki ${cityName}`,
+    `mobil suzuki ${cityName}`,
+    `dealer mobil suzuki ${cityName}`,
+    `promo mobil suzuki ${cityName}`,
+    `harga mobil suzuki ${cityName}`,
+    `kredit mobil suzuki ${cityName}`,
     `harga fronx ${cityName}`,
     `promo xl7 ${cityName}`,
     `kredit carry pick up ${cityName}`,
     `harga ertiga ${cityName}`,
-    `showroom suzuki ${cityName}`,
-    `sales suzuki ${cityName}`
+    `showroom mobil suzuki ${cityName}`,
+    `sales mobil suzuki ${cityName}`
   ];
 
   return {
-    title: `Dealer Resmi Suzuki ${area.name} | Promo & Harga Terbaru`,
+    // ---> UPDATE SEO: PENAMBAHAN KATA "MOBIL" <---
+    title: `Dealer Resmi Mobil Suzuki ${area.name} | Promo & Harga Terbaru`,
     description: area.description,
-    keywords: dynamicKeywords, // <--- Menanamkan 11 kata kunci dinamis
+    keywords: dynamicKeywords, // <--- Menanamkan 11 kata kunci dinamis yang lebih tertarget
     alternates: {
       canonical: `/dealer/${area.slug}`,
     },
     openGraph: {
-      title: `Dealer Resmi Suzuki ${area.name} | Promo & Harga Terbaru`,
+      // ---> UPDATE SEO: PENAMBAHAN KATA "MOBIL" <---
+      title: `Dealer Resmi Mobil Suzuki ${area.name} | Promo & Harga Terbaru`,
       description: area.description,
       url: `https://suzukiautojogja.com/dealer/${area.slug}`,
       siteName: 'Suzuki Auto Jogja',
@@ -55,7 +57,7 @@ export async function generateMetadata({ params }: AreaPageProps): Promise<Metad
           url: '/hero/banner-1.jpg', 
           width: 1200,
           height: 630,
-          alt: `Promo Suzuki XL7 di ${area.name}`,
+          alt: `Promo Mobil Suzuki XL7 di ${area.name}`,
         },
       ],
       locale: 'id_ID',
