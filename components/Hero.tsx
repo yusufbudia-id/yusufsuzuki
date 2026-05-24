@@ -256,7 +256,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             >
               {cityName
                 ? `Dealer Resmi Mobil Suzuki ${cityName}`
-                : "Dealer Suzuki Jogja Resmi Terpercaya"}
+                : "Dealer Resmi Mobil Suzuki Jogja"}
             </motion.h1>
 
             <motion.h2
