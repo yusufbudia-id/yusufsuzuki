@@ -11,7 +11,6 @@ import {
   BatteryCharging,
   Cpu,
   Wrench,
-  ShieldCheck,
   TrendingUp,
   ChevronDown,
   ChevronLeft,
@@ -123,7 +122,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
         style={{ clipPath: "polygon(8% 0, 92% 0, 100% 8%, 100% 100%, 0 100%, 0 10%)" }}
       />
 
-      {/* RIGHT VISUAL AREA - PHOTO PLACEHOLDER / CAR AREA */}
+      {/* RIGHT VISUAL AREA - DESKTOP */}
       <div className="absolute inset-y-0 right-0 z-10 hidden w-[58%] lg:block">
         <div className="absolute inset-0 bg-gradient-to-l from-black/30 via-transparent to-[#050505]" />
 
@@ -142,7 +141,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
               transition={{ duration: 0.8, ease: "easeInOut" }}
               className="absolute inset-0"
             >
-              {/* Abaikan dulu foto mobilnya: image tetap disiapkan, tapi diblur/digelapkan sebagai placeholder visual */}
               <Image
                 src={banners[currentIndex]}
                 alt={`Suzuki Hero ${cityName ? cityName : "Jogja"}`}
@@ -159,7 +157,9 @@ export default function Hero({ cityName }: { cityName?: string }) {
           <div className="absolute bottom-8 left-8 right-8 h-px bg-gradient-to-r from-red-600/70 via-white/20 to-transparent" />
           <div className="absolute left-8 top-8 flex items-center gap-2">
             <span className="h-2 w-2 bg-red-600" />
-            <span className="text-[10px] font-black uppercase tracking-[0.28em] text-white/70">Suzuki Visual Area</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.28em] text-white/70">
+              Suzuki Visual Area
+            </span>
           </div>
         </div>
 
@@ -181,99 +181,19 @@ export default function Hero({ cityName }: { cityName?: string }) {
           className="absolute right-12 top-[18%] z-20 border border-red-600/35 bg-black/70 px-10 py-8 backdrop-blur-md"
           style={{ clipPath: "polygon(10% 0, 90% 0, 100% 14%, 100% 100%, 0 100%, 0 14%)" }}
         >
-          <p className="text-2xl font-black uppercase tracking-widest text-red-600">Suzuki</p>
-          <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.22em] text-white/55">Built for more</p>
+          <p className="text-2xl font-black uppercase tracking-widest text-red-600">
+            Suzuki
+          </p>
+          <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.22em] text-white/55">
+            Built for more
+          </p>
         </div>
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="relative z-20 flex min-h-[calc(100vh-80px)] w-full items-center">
-        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
-          {/* LEFT CONTENT - TEXT DIPERTAHANKAN */}
-          <div className="order-first lg:order-none lg:col-span-6">
-            <motion.div
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="mb-6 inline-flex items-center gap-3 border-l-2 border-red-600 bg-black/50 px-4 py-2 backdrop-blur-md"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping bg-red-500 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.9)]" />
-              </span>
-              <span className="text-[10px] font-black uppercase tracking-[0.26em] text-white/75">
-                Layanan Penjualan Terpercaya
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="max-w-3xl text-[2.65rem] font-black uppercase leading-[1.03] tracking-[-0.04em] text-white sm:text-[3.3rem] lg:text-[4.05rem] xl:text-[4.25rem]"
-              style={{ fontFamily: '\"Bank Gothic\", \"BankGothic Md BT\", \"Arial Narrow\", sans-serif' }}
-            >
-              {cityName
-                ? `Dealer Resmi Mobil Suzuki ${cityName}`
-                : "Dealer Suzuki Jogja Resmi Terpercaya"}
-            </motion.h1>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.16 }}
-              className="mt-5 flex flex-wrap items-center gap-3 text-xs font-black uppercase tracking-[0.18em] text-red-500 sm:text-sm"
-            >
-              Pusat Promo & Harga Terbaru
-              <span className="inline-block h-1.5 w-1.5 rotate-45 bg-white/35" />
-              Proses Kredit Mudah
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.22 }}
-              className="mt-6 max-w-xl text-sm font-medium leading-8 text-gray-400 sm:text-base"
-            >
-              Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan mobil impian dengan penawaran harga paling kompetitif di wilayah {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon eksklusif bulanan, serta layanan purna jual yang terjamin kualitasnya bersama <strong className="text-white">Yusuf Suzuki</strong>.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.32 }}
-              className="mt-10 flex w-full flex-col items-start gap-4 sm:flex-row sm:items-center"
-            >
-              <a
-                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMessage)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex w-full items-center justify-center gap-3 border border-red-500 bg-red-600 px-8 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_40px_rgba(220,38,38,0.25)] transition-all hover:-translate-y-0.5 hover:bg-red-700 sm:w-auto"
-              >
-                <MessageCircle size={16} />
-                Chat Sekarang
-                <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
-              </a>
-
-              <Link
-                href="/test-drive"
-                className="group inline-flex w-full items-center justify-center gap-3 border border-white/20 bg-black/45 px-8 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-red-500 sm:w-auto"
-              >
-                <CalendarCheck size={16} />
-                Test Drive
-                <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-
-              <Link
-                href="/mobil"
-                className="group inline-flex w-full items-center justify-center gap-2 px-2 py-4 text-[10px] font-black uppercase tracking-[0.14em] text-gray-400 transition-colors hover:text-white sm:w-auto"
-              >
-                Lihat Katalog
-                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-            </motion.div>
-          </div>
-
-          {/* RIGHT EMPTY SPACE ON DESKTOP, MOBILE VISUAL CARD */}
+      <div className="relative z-20 flex min-h-[calc(100vh-80px)] w-full items-center lg:pb-36">
+        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
+          {/* MOBILE VISUAL CARD - POSISI PALING ATAS DI HP */}
           <div className="order-first lg:order-none lg:col-span-6">
             <div className="relative mb-8 h-[300px] overflow-hidden border border-white/10 bg-black/50 shadow-2xl lg:hidden">
               <AnimatePresence initial={false} custom={direction}>
@@ -297,33 +217,143 @@ export default function Hero({ cityName }: { cityName?: string }) {
                   />
                 </motion.div>
               </AnimatePresence>
+
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
               <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between border-t border-red-600/40 pt-4">
-                <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/70">Suzuki Visual</span>
-                <span className="text-xs font-black text-red-500">0{currentIndex + 1} / 03</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/70">
+                  Suzuki Visual
+                </span>
+                <span className="text-xs font-black text-red-500">
+                  0{currentIndex + 1} / 03
+                </span>
               </div>
             </div>
+          </div>
+
+          {/* LEFT CONTENT */}
+          <div className="lg:col-span-6 lg:-translate-y-10 xl:-translate-y-14">
+            <motion.div
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="mb-6 inline-flex items-center gap-3 border-l-2 border-red-600 bg-black/50 px-4 py-2 backdrop-blur-md"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping bg-red-500 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.9)]" />
+              </span>
+              <span className="text-[10px] font-black uppercase tracking-[0.26em] text-white/75">
+                Layanan Penjualan Terpercaya
+              </span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="max-w-3xl text-[2.65rem] font-black uppercase leading-[1.03] tracking-[-0.04em] text-white sm:text-[3.3rem] lg:text-[4.05rem] xl:text-[4.25rem]"
+              style={{
+                fontFamily:
+                  '"Bank Gothic", "BankGothic Md BT", "Arial Narrow", sans-serif',
+              }}
+            >
+              {cityName
+                ? `Dealer Resmi Mobil Suzuki ${cityName}`
+                : "Dealer Suzuki Jogja Resmi Terpercaya"}
+            </motion.h1>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.16 }}
+              className="mt-5 flex flex-wrap items-center gap-3 text-xs font-black uppercase tracking-[0.18em] text-red-500 sm:text-sm"
+            >
+              Pusat Promo & Harga Terbaru
+              <span className="inline-block h-1.5 w-1.5 rotate-45 bg-white/35" />
+              Proses Kredit Mudah
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.22 }}
+              className="mt-6 max-w-xl text-sm font-medium leading-8 text-gray-400 sm:text-base"
+            >
+              Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan
+              mobil impian dengan penawaran harga paling kompetitif di wilayah{" "}
+              {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon
+              eksklusif bulanan, serta layanan purna jual yang terjamin kualitasnya
+              bersama <strong className="text-white">Yusuf Suzuki</strong>.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.32 }}
+              className="mt-10 flex w-full flex-col items-start gap-4 sm:flex-row sm:items-center"
+            >
+              <a
+                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMessage)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex w-full items-center justify-center gap-3 border border-red-500 bg-red-600 px-8 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_40px_rgba(220,38,38,0.25)] transition-all hover:-translate-y-0.5 hover:bg-red-700 sm:w-auto"
+              >
+                <MessageCircle size={16} />
+                Chat Sekarang
+                <ArrowRight
+                  size={15}
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </a>
+
+              <Link
+                href="/test-drive"
+                className="group inline-flex w-full items-center justify-center gap-3 border border-white/20 bg-black/45 px-8 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-red-500 sm:w-auto"
+              >
+                <CalendarCheck size={16} />
+                Test Drive
+                <ArrowRight
+                  size={15}
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </Link>
+
+              <Link
+                href="/mobil"
+                className="group inline-flex w-full items-center justify-center gap-2 px-2 py-4 text-[10px] font-black uppercase tracking-[0.14em] text-gray-400 transition-colors hover:text-white sm:w-auto"
+              >
+                Lihat Katalog
+                <ArrowRight
+                  size={14}
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </Link>
+            </motion.div>
           </div>
         </div>
       </div>
 
       {/* BOTTOM BADGES */}
-      <div className="relative z-30 mx-auto -mt-10 w-full max-w-7xl px-4 pb-24 sm:px-6 lg:absolute lg:bottom-16 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:px-8 lg:pb-0">
+      <div className="relative z-30 mx-auto mt-10 w-full max-w-7xl px-4 pb-24 sm:px-6 lg:absolute lg:bottom-8 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:px-8 lg:pb-0">
         <div className="grid grid-cols-2 gap-3 lg:max-w-3xl lg:grid-cols-4">
           {trustBadges.map((badge, idx) => (
             <button
               key={badge.id}
               type="button"
-              onClick={() => setActiveMobileBadge(activeMobileBadge === idx ? null : idx)}
+              onClick={() =>
+                setActiveMobileBadge(activeMobileBadge === idx ? null : idx)
+              }
               className="group relative min-h-[132px] overflow-hidden border border-white/10 bg-black/60 p-4 text-left backdrop-blur-md transition-all hover:-translate-y-1 hover:border-red-600/70 hover:bg-black/80"
             >
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-red-600/80 via-white/20 to-transparent opacity-70" />
+
               <div className="mb-4 inline-flex border border-white/10 bg-[#0b0d10] p-2.5 transition-colors group-hover:border-red-600/50">
                 <badge.icon size={20} className="text-red-500" strokeWidth={2.2} />
               </div>
+
               <h3 className="text-[10px] font-black uppercase leading-4 tracking-[0.12em] text-white transition-colors group-hover:text-red-500">
                 {badge.title}
               </h3>
+
               <p className="mt-2 text-[9px] font-bold uppercase leading-4 tracking-[0.08em] text-gray-500">
                 {badge.desc}
               </p>
@@ -335,14 +365,22 @@ export default function Hero({ cityName }: { cityName?: string }) {
       {/* SLIDER CONTROL */}
       <div className="absolute bottom-6 right-4 z-40 flex items-center gap-4 sm:right-8">
         <div className="hidden items-center gap-3 sm:flex">
-          <span className="text-xs font-black uppercase tracking-[0.22em] text-red-500">0{currentIndex + 1}</span>
+          <span className="text-xs font-black uppercase tracking-[0.22em] text-red-500">
+            0{currentIndex + 1}
+          </span>
+
           <div className="h-px w-28 bg-white/15">
             <div
               className="h-px bg-red-600 transition-all duration-500"
-              style={{ width: `${((currentIndex + 1) / banners.length) * 100}%` }}
+              style={{
+                width: `${((currentIndex + 1) / banners.length) * 100}%`,
+              }}
             />
           </div>
-          <span className="text-xs font-black uppercase tracking-[0.22em] text-white/45">03</span>
+
+          <span className="text-xs font-black uppercase tracking-[0.22em] text-white/45">
+            03
+          </span>
         </div>
 
         <button
@@ -353,6 +391,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
         >
           <ChevronLeft size={18} />
         </button>
+
         <button
           type="button"
           onClick={() => paginate(1)}
@@ -365,7 +404,10 @@ export default function Hero({ cityName }: { cityName?: string }) {
 
       {/* SCROLL HINT */}
       <div className="absolute bottom-6 left-4 z-40 hidden items-center gap-3 md:flex lg:left-8">
-        <span className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-500">Discover More</span>
+        <span className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-500">
+          Discover More
+        </span>
+
         <div className="grid h-7 w-7 place-items-center border border-white/15 bg-black/60">
           <ChevronDown className="animate-bounce text-red-500" size={14} strokeWidth={3} />
         </div>
