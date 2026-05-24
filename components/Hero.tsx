@@ -190,7 +190,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
         <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
           
           {/* --- BAGIAN GAMBAR (MOBILE ONLY) - SEKARANG DI ATAS --- */}
-          <div className="lg:col-span-6 lg:hidden order-1"> {/* order-1 memaksa ini tampil pertama di HP */}
+          <div className="lg:col-span-6 lg:hidden order-1">
             <div className="relative h-[280px] overflow-hidden border border-white/10 bg-black/50 shadow-2xl">
               <AnimatePresence initial={false} custom={direction}>
                 <motion.div
@@ -222,7 +222,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
           </div>
 
           {/* --- BAGIAN TEKS (MOBILE DI BAWAH GAMBAR) --- */}
-          <div className="lg:col-span-6 order-2"> {/* order-2 tampil setelah gambar di HP */}
+          <div className="lg:col-span-6 order-2">
             <motion.div
               initial={{ opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
@@ -237,11 +237,11 @@ export default function Hero({ cityName }: { cityName?: string }) {
               </span>
             </motion.div>
 
+            {/* PENYESUAIAN FONT & UKURAN H1 */}
             <motion.h1
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              {/* PENYESUAIAN FONT & UKURAN H1 DI SINI */}
               className="max-w-3xl text-3xl font-bank-gothic uppercase leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[3.8rem]"
             >
               {cityName
