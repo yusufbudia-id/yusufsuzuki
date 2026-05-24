@@ -193,9 +193,10 @@ export default function Hero({ cityName }: { cityName?: string }) {
       {/* MAIN CONTENT */}
       <div className="relative z-20 flex min-h-[calc(100vh-80px)] w-full items-center lg:pb-36">
         <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
-          {/* MOBILE VISUAL CARD - POSISI PALING ATAS DI HP */}
-          <div className="order-first lg:order-none lg:col-span-6">
-            <div className="relative mb-8 h-[300px] overflow-hidden border border-white/10 bg-black/50 shadow-2xl lg:hidden">
+          
+          {/* MOBILE VISUAL CARD - HANYA MUNCUL DI HP */}
+          <div className="order-first lg:hidden">
+            <div className="relative mb-8 h-[300px] overflow-hidden border border-white/10 bg-black/50 shadow-2xl">
               <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                   key={currentIndex}
@@ -219,6 +220,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
               </AnimatePresence>
 
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
+
               <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between border-t border-red-600/40 pt-4">
                 <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/70">
                   Suzuki Visual
@@ -230,7 +232,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             </div>
           </div>
 
-          {/* LEFT CONTENT */}
+          {/* LEFT CONTENT - DESKTOP TETAP DI KIRI */}
           <div className="lg:col-span-6 lg:-translate-y-10 xl:-translate-y-14">
             <motion.div
               initial={{ opacity: 0, x: -12 }}
@@ -280,9 +282,9 @@ export default function Hero({ cityName }: { cityName?: string }) {
             >
               Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan
               mobil impian dengan penawaran harga paling kompetitif di wilayah{" "}
-              {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon
-              eksklusif bulanan, serta layanan purna jual yang terjamin kualitasnya
-              bersama <strong className="text-white">Yusuf Suzuki</strong>.
+              {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon eksklusif
+              bulanan, serta layanan purna jual yang terjamin kualitasnya bersama{" "}
+              <strong className="text-white">Yusuf Suzuki</strong>.
             </motion.p>
 
             <motion.div
@@ -331,6 +333,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
           </div>
         </div>
       </div>
+
 
       {/* BOTTOM BADGES */}
       <div className="relative z-30 mx-auto mt-10 w-full max-w-7xl px-4 pb-24 sm:px-6 lg:absolute lg:bottom-8 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:px-8 lg:pb-0">
