@@ -194,7 +194,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
       <div className="relative z-20 flex min-h-[calc(100vh-80px)] w-full items-center lg:pb-36">
         <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
           
-          {/* MOBILE VISUAL CARD - HANYA MUNCUL DI HP */}
+          {/* MOBILE VISUAL CARD */}
           <div className="order-first lg:hidden">
             <div className="relative mb-8 h-[300px] overflow-hidden border border-white/10 bg-black/50 shadow-2xl">
               <AnimatePresence initial={false} custom={direction}>
@@ -232,7 +232,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
             </div>
           </div>
 
-          {/* LEFT CONTENT - DESKTOP TETAP DI KIRI */}
+          {/* LEFT CONTENT */}
           <div className="lg:col-span-6 lg:-translate-y-10 xl:-translate-y-14">
             <motion.div
               initial={{ opacity: 0, x: -12 }}
@@ -253,10 +253,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="max-w-3xl text-[2.65rem] font-black uppercase leading-[1.03] tracking-[-0.04em] text-white sm:text-[3.3rem] lg:text-[4.05rem] xl:text-[4.25rem]"
-              style={{
-                fontFamily:
-                  '"Bank Gothic", "BankGothic Md BT", "Arial Narrow", sans-serif',
-              }}
             >
               {cityName
                 ? `Dealer Resmi Mobil Suzuki ${cityName}`
@@ -333,7 +329,6 @@ export default function Hero({ cityName }: { cityName?: string }) {
           </div>
         </div>
       </div>
-
 
       {/* BOTTOM BADGES */}
       <div className="relative z-30 mx-auto mt-10 w-full max-w-7xl px-4 pb-24 sm:px-6 lg:absolute lg:bottom-8 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:px-8 lg:pb-0">
