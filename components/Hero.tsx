@@ -19,9 +19,9 @@ import {
 import { WA_BASE_URL } from "@/lib/utils";
 
 const banners = [
-  "/hero/banner-1.jpg",
-  "/hero/banner-2.jpg",
-  "/hero/banner-3.jpg",
+  "/mobil/jimny-1.jpg",
+  "/mobil/xl7-1.jpg",
+  "/mobil/fronx-1.jpg",
 ];
 
 const trustBadges = [
