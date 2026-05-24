@@ -19,9 +19,9 @@ import { WA_BASE_URL } from "@/lib/utils";
 
 // --- GAMBAR BANNER ---
 const banners = [
-  "/hero/banner-1.jpg",
-  "/hero/banner-2.jpg",
-  "/hero/banner-3.jpg",
+  "/mobil/fronx-1.jpg",
+  "/mobil/jimny-1.jpg",
+  "/mobil/xl7-1.jpg",
 ];
 
 // --- STAT CARDS BAWAH (Mirip design referensi) ---
