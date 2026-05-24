@@ -4,25 +4,24 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  MessageCircle,
-  CalendarCheck,
-  ArrowRight,
-  BatteryCharging,
-  Cpu,
+import { 
+  MessageCircle, 
+  CalendarCheck, 
+  ArrowRight, 
+  BatteryCharging, 
+  Cpu, 
   Wrench,
   ShieldCheck,
   TrendingUp,
   ChevronDown,
-  ChevronLeft,
-  ChevronRight,
+  ChevronRight
 } from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
 
 const banners = [
-  "/hero/banner-1.jpg",
-  "/hero/banner-2.jpg",
-  "/hero/banner-3.jpg",
+  "/hero/banner-1.jpg", 
+  "/hero/banner-2.jpg", 
+  "/hero/banner-3.jpg", 
 ];
 
 const trustBadges = [
@@ -49,42 +48,38 @@ const trustBadges = [
     title: "Gratis Servis Berkala",
     desc: "Jasa & Suku Cadang s/d 50.000 KM",
     icon: Wrench,
-  },
+  }
 ];
 
 const sliderVariants = {
   enter: (direction: number) => ({
     x: direction > 0 ? "100%" : "-100%",
     opacity: 0,
-    scale: 1.02,
   }),
   center: {
     zIndex: 1,
     x: 0,
     opacity: 1,
-    scale: 1,
   },
   exit: (direction: number) => ({
     zIndex: 0,
     x: direction < 0 ? "100%" : "-100%",
     opacity: 0,
-    scale: 0.98,
-  }),
+  })
 };
 
 export default function Hero({ cityName }: { cityName?: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [activeMobileBadge, setActiveMobileBadge] = useState<number | null>(null);
 
-  const waMessage = cityName
+  const waMessage = cityName 
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
     : `Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.`;
 
   const paginate = (newDirection: number) => {
     setDirection(newDirection);
     setCurrentIndex((prevIndex) => {
-      const nextIndex = prevIndex + newDirection;
+      let nextIndex = prevIndex + newDirection;
       if (nextIndex >= banners.length) return 0;
       if (nextIndex < 0) return banners.length - 1;
       return nextIndex;
@@ -95,280 +90,215 @@ export default function Hero({ cityName }: { cityName?: string }) {
     const timer = setInterval(() => {
       paginate(1);
     }, 6000);
-
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#050505] pt-16 md:pt-20 font-manrope text-white">
-      {/* DARK PREMIUM BACKGROUND */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_35%,rgba(220,38,38,0.16),transparent_28%),radial-gradient(circle_at_22%_28%,rgba(255,255,255,0.06),transparent_26%),linear-gradient(135deg,#050505_0%,#0a0c0f_45%,#020202_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:48px_48px] opacity-50" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[length:18px_18px] opacity-[0.08]" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/85 to-[#050505]/40" />
-
-      {/* THIN TECHNICAL LINES */}
-      <div className="pointer-events-none absolute left-6 top-8 z-10 hidden h-[calc(100%-96px)] w-px bg-red-600/50 md:block" />
-      <div className="pointer-events-none absolute left-6 top-8 z-10 hidden w-24 border-t border-red-600/50 md:block" />
-      <div className="pointer-events-none absolute right-12 top-28 z-10 hidden h-px w-72 bg-gradient-to-r from-transparent via-red-600/40 to-transparent lg:block" />
-      <div className="pointer-events-none absolute bottom-16 left-10 z-10 hidden h-px w-[48%] bg-gradient-to-r from-red-600/45 via-white/10 to-transparent lg:block" />
-
-      {/* ANGULAR LARGE FRAMES */}
-      <div
-        className="pointer-events-none absolute left-4 top-28 z-10 hidden h-[590px] w-[58%] border border-white/10 lg:block"
-        style={{ clipPath: "polygon(4% 0, 100% 0, 96% 100%, 0 100%, 0 8%)" }}
-      />
-      <div
-        className="pointer-events-none absolute right-8 top-36 z-10 hidden h-[520px] w-[50%] border border-red-600/25 bg-black/20 lg:block"
-        style={{ clipPath: "polygon(8% 0, 92% 0, 100% 8%, 100% 100%, 0 100%, 0 10%)" }}
-      />
-
-      {/* RIGHT VISUAL AREA - PHOTO PLACEHOLDER / CAR AREA */}
-      <div className="absolute inset-y-0 right-0 z-10 hidden w-[58%] lg:block">
-        <div className="absolute inset-0 bg-gradient-to-l from-black/30 via-transparent to-[#050505]" />
-
-        <div
-          className="absolute right-10 top-[18%] h-[48%] w-[72%] overflow-hidden border border-white/10 bg-[#0c0f12]/80 shadow-2xl"
-          style={{ clipPath: "polygon(7% 0, 93% 0, 100% 10%, 100% 100%, 0 100%, 0 11%)" }}
-        >
-          <AnimatePresence initial={false} custom={direction}>
-            <motion.div
-              key={currentIndex}
-              custom={direction}
-              variants={sliderVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="absolute inset-0"
-            >
-              {/* Abaikan dulu foto mobilnya: image tetap disiapkan, tapi diblur/digelapkan sebagai placeholder visual */}
-              <Image
-                src={banners[currentIndex]}
-                alt={`Suzuki Hero ${cityName ? cityName : "Jogja"}`}
-                fill
-                priority
-                quality={80}
-                className="object-cover opacity-25 grayscale contrast-125"
-              />
-            </motion.div>
-          </AnimatePresence>
-
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-black/40" />
-          <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent_0%,transparent_42%,rgba(220,38,38,0.16)_43%,transparent_46%)]" />
-          <div className="absolute bottom-8 left-8 right-8 h-px bg-gradient-to-r from-red-600/70 via-white/20 to-transparent" />
-          <div className="absolute left-8 top-8 flex items-center gap-2">
-            <span className="h-2 w-2 bg-red-600" />
-            <span className="text-[10px] font-black uppercase tracking-[0.28em] text-white/70">Suzuki Visual Area</span>
-          </div>
-        </div>
-
-        {/* Front car silhouette placeholder */}
-        <div className="absolute bottom-[15%] right-[5%] h-[30%] w-[74%]">
-          <div className="absolute bottom-0 left-0 right-0 h-28 bg-red-600/10 blur-3xl" />
-          <div
-            className="absolute bottom-8 left-4 h-28 w-[82%] border border-red-600/40 bg-gradient-to-r from-red-700/35 via-red-500/20 to-black/30 shadow-[0_0_60px_rgba(220,38,38,0.18)]"
-            style={{ clipPath: "polygon(7% 22%, 22% 0, 76% 0, 94% 28%, 100% 64%, 96% 100%, 5% 100%, 0 62%)" }}
-          />
-          <div className="absolute bottom-5 left-[14%] h-20 w-20 rounded-full border-[10px] border-white/15 bg-black" />
-          <div className="absolute bottom-5 right-[18%] h-20 w-20 rounded-full border-[10px] border-white/15 bg-black" />
-          <div className="absolute bottom-[72px] left-[18%] h-px w-[62%] bg-white/25" />
-          <div className="absolute bottom-[96px] left-[35%] h-16 w-[24%] border border-white/15 bg-black/40" />
-        </div>
-
-        {/* Suzuki mini brand card */}
-        <div
-          className="absolute right-12 top-[18%] z-20 border border-red-600/35 bg-black/70 px-10 py-8 backdrop-blur-md"
-          style={{ clipPath: "polygon(10% 0, 90% 0, 100% 14%, 100% 100%, 0 100%, 0 14%)" }}
-        >
-          <p className="text-2xl font-black uppercase tracking-widest text-red-600">Suzuki</p>
-          <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.22em] text-white/55">Built for more</p>
-        </div>
+    <section className="relative h-screen min-h-[750px] w-full flex flex-col justify-center bg-black overflow-hidden font-manrope">
+      
+      {/* ========================================================= */}
+      {/* 1. BACKGROUND SLIDER (FULLSCREEN CINEMATIC)               */}
+      {/* ========================================================= */}
+      <div className="absolute inset-0 z-0">
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.div
+            key={currentIndex}
+            custom={direction}
+            variants={sliderVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={1}
+            onDragEnd={(e, { offset }) => {
+              const swipeThreshold = 50;
+              if (offset.x < -swipeThreshold) {
+                paginate(1);
+              } else if (offset.x > swipeThreshold) {
+                paginate(-1);
+              }
+            }}
+            className="absolute inset-0 cursor-grab active:cursor-grabbing"
+          >
+            <Image
+              src={banners[currentIndex]}
+              alt={`Suzuki Premium Hero ${cityName ? cityName : "Jogja"}`}
+              fill
+              priority
+              quality={100}
+              className="object-cover object-center md:object-right pointer-events-none"
+            />
+          </motion.div>
+        </AnimatePresence>
       </div>
 
-      {/* MAIN CONTENT */}
-      <div className="relative z-20 flex min-h-[calc(100vh-80px)] w-full items-center">
-        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
-          {/* LEFT CONTENT - TEXT DIPERTAHANKAN */}
-          <div className="lg:col-span-6">
+      {/* GRADIENT OVERLAY (Gelap Kiri, Memudar ke Kanan) */}
+      <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-black/60 to-transparent md:bg-gradient-to-r md:from-black/90 md:via-black/50 md:to-transparent pointer-events-none" />
+      
+      {/* ========================================================= */}
+      {/* 2. KONTEN UTAMA (LAYOUT SEPERTI REFERENSI)                */}
+      {/* ========================================================= */}
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col pt-24 pb-16">
+        
+        <div className="flex-1 flex flex-col lg:flex-row items-end lg:items-center justify-between gap-8 h-full">
+          
+          {/* --- KOLOM KIRI (Headline & Tombol) --- */}
+          <div className="w-full lg:w-[60%] flex flex-col items-start text-left pt-10 lg:pt-0">
+            
+            {/* Tag / Label Minimalis */}
             <motion.div
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="mb-6 inline-flex items-center gap-3 border-l-2 border-red-600 bg-black/50 px-4 py-2 backdrop-blur-md"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 border border-white/30 px-3 py-1 bg-white/5 backdrop-blur-sm mb-6"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping bg-red-500 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.9)]" />
-              </span>
-              <span className="text-[10px] font-black uppercase tracking-[0.26em] text-white/75">
+              <div className="w-1.5 h-1.5 bg-red-600 rounded-full animate-pulse" />
+              <span className="tracking-[0.2em] uppercase text-[10px] font-bold text-white">
                 Layanan Penjualan Terpercaya
               </span>
             </motion.div>
 
+            {/* Headline Asli */}
             <motion.h1
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="max-w-3xl text-4xl font-black uppercase leading-[1.02] tracking-[-0.06em] text-white sm:text-5xl lg:text-[4.6rem]"
+              className="text-4xl sm:text-5xl lg:text-[4rem] font-black text-white leading-[1.05] mb-5 tracking-tighter uppercase"
             >
-              {cityName
-                ? `Dealer Resmi Mobil Suzuki ${cityName}`
+              {cityName 
+                ? `Dealer Resmi Mobil Suzuki ${cityName}` 
                 : "Dealer Suzuki Jogja Resmi Terpercaya"}
             </motion.h1>
 
             <motion.h2
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.16 }}
-              className="mt-5 flex flex-wrap items-center gap-3 text-xs font-black uppercase tracking-[0.18em] text-red-500 sm:text-sm"
+              transition={{ delay: 0.15 }}
+              className="text-sm sm:text-base font-bold text-gray-300 mb-6 tracking-[0.1em] uppercase"
             >
-              Pusat Promo & Harga Terbaru
-              <span className="inline-block h-1.5 w-1.5 rotate-45 bg-white/35" />
-              Proses Kredit Mudah
+              Pusat Promo & Harga Terbaru <span className="text-red-600 mx-2">•</span> Proses Kredit Mudah
             </motion.h2>
 
             <motion.p
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.22 }}
-              className="mt-6 max-w-xl text-sm font-medium leading-8 text-gray-400 sm:text-base"
+              transition={{ delay: 0.2 }}
+              className="text-gray-400 font-medium text-sm sm:text-base max-w-lg leading-relaxed mb-10"
             >
               Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan mobil impian dengan penawaran harga paling kompetitif di wilayah {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon eksklusif bulanan, serta layanan purna jual yang terjamin kualitasnya bersama <strong className="text-white">Yusuf Suzuki</strong>.
             </motion.p>
 
+            {/* Tombol Aksi */}
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.32 }}
-              className="mt-10 flex w-full flex-col items-start gap-4 sm:flex-row sm:items-center"
+              transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto"
             >
               <a
                 href={`${WA_BASE_URL}?text=${encodeURIComponent(waMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex w-full items-center justify-center gap-3 border border-red-500 bg-red-600 px-8 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_40px_rgba(220,38,38,0.25)] transition-all hover:-translate-y-0.5 hover:bg-red-700 sm:w-auto"
+                className="bg-red-600 text-white hover:bg-red-700 font-bold py-4 px-8 transition-colors uppercase tracking-[0.15em] text-[11px] inline-flex items-center justify-center gap-3 w-full sm:w-auto rounded-none"
               >
-                <MessageCircle size={16} />
                 Chat Sekarang
-                <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
+                <ChevronRight size={16} strokeWidth={3} />
               </a>
 
-              <Link
-                href="/test-drive"
-                className="group inline-flex w-full items-center justify-center gap-3 border border-white/20 bg-black/45 px-8 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-red-500 sm:w-auto"
+              <Link 
+                href="/test-drive" 
+                className="bg-transparent text-white border border-white hover:bg-white/10 font-bold py-4 px-8 transition-all uppercase tracking-[0.15em] text-[11px] inline-flex items-center justify-center gap-3 w-full sm:w-auto rounded-none"
               >
                 <CalendarCheck size={16} />
                 Test Drive
-                <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-
-              <Link
-                href="/mobil"
-                className="group inline-flex w-full items-center justify-center gap-2 px-2 py-4 text-[10px] font-black uppercase tracking-[0.14em] text-gray-400 transition-colors hover:text-white sm:w-auto"
-              >
-                Lihat Katalog
-                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
           </div>
 
-          {/* RIGHT EMPTY SPACE ON DESKTOP, MOBILE VISUAL CARD */}
-          <div className="lg:col-span-6">
-            <div className="relative h-[320px] overflow-hidden border border-white/10 bg-black/50 lg:hidden">
-              <AnimatePresence initial={false} custom={direction}>
-                <motion.div
-                  key={currentIndex}
-                  custom={direction}
-                  variants={sliderVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                  className="absolute inset-0"
-                >
-                  <Image
-                    src={banners[currentIndex]}
-                    alt={`Suzuki Hero ${cityName ? cityName : "Jogja"}`}
-                    fill
-                    priority
-                    quality={80}
-                    className="object-cover opacity-35 grayscale contrast-125"
-                  />
-                </motion.div>
-              </AnimatePresence>
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between border-t border-red-600/40 pt-4">
-                <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/70">Suzuki Visual</span>
-                <span className="text-xs font-black text-red-500">0{currentIndex + 1} / 03</span>
+          {/* --- KOLOM KANAN BAWAH (PANEL UI KEUNGGULAN) --- */}
+          {/* Mirip dengan kotak panel statistik di sudut kanan referensi */}
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+            className="w-full lg:w-[35%] flex flex-col justify-end mt-10 lg:mt-0"
+          >
+            <div className="bg-[#050505]/60 backdrop-blur-xl border border-white/10 p-6 md:p-8 w-full shadow-2xl relative overflow-hidden">
+              
+              {/* Garis aksen merah tipis di atas panel */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-red-600" />
+
+              <div className="flex items-center justify-between mb-6 border-b border-white/10 pb-4">
+                <h3 className="text-white uppercase tracking-[0.15em] text-xs font-bold">
+                  Keunggulan Resmi
+                </h3>
+                <ShieldCheck className="text-red-500" size={20} />
               </div>
+
+              {/* Grid 2x2 untuk Badges (UI Data Dashboard Style) */}
+              <div className="grid grid-cols-2 gap-x-4 gap-y-6">
+                {trustBadges.map((badge) => (
+                  <div key={badge.id} className="flex flex-col items-start gap-2">
+                    <badge.icon size={20} className="text-red-500" strokeWidth={2} />
+                    <div>
+                      <h4 className="text-white font-bold text-[10px] uppercase tracking-wider leading-tight mb-1">
+                        {badge.title}
+                      </h4>
+                      <p className="text-gray-400 text-[9px] uppercase tracking-widest leading-tight">
+                        {badge.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Link bawah panel */}
+              <div className="mt-6 pt-4 border-t border-white/10">
+                <Link 
+                  href="/mobil" 
+                  className="text-gray-300 hover:text-white font-bold uppercase tracking-[0.1em] text-[10px] flex items-center justify-between w-full group"
+                >
+                  Lihat Katalog Mobil
+                  <ArrowRight size={14} className="text-red-500 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+
             </div>
-          </div>
+          </motion.div>
+
         </div>
       </div>
 
-      {/* BOTTOM BADGES */}
-      <div className="relative z-30 mx-auto -mt-10 w-full max-w-7xl px-4 pb-24 sm:px-6 lg:absolute lg:bottom-16 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:px-8 lg:pb-0">
-        <div className="grid grid-cols-2 gap-3 lg:max-w-3xl lg:grid-cols-4">
-          {trustBadges.map((badge, idx) => (
+      {/* ========================================================= */}
+      {/* 3. NAVIGASI BAWAH / SLIDER CONTROLS                       */}
+      {/* ========================================================= */}
+      <div className="absolute bottom-6 left-0 w-full z-30 flex items-center justify-between px-4 sm:px-8">
+        
+        {/* Indikator Slider (Kiri Bawah) */}
+        <div className="flex gap-2">
+          {banners.map((_, idx) => (
             <button
-              key={badge.id}
-              type="button"
-              onClick={() => setActiveMobileBadge(activeMobileBadge === idx ? null : idx)}
-              className="group relative min-h-[132px] overflow-hidden border border-white/10 bg-black/60 p-4 text-left backdrop-blur-md transition-all hover:-translate-y-1 hover:border-red-600/70 hover:bg-black/80"
-            >
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-red-600/80 via-white/20 to-transparent opacity-70" />
-              <div className="mb-4 inline-flex border border-white/10 bg-[#0b0d10] p-2.5 transition-colors group-hover:border-red-600/50">
-                <badge.icon size={20} className="text-red-500" strokeWidth={2.2} />
-              </div>
-              <h3 className="text-[10px] font-black uppercase leading-4 tracking-[0.12em] text-white transition-colors group-hover:text-red-500">
-                {badge.title}
-              </h3>
-              <p className="mt-2 text-[9px] font-bold uppercase leading-4 tracking-[0.08em] text-gray-500">
-                {badge.desc}
-              </p>
-            </button>
+              key={idx}
+              onClick={() => {
+                setDirection(idx > currentIndex ? 1 : -1);
+                setCurrentIndex(idx);
+              }}
+              className={`h-1 transition-all duration-300 rounded-none ${
+                currentIndex === idx ? "w-8 bg-white" : "w-3 bg-gray-600 hover:bg-gray-400"
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
           ))}
         </div>
-      </div>
 
-      {/* SLIDER CONTROL */}
-      <div className="absolute bottom-6 right-4 z-40 flex items-center gap-4 sm:right-8">
-        <div className="hidden items-center gap-3 sm:flex">
-          <span className="text-xs font-black uppercase tracking-[0.22em] text-red-500">0{currentIndex + 1}</span>
-          <div className="h-px w-28 bg-white/15">
-            <div
-              className="h-px bg-red-600 transition-all duration-500"
-              style={{ width: `${((currentIndex + 1) / banners.length) * 100}%` }}
-            />
-          </div>
-          <span className="text-xs font-black uppercase tracking-[0.22em] text-white/45">03</span>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => paginate(-1)}
-          className="grid h-11 w-11 place-items-center border border-white/15 bg-black/60 text-white backdrop-blur-md transition-colors hover:border-red-600 hover:text-red-500"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft size={18} />
-        </button>
-        <button
-          type="button"
-          onClick={() => paginate(1)}
-          className="grid h-11 w-11 place-items-center border border-white/15 bg-black/60 text-white backdrop-blur-md transition-colors hover:border-red-600 hover:text-red-500"
-          aria-label="Next slide"
-        >
-          <ChevronRight size={18} />
-        </button>
-      </div>
-
-      {/* SCROLL HINT */}
-      <div className="absolute bottom-6 left-4 z-40 hidden items-center gap-3 md:flex lg:left-8">
-        <span className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-500">Discover More</span>
-        <div className="grid h-7 w-7 place-items-center border border-white/15 bg-black/60">
-          <ChevronDown className="animate-bounce text-red-500" size={14} strokeWidth={3} />
+        {/* Scroll Indicator (Tengah Bawah) */}
+        <div className="hidden md:flex flex-col items-center gap-1 absolute left-1/2 -translate-x-1/2">
+          <span className="text-[9px] text-gray-400 uppercase tracking-widest font-bold">Scroll</span>
+          <ChevronDown className="text-gray-400 animate-bounce" size={16} />
         </div>
       </div>
+      
     </section>
   );
 }
