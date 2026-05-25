@@ -15,7 +15,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  CarFront,
+  Car,
 } from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
 
@@ -24,6 +24,8 @@ const banners = [
   "/mobil/xl7-1.jpg",
   "/mobil/fronx-1.jpg",
 ];
+
+const heroCarImage = "/hero/banner-4.png";
 
 const trustBadges = [
   {
@@ -77,16 +79,20 @@ export default function Hero({ cityName }: { cityName?: string }) {
   const [direction, setDirection] = useState(1);
 
   const locationName = cityName || "Jogja";
+
   const waMessage = cityName
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
     : "Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.";
 
   const paginate = (newDirection: number) => {
     setDirection(newDirection);
+
     setCurrentIndex((prevIndex) => {
       const nextIndex = prevIndex + newDirection;
+
       if (nextIndex >= banners.length) return 0;
       if (nextIndex < 0) return banners.length - 1;
+
       return nextIndex;
     });
   };
@@ -101,12 +107,12 @@ export default function Hero({ cityName }: { cityName?: string }) {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#050505] pt-16 font-manrope text-white md:pt-20">
-      {/* Background dibuat lebih clean: dekorasi dikurangi agar fokus ke headline, mobil, dan CTA. */}
+      {/* BACKGROUND */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_34%,rgba(220,38,38,0.13),transparent_30%),radial-gradient(circle_at_18%_24%,rgba(255,255,255,0.055),transparent_24%),linear-gradient(135deg,#050505_0%,#0a0c0f_48%,#020202_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:64px_64px] opacity-35" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/88 to-[#050505]/45" />
 
-      {/* Garis dekoratif dipertahankan sedikit saja supaya tetap premium, tapi tidak ramai. */}
+      {/* SUBTLE TECHNICAL LINES */}
       <div className="pointer-events-none absolute left-6 top-8 z-10 hidden h-[calc(100%-96px)] w-px bg-red-600/35 md:block" />
       <div className="pointer-events-none absolute left-6 top-8 z-10 hidden w-24 border-t border-red-600/35 md:block" />
       <div className="pointer-events-none absolute right-12 top-28 z-10 hidden h-px w-64 bg-gradient-to-r from-transparent via-red-600/30 to-transparent lg:block" />
@@ -115,9 +121,13 @@ export default function Hero({ cityName }: { cityName?: string }) {
       <div className="absolute inset-y-0 right-0 z-10 hidden w-[58%] lg:block">
         <div className="absolute inset-0 bg-gradient-to-l from-black/15 via-transparent to-[#050505]" />
 
+        {/* SLIDER BACKGROUND CARD */}
         <div
-          className="absolute right-10 top-[18%] h-[48%] w-[72%] overflow-hidden border border-white/10 bg-[#0c0f12]/75 shadow-2xl"
-          style={{ clipPath: "polygon(5% 0, 94% 0, 100% 9%, 100% 100%, 0 100%, 0 10%)" }}
+          className="absolute right-10 top-[16%] h-[46%] w-[72%] overflow-hidden border border-white/10 bg-[#0c0f12]/75 shadow-2xl"
+          style={{
+            clipPath:
+              "polygon(5% 0, 94% 0, 100% 9%, 100% 100%, 0 100%, 0 10%)",
+          }}
         >
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
@@ -136,14 +146,16 @@ export default function Hero({ cityName }: { cityName?: string }) {
                 fill
                 priority
                 quality={88}
-                className="object-cover opacity-70 contrast-110 saturate-75"
+                className="object-cover opacity-35 contrast-110 saturate-75"
               />
             </motion.div>
           </AnimatePresence>
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/58 via-black/10 to-black/5" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10" />
           <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent_0%,transparent_44%,rgba(220,38,38,0.12)_45%,transparent_48%)]" />
+
           <div className="absolute bottom-8 left-8 right-8 h-px bg-gradient-to-r from-red-600/60 via-white/25 to-transparent" />
+
           <div className="absolute left-8 top-8 flex items-center gap-2">
             <span className="h-2 w-2 bg-red-600" />
             <span className="text-[10px] font-black uppercase tracking-[0.28em] text-white/75">
@@ -152,20 +164,27 @@ export default function Hero({ cityName }: { cityName?: string }) {
           </div>
         </div>
 
-        {/* Siluet dibuat lebih halus supaya tidak mengganggu trust badges. */}
-        <div className="pointer-events-none absolute bottom-[14%] right-[5%] h-[28%] w-[74%] opacity-60">
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-red-600/8 blur-3xl" />
-          <div
-            className="absolute bottom-8 left-4 h-24 w-[82%] border border-red-600/25 bg-gradient-to-r from-red-700/20 via-red-500/10 to-black/20 shadow-[0_0_48px_rgba(220,38,38,0.14)]"
-            style={{ clipPath: "polygon(7% 22%, 22% 0, 76% 0, 94% 28%, 100% 64%, 96% 100%, 5% 100%, 0 62%)" }}
-          />
-          <div className="absolute bottom-5 left-[14%] h-18 w-18 rounded-full border-[9px] border-white/12 bg-black" />
-          <div className="absolute bottom-5 right-[18%] h-18 w-18 rounded-full border-[9px] border-white/12 bg-black" />
-          <div className="absolute bottom-[68px] left-[18%] h-px w-[62%] bg-white/18" />
-          <div className="absolute bottom-[90px] left-[35%] h-14 w-[24%] border border-white/10 bg-black/30" />
-        </div>
+        {/* MAIN FRONX CUTOUT IMAGE */}
+        <motion.div
+          initial={{ opacity: 0, x: 40, scale: 0.96 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ delay: 0.25, duration: 0.8, ease: "easeOut" }}
+          className="pointer-events-none absolute bottom-[13%] right-[2%] z-20 h-[420px] w-[820px] xl:h-[470px] xl:w-[900px]"
+        >
+          <div className="absolute bottom-4 left-[12%] h-24 w-[70%] rounded-full bg-black/60 blur-3xl" />
 
-        <div className="absolute right-12 top-[18%] z-20 border border-red-600/30 bg-black/65 px-8 py-6 backdrop-blur-md">
+          <Image
+            src={heroCarImage}
+            alt="Suzuki Fronx"
+            fill
+            priority
+            quality={95}
+            className="object-contain drop-shadow-[0_35px_70px_rgba(0,0,0,0.55)]"
+          />
+        </motion.div>
+
+        {/* MINI BRAND CARD */}
+        <div className="absolute right-12 top-[18%] z-30 border border-red-600/30 bg-black/65 px-8 py-6 backdrop-blur-md">
           <p className="text-xl font-black uppercase tracking-widest text-red-500">
             Suzuki
           </p>
@@ -173,6 +192,9 @@ export default function Hero({ cityName }: { cityName?: string }) {
             Built for more
           </p>
         </div>
+
+        {/* RED AMBIENT GLOW */}
+        <div className="pointer-events-none absolute bottom-[10%] right-[10%] h-32 w-[55%] bg-red-600/10 blur-[80px]" />
       </div>
 
       {/* MAIN CONTENT */}
@@ -180,37 +202,26 @@ export default function Hero({ cityName }: { cityName?: string }) {
         <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
           {/* MOBILE VISUAL CARD */}
           <div className="order-first lg:hidden">
-            <div className="relative mb-8 h-[300px] overflow-hidden border border-white/10 bg-black/50 shadow-2xl">
-              <AnimatePresence initial={false} custom={direction}>
-                <motion.div
-                  key={currentIndex}
-                  custom={direction}
-                  variants={sliderVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                  className="absolute inset-0"
-                >
-                  <Image
-                    src={banners[currentIndex]}
-                    alt={`Suzuki Hero ${locationName}`}
-                    fill
-                    priority
-                    quality={88}
-                    className="object-cover opacity-75 contrast-110 saturate-75"
-                  />
-                </motion.div>
-              </AnimatePresence>
+            <div className="relative mb-8 h-[330px] overflow-hidden border border-white/10 bg-black/50 shadow-2xl">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_40%,rgba(220,38,38,0.16),transparent_38%),linear-gradient(135deg,#111827_0%,#020617_100%)]" />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <Image
+                src={heroCarImage}
+                alt="Suzuki Fronx"
+                fill
+                priority
+                quality={95}
+                className="object-contain p-4 drop-shadow-[0_25px_45px_rgba(0,0,0,0.55)]"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
 
               <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between border-t border-red-600/35 pt-4">
                 <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/75">
-                  Suzuki Visual
+                  Suzuki Fronx
                 </span>
                 <span className="text-xs font-black text-red-500">
-                  0{currentIndex + 1} / 03
+                  Smart Hybrid
                 </span>
               </div>
             </div>
@@ -227,6 +238,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
                 <span className="absolute inline-flex h-full w-full animate-ping bg-red-500 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.9)]" />
               </span>
+
               <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/75">
                 Layanan Penjualan Terpercaya
               </span>
@@ -262,8 +274,9 @@ export default function Hero({ cityName }: { cityName?: string }) {
             >
               Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan
               mobil impian dengan penawaran harga paling kompetitif di wilayah{" "}
-              {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon eksklusif
-              bulanan, serta layanan purna jual yang terjamin kualitasnya bersama{" "}
+              {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon
+              eksklusif bulanan, serta layanan purna jual yang terjamin
+              kualitasnya bersama{" "}
               <strong className="text-white">Yusuf Suzuki</strong>.
             </motion.p>
 
@@ -303,7 +316,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
                 href="/mobil"
                 className="group inline-flex items-center justify-center gap-3 border border-white/15 bg-white/[0.03] px-6 py-4 text-[11px] font-black uppercase tracking-[0.14em] text-white/75 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-red-500 hover:text-white sm:w-auto"
               >
-                <CarFront size={16} />
+                <Car size={16} />
                 Lihat Katalog
                 <ArrowRight
                   size={14}
@@ -321,12 +334,16 @@ export default function Hero({ cityName }: { cityName?: string }) {
           {trustBadges.map((badge) => (
             <div
               key={badge.id}
-              className="group relative min-h-[142px] overflow-hidden border border-white/10 bg-black/68 p-5 text-left backdrop-blur-md transition-all hover:-translate-y-1 hover:border-red-600/65 hover:bg-black/85"
+              className="group relative min-h-[142px] overflow-hidden border border-white/10 bg-black/70 p-5 text-left backdrop-blur-md transition-all hover:-translate-y-1 hover:border-red-600/65 hover:bg-black/85"
             >
               <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-red-600/70 via-white/20 to-transparent opacity-70" />
 
               <div className="mb-4 inline-flex border border-white/10 bg-[#0b0d10] p-2.5 transition-colors group-hover:border-red-600/50">
-                <badge.icon size={20} className="text-red-500" strokeWidth={2.2} />
+                <badge.icon
+                  size={20}
+                  className="text-red-500"
+                  strokeWidth={2.2}
+                />
               </div>
 
               <h3 className="text-[11px] font-black uppercase leading-[1.45] tracking-[0.1em] text-white transition-colors group-hover:text-red-400">
@@ -388,7 +405,11 @@ export default function Hero({ cityName }: { cityName?: string }) {
         </span>
 
         <div className="grid h-7 w-7 place-items-center border border-white/15 bg-black/60">
-          <ChevronDown className="animate-bounce text-red-500" size={14} strokeWidth={3} />
+          <ChevronDown
+            className="animate-bounce text-red-500"
+            size={14}
+            strokeWidth={3}
+          />
         </div>
       </div>
     </section>
