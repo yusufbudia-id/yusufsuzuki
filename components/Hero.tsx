@@ -118,215 +118,71 @@ export default function Hero({ cityName }: { cityName?: string }) {
       <div className="pointer-events-none absolute right-12 top-28 z-10 hidden h-px w-64 bg-gradient-to-r from-transparent via-red-600/30 to-transparent lg:block" />
 
       {/* RIGHT VISUAL AREA - DESKTOP */}
-      <div className="absolute inset-y-0 right-0 z-10 hidden w-[58%] lg:block">
-        <div className="absolute inset-0 bg-gradient-to-l from-black/15 via-transparent to-[#050505]" />
+<div className="absolute inset-y-0 right-0 z-10 hidden w-[58%] lg:block">
+  <div className="absolute inset-0 bg-gradient-to-l from-black/10 via-transparent to-[#050505]" />
 
-        {/* SLIDER BACKGROUND CARD */}
-        <div
-          className="absolute right-10 top-[16%] h-[46%] w-[72%] overflow-hidden border border-white/10 bg-[#0c0f12]/75 shadow-2xl"
-          style={{
-            clipPath:
-              "polygon(5% 0, 94% 0, 100% 9%, 100% 100%, 0 100%, 0 10%)",
-          }}
-        >
-          <AnimatePresence initial={false} custom={direction}>
-            <motion.div
-              key={currentIndex}
-              custom={direction}
-              variants={sliderVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={banners[currentIndex]}
-                alt={`Suzuki Hero ${locationName}`}
-                fill
-                priority
-                quality={88}
-                className="object-cover opacity-35 contrast-110 saturate-75"
-              />
-            </motion.div>
-          </AnimatePresence>
+  {/* MAIN VISUAL FRAME */}
+  <div
+    className="absolute right-10 top-[16%] h-[54%] w-[74%] overflow-hidden border border-white/10 bg-[#080b0f]/80 shadow-2xl"
+    style={{
+      clipPath:
+        "polygon(5% 0, 94% 0, 100% 9%, 100% 100%, 0 100%, 0 10%)",
+    }}
+  >
+    {/* Background ambience */}
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_62%_46%,rgba(220,38,38,0.20),transparent_34%),linear-gradient(135deg,#111827_0%,#050505_58%,#020202_100%)]" />
+    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:54px_54px] opacity-25" />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10" />
-          <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent_0%,transparent_44%,rgba(220,38,38,0.12)_45%,transparent_48%)]" />
+    {/* Soft floor glow */}
+    <div className="absolute bottom-6 left-[14%] h-24 w-[70%] rounded-full bg-black/70 blur-3xl" />
+    <div className="absolute bottom-4 left-[20%] h-20 w-[58%] rounded-full bg-red-600/15 blur-[70px]" />
 
-          <div className="absolute bottom-8 left-8 right-8 h-px bg-gradient-to-r from-red-600/60 via-white/25 to-transparent" />
+    {/* Label */}
+    <div className="absolute left-8 top-8 z-20 flex items-center gap-2">
+      <span className="h-2 w-2 bg-red-600" />
+      <span className="text-[10px] font-black uppercase tracking-[0.28em] text-white/75">
+        Suzuki Fronx
+      </span>
+    </div>
 
-          <div className="absolute left-8 top-8 flex items-center gap-2">
-            <span className="h-2 w-2 bg-red-600" />
-            <span className="text-[10px] font-black uppercase tracking-[0.28em] text-white/75">
-              Suzuki Visual Area
-            </span>
-          </div>
-        </div>
+    {/* Brand mini card dibuat lebih kecil dan tidak terlalu dominan */}
+    <div className="absolute right-7 top-7 z-20 border border-red-600/25 bg-black/55 px-6 py-4 backdrop-blur-md">
+      <p className="text-base font-black uppercase tracking-widest text-red-500">
+        Suzuki
+      </p>
+      <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.2em] text-white/55">
+        Built for more
+      </p>
+    </div>
 
-        {/* MAIN FRONX CUTOUT IMAGE */}
-        <motion.div
-          initial={{ opacity: 0, x: 40, scale: 0.96 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ delay: 0.25, duration: 0.8, ease: "easeOut" }}
-          className="pointer-events-none absolute bottom-[13%] right-[2%] z-20 h-[420px] w-[820px] xl:h-[470px] xl:w-[900px]"
-        >
-          <div className="absolute bottom-4 left-[12%] h-24 w-[70%] rounded-full bg-black/60 blur-3xl" />
+    {/* Main car image */}
+    <motion.div
+      initial={{ opacity: 0, x: 32, scale: 0.96 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+      className="absolute bottom-[-4%] right-[-4%] z-10 h-[82%] w-[94%]"
+    >
+      <Image
+        src={heroCarImage}
+        alt="Suzuki Fronx"
+        fill
+        priority
+        quality={95}
+        className="object-contain drop-shadow-[0_32px_60px_rgba(0,0,0,0.62)]"
+      />
+    </motion.div>
 
-          <Image
-            src={heroCarImage}
-            alt="Suzuki Fronx"
-            fill
-            priority
-            quality={95}
-            className="object-contain drop-shadow-[0_35px_70px_rgba(0,0,0,0.55)]"
-          />
-        </motion.div>
+    {/* Overlay tipis supaya mobil lebih menyatu dengan dark theme */}
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/10" />
+    <div className="pointer-events-none absolute inset-y-0 left-0 w-[28%] bg-gradient-to-r from-black/55 to-transparent" />
 
-        {/* MINI BRAND CARD */}
-        <div className="absolute right-12 top-[18%] z-30 border border-red-600/30 bg-black/65 px-8 py-6 backdrop-blur-md">
-          <p className="text-xl font-black uppercase tracking-widest text-red-500">
-            Suzuki
-          </p>
-          <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.22em] text-white/60">
-            Built for more
-          </p>
-        </div>
+    {/* Bottom accent line */}
+    <div className="absolute bottom-8 left-8 right-8 h-px bg-gradient-to-r from-red-600/60 via-white/20 to-transparent" />
+  </div>
 
-        {/* RED AMBIENT GLOW */}
-        <div className="pointer-events-none absolute bottom-[10%] right-[10%] h-32 w-[55%] bg-red-600/10 blur-[80px]" />
-      </div>
-
-      {/* MAIN CONTENT */}
-      <div className="relative z-20 flex min-h-[calc(100vh-80px)] w-full items-center lg:pb-36">
-        <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
-          {/* MOBILE VISUAL CARD */}
-          <div className="order-first lg:hidden">
-            <div className="relative mb-8 h-[330px] overflow-hidden border border-white/10 bg-black/50 shadow-2xl">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_40%,rgba(220,38,38,0.16),transparent_38%),linear-gradient(135deg,#111827_0%,#020617_100%)]" />
-
-              <Image
-                src={heroCarImage}
-                alt="Suzuki Fronx"
-                fill
-                priority
-                quality={95}
-                className="object-contain p-4 drop-shadow-[0_25px_45px_rgba(0,0,0,0.55)]"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
-
-              <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between border-t border-red-600/35 pt-4">
-                <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/75">
-                  Suzuki Fronx
-                </span>
-                <span className="text-xs font-black text-red-500">
-                  Smart Hybrid
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* LEFT CONTENT */}
-          <div className="lg:col-span-6 lg:-translate-y-8 xl:-translate-y-12">
-            <motion.div
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="mb-6 inline-flex items-center gap-3 border-l-2 border-red-600 bg-black/45 px-4 py-2 backdrop-blur-md"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping bg-red-500 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.9)]" />
-              </span>
-
-              <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/75">
-                Layanan Penjualan Terpercaya
-              </span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="max-w-3xl text-[2.55rem] font-black uppercase leading-[1.08] tracking-[-0.04em] text-white sm:text-[3.25rem] lg:text-[3.9rem] xl:text-[4.15rem]"
-            >
-              {cityName
-                ? `Dealer Resmi Mobil Suzuki ${cityName}`
-                : "Dealer Resmi Mobil Suzuki Jogja"}
-            </motion.h1>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.16 }}
-              className="mt-5 flex flex-wrap items-center gap-3 text-xs font-black uppercase tracking-[0.16em] text-red-500 sm:text-sm"
-            >
-              Pusat Promo & Harga Terbaru
-              <span className="inline-block h-1.5 w-1.5 rotate-45 bg-white/35" />
-              Proses Kredit Mudah
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.22 }}
-              className="mt-6 max-w-xl text-sm font-medium leading-8 text-gray-300 sm:text-base"
-            >
-              Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan
-              mobil impian dengan penawaran harga paling kompetitif di wilayah{" "}
-              {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon
-              eksklusif bulanan, serta layanan purna jual yang terjamin
-              kualitasnya bersama{" "}
-              <strong className="text-white">Yusuf Suzuki</strong>.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.32 }}
-              className="mt-10 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-center"
-            >
-              <a
-                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMessage)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-3 border border-red-500 bg-red-600 px-8 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_40px_rgba(220,38,38,0.25)] transition-all hover:-translate-y-0.5 hover:bg-red-700 sm:w-auto"
-              >
-                <MessageCircle size={16} />
-                Chat Sekarang
-                <ArrowRight
-                  size={15}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </a>
-
-              <Link
-                href="/test-drive"
-                className="group inline-flex items-center justify-center gap-3 border border-white/20 bg-black/45 px-8 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-red-500 hover:bg-white/[0.03] sm:w-auto"
-              >
-                <CalendarCheck size={16} />
-                Test Drive
-                <ArrowRight
-                  size={15}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </Link>
-
-              <Link
-                href="/mobil"
-                className="group inline-flex items-center justify-center gap-3 border border-white/15 bg-white/[0.03] px-6 py-4 text-[11px] font-black uppercase tracking-[0.14em] text-white/75 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-red-500 hover:text-white sm:w-auto"
-              >
-                <Car size={16} />
-                Lihat Katalog
-                <ArrowRight
-                  size={14}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </div>
+  {/* Ambient red glow outside frame */}
+  <div className="pointer-events-none absolute bottom-[16%] right-[12%] h-40 w-[52%] bg-red-600/10 blur-[90px]" />
+</div>
 
       {/* BOTTOM BADGES */}
       <div className="relative z-30 mx-auto mt-8 w-full max-w-7xl px-4 pb-24 sm:px-6 lg:absolute lg:bottom-8 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:px-8 lg:pb-0">
