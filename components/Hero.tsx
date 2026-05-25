@@ -77,6 +77,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
   const [direction, setDirection] = useState(1);
 
   const locationName = cityName || "Jogja";
+
   const waMessage = cityName
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
     : "Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.";
@@ -101,12 +102,12 @@ export default function Hero({ cityName }: { cityName?: string }) {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#050505] pt-16 font-manrope text-white md:pt-20">
-      {/* Background dibuat lebih clean: dekorasi dikurangi agar fokus ke headline, mobil, dan CTA. */}
+      {/* BACKGROUND */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_34%,rgba(220,38,38,0.13),transparent_30%),radial-gradient(circle_at_18%_24%,rgba(255,255,255,0.055),transparent_24%),linear-gradient(135deg,#050505_0%,#0a0c0f_48%,#020202_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:64px_64px] opacity-35" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/88 to-[#050505]/45" />
 
-      {/* Garis dekoratif dipertahankan sedikit saja supaya tetap premium, tapi tidak ramai. */}
+      {/* SUBTLE TECHNICAL LINES */}
       <div className="pointer-events-none absolute left-6 top-8 z-10 hidden h-[calc(100%-96px)] w-px bg-red-600/35 md:block" />
       <div className="pointer-events-none absolute left-6 top-8 z-10 hidden w-24 border-t border-red-600/35 md:block" />
       <div className="pointer-events-none absolute right-12 top-28 z-10 hidden h-px w-64 bg-gradient-to-r from-transparent via-red-600/30 to-transparent lg:block" />
@@ -117,7 +118,10 @@ export default function Hero({ cityName }: { cityName?: string }) {
 
         <div
           className="absolute right-10 top-[18%] h-[48%] w-[72%] overflow-hidden border border-white/10 bg-[#0c0f12]/75 shadow-2xl"
-          style={{ clipPath: "polygon(5% 0, 94% 0, 100% 9%, 100% 100%, 0 100%, 0 10%)" }}
+          style={{
+            clipPath:
+              "polygon(5% 0, 94% 0, 100% 9%, 100% 100%, 0 100%, 0 10%)",
+          }}
         >
           <AnimatePresence initial={false} custom={direction}>
             <motion.div
@@ -144,25 +148,13 @@ export default function Hero({ cityName }: { cityName?: string }) {
           <div className="absolute inset-0 bg-gradient-to-t from-black/58 via-black/10 to-black/5" />
           <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent_0%,transparent_44%,rgba(220,38,38,0.12)_45%,transparent_48%)]" />
           <div className="absolute bottom-8 left-8 right-8 h-px bg-gradient-to-r from-red-600/60 via-white/25 to-transparent" />
+
           <div className="absolute left-8 top-8 flex items-center gap-2">
             <span className="h-2 w-2 bg-red-600" />
             <span className="text-[10px] font-black uppercase tracking-[0.28em] text-white/75">
               Suzuki Visual Area
             </span>
           </div>
-        </div>
-
-        {/* Siluet dibuat lebih halus supaya tidak mengganggu trust badges. */}
-        <div className="pointer-events-none absolute bottom-[14%] right-[5%] h-[28%] w-[74%] opacity-60">
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-red-600/8 blur-3xl" />
-          <div
-            className="absolute bottom-8 left-4 h-24 w-[82%] border border-red-600/25 bg-gradient-to-r from-red-700/20 via-red-500/10 to-black/20 shadow-[0_0_48px_rgba(220,38,38,0.14)]"
-            style={{ clipPath: "polygon(7% 22%, 22% 0, 76% 0, 94% 28%, 100% 64%, 96% 100%, 5% 100%, 0 62%)" }}
-          />
-          <div className="absolute bottom-5 left-[14%] h-18 w-18 rounded-full border-[9px] border-white/12 bg-black" />
-          <div className="absolute bottom-5 right-[18%] h-18 w-18 rounded-full border-[9px] border-white/12 bg-black" />
-          <div className="absolute bottom-[68px] left-[18%] h-px w-[62%] bg-white/18" />
-          <div className="absolute bottom-[90px] left-[35%] h-14 w-[24%] border border-white/10 bg-black/30" />
         </div>
 
         <div className="absolute right-12 top-[18%] z-20 border border-red-600/30 bg-black/65 px-8 py-6 backdrop-blur-md">
@@ -176,7 +168,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="relative z-20 flex min-h-[calc(100vh-80px)] w-full items-center lg:pb-36">
+      <div className="relative z-20 flex min-h-[calc(100vh-80px)] w-full items-center lg:pb-20">
         <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:px-8 lg:py-20">
           {/* MOBILE VISUAL CARD */}
           <div className="order-first lg:hidden">
@@ -217,7 +209,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
           </div>
 
           {/* LEFT CONTENT */}
-          <div className="lg:col-span-6 lg:-translate-y-8 xl:-translate-y-12">
+          <div className="lg:col-span-6 lg:-translate-y-4 xl:-translate-y-8">
             <motion.div
               initial={{ opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
@@ -227,6 +219,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
                 <span className="absolute inline-flex h-full w-full animate-ping bg-red-500 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.9)]" />
               </span>
+
               <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/75">
                 Layanan Penjualan Terpercaya
               </span>
@@ -262,8 +255,9 @@ export default function Hero({ cityName }: { cityName?: string }) {
             >
               Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan
               mobil impian dengan penawaran harga paling kompetitif di wilayah{" "}
-              {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon eksklusif
-              bulanan, serta layanan purna jual yang terjamin kualitasnya bersama{" "}
+              {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon
+              eksklusif bulanan, serta layanan purna jual yang terjamin
+              kualitasnya bersama{" "}
               <strong className="text-white">Yusuf Suzuki</strong>.
             </motion.p>
 
@@ -312,32 +306,41 @@ export default function Hero({ cityName }: { cityName?: string }) {
               </Link>
             </motion.div>
           </div>
-        </div>
-      </div>
 
-      {/* BOTTOM BADGES */}
-      <div className="relative z-30 mx-auto mt-8 w-full max-w-7xl px-4 pb-24 sm:px-6 lg:absolute lg:bottom-8 lg:left-1/2 lg:mt-0 lg:-translate-x-1/2 lg:px-8 lg:pb-0">
-        <div className="grid grid-cols-2 gap-3 lg:max-w-3xl lg:grid-cols-4">
-          {trustBadges.map((badge) => (
-            <div
-              key={badge.id}
-              className="group relative min-h-[142px] overflow-hidden border border-white/10 bg-black/68 p-5 text-left backdrop-blur-md transition-all hover:-translate-y-1 hover:border-red-600/65 hover:bg-black/85"
-            >
-              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-red-600/70 via-white/20 to-transparent opacity-70" />
+          {/* CENTERED TRUST BADGES */}
+          <div className="relative z-30 mt-4 lg:col-span-12 lg:mt-10">
+            <div className="mx-auto max-w-5xl">
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-2 lg:grid-cols-4">
+                {trustBadges.map((badge) => (
+                  <motion.div
+                    key={badge.id}
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45 }}
+                    className="group relative min-h-[142px] overflow-hidden border border-white/10 bg-black/68 p-5 text-left backdrop-blur-md transition-all hover:-translate-y-1 hover:border-red-600/65 hover:bg-black/85"
+                  >
+                    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-red-600/70 via-white/20 to-transparent opacity-70" />
 
-              <div className="mb-4 inline-flex border border-white/10 bg-[#0b0d10] p-2.5 transition-colors group-hover:border-red-600/50">
-                <badge.icon size={20} className="text-red-500" strokeWidth={2.2} />
+                    <div className="mb-4 inline-flex border border-white/10 bg-[#0b0d10] p-2.5 transition-colors group-hover:border-red-600/50">
+                      <badge.icon
+                        size={20}
+                        className="text-red-500"
+                        strokeWidth={2.2}
+                      />
+                    </div>
+
+                    <h3 className="text-[11px] font-black uppercase leading-[1.45] tracking-[0.1em] text-white transition-colors group-hover:text-red-400">
+                      {badge.title}
+                    </h3>
+
+                    <p className="mt-2 text-[10px] font-semibold uppercase leading-[1.6] tracking-[0.06em] text-gray-400">
+                      {badge.desc}
+                    </p>
+                  </motion.div>
+                ))}
               </div>
-
-              <h3 className="text-[11px] font-black uppercase leading-[1.45] tracking-[0.1em] text-white transition-colors group-hover:text-red-400">
-                {badge.title}
-              </h3>
-
-              <p className="mt-2 text-[10px] font-semibold uppercase leading-[1.6] tracking-[0.06em] text-gray-400">
-                {badge.desc}
-              </p>
             </div>
-          ))}
+          </div>
         </div>
       </div>
 
@@ -388,7 +391,11 @@ export default function Hero({ cityName }: { cityName?: string }) {
         </span>
 
         <div className="grid h-7 w-7 place-items-center border border-white/15 bg-black/60">
-          <ChevronDown className="animate-bounce text-red-500" size={14} strokeWidth={3} />
+          <ChevronDown
+            className="animate-bounce text-red-500"
+            size={14}
+            strokeWidth={3}
+          />
         </div>
       </div>
     </section>
