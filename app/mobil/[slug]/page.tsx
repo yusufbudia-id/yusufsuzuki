@@ -2,7 +2,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Download, CheckCircle2, ChevronRight, Gauge, Settings, ShieldCheck, Car, Calendar, ArrowRight, MessageCircle } from "lucide-react";
+// MENGEMBALIKAN CALENDARCHECK KE DALAM IMPORT
+import { Download, CheckCircle2, ChevronRight, Gauge, Settings, ShieldCheck, Car, Calendar, ArrowRight, MessageCircle, CalendarCheck } from "lucide-react";
 import { cars } from "@/data/cars";
 import { promos } from "@/data/promos";
 import { formatCurrency, WA_BASE_URL } from "@/lib/utils";
