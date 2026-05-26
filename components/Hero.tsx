@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -75,6 +75,7 @@ const sliderVariants = {
 export default function Hero({ cityName }: { cityName?: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [activeMobileBadge, setActiveMobileBadge] = useState<number | null>(null);
 
   const locationName = cityName || "Jogja";
 
@@ -220,7 +221,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
                 <span className="relative inline-flex h-2 w-2 bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.9)]" />
               </span>
 
-              <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/75">
+              <span className="text-[10px] font-bank-gothic uppercase tracking-[0.24em] text-white/75">
                 Layanan Penjualan Terpercaya
               </span>
             </motion.div>
@@ -229,7 +230,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="max-w-3xl text-[2.55rem] font-black uppercase leading-[1.08] tracking-[-0.04em] text-white sm:text-[3.25rem] lg:text-[3.9rem] xl:text-[4.15rem]"
+              className="max-w-3xl text-[2.55rem] font-bank-gothic uppercase leading-[1.08] tracking-[-0.04em] text-white sm:text-[3.25rem] lg:text-[3.9rem] xl:text-[4.15rem]"
             >
               {cityName
                 ? `Dealer Resmi Mobil Suzuki ${cityName}`
@@ -247,11 +248,12 @@ export default function Hero({ cityName }: { cityName?: string }) {
               Proses Kredit Mudah
             </motion.h2>
 
+            {/* DESKRIPSI: Disembunyikan di HP, dimunculkan di layar sm ke atas */}
             <motion.p
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.22 }}
-              className="mt-6 max-w-xl text-sm font-medium leading-8 text-gray-300 sm:text-base"
+              className="mt-6 hidden sm:block max-w-xl text-sm font-medium leading-8 text-gray-300 sm:text-base"
             >
               Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan
               mobil impian dengan penawaran harga paling kompetitif di wilayah{" "}
@@ -261,11 +263,12 @@ export default function Hero({ cityName }: { cityName?: string }) {
               <strong className="text-white">Yusuf Suzuki</strong>.
             </motion.p>
 
+            {/* Margin tombol disesuaikan untuk HP agar jaraknya pas saat teks hilang */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.32 }}
-              className="mt-10 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-center"
+              className="mt-8 sm:mt-10 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-center"
             >
               <a
                 href={`${WA_BASE_URL}?text=${encodeURIComponent(waMessage)}`}
@@ -344,6 +347,8 @@ export default function Hero({ cityName }: { cityName?: string }) {
         </div>
       </div>
 
+      {/* BOTTOM BADGES SECTION - DIHAPUS KARENA SUDAH ADA DI ATAS (CENTERED TRUST BADGES) */}
+      
       {/* SLIDER CONTROL */}
       <div className="absolute bottom-6 right-4 z-40 flex items-center gap-4 sm:right-8">
         <div className="hidden items-center gap-3 sm:flex">
