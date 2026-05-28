@@ -361,5 +361,38 @@ Yuk, mulai langkah lebih ringan untuk membuat usaha Anda bergerak lebih cepat be
   validUntil: "30 Juni 2026",
   image: "/promo/promo-suzuki-carry-pick-up-mei-juni.jpg",
   highlight: "DP 5JT, Bunga 0%, Tenor 5 Thn, Diskon Hingga 40JT!",
-}
+},
+// PROMO SUZUKI GRAND VITARA SPESIAL SEMESTA (SOFT SELLING & CLICKBAIT)
+{
+  slug: "promo-semesta-suzuki-grand-vitara-mei",
+  title: "Beli Grand Vitara Sekarang, Bawa Pulang Motor Suzuki Burgman Gratis! (Total Bonus 43 Juta)",
+  description: `Mencari SUV premium dengan teknologi hybrid yang efisien dan desain yang elegan? Ini saat yang paling tepat untuk meminang Suzuki Grand Vitara. Melalui Spesial Promo SEMESTA, kami tidak hanya memberikan kemudahan memiliki SUV impian, tapi juga kejutan luar biasa untuk melengkapi isi garasi Anda.
+
+Grand Vitara hadir dengan teknologi Smart Hybrid Vehicle by Suzuki (SHVS) yang tangguh namun tetap irit bahan bakar. Didukung jaminan garansi baterai Lithium-Ion hingga 8 tahun, mobil ini siap menemani mobilitas Anda dengan tenang dan nyaman.
+
+Spesial di bulan ini, kami menghadirkan Promo SEMESTA (Suzuki Edisi Mei dengan Ekstra Surprise Terbaik untuk Anda) khusus unit NIK 2025 Plat AB dengan kemudahan luar biasa:
+
+- Harga OTR mulai 380 Jutaan.
+- DP Super Ringan mulai 20 Jutaan.
+- Angsuran mulai 9 Jutaan.
+
+Kejutan utamanya? Sebagai bentuk apresiasi tinggi kami, setiap pemesanan di bulan ini berkesempatan mendapatkan hadiah langsung bernilai total Rp 43 Juta:
+- FREE Motor Suzuki Burgman
+- FREE Kaca Film 3M AutoFilm
+
+Promo dengan hadiah sebesar ini tentu unitnya sangat terbatas. Anda tidak perlu buru-buru mengambil keputusan. Silakan konsultasi lebih dulu dengan kami, menghitung simulasi cicilan yang paling pas di kantong, atau sekadar janjian untuk test drive.
+
+Silakan hubungi Yusuf Suzuki melalui WhatsApp di 0821-7463-5218.
+
+Anda juga bisa melihat detail spesifikasi Suzuki Grand Vitara melalui link berikut:
+https://www.suzukiautojogja.com/mobil/grand-vitara
+
+Yuk, jadikan perjalanan Anda lebih berkelas bersama Grand Vitara, dan nikmati bonus motor baru di rumah Anda!`,
+  carSlug: "grand-vitara",
+  carName: "Suzuki Grand Vitara",
+  badge: "PROMO SEMESTA",
+  validUntil: "31 Mei 2026",
+  image: "/promo/promo-semesta-grand-vitara.jpg", // Sesuaikan dengan nama file gambar Anda
+  highlight: "DP 20JT-an, Gratis Motor Burgman & Kaca Film 3M (Total 43JT!)",
+},
 ];
