@@ -47,6 +47,12 @@ export const metadata: Metadata = {
     "suzuki fronx jogja",
     "suzuki carry pick up jogja",
     "mobil box mbg jogja",
+    // --- PENAMBAHAN VARIASI NOMOR HP UNTUK SEO PENCARIAN NOMOR ---
+    "082174635218",
+    "0821 7463 5218",
+    "0821-7463-5218",
+    "yusuf suzuki jogja",
+    "sales suzuki jogja"
   ],
   openGraph: {
     type: "website",
@@ -90,7 +96,13 @@ export default function RootLayout({
     "image": "https://www.suzukiautojogja.com/logo.png",
     "@id": "https://www.suzukiautojogja.com",
     "url": "https://www.suzukiautojogja.com",
-    "telephone": "+6282174635218",
+    // --- UPDATE: MENGGUNAKAN ARRAY AGAR GOOGLE MEMBACA SEMUA VARIASI NOMOR ---
+    "telephone": [
+      "+6282174635218",
+      "082174635218",
+      "0821 7463 5218",
+      "0821-7463-5218"
+    ],
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Jl. Magelang KM 8, Sendangadi, Mlati",
