@@ -124,7 +124,7 @@ export const articles = [
     title: "Geger Market Share Mei 2026! Toyota Ngacir Sendirian, Tapi Suzuki Diam-Diam Tembus 3 Besar dan Bikin Pasar Makin Panas",
     excerpt: "Data 10 besar brand mobil terlaris Mei 2026 menunjukkan persaingan otomotif makin sengit. Toyota masih jadi raja pasar, Daihatsu membuntuti, sementara Suzuki berhasil mengunci posisi 3 besar. Ini peluang besar buat konsumen dan pelaku bisnis yang sedang mencari mobil paling masuk akal!",
     category: "Berita Otomotif",
-    date: "Mei 2026",
+    date: "8 Juni 2026",
     imageUrl: "/berita/marketshare-mobil-mei-2026.png",
     content: [
       "Pasar otomotif Indonesia kembali memanas di bulan Mei 2026. Berdasarkan data 10 besar brand mobil terlaris, Toyota masih menunjukkan dominasinya dengan penjualan mencapai <strong>24.846 unit</strong>. Angka ini membuat Toyota menguasai sekitar <strong>41,2%</strong> dari total penjualan 10 besar brand pada periode tersebut.",
