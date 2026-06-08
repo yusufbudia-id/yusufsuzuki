@@ -1,104 +1,79 @@
 "use client";
 
-import { motion } from "framer-motion";
 import * as Accordion from "@radix-ui/react-accordion";
+import { motion } from "framer-motion";
 import { ChevronDown, HelpCircle } from "lucide-react";
 
-// 1. Tambahkan penerima cityName
 export default function FAQSection({ cityName }: { cityName?: string }) {
-  
-  // 2. Pindahkan data FAQ ke dalam sini agar bisa membaca variabel cityName
   const faqs = [
     {
       question: "Apa saja syarat pengajuan kredit mobil Suzuki?",
-      answer: "Untuk perorangan: KTP Suami Istri, Kartu Keluarga, NPWP, PBB/Rekening Listrik, Slip Gaji (karyawan) atau NIB/SKU (wiraswasta), dan Mutasi Rekening 3 bulan terakhir. Untuk perusahaan: SIUP, TDP, NIB, KTP Direksi, dan Rekening Koran."
+      answer: "Untuk perorangan: KTP Suami Istri, Kartu Keluarga, NPWP, PBB/Rekening Listrik, Slip Gaji untuk karyawan atau NIB/SKU untuk wiraswasta, dan Mutasi Rekening 3 bulan terakhir. Untuk perusahaan: SIUP, TDP, NIB, KTP Direksi, dan Rekening Koran.",
     },
     {
-      // 3. Ubah pertanyaan dan jawaban menjadi dinamis
       question: `Apakah melayani pembelian dengan KTP luar ${cityName ? cityName : "Jogja"}?`,
-      answer: `Tentu bisa! Kami melayani pembelian untuk wilayah ${cityName ? cityName : "DIY, Kedu, dan Banyumas"}. Untuk KTP luar daerah tersebut, tetap bisa diproses dengan penyesuaian syarat dan ketentuan leasing terkait pelat nomor (BBN).`
+      answer: `Tentu bisa. Kami melayani pembelian untuk wilayah ${cityName ? cityName : "DIY, Kedu, dan Banyumas"}. Untuk KTP luar daerah tersebut, proses tetap bisa dikonsultasikan dengan penyesuaian syarat leasing dan ketentuan pelat nomor atau BBN.`,
     },
     {
       question: "Berapa lama proses ACC leasing setelah berkas masuk?",
-      answer: "Jika data Anda lengkap dan kooperatif saat disurvei, proses persetujuan (ACC) dari pihak leasing biasanya hanya memakan waktu 1 hingga 3 hari kerja."
+      answer: "Jika data lengkap dan kooperatif saat disurvei, proses persetujuan dari pihak leasing biasanya memakan waktu 1 sampai 3 hari kerja.",
     },
     {
-      question: "Apakah bisa tukar tambah (Trade-In) dengan mobil lama saya?",
-      answer: "Sangat bisa! Kami menerima tukar tambah mobil bekas segala merk dengan harga penawaran yang transparan dan kompetitif. Hasil penjualan mobil lama Anda bisa langsung dijadikan Uang Muka (DP) untuk Suzuki baru Anda."
+      question: "Apakah bisa tukar tambah dengan mobil lama saya?",
+      answer: "Bisa. Kami menerima tukar tambah mobil bekas berbagai merek dengan proses appraisal yang transparan. Hasil penjualan mobil lama dapat dipakai sebagai uang muka untuk Suzuki baru.",
     },
     {
       question: "Tipe mobil Suzuki apa saja yang ready stock saat ini?",
-      answer: "Sebagian besar lineup unggulan kami ready stock, seperti Suzuki XL7, Ertiga, Grand Vitara, S-Presso, Baleno, dan Carry Pick Up. Untuk Jimny (3-door & 5-door) mungkin memerlukan inden, silakan hubungi Yusuf untuk cek ketersediaan warna."
+      answer: "Lineup populer seperti XL7, Ertiga, Grand Vitara, S-Presso, Baleno, dan Carry Pick Up biasanya tersedia bergantung warna dan varian. Untuk Jimny bisa membutuhkan inden, jadi sebaiknya hubungi Yusuf untuk cek stok terbaru.",
     },
     {
-      question: "Apa saja bonus yang saya dapatkan untuk pembelian mobil baru?",
-      answer: "Setiap pembelian unit baru akan mendapatkan Free Kaca Film, Karpet Lembaran, APAR (Alat Pemadam Api Ringan), Tatakan Plat Nomor, Payung Suzuki, serta Gratis Biaya Jasa Servis hingga 50.000 KM atau 3 Tahun."
+      question: "Apa saja bonus pembelian mobil baru?",
+      answer: "Bonus dapat berupa kaca film, karpet, APAR, tatakan plat nomor, merchandise Suzuki, serta gratis biaya jasa servis sesuai program yang sedang berlaku. Detail bonus mengikuti promo periode berjalan.",
     },
     {
-      // 4. Ubah area layanan Test Drive menjadi dinamis
-      question: "Apakah layanan Test Drive dipungut biaya?",
-      answer: `100% Gratis! Anda tidak akan dipungut biaya apapun. Unit test drive bahkan bisa kami antarkan langsung ke rumah atau kantor Anda (khusus wilayah ${cityName ? cityName : "Jogja"} dan sekitarnya) sesuai dengan jadwal yang Anda tentukan.`
-    }
+      question: "Apakah layanan test drive dipungut biaya?",
+      answer: `Gratis. Unit test drive dapat dikonsultasikan sesuai jadwal dan area layanan, khususnya wilayah ${cityName ? cityName : "Jogja"} dan sekitarnya.`,
+    },
   ];
 
   return (
-    <section className="py-24 bg-white border-t border-gray-100">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header Section */}
+    <section className="relative overflow-hidden border-t border-gray-100 bg-white py-20 md:py-28">
+      <div className="container-main max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-12 text-center md:mb-16"
         >
-          <div className="w-12 h-12 bg-gray-900 flex items-center justify-center text-white mx-auto mb-6 rounded-none">
+          <div className="mx-auto mb-6 grid h-14 w-14 place-items-center border border-gray-200 bg-gray-950 text-white">
             <HelpCircle size={24} strokeWidth={1.5} />
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight">
-            FAQ & Informasi
-          </h2>
-          <p className="text-gray-500 text-sm md:text-base font-medium">
-            Pertanyaan yang sering diajukan seputar proses pembelian Suzuki di {cityName ? cityName : "Jogja"}.
+          <span className="section-label justify-center">Bantuan Cepat</span>
+          <h2 className="section-title mt-4">FAQ & Informasi</h2>
+          <p className="section-subtitle mx-auto">
+            Pertanyaan yang sering diajukan seputar pembelian, kredit, promo, dan test drive Suzuki di {cityName ? cityName : "Jogja"}.
           </p>
         </motion.div>
 
-        {/* Accordion FAQ */}
         <Accordion.Root type="single" collapsible className="space-y-4">
-          {faqs.map((faq, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-            >
-              <Accordion.Item 
-                value={`item-${i}`} 
-                className="bg-gray-50 border border-gray-200 rounded-none overflow-hidden hover:border-gray-900 transition-colors duration-300 group"
-              >
+          {faqs.map((faq, index) => (
+            <motion.div key={faq.question} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.04 }}>
+              <Accordion.Item value={`item-${index}`} className="group overflow-hidden border border-gray-200 bg-gray-50 transition-colors duration-300 hover:border-red-600 data-[state=open]:border-red-600 data-[state=open]:bg-white">
                 <Accordion.Header>
-                  <Accordion.Trigger className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left font-bold text-gray-900 text-xs md:text-sm uppercase tracking-widest focus:outline-none">
-                    <span className="leading-relaxed pr-4">{faq.question}</span>
-                    <div className="w-8 h-8 flex items-center justify-center bg-white border border-gray-200 group-hover:border-gray-900 group-data-[state=open]:bg-gray-900 group-data-[state=open]:border-gray-900 transition-colors shrink-0">
-                      <ChevronDown 
-                        size={16} 
-                        strokeWidth={2}
-                        className="text-gray-400 group-hover:text-gray-900 group-data-[state=open]:text-white transition-transform duration-300 group-data-[state=open]:rotate-180" 
-                      />
+                  <Accordion.Trigger className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left text-xs font-black uppercase tracking-[0.16em] text-gray-950 focus:outline-none md:px-6 md:text-sm">
+                    <span className="pr-4 leading-relaxed">{faq.question}</span>
+                    <div className="grid h-9 w-9 shrink-0 place-items-center border border-gray-200 bg-white transition-colors group-hover:border-red-600 group-hover:text-red-600 group-data-[state=open]:border-red-600 group-data-[state=open]:bg-red-600 group-data-[state=open]:text-white">
+                      <ChevronDown size={16} strokeWidth={2.2} className="transition-transform duration-300 group-data-[state=open]:rotate-180" />
                     </div>
                   </Accordion.Trigger>
                 </Accordion.Header>
-                <Accordion.Content className="overflow-hidden data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up bg-white border-t border-gray-100">
-                  <p className="p-6 text-sm text-gray-500 leading-relaxed font-medium">
-                    {faq.answer}
-                  </p>
+                <Accordion.Content className="overflow-hidden border-t border-gray-100 bg-white data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
+                  <p className="p-5 text-sm font-medium leading-relaxed text-gray-500 md:p-6">{faq.answer}</p>
                 </Accordion.Content>
               </Accordion.Item>
             </motion.div>
           ))}
         </Accordion.Root>
-
       </div>
     </section>
   );

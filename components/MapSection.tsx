@@ -1,75 +1,53 @@
-import { MapPin, Clock, Phone } from "lucide-react";
+import { Clock, MapPin, Phone } from "lucide-react";
 
-// 1. Tambahkan penerima cityName
+const infoItems = [
+  {
+    icon: MapPin,
+    title: "Alamat Pusat",
+    desc: "Suzuki Sumber Baru Mobil\nJl. Magelang KM 8, Mlati, Yogyakarta",
+  },
+  {
+    icon: Clock,
+    title: "Jam Operasional",
+    desc: "Senin – Sabtu: 08.00 – 17.00 WIB\nMinggu: Tutup",
+  },
+  {
+    icon: Phone,
+    title: "Kontak",
+    desc: "Yusuf Suzuki\n0821 7463 5218",
+  },
+];
+
 export default function MapSection({ cityName }: { cityName?: string }) {
   return (
-    <section className="py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          
-          {/* Sisi Kiri: Informasi Teks */}
+    <section className="relative overflow-hidden bg-white py-20 md:py-28">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+      <div className="container-main relative">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
-            <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-6 uppercase tracking-widest">
-              Lokasi Showroom
-            </span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6 uppercase tracking-tight">
-              Kunjungi Dealer Kami
-            </h2>
-            
-            {/* 2. Deskripsi dibuat dinamis dan meyakinkan untuk warga luar kota */}
-            <p className="text-gray-500 mb-12 text-base leading-relaxed max-w-lg">
-              Datang langsung ke showroom pusat kami untuk melihat unit display secara detail. Kami siap melayani pengiriman unit dan test drive langsung ke rumah Anda khusus untuk wilayah <strong className="text-gray-900">{cityName ? cityName : "Yogyakarta dan sekitarnya"}</strong>.
+            <span className="section-label">Lokasi Showroom</span>
+            <h2 className="section-title mt-4">Kunjungi Dealer Kami</h2>
+            <p className="section-subtitle">
+              Datang langsung ke showroom pusat untuk melihat unit display secara detail. Kami juga siap melayani pengiriman unit dan test drive untuk wilayah <strong className="text-gray-950">{cityName ? cityName : "Yogyakarta dan sekitarnya"}</strong>.
             </p>
-            
-            <div className="space-y-8">
-              {/* Item Alamat */}
-              <div className="flex gap-5 items-start group">
-                <div className="w-12 h-12 bg-white border border-gray-200 rounded-none flex items-center justify-center shrink-0 text-gray-900 group-hover:bg-gray-900 group-hover:border-gray-900 group-hover:text-white transition-all duration-300 shadow-sm">
-                  <MapPin size={20} strokeWidth={1.5} />
+
+            <div className="mt-10 space-y-6">
+              {infoItems.map((item) => (
+                <div key={item.title} className="group flex items-start gap-5">
+                  <div className="grid h-12 w-12 shrink-0 place-items-center border border-gray-200 bg-white text-gray-950 shadow-card transition-all duration-300 group-hover:border-red-600 group-hover:bg-red-600 group-hover:text-white">
+                    <item.icon size={20} strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <p className="mb-1.5 text-xs font-black uppercase tracking-[0.18em] text-gray-950">{item.title}</p>
+                    <p className="whitespace-pre-line text-sm leading-relaxed text-gray-500">{item.desc}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-bold text-gray-900 text-xs uppercase tracking-widest mb-1.5">Alamat Pusat</p>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                    Suzuki Sumber Baru Mobil<br />
-                    Jl. Magelang KM 8, Mlati, Yogyakarta
-                  </p>
-                </div>
-              </div>
-              
-              {/* Item Jam Operasional */}
-              <div className="flex gap-5 items-start group">
-                <div className="w-12 h-12 bg-white border border-gray-200 rounded-none flex items-center justify-center shrink-0 text-gray-900 group-hover:bg-gray-900 group-hover:border-gray-900 group-hover:text-white transition-all duration-300 shadow-sm">
-                  <Clock size={20} strokeWidth={1.5} />
-                </div>
-                <div>
-                  <p className="font-bold text-gray-900 text-xs uppercase tracking-widest mb-1.5">Jam Operasional</p>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                    Senin – Sabtu: 08.00 – 17.00 WIB<br />
-                    Minggu: Tutup
-                  </p>
-                </div>
-              </div>
-              
-              {/* Item Kontak */}
-              <div className="flex gap-5 items-start group">
-                <div className="w-12 h-12 bg-white border border-gray-200 rounded-none flex items-center justify-center shrink-0 text-gray-900 group-hover:bg-gray-900 group-hover:border-gray-900 group-hover:text-white transition-all duration-300 shadow-sm">
-                  <Phone size={20} strokeWidth={1.5} />
-                </div>
-                <div>
-                  <p className="font-bold text-gray-900 text-xs uppercase tracking-widest mb-1.5">Kontak</p>
-                  <p className="text-gray-500 text-sm leading-relaxed">
-                    Yusuf Suzuki<br />
-                    0821 7463 5218
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Sisi Kanan: Peta (Map) */}
-          <div className="rounded-none overflow-hidden bg-gray-200 border border-gray-200 hover:border-gray-900 transition-colors duration-500 h-[400px] lg:h-[500px] relative shadow-sm">
-            {/* Overlay saat map memuat */}
-            <div className="absolute inset-0 flex items-center justify-center text-gray-400 font-semibold text-xs tracking-widest uppercase -z-10">
+          <div className="red-edge relative h-[420px] overflow-hidden border border-gray-200 bg-gray-100 shadow-card-hover transition-colors duration-500 hover:border-red-600 lg:h-[520px]">
+            <div className="absolute inset-0 flex items-center justify-center text-xs font-black uppercase tracking-[0.2em] text-gray-400">
               Memuat Peta...
             </div>
             <iframe
@@ -81,7 +59,7 @@ export default function MapSection({ cityName }: { cityName?: string }) {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Lokasi Suzuki Sumber Baru Mobil"
-              className="relative z-10 w-full h-full"
+              className="relative z-10 h-full w-full grayscale transition-all duration-500 hover:grayscale-0"
             />
           </div>
         </div>

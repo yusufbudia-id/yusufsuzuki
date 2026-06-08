@@ -2,45 +2,41 @@
 
 import { motion } from "framer-motion";
 import { MessageCircle } from "lucide-react";
-import { WA_BASE_URL } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { areas } from "@/data/areas"; // <-- 1. Import data kota
+import { areas } from "@/data/areas";
+import { WA_BASE_URL } from "@/lib/utils";
 
 export default function WhatsappFloatingButton() {
   const pathname = usePathname();
 
-  // 2. DETEKSI KOTA DARI URL
-  let cityName = "";
-  if (pathname && pathname.startsWith("/dealer/")) {
-    const slug = pathname.split("/")[2]; // Mengambil slug kota
-    const currentArea = areas.find((a) => a.slug === slug);
-    if (currentArea) {
-      cityName = currentArea.name;
-    }
-  }
+  const citySlug = pathname?.startsWith("/dealer/") ? pathname.split("/")[2] : "";
+  const cityName = citySlug ? areas.find((area) => area.slug === citySlug)?.name ?? "" : "";
 
-  // 3. PESAN WA DINAMIS
   const waMsg = cityName
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
-    : `Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.`;
+    : "Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.";
 
   return (
     <motion.a
-      href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`} // <-- 4. Pasang pesan dinamis ke sini
+      href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ delay: 1.5, type: "spring", stiffness: 200 }}
-      whileHover={{ scale: 1.1 }}
-      whileTap={{ scale: 0.95 }}
-      // 'hidden md:flex' memastikan ini hanya muncul di layar besar (Desktop/Tablet)
-      className="hidden md:flex fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-xl items-center justify-center transition-colors group"
+      initial={{ scale: 0.9, opacity: 0, y: 20 }}
+      animate={{ scale: 1, opacity: 1, y: 0 }}
+      transition={{ delay: 1.2, type: "spring", stiffness: 180 }}
+      whileHover={{ y: -3 }}
+      whileTap={{ scale: 0.96 }}
+      className="group fixed bottom-6 right-6 z-50 hidden items-center gap-3 border border-whatsapp/30 bg-[#050505] px-4 py-3 text-white shadow-dark-glow transition-all hover:border-whatsapp hover:bg-whatsapp md:flex"
       aria-label="Chat WhatsApp Yusuf Suzuki"
     >
-      <MessageCircle size={26} className="group-hover:scale-110 transition-transform" />
-      {/* Ping ring */}
-      <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-40" />
+      <span className="relative grid h-11 w-11 place-items-center rounded-full bg-whatsapp text-white shadow-[0_10px_24px_rgba(37,211,102,0.35)]">
+        <MessageCircle size={22} className="relative z-10" />
+        <span className="absolute inset-0 rounded-full bg-whatsapp opacity-35 animate-ping" />
+      </span>
+      <span className="hidden pr-1 text-left lg:block">
+        <span className="block text-[9px] font-black uppercase tracking-[0.22em] text-white/45">Fast Response</span>
+        <span className="mt-0.5 block text-[11px] font-black uppercase tracking-[0.18em] text-white">Chat Yusuf</span>
+      </span>
     </motion.a>
   );
 }

@@ -1,122 +1,94 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ShieldCheck, MapPin, CreditCard, BadgePercent, CarFront, MessageCircle } from "lucide-react";
+import { BadgePercent, CarFront, CreditCard, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
+
+const baseAdvantages = [
+  {
+    icon: ShieldCheck,
+    title: "Dealer Resmi",
+    desc: "Unit bergaransi resmi pabrik, proses pembelian transparan, dan layanan purna jual terarah.",
+  },
+  {
+    icon: MapPin,
+    title: "Area Jogja & Sekitarnya",
+    desc: "Melayani Yogyakarta, Magelang, Klaten, Purworejo, dan area sekitar dengan koordinasi cepat.",
+  },
+  {
+    icon: CreditCard,
+    title: "Kredit Mudah",
+    desc: "Simulasi kredit rapi, tenor fleksibel, dan pendampingan pengajuan ke leasing rekanan.",
+  },
+  {
+    icon: BadgePercent,
+    title: "DP Ringan",
+    desc: "Pilihan skema DP dan cicilan yang bisa disesuaikan dengan kebutuhan budget bulanan.",
+  },
+  {
+    icon: CarFront,
+    title: "Test Drive Gratis",
+    desc: "Coba unit Suzuki pilihan Anda sebelum membeli dengan jadwal yang bisa dikonsultasikan.",
+  },
+  {
+    icon: MessageCircle,
+    title: "Fast Response",
+    desc: "Yusuf Suzuki siap membantu via WhatsApp untuk info unit, promo, kredit, dan test drive.",
+  },
+];
 
 export default function AdvantagesSection({ cityName }: { cityName?: string }) {
-  
-  const advantages = [
-    { 
-      icon: ShieldCheck, 
-      title: "Dealer Resmi", 
-      desc: "Suzuki Sumber Baru Mobil adalah dealer resmi PT Suzuki Indomobil Sales dengan garansi resmi pabrik.",
-      iconBg: "bg-blue-600",
-      iconText: "text-white",
-      hoverIconBg: "group-hover:bg-blue-50",
-      hoverIconText: "group-hover:text-blue-600",
-      hoverBorder: "hover:border-blue-500"
-    },
-    { 
-      icon: MapPin, 
-      title: `Area ${cityName ? cityName : "Jogja"} & Sekitarnya`, 
-      desc: `Kami melayani pengiriman dan layanan sales untuk warga ${cityName ? cityName : "Yogyakarta, Magelang, Klaten, Purworejo, dan sekitarnya"}.`,
-      iconBg: "bg-teal-600",
-      iconText: "text-white",
-      hoverIconBg: "group-hover:bg-teal-50",
-      hoverIconText: "group-hover:text-teal-600",
-      hoverBorder: "hover:border-teal-500"
-    },
-    { 
-      icon: CreditCard, 
-      title: "Kredit Mudah", 
-      desc: "Proses kredit cepat, ACC 2-3 hari kerja. Didukung multi-finance terpercaya.",
-      iconBg: "bg-orange-600",
-      iconText: "text-white",
-      hoverIconBg: "group-hover:bg-orange-50",
-      hoverIconText: "group-hover:text-orange-600",
-      hoverBorder: "hover:border-orange-500"
-    },
-    { 
-      icon: BadgePercent, 
-      title: "DP Ringan", 
-      desc: "Program DP ringan mulai 15% dengan tenor fleksibel hingga 60 bulan.",
-      iconBg: "bg-red-600",
-      iconText: "text-white",
-      hoverIconBg: "group-hover:bg-red-50",
-      hoverIconText: "group-hover:text-red-600",
-      hoverBorder: "hover:border-red-500"
-    },
-    { 
-      icon: CarFront, 
-      title: "Test Drive Gratis", 
-      desc: "Coba dulu sebelum beli! Test drive gratis ke lokasi Anda, tanpa perlu ke showroom.",
-      iconBg: "bg-violet-600",
-      iconText: "text-white",
-      hoverIconBg: "group-hover:bg-violet-50",
-      hoverIconText: "group-hover:text-violet-600",
-      hoverBorder: "hover:border-violet-500"
-    },
-    { 
-      icon: MessageCircle, 
-      title: "Fast Response", 
-      desc: "Yusuf Suzuki siap membantu via WhatsApp. Fast response, ramah, dan profesional.",
-      iconBg: "bg-[#25D366]",
-      iconText: "text-white",
-      hoverIconBg: "group-hover:bg-[#25D366]/10",
-      hoverIconText: "group-hover:text-[#25D366]",
-      hoverBorder: "hover:border-[#25D366]"
-    },
-  ];
+  const advantages = baseAdvantages.map((item) => {
+    if (item.title === "Area Jogja & Sekitarnya") {
+      return {
+        ...item,
+        title: `Area ${cityName ? cityName : "Jogja"} & Sekitarnya`,
+        desc: `Melayani pengiriman dan layanan sales untuk warga ${cityName ? cityName : "Yogyakarta, Magelang, Klaten, Purworejo, dan sekitarnya"}.`,
+      };
+    }
+    return item;
+  });
 
   return (
-    <section className="py-16 md:py-24 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-0 sm:px-6 lg:px-8">
-        
-        {/* Header Section (Diberi padding di mobile karena container atasnya px-0) */}
+    <section className="relative overflow-hidden bg-white py-20 md:py-28">
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+      <div className="pointer-events-none absolute right-0 top-10 h-72 w-72 bg-red-600/5 blur-3xl" />
+
+      <div className="container-main relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-10 md:mb-16 px-4 sm:px-0"
+          className="mx-auto mb-12 max-w-3xl text-center md:mb-16"
         >
-          <span className="inline-block bg-gray-200 text-gray-800 text-[10px] font-bold px-4 py-1.5 rounded-none mb-4 uppercase tracking-widest">
-            Mengapa Kami?
-          </span>
-          <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4 uppercase tracking-tight">
+          <span className="section-label justify-center">Mengapa Kami?</span>
+          <h2 className="section-title mt-4">
             Keunggulan Dealer Resmi Suzuki {cityName ? cityName : "Jogja"}
           </h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-sm md:text-base">
-            Beli mobil Suzuki impian Anda dengan kemudahan proses, harga transparan, dan pelayanan terbaik dari Yusuf Suzuki.
+          <p className="section-subtitle mx-auto">
+            Beli mobil Suzuki impian dengan proses jelas, harga transparan, dan arahan langsung dari konsultan yang responsif.
           </p>
         </motion.div>
 
-        {/* CONTAINER BERUBAH: Flex/Scroll di HP, Grid di Desktop */}
-        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 overflow-x-auto sm:overflow-visible snap-x snap-mandatory px-4 sm:px-0 pb-8 sm:pb-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          {advantages.map((item, i) => (
-            <motion.div
+        <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-6 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden">
+          {advantages.map((item, index) => (
+            <motion.article
               key={item.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.08 }}
-              // KARTU BERUBAH: Punya lebar fixed di HP (85vw) agar bisa digeser
-              className={`shrink-0 w-[85vw] sm:w-auto snap-center bg-white border border-gray-200 rounded-none p-6 md:p-8 transition-all duration-500 group flex flex-col hover:shadow-2xl ${item.hoverBorder}`}
+              transition={{ delay: index * 0.07 }}
+              className="card-sharp red-edge group flex w-[84vw] shrink-0 snap-center flex-col p-6 sm:w-auto md:p-8"
             >
-              <div className={`w-12 h-12 md:w-14 md:h-14 flex items-center justify-center mb-5 md:mb-6 rounded-none transition-colors duration-300 ${item.iconBg} ${item.iconText} ${item.hoverIconBg} ${item.hoverIconText}`}>
-                <item.icon size={24} strokeWidth={1.5} />
+              <div className="mb-6 grid h-14 w-14 place-items-center border border-gray-200 bg-gray-950 text-white transition-all duration-300 group-hover:border-red-600 group-hover:bg-red-600">
+                <item.icon size={24} strokeWidth={1.7} />
               </div>
-              
-              <p className="font-black text-gray-900 text-base md:text-lg uppercase tracking-tight mb-2 md:mb-3 group-hover:text-gray-900 transition-colors">
+              <h3 className="mb-3 text-lg font-black uppercase leading-tight tracking-tight text-gray-950 transition-colors group-hover:text-red-600">
                 {item.title}
-              </p>
-              
-              <p className="text-gray-500 text-xs md:text-sm leading-relaxed">
-                {item.desc}
-              </p>
-            </motion.div>
+              </h3>
+              <p className="text-sm leading-relaxed text-gray-500">{item.desc}</p>
+            </motion.article>
           ))}
         </div>
-        
       </div>
     </section>
   );

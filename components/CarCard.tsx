@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { MessageCircle, ArrowRight, Sparkles, TrendingUp, Tag } from "lucide-react";
+import { ArrowRight, BadgePercent, CarFront, MessageCircle, Sparkles, TrendingUp } from "lucide-react";
 import { Car } from "@/data/cars";
 import { buildWhatsAppUrl } from "@/lib/utils";
 
@@ -14,146 +14,114 @@ interface CarCardProps {
 }
 
 export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
-
   const customWaMsg = cityName
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan tertarik dengan mobil ${car.name}. Mohon info harga dan promo terbarunya.`
     : car.whatsappMessage;
 
   const formatMaskedDiscount = (amount: number) => {
     const millions = Math.floor(amount / 1000000).toString();
-    if (millions.length > 1) {
-      return `${millions[0]}x.000.000`;
-    }
-    return `${millions}.000.000`;
+    return millions.length > 1 ? `${millions[0]}x.000.000` : `${millions}.000.000`;
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
+    <motion.article
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.07 }}
-      className="group relative bg-white overflow-hidden border border-gray-200 hover:border-red-500 hover:shadow-xl transition-all duration-500 flex flex-col h-full"
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: index * 0.06 }}
+      className="card-sharp red-edge group relative flex h-full flex-col overflow-hidden"
     >
-      {/* ── RED TOP EDGE LINE ── */}
-      <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-red-600 via-red-500 to-transparent z-20 pointer-events-none" />
-
-      {/* ══════════════════════════════════════ */}
-      {/* 1. IMAGE SECTION                       */}
-      {/* ══════════════════════════════════════ */}
-      <div className="relative aspect-[4/3] sm:h-60 overflow-hidden bg-gray-100 shrink-0">
+      <div className="relative aspect-[4/3] shrink-0 overflow-hidden bg-gray-100 sm:h-64">
         <Link href={`/mobil/${car.slug}`} className="absolute inset-0 z-10" aria-label={`Lihat detail ${car.name}`} />
 
-        {/* Car image */}
         <Image
           src={car.heroImage || "/logo.png"}
           alt={car.name}
           fill
-          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+          sizes="(max-width: 640px) 86vw, (max-width: 1024px) 50vw, 380px"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
 
-        {/* Light vignette overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent_0%,transparent_42%,rgba(227,6,19,0.18)_43%,transparent_47%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-        {/* Red diagonal light streak */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-20 group-hover:opacity-30 transition-opacity duration-500"
-          style={{
-            background:
-              "linear-gradient(120deg, transparent 0%, transparent 40%, rgba(220,38,38,0.5) 41%, transparent 44%)",
-          }}
-        />
-
-        {/* ── GEOMETRIC CLIP CORNER top-left notch ── */}
-        <div
-          className="absolute top-0 left-0 w-full h-full pointer-events-none z-10"
-          style={{
-            background:
-              "linear-gradient(135deg, #f3f4f6 18px, transparent 18px)",
-          }}
-        />
-
-        {/* ── CATEGORY LABEL ── */}
-        <div className="absolute top-3 left-3 z-20 flex items-center gap-1.5 pointer-events-none">
-          <span className="h-2 w-2 bg-red-600 flex-shrink-0" />
-          <span className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.22em] text-white drop-shadow-md">
+        <div className="absolute left-4 top-4 z-20 flex items-center gap-2">
+          <span className="h-2 w-2 bg-red-600 shadow-[0_0_12px_rgba(227,6,19,0.8)]" />
+          <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white drop-shadow">
             {car.category}
           </span>
         </div>
 
-        {/* ── STATUS BADGES top-right ── */}
-        <div className="absolute top-3 right-3 z-20 flex flex-col gap-1.5 pointer-events-none">
+        <div className="absolute right-4 top-4 z-20 flex flex-col items-end gap-2">
           {car.isNew && (
-            <span className="bg-red-600 text-white text-[8px] sm:text-[9px] uppercase tracking-[0.18em] font-black px-2 py-1 flex items-center gap-1 shadow-sm">
-              <Sparkles size={9} /> Baru
+            <span className="inline-flex items-center gap-1 bg-red-600 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-white shadow-red-glow">
+              <Sparkles size={10} /> Baru
             </span>
           )}
           {car.isBestSeller && (
-            <span className="bg-white/90 backdrop-blur-sm border border-gray-200 text-gray-800 text-[8px] sm:text-[9px] uppercase tracking-[0.18em] font-black px-2 py-1 flex items-center gap-1 shadow-sm">
-              <TrendingUp size={9} /> Laris
+            <span className="inline-flex items-center gap-1 border border-white/25 bg-black/55 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-white backdrop-blur-md">
+              <TrendingUp size={10} /> Laris
             </span>
           )}
         </div>
 
-        {/* ── BOTTOM RED LINE inside image ── */}
-        <div className="absolute bottom-4 left-4 right-4 h-px bg-gradient-to-r from-red-600/60 via-red-400/20 to-transparent pointer-events-none z-10" />
+        <div className="absolute bottom-4 left-4 right-4 z-20 flex items-end justify-between gap-4 border-t border-white/15 pt-3">
+          <p className="text-[9px] font-black uppercase tracking-[0.24em] text-white/60">Suzuki lineup</p>
+          <CarFront size={18} className="text-red-500" />
+        </div>
       </div>
 
-      {/* ══════════════════════════════════════ */}
-      {/* 2. CONTENT SECTION                     */}
-      {/* ══════════════════════════════════════ */}
-      <div className="p-3 sm:p-5 flex flex-col flex-grow relative bg-white">
-
-        {/* Subtle top separator */}
-        <div className="absolute inset-x-0 top-0 h-px bg-gray-100" />
-
-        <div className="mb-4 sm:mb-5 flex-grow">
-          {/* Car name */}
-          <h3 className="font-black text-gray-900 text-sm sm:text-lg leading-tight uppercase tracking-tight mb-3 group-hover:text-red-600 transition-colors duration-300 line-clamp-1">
+      <div className="relative z-20 flex flex-1 flex-col bg-white p-5 sm:p-6">
+        <div className="mb-5 flex-1">
+          <p className="mb-2 text-[10px] font-black uppercase tracking-[0.22em] text-red-600">
+            Harga mulai
+          </p>
+          <h3 className="mb-4 text-xl font-black uppercase leading-tight tracking-tighter text-gray-950 transition-colors group-hover:text-red-600 sm:text-2xl">
             <Link href={`/mobil/${car.slug}`} className="before:absolute before:inset-0 before:z-0">
               {car.name}
             </Link>
           </h3>
 
-          {/* Price + discount */}
-          <div className="flex flex-col gap-1">
-            {car.maxDiscount && car.maxDiscount > 0 ? (
-              <span className="text-red-600 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.15em] flex items-center gap-1">
-                <Tag size={9} /> Diskon s/d {formatMaskedDiscount(car.maxDiscount)}
-              </span>
-            ) : null}
+          <div className="grid gap-3 border-y border-gray-100 py-4">
+            <div>
+              <p className="text-2xl font-black tracking-tight text-gray-950 sm:text-3xl">{car.startingPrice}</p>
+              <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.18em] text-gray-400">
+                Angsuran {car.monthlyInstallment}/bln
+              </p>
+            </div>
 
-            <p className="text-gray-900 font-black text-base sm:text-xl truncate">
-              {car.startingPrice}
-            </p>
-            <p className="text-gray-400 text-[10px] sm:text-xs font-medium uppercase tracking-wider">
-              Angsuran {car.monthlyInstallment}/bln
-            </p>
+            {car.maxDiscount && car.maxDiscount > 0 ? (
+              <div className="inline-flex w-fit items-center gap-2 bg-red-50 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-red-600">
+                <BadgePercent size={13} /> Diskon s/d {formatMaskedDiscount(car.maxDiscount)}
+              </div>
+            ) : (
+              <div className="inline-flex w-fit items-center gap-2 bg-gray-100 px-3 py-2 text-[10px] font-black uppercase tracking-[0.16em] text-gray-500">
+                <BadgePercent size={13} /> Promo tersedia
+              </div>
+            )}
           </div>
         </div>
 
-        {/* ── ACTION BUTTONS ── */}
-        <div className="grid grid-cols-2 gap-2 mt-auto relative z-20">
+        <div className="relative z-20 grid grid-cols-2 gap-2">
           <Link
             href={`/mobil/${car.slug}`}
-            className="bg-transparent border border-gray-200 hover:border-gray-900 text-gray-500 hover:text-gray-900 text-[9px] sm:text-[10px] uppercase tracking-[0.14em] font-black py-2.5 sm:py-3 flex items-center justify-center gap-1.5 transition-all duration-200"
+            className="group/btn inline-flex items-center justify-center gap-2 border border-gray-200 px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-gray-700 transition-all hover:border-gray-950 hover:bg-gray-950 hover:text-white"
           >
             Detail
-            <ArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
+            <ArrowRight size={13} className="transition-transform group-hover/btn:translate-x-1" />
           </Link>
 
           <a
             href={buildWhatsAppUrl(customWaMsg)}
             target="_blank"
             rel="noopener noreferrer"
-            className="bg-red-600 hover:bg-red-700 text-white text-[9px] sm:text-[10px] uppercase tracking-[0.14em] font-black py-2.5 sm:py-3 flex items-center justify-center gap-1.5 transition-colors duration-200 border border-red-500 shadow-sm"
+            className="inline-flex items-center justify-center gap-2 border border-red-600 bg-red-600 px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-white transition-all hover:border-gray-950 hover:bg-gray-950"
             title="Chat WhatsApp"
           >
             <MessageCircle size={13} /> Tanya
           </a>
         </div>
       </div>
-    </motion.div>
+    </motion.article>
   );
 }

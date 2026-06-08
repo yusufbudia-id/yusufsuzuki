@@ -1,66 +1,95 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, MessageCircle, ChevronDown } from "lucide-react"; // <-- Tambahkan ChevronDown
+import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown, Menu, MessageCircle, PhoneCall, X } from "lucide-react";
+import { areas } from "@/data/areas";
 import { cn, WA_BASE_URL } from "@/lib/utils";
-import { areas } from "@/data/areas"; 
 
-// 1. STRUKTUR MENU BARU DENGAN DROPDOWN
-const navLinks = [
+type NavLink =
+  | { label: string; href: string; dropdown?: never }
+  | { label: string; href?: never; dropdown: { label: string; href: string }[] };
+
+const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "Produk Mobil", href: "/mobil" },
   { label: "Promo", href: "/promo" },
   { label: "Simulasi Kredit", href: "/simulasi-kredit" },
   { label: "Test Drive", href: "/test-drive" },
-  { 
-    label: "Informasi", 
+  {
+    label: "Informasi",
     dropdown: [
       { label: "Tentang Kami", href: "/tentang-kami" },
       { label: "Berita & Tips", href: "/berita" },
       { label: "FAQ", href: "/faq" },
-    ] 
+    ],
   },
   { label: "Kontak", href: "/kontak" },
+];
+
+const transparentHeaderRoutes = [
+  "/",
+  "/mobil",
+  "/promo",
+  "/kontak",
+  "/tentang-kami",
+  "/simulasi-kredit",
+  "/test-drive",
+  "/berita",
+  "/faq",
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileInfoOpen, setMobileInfoOpen] = useState(false); // State khusus dropdown mobile
+  const [mobileInfoOpen, setMobileInfoOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 18);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  let cityName = "";
-  if (pathname && pathname.startsWith("/dealer/")) {
-    const slug = pathname.split("/")[2];
-    const currentArea = areas.find((a) => a.slug === slug);
-    if (currentArea) {
-      cityName = currentArea.name;
-    }
-  }
+  useEffect(() => {
+    setMenuOpen(false);
+    setMobileInfoOpen(false);
+  }, [pathname]);
+
+  const citySlug = pathname?.startsWith("/dealer/") ? pathname.split("/")[2] : "";
+  const cityName = citySlug ? areas.find((area) => area.slug === citySlug)?.name ?? "" : "";
 
   const waMsg = cityName
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
-    : `Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.`;
+    : "Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.";
 
-  const darkHeaderPages = ["/", "/mobil", "/promo", "/kontak", "/tentang-kami", "/simulasi-kredit", "/test-drive", "/berita", "/faq"];
-  
-  const isTransparent = !scrolled && (darkHeaderPages.includes(pathname) || pathname.startsWith("/mobil/") || pathname.startsWith("/dealer/"));
+  const isTransparent =
+    !scrolled &&
+    (transparentHeaderRoutes.includes(pathname) ||
+      pathname?.startsWith("/mobil/") ||
+      pathname?.startsWith("/dealer/") ||
+      pathname?.startsWith("/promo/") ||
+      pathname?.startsWith("/berita/"));
 
-  const navBg = !isTransparent
-    ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100"
-    : "bg-transparent";
+  const navShell = isTransparent
+    ? "border-white/10 bg-[#050505]/35 text-white backdrop-blur-md"
+    : "border-gray-200 bg-white/95 text-gray-950 shadow-[0_18px_50px_-34px_rgba(15,23,42,0.7)] backdrop-blur-xl";
 
-  const textColorClass = !isTransparent ? "text-gray-600 hover:text-gray-900" : "text-white/80 hover:text-white";
-  const activeColorClass = !isTransparent ? "text-gray-900 font-bold" : "text-white font-bold";
+  const mutedText = isTransparent ? "text-white/68 hover:text-white" : "text-gray-500 hover:text-gray-950";
+  const activeText = isTransparent ? "text-white" : "text-gray-950";
+  const underlineColor = isTransparent ? "bg-red-500" : "bg-red-600";
+
+  const isItemActive = (link: NavLink) => {
+    if (link.dropdown) {
+      return link.dropdown.some((item) => pathname === item.href || pathname?.startsWith(`${item.href}/`));
+    }
+
+    if (link.href === "/") return pathname === "/";
+    return pathname === link.href || pathname?.startsWith(`${link.href}/`);
+  };
 
   return (
     <>
@@ -68,208 +97,213 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          navBg
-        )}
+        className={cn("fixed inset-x-0 top-0 z-50 border-b transition-all duration-300", navShell)}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            
-            <Link href="/" className="flex items-center group">
-              <img 
-                src="/logo.png" 
-                alt="Logo Suzuki Sumber Baru Jogja" 
-                className={cn(
-                  "h-6 md:h-7 w-auto object-contain transition-all duration-300 group-hover:scale-105",
-                  isTransparent && "brightness-0 invert"
-                )}
-              />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-600/80 to-transparent" />
+
+        <div className="container-main">
+          <div className="flex h-16 items-center justify-between md:h-20">
+            <Link href="/" className="group flex items-center gap-3" aria-label="Yusuf Suzuki Home">
+              <div className={cn("flex h-10 items-center border-l-2 border-red-600 pl-3 transition-all duration-300", isTransparent ? "bg-white/0" : "bg-white")}> 
+                <img
+                  src="/logo.png"
+                  alt="Logo Suzuki Sumber Baru Jogja"
+                  className={cn(
+                    "h-6 w-auto object-contain transition-all duration-300 group-hover:scale-105 md:h-7",
+                    isTransparent && "brightness-0 invert"
+                  )}
+                />
+              </div>
+              <div className="hidden xl:block">
+                <p className={cn("text-[10px] font-black uppercase tracking-[0.22em]", isTransparent ? "text-white/80" : "text-gray-900")}>Yusuf Suzuki</p>
+                <p className={cn("mt-0.5 text-[9px] font-bold uppercase tracking-[0.2em]", isTransparent ? "text-white/45" : "text-gray-400")}>Authorized Consultant</p>
+              </div>
             </Link>
 
-            {/* DESKTOP MENU */}
-            <div className="hidden lg:flex items-center gap-6">
-              {navLinks.map((link, index) => {
-                // Cek apakah item ini aktif (termasuk cek anak dropdown-nya)
-                const isDropdownActive = link.dropdown?.some(d => pathname === d.href || pathname.startsWith(d.href + "/"));
-                const isActive = link.dropdown ? isDropdownActive : (pathname === link.href || (link.href === "/mobil" && pathname.startsWith("/mobil/")));
-                
-                return link.dropdown ? (
-                  // --- RENDER DROPDOWN ---
-                  <div key={index} className="relative group py-2">
-                    <button className={cn(
-                      "flex items-center gap-1 text-[11px] font-bold uppercase tracking-widest transition-colors duration-200 outline-none",
-                      isActive ? activeColorClass : textColorClass
-                    )}>
-                      {link.label} 
-                      <ChevronDown size={14} className="group-hover:rotate-180 transition-transform duration-300" />
-                    </button>
-                    
-                    {/* Garis Bawah Aktif */}
-                    <span className={cn(
-                      "absolute bottom-0 left-0 h-[2px] transition-all duration-300",
-                      isActive ? "w-full" : "w-0 group-hover:w-full",
-                      !isTransparent ? "bg-gray-900" : "bg-white"
-                    )} />
+            <div className="hidden items-center gap-5 lg:flex xl:gap-7">
+              {navLinks.map((link) => {
+                const active = isItemActive(link);
 
-                    {/* Kotak Dropdown (Tampil saat hover) */}
-                    <div className="absolute top-full left-0 mt-0 pt-4 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
-                      <div className="bg-white border border-gray-100 shadow-xl flex flex-col rounded-none overflow-hidden">
-                        {link.dropdown.map((drop) => {
-                           const isChildActive = pathname === drop.href || pathname.startsWith(drop.href + "/");
-                           return (
-                             <Link 
-                               key={drop.href} 
-                               href={drop.href}
-                               className={cn(
-                                 "px-5 py-3.5 text-[10px] uppercase tracking-widest font-bold transition-colors border-b border-gray-50 last:border-0",
-                                 isChildActive ? "text-blue-600 bg-blue-50/50" : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
-                               )}
-                             >
-                               {drop.label}
-                             </Link>
-                           );
-                        })}
+                if (link.dropdown) {
+                  return (
+                    <div key={link.label} className="group relative py-7">
+                      <button
+                        type="button"
+                        className={cn(
+                          "flex items-center gap-1.5 text-[10px] font-black uppercase tracking-[0.2em] transition-colors duration-200",
+                          active ? activeText : mutedText
+                        )}
+                      >
+                        {link.label}
+                        <ChevronDown size={13} strokeWidth={2.5} className="transition-transform duration-300 group-hover:rotate-180" />
+                      </button>
+                      <span className={cn("absolute bottom-5 left-0 h-[2px] transition-all duration-300", active ? "w-full" : "w-0 group-hover:w-full", underlineColor)} />
+
+                      <div className="invisible absolute left-0 top-full w-56 translate-y-2 opacity-0 transition-all duration-300 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                        <div className="red-edge border border-gray-200 bg-white shadow-[0_30px_80px_-44px_rgba(0,0,0,0.7)]">
+                          {link.dropdown.map((item) => {
+                            const childActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
+                            return (
+                              <Link
+                                key={item.href}
+                                href={item.href}
+                                className={cn(
+                                  "flex items-center justify-between border-b border-gray-100 px-5 py-4 text-[10px] font-black uppercase tracking-[0.18em] transition-colors last:border-0",
+                                  childActive ? "bg-red-50 text-red-600" : "text-gray-500 hover:bg-gray-950 hover:text-white"
+                                )}
+                              >
+                                {item.label}
+                                <span className={cn("h-1.5 w-1.5", childActive ? "bg-red-600" : "bg-gray-300")} />
+                              </Link>
+                            );
+                          })}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  // --- RENDER MENU BIASA ---
-                  <Link
-                    key={link.href}
-                    href={link.href!}
-                    className="relative group py-2"
-                  >
-                    <span className={cn(
-                      "text-[11px] font-bold uppercase tracking-widest transition-colors duration-200",
-                      isActive ? activeColorClass : textColorClass
-                    )}>
+                  );
+                }
+
+                return (
+                  <Link key={link.href} href={link.href} className="group relative py-7">
+                    <span className={cn("text-[10px] font-black uppercase tracking-[0.2em] transition-colors duration-200", active ? activeText : mutedText)}>
                       {link.label}
                     </span>
-                    <span className={cn(
-                      "absolute bottom-0 left-0 h-[2px] transition-all duration-300",
-                      isActive ? "w-full" : "w-0 group-hover:w-full",
-                      !isTransparent ? "bg-gray-900" : "bg-white"
-                    )} />
+                    <span className={cn("absolute bottom-5 left-0 h-[2px] transition-all duration-300", active ? "w-full" : "w-0 group-hover:w-full", underlineColor)} />
                   </Link>
                 );
               })}
             </div>
 
-            <div className="hidden lg:flex items-center">
+            <div className="hidden items-center gap-3 lg:flex">
               <a
-                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`} 
+                href="tel:+6282174635218"
+                className={cn(
+                  "grid h-11 w-11 place-items-center border transition-all duration-300",
+                  isTransparent ? "border-white/15 text-white hover:border-red-500 hover:text-red-500" : "border-gray-200 text-gray-700 hover:border-red-600 hover:text-red-600"
+                )}
+                aria-label="Telepon Yusuf Suzuki"
+              >
+                <PhoneCall size={16} />
+              </a>
+              <a
+                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "text-[10px] uppercase tracking-widest font-bold px-6 py-3.5 rounded-none flex items-center gap-2 transition-all duration-300 active:scale-95 shadow-sm",
-                  isTransparent 
-                    ? "bg-transparent border border-white/50 text-white hover:bg-white hover:text-black backdrop-blur-sm"
-                    : "bg-red-600 text-white hover:bg-black"
+                  "group inline-flex items-center justify-center gap-2 px-6 py-3.5 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 active:scale-95",
+                  isTransparent
+                    ? "border border-white/30 bg-white/5 text-white backdrop-blur-sm hover:border-red-500 hover:bg-red-600"
+                    : "border border-red-600 bg-red-600 text-white shadow-red-glow hover:border-gray-950 hover:bg-gray-950"
                 )}
               >
-                <MessageCircle size={16} />
+                <MessageCircle size={15} />
                 Chat Yusuf
               </a>
             </div>
 
             <button
-              className={cn(
-                "lg:hidden p-2 transition-colors",
-                !isTransparent ? "text-gray-900" : "text-white"
-              )}
-              onClick={() => setMenuOpen(!menuOpen)}
+              type="button"
+              className={cn("grid h-11 w-11 place-items-center border transition-colors lg:hidden", isTransparent ? "border-white/15 text-white" : "border-gray-200 text-gray-950")}
+              onClick={() => setMenuOpen((open) => !open)}
               aria-label="Toggle menu"
+              aria-expanded={menuOpen}
             >
-              {menuOpen ? <X size={26} /> : <Menu size={26} />}
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* MOBILE MENU */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-16 z-40 bg-white shadow-2xl border-b border-gray-100 lg:hidden max-h-[85vh] overflow-y-auto"
+            className="fixed inset-0 z-40 bg-[#050505] text-white lg:hidden"
           >
-            <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-1">
-              {navLinks.map((link, index) => {
-                 const isDropdownActive = link.dropdown?.some(d => pathname === d.href || pathname.startsWith(d.href + "/"));
-                 const isActive = link.dropdown ? isDropdownActive : (pathname === link.href || (link.href === "/mobil" && pathname.startsWith("/mobil/")));
-                 
-                 return link.dropdown ? (
-                   // --- RENDER DROPDOWN MOBILE ---
-                   <div key={index} className="flex flex-col">
-                     <button 
-                       onClick={() => setMobileInfoOpen(!mobileInfoOpen)}
-                       className={cn(
-                         "flex items-center justify-between py-4 text-[10px] uppercase tracking-widest font-bold border-b border-gray-50 transition-colors w-full text-left outline-none",
-                         isActive || mobileInfoOpen ? "text-gray-900" : "text-gray-400 hover:text-gray-900"
-                       )}
-                     >
-                       {link.label}
-                       <ChevronDown size={16} className={cn("transition-transform duration-300", mobileInfoOpen ? "rotate-180" : "")} />
-                     </button>
-                     
-                     <AnimatePresence>
-                       {mobileInfoOpen && (
-                         <motion.div
-                           initial={{ height: 0, opacity: 0 }}
-                           animate={{ height: "auto", opacity: 1 }}
-                           exit={{ height: 0, opacity: 0 }}
-                           className="overflow-hidden bg-gray-50/50 flex flex-col"
-                         >
-                           {link.dropdown.map((drop) => {
-                             const isChildActive = pathname === drop.href || pathname.startsWith(drop.href + "/");
-                             return (
-                               <Link
-                                 key={drop.href}
-                                 href={drop.href}
-                                 onClick={() => setMenuOpen(false)}
-                                 className={cn(
-                                   "py-3.5 pl-6 text-[10px] uppercase tracking-widest font-bold border-b border-gray-100/50 transition-colors",
-                                   isChildActive ? "text-blue-600" : "text-gray-500 hover:text-gray-900"
-                                 )}
-                               >
-                                 • {drop.label}
-                               </Link>
-                             );
-                           })}
-                         </motion.div>
-                       )}
-                     </AnimatePresence>
-                   </div>
-                 ) : (
-                   // --- RENDER MENU BIASA MOBILE ---
-                   <Link
-                     key={link.href}
-                     href={link.href!}
-                     onClick={() => setMenuOpen(false)}
-                     className={cn(
-                       "py-4 text-[10px] uppercase tracking-widest font-bold border-b border-gray-50 transition-colors",
-                       isActive ? "text-gray-900" : "text-gray-400 hover:text-gray-900"
-                     )}
-                   >
-                     {link.label}
-                   </Link>
-                 );
-              })}
-              
-              <a
-                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMenuOpen(false)}
-                className="mt-6 bg-gray-900 text-white text-[10px] uppercase tracking-widest font-bold py-4 rounded-none flex justify-center items-center gap-2 shadow-md"
-              >
-                <MessageCircle size={16} />
-                Chat Yusuf Suzuki
-              </a>
+            <div className="surface-grid absolute inset-0 opacity-40" />
+            <div className="absolute inset-0 bg-red-radial" />
+            <div className="relative flex h-full flex-col px-5 pb-6 pt-24">
+              <div className="mb-5 border-l-2 border-red-600 pl-4">
+                <p className="text-[10px] font-black uppercase tracking-[0.28em] text-red-500">Navigation</p>
+                <p className="mt-2 text-2xl font-black uppercase tracking-tighter">Yusuf Suzuki</p>
+              </div>
+
+              <div className="flex-1 overflow-y-auto border-y border-white/10 py-2">
+                {navLinks.map((link) => {
+                  const active = isItemActive(link);
+
+                  if (link.dropdown) {
+                    return (
+                      <div key={link.label} className="border-b border-white/10">
+                        <button
+                          type="button"
+                          onClick={() => setMobileInfoOpen((open) => !open)}
+                          className={cn("flex w-full items-center justify-between py-4 text-left text-xs font-black uppercase tracking-[0.18em]", active || mobileInfoOpen ? "text-white" : "text-white/55")}
+                        >
+                          {link.label}
+                          <ChevronDown size={16} className={cn("transition-transform", mobileInfoOpen && "rotate-180")} />
+                        </button>
+
+                        <AnimatePresence initial={false}>
+                          {mobileInfoOpen && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              className="overflow-hidden"
+                            >
+                              <div className="grid gap-2 pb-4 pl-4">
+                                {link.dropdown.map((item) => {
+                                  const childActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
+                                  return (
+                                    <Link
+                                      key={item.href}
+                                      href={item.href}
+                                      className={cn("border-l border-white/10 py-2 pl-4 text-[11px] font-black uppercase tracking-[0.18em]", childActive ? "border-red-600 text-red-500" : "text-white/55")}
+                                    >
+                                      {item.label}
+                                    </Link>
+                                  );
+                                })}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={cn("flex items-center justify-between border-b border-white/10 py-4 text-xs font-black uppercase tracking-[0.18em]", active ? "text-white" : "text-white/55")}
+                    >
+                      {link.label}
+                      <span className={cn("h-1.5 w-1.5", active ? "bg-red-600" : "bg-white/20")} />
+                    </Link>
+                  );
+                })}
+              </div>
+
+              <div className="mt-5 grid grid-cols-1 gap-3">
+                <a
+                  href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-red w-full"
+                >
+                  <MessageCircle size={16} />
+                  Chat WhatsApp
+                </a>
+                <a href="tel:+6282174635218" className="inline-flex w-full items-center justify-center gap-2 border border-white/15 px-6 py-3.5 text-[11px] font-black uppercase tracking-[0.18em] text-white/80">
+                  <PhoneCall size={16} />
+                  0821 7463 5218
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
