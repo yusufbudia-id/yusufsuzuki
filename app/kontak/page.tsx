@@ -1,75 +1,83 @@
 import type { Metadata } from "next";
-import { MapPin, Phone, Clock, MessageCircle } from "lucide-react";
-import { WA_BASE_URL } from "@/lib/utils";
+import { MapPin, Phone, Clock, MessageCircle, Navigation, UserRoundCheck } from "lucide-react";
+import PageHero from "@/components/PageHero";
+import { buildWhatsAppUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Kontak – Suzuki Sumber Baru Mobil Jogja | Yusuf Suzuki 0821 7463 5218",
   description: "Hubungi Yusuf Suzuki di Suzuki Sumber Baru Mobil, Jl. Magelang KM 8 Yogyakarta. WhatsApp: 0821 7463 5218. Senin–Sabtu 08.00–17.00.",
 };
 
+const contactItems = [
+  { icon: Phone, label: "Nomor WhatsApp", value: "0821 7463 5218\n(Yusuf Suzuki)" },
+  { icon: MapPin, label: "Alamat Showroom", value: "Suzuki Sumber Baru Mobil\nJl. Magelang KM 8, Sendangadi, Mlati, Sleman, Yogyakarta" },
+  { icon: Clock, label: "Jam Operasional", value: "Senin – Sabtu: 08.00 – 17.00 WIB\nMinggu: Tutup (Bisa Janjian)" },
+];
+
 export default function KontakPage() {
   return (
-    <div className="bg-gray-50 min-h-screen">
-      
-      {/* Header - Tema Gelap Premium (Menempel ke Atas) */}
-      <div className="bg-gray-900 pt-32 pb-16 md:pt-40 md:pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <span className="inline-block bg-white/10 text-gray-300 text-[10px] font-bold px-4 py-1.5 rounded-none mb-6 uppercase tracking-[0.2em] border border-white/10">
-            Hubungi Kami
-          </span>
-          <h1 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">
-            Kontak & Lokasi
-          </h1>
-          <p className="text-gray-400 text-base md:text-lg max-w-2xl leading-relaxed">
-            Kami siap melayani Anda dengan sepenuh hati. Silakan kunjungi showroom kami atau hubungi via WhatsApp untuk respon cepat.
-          </p>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <PageHero
+        eyebrow="Hubungi Kami"
+        title="Kontak & Lokasi Dealer"
+        description="Kunjungi showroom Suzuki Sumber Baru Mobil atau hubungi Yusuf Suzuki untuk konsultasi unit, promo, test drive, dan simulasi kredit."
+        stats={[
+          { value: "08-17", label: "Jam Layanan" },
+          { value: "KM 8", label: "Jl. Magelang" },
+          { value: "WA", label: "Respon Cepat" },
+          { value: "DIY", label: "Area Layanan" },
+        ]}
+      >
+        <a
+          href={buildWhatsAppUrl("Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki dan promo yang tersedia.")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-red"
+        >
+          <MessageCircle size={16} /> Chat Yusuf
+        </a>
+        <a
+          href="https://maps.google.com/maps?q=Suzuki%20Mlati%20Sumber%20Baru%20Mobil,%20Sleman"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="border border-white/20 bg-white/5 px-6 py-3.5 text-[11px] font-black uppercase tracking-[0.18em] text-white backdrop-blur transition-all hover:border-white/40 hover:bg-white/10"
+        >
+          <Navigation size={16} /> Buka Maps
+        </a>
+      </PageHero>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        {/* Bagian Atas: Info Kontak & Peta */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 mb-16 md:mb-24">
-          
-          {/* Kolom Kiri: Informasi Kontak */}
+      <section className="container-main py-16 md:py-24">
+        <div className="mb-16 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="space-y-8">
-            <div className="bg-white rounded-none border border-gray-200 shadow-2xl p-8 md:p-12">
-              <h2 className="font-black text-gray-900 text-xl mb-8 uppercase tracking-tighter border-b border-gray-100 pb-5">
-                Informasi Dealer
-              </h2>
-              
+            <div className="red-edge border border-gray-200 bg-white p-8 shadow-card md:p-12">
+              <p className="section-label mb-4">Informasi Dealer</p>
+              <h2 className="mb-8 text-2xl font-black uppercase tracking-tighter text-gray-950 md:text-3xl">Detail Kontak Resmi</h2>
               <div className="space-y-8">
-                {[
-                  { icon: Phone, label: "Nomor WhatsApp", value: "0821 7463 5218\n(Yusuf Suzuki)" },
-                  { icon: MapPin, label: "Alamat Showroom", value: "Suzuki Sumber Baru Mobil\nJl. Magelang KM 8, Sendangadi, Mlati, Sleman, Yogyakarta" },
-                  { icon: Clock, label: "Jam Operasional", value: "Senin – Sabtu: 08.00 – 17.00 WIB\nMinggu: Tutup (Bisa Janjian)" },
-                ].map((item) => (
-                  <div key={item.label} className="flex gap-5 items-start group">
-                    <div className="w-12 h-12 rounded-none border border-gray-200 bg-gray-50 flex items-center justify-center shrink-0 group-hover:bg-gray-900 group-hover:text-white transition-colors duration-300 shadow-sm text-gray-900">
+                {contactItems.map((item) => (
+                  <div key={item.label} className="group flex items-start gap-5">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-gray-200 bg-gray-50 text-gray-900 shadow-sm transition-colors duration-300 group-hover:bg-red-600 group-hover:text-white">
                       <item.icon size={20} strokeWidth={1.5} />
                     </div>
                     <div>
-                      <p className="font-bold text-gray-900 text-xs uppercase tracking-widest mb-1.5">{item.label}</p>
-                      <p className="text-gray-500 text-sm whitespace-pre-line leading-relaxed">{item.value}</p>
+                      <p className="mb-1.5 text-xs font-black uppercase tracking-widest text-gray-900">{item.label}</p>
+                      <p className="whitespace-pre-line text-sm leading-relaxed text-gray-500">{item.value}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Tombol WhatsApp Sharp */}
             <a
-              href={`${WA_BASE_URL}?text=Halo%20Yusuf%20Suzuki%2C%20saya%20ingin%20tanya%20tentang%20mobil%20Suzuki`}
+              href={buildWhatsAppUrl("Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-gray-900 hover:bg-black text-white py-5 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.2em] shadow-lg"
+              className="btn-dark w-full py-5"
             >
-              <MessageCircle size={18} />
-              Chat Yusuf Via WhatsApp
+              <MessageCircle size={18} /> Chat Yusuf Via WhatsApp
             </a>
           </div>
 
-          {/* Kolom Kanan: Google Maps (Full Color - Pointing ke Lokasi Asli) */}
-          <div className="rounded-none overflow-hidden border border-gray-200 shadow-2xl h-[450px] md:h-auto relative bg-gray-200 min-h-[500px]">
+          <div className="relative min-h-[500px] overflow-hidden border border-gray-200 bg-gray-200 shadow-card-hover">
             <iframe
               src="https://maps.google.com/maps?q=Suzuki%20Mlati%20Sumber%20Baru%20Mobil,%20Sleman&t=&z=16&ie=UTF8&iwloc=&output=embed"
               width="100%"
@@ -83,47 +91,43 @@ export default function KontakPage() {
           </div>
         </div>
 
-        {/* Bagian Bawah: Profil Yusuf (Kartu Nama Eksklusif) */}
-        <div className="bg-gray-900 rounded-none p-8 md:p-16 text-white relative overflow-hidden group shadow-2xl">
-          {/* Garis Dekoratif Latar Belakang */}
-          <div className="absolute top-0 right-0 w-64 h-full bg-white/5 skew-x-12 translate-x-32 group-hover:translate-x-20 transition-transform duration-1000" />
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16 items-center relative z-10">
-            {/* Foto Profile Yusuf */}
-            <div className="aspect-[3/4] w-full max-w-[260px] mx-auto md:mx-0 overflow-hidden bg-gray-800 rounded-none shadow-2xl relative border border-gray-700">
-              <img 
-                src="/kontak/photo.jpg" 
-                alt="Yusuf Suzuki Sales Executive" 
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105" 
+        <div className="relative overflow-hidden border border-gray-800 bg-[#050505] p-8 text-white shadow-dark-glow md:p-16">
+          <div className="absolute inset-0 bg-red-radial opacity-70" />
+          <div className="absolute inset-0 bg-automotive-grid bg-[size:56px_56px] opacity-30" />
+          <div className="absolute right-0 top-0 h-full w-64 translate-x-32 skew-x-12 bg-white/5 transition-transform duration-1000" />
+
+          <div className="relative z-10 grid grid-cols-1 items-center gap-10 md:grid-cols-3 md:gap-16">
+            <div className="relative mx-auto aspect-[3/4] w-full max-w-[260px] overflow-hidden border border-white/10 bg-gray-900 shadow-2xl md:mx-0">
+              <img
+                src="/kontak/photo.jpg"
+                alt="Yusuf Suzuki Sales Executive"
+                className="h-full w-full object-cover grayscale transition-all duration-700 hover:scale-105 hover:grayscale-0"
               />
-              <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-gray-900 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black to-transparent" />
             </div>
-            
-            {/* Teks Deskripsi Yusuf */}
-            <div className="md:col-span-2 text-center md:text-left">
-              <p className="text-gray-400 text-[10px] uppercase tracking-[0.3em] font-bold mb-3">Sales Executive</p>
-              <h3 className="text-3xl md:text-5xl font-black mb-6 uppercase tracking-tight text-white">Yusuf Suzuki</h3>
-              
-              <p className="text-gray-400 leading-relaxed mb-10 text-sm md:text-base max-w-2xl">
-                Sebagai konsultan penjualan otomotif profesional, Yusuf selalu menempatkan integritas dan kepuasan pelanggan di atas segalanya. Dengan penguasaan produk yang mendalam, Yusuf siap menjadi mitra Anda dalam menganalisis kebutuhan, memberikan simulasi pembiayaan paling rasional, hingga memastikan unit mendarat sempurna di garasi Anda.
+
+            <div className="text-center md:col-span-2 md:text-left">
+              <div className="mb-4 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.28em] text-red-500">
+                <UserRoundCheck size={14} /> Sales Executive
+              </div>
+              <h3 className="mb-6 text-3xl font-black uppercase tracking-tighter text-white md:text-5xl">Yusuf Suzuki</h3>
+              <p className="mx-auto mb-10 max-w-2xl text-sm leading-relaxed text-white/55 md:mx-0 md:text-base">
+                Konsultan penjualan Suzuki yang siap membantu Anda menganalisis kebutuhan, memilih varian, menghitung simulasi kredit, dan memastikan proses pembelian berjalan jelas dari awal sampai serah terima unit.
               </p>
-              
-              {/* Info Kontak Sharp */}
-              <div className="flex flex-wrap justify-center md:justify-start gap-4">
-                <div className="flex items-center gap-3 border border-gray-700 hover:border-white transition-colors bg-white/5 px-6 py-3.5 rounded-none cursor-default">
-                  <Phone size={16} className="text-gray-400" />
-                  <span className="text-[11px] font-bold uppercase tracking-widest text-gray-200">0821 7463 5218</span>
+              <div className="flex flex-wrap justify-center gap-4 md:justify-start">
+                <div className="flex items-center gap-3 border border-white/10 bg-white/5 px-6 py-3.5">
+                  <Phone size={16} className="text-red-500" />
+                  <span className="text-[11px] font-black uppercase tracking-widest text-gray-200">0821 7463 5218</span>
                 </div>
-                <div className="flex items-center gap-3 border border-gray-700 hover:border-white transition-colors bg-white/5 px-6 py-3.5 rounded-none cursor-default">
-                  <MapPin size={16} className="text-gray-400" />
-                  <span className="text-[11px] font-bold uppercase tracking-widest text-gray-200">Jl. Magelang KM 8</span>
+                <div className="flex items-center gap-3 border border-white/10 bg-white/5 px-6 py-3.5">
+                  <MapPin size={16} className="text-red-500" />
+                  <span className="text-[11px] font-black uppercase tracking-widest text-gray-200">Jl. Magelang KM 8</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-      </div>
+      </section>
     </div>
   );
 }

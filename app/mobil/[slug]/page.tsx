@@ -10,6 +10,7 @@ import { formatCurrency, WA_BASE_URL } from "@/lib/utils";
 import PricelistTable from "@/components/PricelistTable";
 import FadeIn from "@/components/FadeIn";
 import OtherCarsCarousel from "@/components/OtherCarsCarousel";
+import ContactCTA from "@/components/ContactCTA";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -389,7 +390,8 @@ export default async function CarDetailPage({ params }: Props) {
             <FadeIn>
               <div className="flex justify-between items-end mb-10">
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tighter">Eksplorasi Model Lainnya</h2>
+                  <p className="section-label mb-3">Model Lainnya</p>
+                  <h2 className="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tighter">Eksplorasi Mobil Suzuki Lain</h2>
                 </div>
                 <Link href="/mobil" className="hidden sm:inline-block font-bold text-[10px] text-gray-400 hover:text-red-600 uppercase tracking-widest transition-colors">
                   Semua Mobil &rarr;
@@ -403,6 +405,8 @@ export default async function CarDetailPage({ params }: Props) {
           </div>
         </div>
       )}
+
+      <ContactCTA />
 
     </div>
   );

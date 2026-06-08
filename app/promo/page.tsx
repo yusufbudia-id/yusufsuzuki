@@ -1,11 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import { MessageCircle, BadgePercent, Clock3, ShieldCheck, ArrowRight } from "lucide-react";
 import { promos } from "@/data/promos";
 import { PromoCard } from "@/components/PromoSection";
 import ContactCTA from "@/components/ContactCTA";
+import PageHero from "@/components/PageHero";
+import { buildWhatsAppUrl } from "@/lib/utils";
 
-// --- FUNGSI PEMBANTU: PARSE TANGGAL INDONESIA KE DATE OBJECT ---
 const parseIndonesianDate = (dateStr: string) => {
   const months: { [key: string]: number } = {
     januari: 0, februari: 1, maret: 2, april: 3, mei: 4, juni: 5,
@@ -23,89 +26,125 @@ const parseIndonesianDate = (dateStr: string) => {
 };
 
 export default function PromoPage() {
-  // --- LOGIKA PENGURUTAN PROMO (SUDAH DIPERBAIKI) ---
   const today = new Date();
 
-  // 1. Ambil Promo Aktif & Urutkan agar yang TERBARU di kiri/atas
   const activePromos = [...promos]
-    .reverse() // Trik 1: Balik urutan asli dari database agar yang baru diinput muncul duluan
+    .reverse()
     .filter((promo) => parseIndonesianDate(promo.validUntil) >= today)
-    .sort((a, b) => parseIndonesianDate(b.validUntil).getTime() - parseIndonesianDate(a.validUntil).getTime()); // Trik 2: Urutkan b - a (Descending)
+    .sort((a, b) => parseIndonesianDate(b.validUntil).getTime() - parseIndonesianDate(a.validUntil).getTime());
 
-  // 2. Ambil Promo Kedaluwarsa & Urutkan berdasarkan yang paling baru lewat
   const expiredPromos = [...promos]
     .reverse()
     .filter((promo) => parseIndonesianDate(promo.validUntil) < today)
     .sort((a, b) => parseIndonesianDate(b.validUntil).getTime() - parseIndonesianDate(a.validUntil).getTime());
 
-  return (
-    <div className="bg-gray-50 min-h-screen">
-      
-      {/* Header - Tema Gelap Premium */}
-      <div className="bg-gray-900 pt-32 pb-16 md:pt-40 md:pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-block bg-white/10 text-gray-300 text-[10px] font-bold px-4 py-1.5 rounded-none mb-6 uppercase tracking-[0.2em] border border-white/10">
-              Penawaran Eksklusif
-            </span>
-            <h1 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">
-              Promo Suzuki Terbaru
-            </h1>
-            <p className="text-gray-400 text-base md:text-lg max-w-2xl leading-relaxed">
-              Jangan lewatkan promo spesial dan penawaran terbatas yang hanya ada di Suzuki Sumber Baru Mobil Jogja.
-            </p>
-          </motion.div>
-        </div>
-      </div>
+  const promoStats = [
+    { icon: BadgePercent, title: "Diskon Bulanan", desc: "Penawaran mengikuti program resmi dealer dan ketersediaan unit." },
+    { icon: Clock3, title: "Masa Terbatas", desc: "Promo aktif bisa berubah sesuai periode dan stok kendaraan." },
+    { icon: ShieldCheck, title: "Konsultasi Resmi", desc: "Dibantu langsung oleh Yusuf Suzuki sampai proses pembelian jelas." },
+  ];
 
-      {/* Grid Promo Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        
-        {/* --- BAGIAN 1: PROMO AKTIF --- */}
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <PageHero
+        eyebrow="Penawaran Eksklusif"
+        title="Promo Suzuki Terbaru"
+        description="Temukan promo Suzuki aktif bulan ini, mulai dari diskon, DP ringan, angsuran menarik, hingga paket pembelian khusus area Jogja dan sekitarnya."
+        stats={[
+          { value: `${activePromos.length}`, label: "Promo Aktif" },
+          { value: "DP", label: "Bisa Disesuaikan" },
+          { value: "WA", label: "Klaim Cepat" },
+          { value: "Resmi", label: "Dealer Suzuki" },
+        ]}
+      >
+        <a
+          href={buildWhatsAppUrl("Halo Yusuf Suzuki, saya ingin cek promo Suzuki aktif bulan ini.")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-red"
+        >
+          <MessageCircle size={16} /> Tanya Promo Aktif
+        </a>
+        <Link href="/mobil" className="border border-white/20 bg-white/5 px-6 py-3.5 text-[11px] font-black uppercase tracking-[0.18em] text-white backdrop-blur transition-all hover:border-white/40 hover:bg-white/10">
+          Lihat Mobil
+        </Link>
+      </PageHero>
+
+      <section className="border-b border-gray-200 bg-white">
+        <div className="container-main grid grid-cols-1 gap-4 py-6 md:grid-cols-3">
+          {promoStats.map((item) => (
+            <div key={item.title} className="group flex gap-4 border border-gray-200 bg-gray-50 p-5 transition-all hover:border-red-600 hover:bg-white">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-white text-gray-900 shadow-sm transition-colors group-hover:bg-red-600 group-hover:text-white">
+                <item.icon size={20} strokeWidth={1.6} />
+              </div>
+              <div>
+                <p className="text-xs font-black uppercase tracking-widest text-gray-950">{item.title}</p>
+                <p className="mt-1 text-xs leading-relaxed text-gray-500">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="container-main py-16 md:py-24">
         {activePromos.length > 0 ? (
           <>
-            <div className="flex items-center gap-4 mb-10 border-l-4 border-gray-900 pl-4">
-              <p className="text-gray-900 font-bold text-xs uppercase tracking-widest">
-                Daftar Promo Aktif Bulan Ini
-              </p>
-              <div className="h-px bg-gray-200 flex-grow"></div>
+            <div className="mb-10 flex flex-col gap-5 border-l-4 border-red-600 bg-white p-6 shadow-card md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="section-label mb-3">Promo Aktif</p>
+                <h2 className="text-3xl font-black uppercase tracking-tighter text-gray-950 md:text-4xl">Daftar Promo Bulan Ini</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-500">
+                  Pilih promo yang sesuai, lalu klaim via WhatsApp agar Yusuf Suzuki bisa cek stok, syarat, dan simulasi terbaik untuk Anda.
+                </p>
+              </div>
+              <a
+                href={buildWhatsAppUrl("Halo Yusuf Suzuki, saya ingin dibantu memilih promo Suzuki yang paling cocok.")}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-dark"
+              >
+                Konsultasi Promo <ArrowRight size={14} />
+              </a>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mb-20">
+            <div className="mb-20 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 md:gap-10">
               {activePromos.map((promo, i) => (
                 <PromoCard key={promo.slug} promo={promo} index={i} />
               ))}
             </div>
           </>
         ) : (
-          <div className="text-center py-12 mb-10">
-            <p className="text-gray-500 font-medium">Belum ada promo baru untuk saat ini. Silakan hubungi kami untuk penawaran menarik lainnya.</p>
+          <div className="mb-16 border border-gray-200 bg-white px-6 py-16 text-center shadow-card">
+            <p className="mb-3 text-sm font-black uppercase tracking-widest text-gray-900">Belum ada promo baru</p>
+            <p className="mx-auto max-w-xl text-sm leading-relaxed text-gray-500">
+              Program bisa berubah sewaktu-waktu. Hubungi Yusuf Suzuki untuk mengecek penawaran terbaru yang belum tampil di website.
+            </p>
           </div>
         )}
 
-        {/* --- BAGIAN 2: PROMO KEDALUWARSA (Ditaruh Bawah) --- */}
         {expiredPromos.length > 0 && (
-          <>
-            <div className="flex items-center gap-4 mb-10 border-l-4 border-gray-400 pl-4 mt-8">
-              <p className="text-gray-500 font-bold text-xs uppercase tracking-widest">
-                Promo Terdahulu (Telah Berakhir)
-              </p>
-              <div className="h-px bg-gray-200 flex-grow"></div>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.55 }}
+          >
+            <div className="mb-10 flex items-center gap-4 border-l-4 border-gray-300 bg-white p-5">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-400">Arsip Promo</p>
+                <h2 className="mt-1 text-2xl font-black uppercase tracking-tighter text-gray-700">Promo Terdahulu</h2>
+              </div>
+              <div className="h-px flex-1 bg-gray-200" />
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 opacity-70 hover:opacity-100 transition-opacity duration-300">
+            <div className="grid grid-cols-1 gap-8 opacity-60 transition-opacity duration-300 hover:opacity-100 sm:grid-cols-2 lg:grid-cols-3 md:gap-10">
               {expiredPromos.map((promo, i) => (
                 <PromoCard key={promo.slug} promo={promo} index={i} />
               ))}
             </div>
-          </>
+          </motion.div>
         )}
-
-      </div>
+      </section>
 
       <ContactCTA />
     </div>

@@ -3,17 +3,18 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Calendar } from "lucide-react";
+import { ArrowRight, Calendar, MessageCircle } from "lucide-react";
 import { articles } from "@/data/articles";
 import ContactCTA from "@/components/ContactCTA";
+import PageHero from "@/components/PageHero";
+import { buildWhatsAppUrl } from "@/lib/utils";
 
-// Fungsi pembantu untuk membaca tanggal bahasa Indonesia
 function parseIndonesianDate(dateStr: string) {
   const months: { [key: string]: number } = {
     "Januari": 0, "Februari": 1, "Maret": 2, "April": 3, "Mei": 4, "Juni": 5,
     "Juli": 6, "Agustus": 7, "September": 8, "Oktober": 9, "November": 10, "Desember": 11
   };
-  
+
   const parts = dateStr.split(" ");
   if (parts.length !== 3) return 0;
 
@@ -25,96 +26,98 @@ function parseIndonesianDate(dateStr: string) {
 }
 
 export default function BeritaPage() {
-  // Mengurutkan artikel dari yang paling baru (teratas) ke yang paling lama
   const sortedArticles = [...articles].sort(
     (a, b) => parseIndonesianDate(b.date) - parseIndonesianDate(a.date)
   );
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      
-      {/* Header - Tema Gelap Premium */}
-      <div className="bg-gray-900 pt-32 pb-16 md:pt-40 md:pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }} 
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span className="inline-block bg-white/10 text-gray-300 text-[10px] font-bold px-4 py-1.5 rounded-none mb-6 uppercase tracking-[0.2em] border border-white/10">
-              Informasi Otomotif
-            </span>
-            <h1 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">
-              Berita & Tips Suzuki
-            </h1>
-            <p className="text-gray-400 text-base md:text-lg max-w-2xl leading-relaxed">
-              Kumpulan informasi terbaru, tips perawatan, dan panduan membeli mobil Suzuki impian Anda langsung dari pakarnya.
-            </p>
-          </motion.div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <PageHero
+        eyebrow="Informasi Otomotif"
+        title="Berita & Tips Suzuki"
+        description="Kumpulan informasi terbaru, tips perawatan, panduan kredit, dan insight membeli mobil Suzuki langsung dari tim dealer resmi."
+        stats={[
+          { value: `${articles.length}`, label: "Artikel" },
+          { value: "Tips", label: "Perawatan" },
+          { value: "Kredit", label: "Panduan Beli" },
+          { value: "Suzuki", label: "Info Produk" },
+        ]}
+      >
+        <a
+          href={buildWhatsAppUrl("Halo Yusuf Suzuki, saya ingin konsultasi tentang mobil Suzuki setelah membaca artikel di website.")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-red"
+        >
+          <MessageCircle size={16} /> Tanya Yusuf
+        </a>
+        <Link href="/mobil" className="border border-white/20 bg-white/5 px-6 py-3.5 text-[11px] font-black uppercase tracking-[0.18em] text-white backdrop-blur transition-all hover:border-white/40 hover:bg-white/10">
+          Lihat Mobil
+        </Link>
+      </PageHero>
 
-      {/* Grid Artikel Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mb-20">
-          
+      <section className="container-main py-16 md:py-24">
+        <div className="mb-10 flex flex-col gap-4 border-l-4 border-red-600 bg-white p-6 shadow-card md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="section-label mb-3">Artikel Terbaru</p>
+            <h2 className="text-3xl font-black uppercase tracking-tighter text-gray-950 md:text-4xl">Panduan Sebelum Membeli</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-500">
+              Baca insight singkat untuk membantu Anda memilih unit, memahami promo, dan merawat mobil Suzuki.
+            </p>
+          </div>
+        </div>
+
+        <div className="mb-20 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 md:gap-10">
           {sortedArticles.map((article, i) => (
             <motion.div
               key={article.slug}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="group bg-white border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="group red-edge flex h-full flex-col border border-gray-200 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-red-600 hover:shadow-card-hover"
             >
-              {/* Gambar Artikel */}
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-200">
                 <Image
                   src={article.imageUrl}
                   alt={article.title}
                   fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute top-4 left-4 bg-[#050B14] text-white text-[10px] font-bold px-3 py-1.5 uppercase tracking-widest z-10">
+                <div className="absolute left-4 top-4 bg-gray-950 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-white">
                   {article.category}
                 </div>
               </div>
 
-              {/* Konten Artikel */}
-              <div className="p-6 md:p-8 flex flex-col flex-grow">
-                <div className="flex items-center gap-2 text-gray-500 mb-4 text-xs font-medium">
+              <div className="flex flex-grow flex-col p-6 md:p-8">
+                <div className="mb-4 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400">
                   <Calendar size={14} />
                   <span>{article.date}</span>
                 </div>
 
-                <h2 className="text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-blue-600 transition-colors">
-                  <Link href={`/berita/${article.slug}`}>
-                    {article.title}
-                  </Link>
+                <h2 className="mb-3 text-xl font-black uppercase leading-tight tracking-tight text-gray-950 transition-colors group-hover:text-red-600">
+                  <Link href={`/berita/${article.slug}`}>{article.title}</Link>
                 </h2>
 
-                <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
+                <p className="mb-6 line-clamp-3 flex-grow text-sm leading-relaxed text-gray-500">
                   {article.excerpt}
                 </p>
 
-                {/* Tombol Baca */}
-                <div className="mt-auto pt-4 border-t border-gray-100">
-                  <Link 
+                <div className="mt-auto border-t border-gray-100 pt-5">
+                  <Link
                     href={`/berita/${article.slug}`}
-                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-900 hover:text-blue-600 transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-widest text-gray-900 transition-colors hover:text-red-600"
                   >
                     Baca Selengkapnya
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
                   </Link>
                 </div>
               </div>
             </motion.div>
           ))}
-
         </div>
-      </div>
+      </section>
 
-      {/* Bagian Bawah Tetap Menggunakan ContactCTA */}
       <ContactCTA />
     </div>
   );

@@ -317,10 +317,10 @@ Mohon info persyaratannya.`;
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="relative">
                   <div className="flex justify-between items-end mb-2">
-                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-blue-600">DP Bayar (Nett)</label>
-                    <span className="text-[10px] font-black text-blue-900">Total DP (TDP): {tdpPct.toFixed(2)}%</span>
+                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-red-600">DP Bayar (Nett)</label>
+                    <span className="text-[10px] font-black text-red-900">Total DP (TDP): {tdpPct.toFixed(2)}%</span>
                   </div>
-                  <div className="flex items-center border-b-2 border-blue-200 focus-within:border-blue-600 transition-colors">
+                  <div className="flex items-center border-b-2 border-red-200 focus-within:border-red-600 transition-colors">
                     <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
                     <input 
                       type="text" 
@@ -333,7 +333,7 @@ Mohon info persyaratannya.`;
                           setDpBayar(minTdp - diskon > 0 ? (minTdp - diskon) : 0);
                         }
                       }}
-                      className="w-full bg-transparent py-2 text-lg font-black text-blue-900 focus:outline-none" 
+                      className="w-full bg-transparent py-2 text-lg font-black text-red-900 focus:outline-none" 
                     />
                   </div>
                   {/* SLIDER mengontrol persentase TDP kotor, tapi mengubah nominal DP Bayar */}
@@ -344,7 +344,7 @@ Mohon info persyaratannya.`;
                       const newTdpNominal = hargaMobil * (newPct / 100);
                       setDpBayar(newTdpNominal - diskon > 0 ? newTdpNominal - diskon : 0);
                     }}
-                    className="w-full h-1.5 bg-blue-100 accent-blue-600 appearance-none cursor-pointer mt-4"
+                    className="w-full h-1.5 bg-red-100 accent-red-600 appearance-none cursor-pointer mt-4"
                   />
                 </div>
                 <div className="relative flex flex-col justify-end">
@@ -465,8 +465,8 @@ Mohon info persyaratannya.`;
             
             {/* HIERARKI BARU: DP Bayar di Atas, Diskon di Tengah, TDP di Bawah */}
             <div className="flex justify-between py-2 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest">Budget DP (DP Bayar)</span>
-              <span className="text-xs font-black text-blue-600">{formatCurrency(dpBayar)}</span>
+              <span className="text-[10px] font-bold text-red-600 uppercase tracking-widest">Budget DP (DP Bayar)</span>
+              <span className="text-xs font-black text-red-600">{formatCurrency(dpBayar)}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-gray-200">
               <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">+ Diskon Unit</span>

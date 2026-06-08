@@ -135,7 +135,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
   };
 
   return (
-    <main className="min-h-screen bg-white pt-24 pb-20">
+    <main className="min-h-screen bg-gray-50 pt-24 pb-20">
       
       {/* SUNTIKAN KODE RAHASIA UNTUK ROBOT GOOGLE */}
       <script
@@ -143,14 +143,14 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-700 via-red-600 to-blue-700 z-[60] md:hidden" />
+      <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-950 via-red-600 to-red-950 z-[60] md:hidden" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* === TOMBOL KEMBALI MENGARAH KE DAFTAR PROMO === */}
         <Link 
           href="/promo" 
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-black transition-colors font-bold text-[10px] uppercase tracking-[0.2em] mb-8"
+          className="inline-flex items-center gap-2 text-gray-500 hover:text-red-600 transition-colors font-bold text-[10px] uppercase tracking-[0.2em] mb-8"
         >
           <ArrowLeft size={14} />
           Kembali ke Daftar Promo
@@ -204,13 +204,13 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                 href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-gray-900 hover:bg-black text-white py-5 px-8 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.3em] shadow-xl active:scale-95"
+                className="w-full bg-red-600 hover:bg-red-700 text-white py-5 px-8 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.3em] shadow-xl active:scale-95"
               >
                 <MessageCircle size={20} />
                 Klaim Promo 
               </a>
               
-              <div className="flex items-start gap-3 bg-gray-50 p-5 border-l-4 border-gray-900">
+              <div className="flex items-start gap-3 bg-gray-50 p-5 border-l-4 border-red-600">
                 <AlertCircle className="text-gray-400 shrink-0 mt-0.5" size={18} />
                 <p className="text-[10px] text-gray-500 font-bold uppercase leading-relaxed tracking-wider">
                   Syarat & ketentuan berlaku. Promo dapat berubah sewaktu-waktu tergantung ketersediaan unit di dealer.

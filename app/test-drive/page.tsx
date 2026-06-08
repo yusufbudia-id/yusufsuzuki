@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import TestDriveForm from "@/components/TestDriveForm";
-import { CarFront, MapPin, Clock, ShieldCheck } from "lucide-react";
+import PageHero from "@/components/PageHero";
+import { CarFront, MapPin, Clock, ShieldCheck, MessageCircle } from "lucide-react";
+import { buildWhatsAppUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Booking Test Drive Suzuki Jogja – Gratis!",
@@ -8,75 +11,66 @@ export const metadata: Metadata = {
 };
 
 const benefits = [
-  { icon: CarFront, title: "Semua Tipe Tersedia", desc: "Test drive tersedia untuk semua tipe mobil Suzuki terbaru." },
-  { icon: MapPin, title: "Antar ke Lokasi Anda", desc: "Bisa dilakukan di showroom atau kami antar langsung ke lokasi Anda." },
-  { icon: Clock, title: "Jadwal Fleksibel", desc: "Senin – Sabtu, mulai dari pukul 08.00 hingga 17.00 WIB." },
-  { icon: ShieldCheck, title: "Gratis & Tanpa Ribet", desc: "Tidak ada biaya apapun, dan pastinya tidak ada paksaan untuk membeli." },
+  { icon: CarFront, title: "Semua Tipe Tersedia", desc: "Test drive tersedia untuk berbagai tipe mobil Suzuki terbaru." },
+  { icon: MapPin, title: "Showroom / Lokasi Anda", desc: "Bisa dilakukan di showroom atau lokasi pilihan sesuai jadwal." },
+  { icon: Clock, title: "Jadwal Fleksibel", desc: "Senin–Sabtu, mulai 08.00 sampai 17.00 WIB." },
+  { icon: ShieldCheck, title: "Gratis & Tanpa Ribet", desc: "Tidak ada biaya test drive dan tidak ada paksaan pembelian." },
 ];
 
 export default function TestDrivePage() {
   return (
-    <div className="bg-gray-50 min-h-screen">
-      
-      {/* Header - Tema Gelap Premium (Menempel ke Atas) */}
-      <div className="bg-gray-900 pt-32 pb-24 md:pt-40 md:pb-36 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <span className="inline-block bg-white/10 text-gray-300 text-[10px] font-bold px-4 py-1.5 rounded-none mb-6 uppercase tracking-[0.2em] border border-white/10">
-            Coba Dulu Sebelum Beli
-          </span>
-          <h1 className="text-3xl md:text-5xl font-black text-white mb-4 uppercase tracking-tight">
-            Booking Test Drive
-          </h1>
-          <p className="text-gray-400 text-base md:text-lg max-w-2xl leading-relaxed">
-            Rasakan langsung sensasi berkendara, performa mesin, dan kenyamanan interior Suzuki impian Anda. Gratis, tanpa syarat yang memberatkan.
-          </p>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <PageHero
+        eyebrow="Coba Dulu Sebelum Beli"
+        title="Booking Test Drive Suzuki"
+        description="Rasakan langsung performa, kenyamanan, dan fitur mobil Suzuki pilihan Anda. Jadwalkan test drive gratis di showroom atau lokasi yang disepakati."
+        stats={[
+          { value: "Gratis", label: "Biaya Test Drive" },
+          { value: "08-17", label: "Jam Layanan" },
+          { value: "Showroom", label: "Atau Lokasi Anda" },
+          { value: "WA", label: "Konfirmasi Cepat" },
+        ]}
+      >
+        <a
+          href={buildWhatsAppUrl("Halo Yusuf Suzuki, saya ingin booking test drive mobil Suzuki.")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-red"
+        >
+          <MessageCircle size={16} /> Chat Jadwal
+        </a>
+        <Link href="/mobil" className="border border-white/20 bg-white/5 px-6 py-3.5 text-[11px] font-black uppercase tracking-[0.18em] text-white backdrop-blur transition-all hover:border-white/40 hover:bg-white/10">
+          Pilih Mobil
+        </Link>
+      </PageHero>
 
-      {/* Area Konten Utama (Efek Overlapping / Mengambang) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 md:pb-24 -mt-16 md:-mt-24 relative z-20">
-        
-        {/* Layout Grid: Kiri Form (Lebih Lebar), Kanan Info */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
-          
-          {/* Kolom Kiri: Form Test Drive */}
+      <section className="container-main -mt-10 relative z-20 pb-16 md:-mt-16 md:pb-24">
+        <div className="grid grid-cols-1 items-start gap-8 md:gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <TestDriveForm />
           </div>
 
-          {/* Kolom Kanan: Keuntungan */}
           <div className="lg:col-span-5">
-            <div className="bg-white rounded-none border border-gray-200 shadow-2xl p-6 md:p-10 sticky top-24">
-              <h2 className="font-black text-gray-900 text-lg uppercase tracking-tighter mb-8 border-b border-gray-100 pb-5">
-                Mengapa Test Drive?
-              </h2>
-              
-              <div className="space-y-8">
+            <div className="red-edge sticky top-24 border border-gray-200 bg-white p-6 shadow-card-hover md:p-10">
+              <p className="section-label mb-4">Keuntungan</p>
+              <h2 className="mb-8 text-2xl font-black uppercase tracking-tighter text-gray-950">Mengapa Test Drive?</h2>
+              <div className="space-y-7">
                 {benefits.map((b) => (
-                  <div key={b.title} className="flex gap-5 items-start group">
-                    {/* Icon Box dengan Efek Hover Monokrom */}
-                    <div className="w-12 h-12 bg-gray-50 border border-gray-200 rounded-none flex items-center justify-center shrink-0 text-gray-900 group-hover:bg-gray-900 group-hover:text-white transition-all duration-300 shadow-sm">
+                  <div key={b.title} className="group flex items-start gap-5">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-gray-200 bg-gray-50 text-gray-900 shadow-sm transition-all duration-300 group-hover:border-red-600 group-hover:bg-red-600 group-hover:text-white">
                       <b.icon size={20} strokeWidth={1.5} />
                     </div>
                     <div>
-                      {/* Judul & Deskripsi Rapi */}
-                      <p className="font-bold text-gray-900 text-xs uppercase tracking-widest mb-1.5">
-                        {b.title}
-                      </p>
-                      <p className="text-gray-500 text-sm leading-relaxed">
-                        {b.desc}
-                      </p>
+                      <p className="mb-1.5 text-xs font-black uppercase tracking-widest text-gray-900">{b.title}</p>
+                      <p className="text-sm leading-relaxed text-gray-500">{b.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
-
             </div>
           </div>
-
         </div>
-      </div>
-      
+      </section>
     </div>
   );
 }

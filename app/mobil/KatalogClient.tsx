@@ -1,11 +1,20 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Search } from "lucide-react";
+import { Search, MessageCircle, SlidersHorizontal, BadgePercent, ShieldCheck, CarFront } from "lucide-react";
 import { cars, carCategories } from "@/data/cars";
 import CarCard from "@/components/CarCard";
 import ContactCTA from "@/components/ContactCTA";
+import PageHero from "@/components/PageHero";
+import { buildWhatsAppUrl } from "@/lib/utils";
+
+const catalogStats = [
+  { icon: CarFront, value: `${cars.length}+`, label: "Model Suzuki" },
+  { icon: BadgePercent, value: "Promo", label: "Diskon Bulanan" },
+  { icon: ShieldCheck, value: "Resmi", label: "Dealer Suzuki" },
+];
 
 export default function KatalogClient() {
   const [query, setQuery] = useState("");
@@ -20,37 +29,62 @@ export default function KatalogClient() {
   }, [query, category]);
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      
-      {/* Header */}
-      <div className="bg-gray-900 pt-28 pb-12 md:pt-36 md:pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <span className="inline-block bg-white/5 text-gray-400 text-[10px] font-bold px-3 py-1 rounded-none mb-4 uppercase tracking-[0.2em] border border-white/10">
-              Semua Produk
-            </span>
-            <h1 className="text-3xl md:text-5xl font-black text-white mb-2 uppercase tracking-tight">
-              Lineup Suzuki Terlengkap
-            </h1>
-            <p className="text-gray-400 text-sm md:text-base max-w-xl leading-relaxed opacity-80">
-              Temukan mobil Suzuki impian Anda. Dari SUV tangguh hingga City Car yang efisien.
-            </p>
-          </motion.div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gray-50">
+      <PageHero
+        eyebrow="Katalog Unit Suzuki"
+        title="Lineup Suzuki Terlengkap"
+        description="Pilih mobil Suzuki sesuai kebutuhan Anda. Cek harga OTR, promo, varian, dan konsultasikan skema kredit langsung bersama Yusuf Suzuki."
+        stats={[
+          { value: `${cars.length}+`, label: "Unit Pilihan" },
+          { value: "AB / AA", label: "Area Harga OTR" },
+          { value: "DP", label: "Bisa Disesuaikan" },
+          { value: "WA", label: "Konsultasi Cepat" },
+        ]}
+      >
+        <a
+          href={buildWhatsAppUrl("Halo Yusuf Suzuki, saya ingin konsultasi pilihan mobil Suzuki yang cocok untuk kebutuhan saya.")}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-red"
+        >
+          <MessageCircle size={16} /> Chat Pilih Mobil
+        </a>
+        <Link href="/simulasi-kredit" className="border border-white/20 bg-white/5 px-6 py-3.5 text-[11px] font-black uppercase tracking-[0.18em] text-white backdrop-blur transition-all hover:border-white/40 hover:bg-white/10">
+          Hitung Kredit
+        </Link>
+      </PageHero>
 
-      {/* Filters & Search */}
-      <div className="bg-white border-b border-gray-200 sticky top-16 md:top-20 z-30 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
-          <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-none flex-grow">
+      <section className="border-b border-gray-200 bg-white">
+        <div className="container-main grid grid-cols-1 gap-4 py-6 md:grid-cols-3">
+          {catalogStats.map((stat) => (
+            <div key={stat.label} className="group flex items-center gap-4 border border-gray-200 bg-gray-50 p-5 transition-all duration-300 hover:border-red-600 hover:bg-white">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-white text-gray-900 shadow-sm transition-colors duration-300 group-hover:bg-red-600 group-hover:text-white">
+                <stat.icon size={20} strokeWidth={1.6} />
+              </div>
+              <div>
+                <p className="text-xl font-black uppercase tracking-tighter text-gray-950">{stat.value}</p>
+                <p className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-400">{stat.label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="sticky top-16 z-30 border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur-md md:top-20">
+        <div className="container-main flex flex-col gap-4 py-5 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.22em] text-gray-400 md:w-auto">
+            <SlidersHorizontal size={15} /> Filter Unit
+          </div>
+
+          <div className="flex flex-1 gap-2 overflow-x-auto pb-2 md:pb-0">
             {carCategories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}
-                className={`shrink-0 px-5 py-3 rounded-none text-[10px] font-bold uppercase tracking-widest border transition-all duration-300 ${
-                  category === cat 
-                    ? "bg-gray-900 border-gray-900 text-white shadow-lg" 
-                    : "bg-gray-50 border-gray-200 text-gray-500 hover:border-gray-900 hover:text-gray-900"
+                className={`shrink-0 border px-5 py-3 text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${
+                  category === cat
+                    ? "border-red-600 bg-red-600 text-white shadow-red-glow"
+                    : "border-gray-200 bg-gray-50 text-gray-500 hover:border-gray-900 hover:bg-white hover:text-gray-900"
                 }`}
               >
                 {cat}
@@ -58,48 +92,62 @@ export default function KatalogClient() {
             ))}
           </div>
 
-          <div className="relative w-full md:w-80 shrink-0">
+          <div className="relative w-full shrink-0 md:w-80">
             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="CARI MOBIL..."
-              className="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-none text-xs font-bold uppercase tracking-widest focus:outline-none focus:border-gray-900 focus:bg-white transition-colors placeholder:text-gray-400"
+              className="input-sharp bg-gray-50 pl-11 pr-4 py-3 text-xs font-black uppercase tracking-widest placeholder:text-gray-400"
             />
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Grid Produk */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <section className="container-main py-12 md:py-16">
         {filtered.length === 0 ? (
-          <div className="text-center py-20 bg-white border border-gray-200 rounded-none mt-8">
-            <p className="text-gray-900 font-bold uppercase tracking-widest text-sm mb-2">Mobil tidak ditemukan</p>
-            <p className="text-gray-500 text-xs uppercase tracking-widest font-medium">Silakan coba kata kunci lain.</p>
+          <div className="border border-gray-200 bg-white py-20 text-center shadow-card">
+            <p className="mb-2 text-sm font-black uppercase tracking-widest text-gray-900">Mobil tidak ditemukan</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-gray-400">Silakan coba kategori atau kata kunci lain.</p>
           </div>
         ) : (
           <>
-            <div className="flex items-center justify-between mb-8 border-l-4 border-gray-900 pl-4">
-              <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                Menampilkan <span className="text-gray-900">{filtered.length}</span> dari {cars.length} mobil
+            <div className="mb-8 flex flex-col gap-4 border-l-4 border-red-600 bg-white p-5 shadow-card md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-400">Hasil Katalog</p>
+                <h2 className="mt-1 text-2xl font-black uppercase tracking-tighter text-gray-950">
+                  {category === "Semua" ? "Semua Mobil Suzuki" : `Kategori ${category}`}
+                </h2>
+              </div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-gray-500">
+                Menampilkan <span className="text-red-600">{filtered.length}</span> dari {cars.length} mobil
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 md:gap-8 xl:gap-10">
               {filtered.map((car, i) => <CarCard key={car.slug} car={car} index={i} />)}
             </div>
           </>
         )}
 
-        {/* --- SUNTIKAN ON-PAGE SEO LOKAL --- */}
-        <div className="mt-20 pt-10 border-t border-gray-200">
-          <h2 className="text-lg md:text-xl font-black text-gray-900 uppercase tracking-tight mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55 }}
+          className="mt-20 border border-gray-200 bg-white p-6 shadow-card md:p-10"
+        >
+          <div className="mb-5 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.22em] text-red-600">
+            <span className="h-2 w-2 bg-red-600" /> Area Layanan Resmi
+          </div>
+          <h2 className="mb-5 text-2xl font-black uppercase tracking-tighter text-gray-950 md:text-3xl">
             Katalog Dealer Resmi Suzuki Jogja & Jawa Tengah
           </h2>
-          <p className="text-sm text-gray-500 leading-relaxed font-medium">
-            Selamat datang di pusat informasi dan katalog resmi <strong>Suzuki Sumber Baru Mobil</strong>. Kami melayani penjualan seluruh <em>line-up</em> mobil Suzuki terbaru mencakup wilayah <strong>Daerah Istimewa Yogyakarta (Plat AB)</strong> meliputi Kota Jogja, Sleman, Bantul, Gunungkidul, Kulon Progo, serta wilayah <strong>Kedu dan Magelang (Plat AA)</strong>. Dapatkan penawaran harga OTR terbaik, promo diskon maksimal puluhan juta rupiah, dan simulasi kredit dengan DP sangat ringan untuk setiap pembelian mobil impian Anda bersama kami.
+          <p className="max-w-4xl text-sm font-medium leading-relaxed text-gray-500 md:text-base">
+            Selamat datang di pusat informasi dan katalog resmi <strong className="text-gray-900">Suzuki Sumber Baru Mobil</strong>. Kami melayani penjualan seluruh <em>line-up</em> mobil Suzuki terbaru mencakup wilayah <strong className="text-gray-900">Daerah Istimewa Yogyakarta (Plat AB)</strong> meliputi Kota Jogja, Sleman, Bantul, Gunungkidul, Kulon Progo, serta wilayah <strong className="text-gray-900">Kedu dan Magelang (Plat AA)</strong>. Dapatkan penawaran harga OTR terbaik, promo diskon, dan simulasi kredit dengan DP yang dapat disesuaikan.
           </p>
-        </div>
-      </div>
+        </motion.div>
+      </section>
 
       <ContactCTA />
     </div>
