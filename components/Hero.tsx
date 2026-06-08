@@ -28,26 +28,30 @@ const banners = [
 const trustBadges = [
   {
     id: 1,
-    title: "Beli Suzuki Pasti Untung",
-    desc: "Harga terbaik & nilai jual tinggi",
+    metric: "Harga",
+    title: "Pasti Untung",
+    desc: "Penawaran terbaik & nilai jual tinggi",
     icon: TrendingUp,
   },
   {
     id: 2,
-    title: "Garansi Baterai 8 Tahun",
+    metric: "8 Tahun",
+    title: "Garansi Baterai",
     desc: "Lithium-ion s/d 160.000 km",
     icon: BatteryCharging,
   },
   {
     id: 3,
+    metric: "Hybrid",
     title: "Smart Hybrid Vehicle",
     desc: "Teknologi ISG hemat energi",
     icon: Cpu,
   },
   {
     id: 4,
+    metric: "50.000 KM",
     title: "Gratis Servis Berkala",
-    desc: "Jasa & suku cadang s/d 50.000 km",
+    desc: "Jasa & suku cadang terjamin",
     icon: Wrench,
   },
 ];
@@ -75,9 +79,10 @@ const sliderVariants = {
 export default function Hero({ cityName }: { cityName?: string }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [activeMobileBadge, setActiveMobileBadge] = useState<number | null>(null);
-
   const locationName = cityName || "Jogja";
+  const titleLines = cityName
+    ? ["Dealer Resmi", `Suzuki ${cityName}`, "Terpercaya"]
+    : ["Dealer Resmi", "Suzuki Jogja", "Terpercaya"];
 
   const waMessage = cityName
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
@@ -141,12 +146,12 @@ export default function Hero({ cityName }: { cityName?: string }) {
                 fill
                 priority
                 quality={88}
-                className="object-cover opacity-70 contrast-110 saturate-75"
+                className="object-cover opacity-85 contrast-125 saturate-90"
               />
             </motion.div>
           </AnimatePresence>
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/58 via-black/10 to-black/5" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/38 via-black/5 to-transparent" />
           <div className="absolute inset-0 bg-[linear-gradient(120deg,transparent_0%,transparent_44%,rgba(220,38,38,0.12)_45%,transparent_48%)]" />
           <div className="absolute bottom-8 left-8 right-8 h-px bg-gradient-to-r from-red-600/60 via-white/25 to-transparent" />
 
@@ -191,12 +196,12 @@ export default function Hero({ cityName }: { cityName?: string }) {
                     fill
                     priority
                     quality={88}
-                    className="object-cover opacity-75 contrast-110 saturate-75"
+                    className="object-cover opacity-85 contrast-125 saturate-90"
                   />
                 </motion.div>
               </AnimatePresence>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
               <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between border-t border-red-600/35 pt-4">
                 <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/75">
@@ -232,9 +237,11 @@ export default function Hero({ cityName }: { cityName?: string }) {
               transition={{ delay: 0.1 }}
               className="max-w-3xl text-[2.55rem] font-bank-gothic uppercase leading-[1.08] tracking-[-0.04em] text-white sm:text-[3.25rem] lg:text-[3.9rem] xl:text-[4.15rem]"
             >
-              {cityName
-                ? `Dealer Resmi Mobil Suzuki ${cityName}`
-                : "Dealer Resmi Mobil Suzuki Jogja"}
+              {titleLines.map((line) => (
+                <span key={line} className="block">
+                  {line}
+                </span>
+              ))}
             </motion.h1>
 
             <motion.h2
@@ -243,9 +250,9 @@ export default function Hero({ cityName }: { cityName?: string }) {
               transition={{ delay: 0.16 }}
               className="mt-5 flex flex-wrap items-center gap-3 text-xs font-black uppercase tracking-[0.16em] text-red-500 sm:text-sm"
             >
-              Pusat Promo & Harga Terbaru
+              Promo Resmi & Harga Terbaik
               <span className="inline-block h-1.5 w-1.5 rotate-45 bg-white/35" />
-              Proses Kredit Mudah
+              Kredit Mudah
             </motion.h2>
 
             {/* DESKRIPSI: Disembunyikan di HP, dimunculkan di layar sm ke atas */}
@@ -253,13 +260,10 @@ export default function Hero({ cityName }: { cityName?: string }) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.22 }}
-              className="mt-6 hidden sm:block max-w-xl text-sm font-medium leading-8 text-gray-300 sm:text-base"
+              className="mt-6 hidden max-w-2xl text-base font-medium leading-8 text-gray-300 sm:block md:text-lg"
             >
-              Sebagai mitra terpercaya Anda, kami hadir untuk membantu mewujudkan
-              mobil impian dengan penawaran harga paling kompetitif di wilayah{" "}
-              {cityName ? cityName : "Daerah Istimewa Yogyakarta"}, diskon
-              eksklusif bulanan, serta layanan purna jual yang terjamin
-              kualitasnya bersama{" "}
+              Dapatkan penawaran Suzuki terbaik di {cityName ? cityName : "Yogyakarta"}.
+              Promo resmi, proses kredit mudah, dan konsultasi langsung bersama{" "}
               <strong className="text-white">Yusuf Suzuki</strong>.
             </motion.p>
 
@@ -268,13 +272,13 @@ export default function Hero({ cityName }: { cityName?: string }) {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.32 }}
-              className="mt-8 sm:mt-10 flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-center"
+              className="mt-8 flex w-full flex-col items-stretch gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center"
             >
               <a
                 href={`${WA_BASE_URL}?text=${encodeURIComponent(waMessage)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-3 border border-red-500 bg-red-600 px-8 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_40px_rgba(220,38,38,0.25)] transition-all hover:-translate-y-0.5 hover:bg-red-700 sm:w-auto"
+                className="group inline-flex items-center justify-center gap-3 border border-red-500 bg-red-600 px-7 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white shadow-[0_16px_40px_rgba(220,38,38,0.25)] transition-all hover:-translate-y-0.5 hover:bg-red-700 sm:w-auto"
               >
                 <MessageCircle size={16} />
                 Chat Sekarang
@@ -286,10 +290,10 @@ export default function Hero({ cityName }: { cityName?: string }) {
 
               <Link
                 href="/test-drive"
-                className="group inline-flex items-center justify-center gap-3 border border-white/20 bg-black/45 px-8 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-red-500 hover:bg-white/[0.03] sm:w-auto"
+                className="group inline-flex items-center justify-center gap-3 border border-white/20 bg-black/45 px-6 py-4 text-[11px] font-black uppercase tracking-[0.16em] text-white backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-red-500 hover:bg-white/[0.03] sm:w-auto"
               >
                 <CalendarCheck size={16} />
-                Test Drive
+                Jadwalkan Test Drive
                 <ArrowRight
                   size={15}
                   className="transition-transform group-hover:translate-x-1"
@@ -298,7 +302,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
 
               <Link
                 href="/mobil"
-                className="group inline-flex items-center justify-center gap-3 border border-white/15 bg-white/[0.03] px-6 py-4 text-[11px] font-black uppercase tracking-[0.14em] text-white/75 backdrop-blur-md transition-all hover:-translate-y-0.5 hover:border-red-500 hover:text-white sm:w-auto"
+                className="group inline-flex items-center justify-center gap-3 border border-transparent bg-transparent px-4 py-4 text-[11px] font-black uppercase tracking-[0.14em] text-white/65 transition-all hover:-translate-y-0.5 hover:text-white sm:w-auto"
               >
                 <CarFront size={16} />
                 Lihat Katalog
@@ -312,7 +316,7 @@ export default function Hero({ cityName }: { cityName?: string }) {
 
           {/* CENTERED TRUST BADGES */}
           <div className="relative z-30 mt-4 lg:col-span-12 lg:mt-10">
-            <div className="mx-auto max-w-5xl">
+            <div className="mx-auto max-w-6xl">
               <div className="grid grid-cols-2 gap-3 md:grid-cols-2 lg:grid-cols-4">
                 {trustBadges.map((badge) => (
                   <motion.div
@@ -320,19 +324,25 @@ export default function Hero({ cityName }: { cityName?: string }) {
                     initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.45 }}
-                    className="group relative min-h-[142px] overflow-hidden border border-white/10 bg-black/68 p-5 text-left backdrop-blur-md transition-all hover:-translate-y-1 hover:border-red-600/65 hover:bg-black/85"
+                    className="group relative min-h-[166px] overflow-hidden border border-white/10 bg-black/68 p-5 text-left backdrop-blur-md transition-all hover:-translate-y-1 hover:border-red-600/65 hover:bg-black/85 sm:p-6"
                   >
                     <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-red-600/70 via-white/20 to-transparent opacity-70" />
 
-                    <div className="mb-4 inline-flex border border-white/10 bg-[#0b0d10] p-2.5 transition-colors group-hover:border-red-600/50">
-                      <badge.icon
-                        size={20}
-                        className="text-red-500"
-                        strokeWidth={2.2}
-                      />
+                    <div className="mb-5 flex items-start justify-between gap-3">
+                      <div className="inline-flex border border-white/10 bg-[#0b0d10] p-3 transition-colors group-hover:border-red-600/50">
+                        <badge.icon
+                          size={24}
+                          className="text-red-500"
+                          strokeWidth={2.2}
+                        />
+                      </div>
+
+                      <span className="max-w-[96px] text-right text-lg font-black uppercase leading-none tracking-[-0.04em] text-red-500 sm:text-xl">
+                        {badge.metric}
+                      </span>
                     </div>
 
-                    <h3 className="text-[11px] font-black uppercase leading-[1.45] tracking-[0.1em] text-white transition-colors group-hover:text-red-400">
+                    <h3 className="text-xs font-black uppercase leading-[1.35] tracking-[0.1em] text-white transition-colors group-hover:text-red-400">
                       {badge.title}
                     </h3>
 

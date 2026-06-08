@@ -14,9 +14,9 @@ type NavLink =
 
 const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "Produk Mobil", href: "/mobil" },
+  { label: "Mobil", href: "/mobil" },
   { label: "Promo", href: "/promo" },
-  { label: "Simulasi Kredit", href: "/simulasi-kredit" },
+  { label: "Kredit", href: "/simulasi-kredit" },
   { label: "Test Drive", href: "/test-drive" },
   {
     label: "Informasi",
@@ -24,9 +24,9 @@ const navLinks: NavLink[] = [
       { label: "Tentang Kami", href: "/tentang-kami" },
       { label: "Berita & Tips", href: "/berita" },
       { label: "FAQ", href: "/faq" },
+      { label: "Kontak", href: "/kontak" },
     ],
   },
-  { label: "Kontak", href: "/kontak" },
 ];
 
 const transparentHeaderRoutes = [
@@ -120,7 +120,7 @@ export default function Navbar() {
               </div>
             </Link>
 
-            <div className="hidden items-center gap-5 lg:flex xl:gap-7">
+            <div className="hidden items-center gap-5 lg:flex xl:gap-6">
               {navLinks.map((link) => {
                 const active = isItemActive(link);
 
@@ -175,16 +175,6 @@ export default function Navbar() {
             </div>
 
             <div className="hidden items-center gap-3 lg:flex">
-              <a
-                href="tel:+6282174635218"
-                className={cn(
-                  "grid h-11 w-11 place-items-center border transition-all duration-300",
-                  isTransparent ? "border-white/15 text-white hover:border-red-500 hover:text-red-500" : "border-gray-200 text-gray-700 hover:border-red-600 hover:text-red-600"
-                )}
-                aria-label="Telepon Yusuf Suzuki"
-              >
-                <PhoneCall size={16} />
-              </a>
               <a
                 href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
                 target="_blank"
