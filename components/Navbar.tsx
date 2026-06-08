@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, MessageCircle, PhoneCall, X } from "lucide-react";
-import { areas } from "@/data/areas";
-import { cn, WA_BASE_URL } from "@/lib/utils";
+import { getLeadContextFromPath } from "@/lib/leadContext";
+import { buildWhatsAppUrl, cn, PHONE_DISPLAY, PHONE_TEL } from "@/lib/utils";
 
 type NavLink =
   | { label: string; href: string; dropdown?: never }
@@ -59,12 +59,8 @@ export default function Navbar() {
     setMobileInfoOpen(false);
   }, [pathname]);
 
-  const citySlug = pathname?.startsWith("/dealer/") ? pathname.split("/")[2] : "";
-  const cityName = citySlug ? areas.find((area) => area.slug === citySlug)?.name ?? "" : "";
-
-  const waMsg = cityName
-    ? `Halo Yusuf Suzuki, saya warga ${cityName} dan ingin tanya tentang mobil Suzuki.`
-    : "Halo Yusuf Suzuki, saya ingin tanya tentang mobil Suzuki.";
+  const leadContext = getLeadContextFromPath(pathname);
+  const waMsg = leadContext.message;
 
   const isTransparent =
     !scrolled &&
@@ -176,7 +172,7 @@ export default function Navbar() {
 
             <div className="hidden items-center gap-3 lg:flex">
               <a
-                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
+                href={buildWhatsAppUrl(waMsg)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
@@ -281,7 +277,7 @@ export default function Navbar() {
 
               <div className="mt-5 grid grid-cols-1 gap-3">
                 <a
-                  href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
+                  href={buildWhatsAppUrl(waMsg)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-red w-full"
@@ -289,9 +285,9 @@ export default function Navbar() {
                   <MessageCircle size={16} />
                   Chat WhatsApp
                 </a>
-                <a href="tel:+6282174635218" className="inline-flex w-full items-center justify-center gap-2 border border-white/15 px-6 py-3.5 text-[11px] font-black uppercase tracking-[0.18em] text-white/80">
+                <a href={`tel:${PHONE_TEL}`} className="inline-flex w-full items-center justify-center gap-2 border border-white/15 px-6 py-3.5 text-[11px] font-black uppercase tracking-[0.18em] text-white/80">
                   <PhoneCall size={16} />
-                  0821 7463 5218
+                  {PHONE_DISPLAY}
                 </a>
               </div>
             </div>

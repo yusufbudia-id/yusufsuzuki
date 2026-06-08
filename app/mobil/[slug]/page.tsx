@@ -11,6 +11,8 @@ import PricelistTable from "@/components/PricelistTable";
 import FadeIn from "@/components/FadeIn";
 import OtherCarsCarousel from "@/components/OtherCarsCarousel";
 import ContactCTA from "@/components/ContactCTA";
+import LeadCaptureCard from "@/components/LeadCaptureCard";
+import CarDetailStickyCTA from "@/components/CarDetailStickyCTA";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -324,6 +326,14 @@ export default async function CarDetailPage({ params }: Props) {
               >
                 Hitung Simulasi Kredit
               </Link>
+
+              <LeadCaptureCard
+                className="mt-6 hidden lg:block"
+                title={`Tanya ${car.name}`}
+                description="Cek stok unit, warna tersedia, promo bulan ini, dan opsi kredit yang paling masuk untuk budget Anda."
+                message={waMsg}
+                carSlug={car.slug}
+              />
             </FadeIn>
           </div>
 
@@ -407,6 +417,7 @@ export default async function CarDetailPage({ params }: Props) {
       )}
 
       <ContactCTA />
+      <CarDetailStickyCTA carName={car.name} carSlug={car.slug} startingPrice={lowPrice} />
 
     </div>
   );

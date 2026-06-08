@@ -34,6 +34,8 @@ export function calculateMonthlyInstallment(
 }
 
 export const WA_NUMBER = "6282174635218";
+export const PHONE_DISPLAY = "0821 7463 5218";
+export const PHONE_TEL = "+6282174635218";
 export const WA_BASE_URL = `https://wa.me/${WA_NUMBER}`;
 
 export function buildWhatsAppUrl(message: string): string {

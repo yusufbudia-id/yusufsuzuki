@@ -510,10 +510,10 @@ Mohon info persyaratannya.`;
                 href={buildWhatsAppUrl(waMsg)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-grow bg-gray-900 hover:bg-black text-white py-4 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.2em]"
+                className="flex-grow bg-whatsapp hover:bg-[#1ebe5d] text-white py-4 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.2em] shadow-[0_16px_35px_-20px_rgba(37,211,102,0.8)] active:scale-95"
               >
                 <MessageCircle size={18} />
-                Ajukan Sekarang
+                Kirim ke WhatsApp
               </a>
             </div>
           </div>

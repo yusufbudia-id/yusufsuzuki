@@ -3,7 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Calendar, MessageCircle, AlertCircle } from "lucide-react";
 import { promos } from "@/data/promos"; 
-import { WA_BASE_URL } from "@/lib/utils";
+import { buildWhatsAppUrl } from "@/lib/utils";
+import LeadCaptureCard from "@/components/LeadCaptureCard";
 import type { Metadata } from "next";
 
 interface PromoPageProps {
@@ -201,7 +202,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
 
             <div className="mt-10 space-y-4">
               <a
-                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
+                href={buildWhatsAppUrl(waMsg)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full bg-red-600 hover:bg-red-700 text-white py-5 px-8 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.3em] shadow-xl active:scale-95"
@@ -216,6 +217,14 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                   Syarat & ketentuan berlaku. Promo dapat berubah sewaktu-waktu tergantung ketersediaan unit di dealer.
                 </p>
               </div>
+
+              <LeadCaptureCard
+                dark={false}
+                title="Cek Ketersediaan Promo"
+                description="Yusuf Suzuki akan bantu cek syarat, stok unit, pilihan warna, dan simulasi terbaik untuk promo ini."
+                message={waMsg}
+                carSlug={promo.carSlug}
+              />
             </div>
           </div>
 

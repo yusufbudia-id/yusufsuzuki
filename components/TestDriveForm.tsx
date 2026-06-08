@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "framer-motion";
-import { CalendarCheck, Send, CheckCircle2 } from "lucide-react";
+import { CalendarCheck, MessageCircle, Send, CheckCircle2 } from "lucide-react";
 import { cars } from "@/data/cars";
 import { buildWhatsAppUrl } from "@/lib/utils";
 
@@ -112,10 +112,10 @@ export default function TestDriveForm() {
       <button 
         type="submit" 
         disabled={isSubmitting} 
-        className="w-full bg-gray-900 hover:bg-black disabled:bg-gray-400 text-white py-5 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.2em]"
+        className="w-full bg-whatsapp hover:bg-[#1ebe5d] disabled:bg-gray-400 text-white py-5 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.2em] shadow-[0_16px_35px_-20px_rgba(37,211,102,0.8)]"
       >
-        <Send size={18} strokeWidth={2} />
-        {isSubmitting ? "MEMPROSES..." : "KIRIM PENGAJUAN TEST DRIVE"}
+        {isSubmitting ? <Send size={18} strokeWidth={2} /> : <MessageCircle size={18} strokeWidth={2} />}
+        {isSubmitting ? "MEMPROSES..." : "KIRIM KE WHATSAPP"}
       </button>
     </form>
   );
