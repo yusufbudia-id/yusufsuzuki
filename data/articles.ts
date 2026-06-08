@@ -117,5 +117,37 @@ export const articles = [
       "Nikmati kemudahan tak tertandingi dengan pilihan <strong>DP mulai 20%</strong>, tenor panjang hingga <strong>5 tahun</strong>, ditambah <strong>GRATIS Servis dan Oli selama 30 bulan (atau 50.000 KM)!</strong> Anda benar-benar tinggal pakai cari duit tanpa pusing memikirkan biaya perawatan di awal.",
       "Jangan biarkan keuntungan bisnis Anda tergerus harga Solar yang ugal-ugalan. Selamatkan bisnis Anda sekarang juga. Hubungi <strong>Yusuf Suzuki</strong> melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> untuk mendapatkan penawaran harga <em>net</em> armada termurah se-Jateng & DIY!"
     ]
+  },
+
+  {
+    slug: "toyota-kuasai-marketshare-mei-2026-suzuki-tembus-tiga-besar",
+    title: "Geger Market Share Mei 2026! Toyota Ngacir Sendirian, Tapi Suzuki Diam-Diam Tembus 3 Besar dan Bikin Pasar Makin Panas",
+    excerpt: "Data 10 besar brand mobil terlaris Mei 2026 menunjukkan persaingan otomotif makin sengit. Toyota masih jadi raja pasar, Daihatsu membuntuti, sementara Suzuki berhasil mengunci posisi 3 besar. Ini peluang besar buat konsumen dan pelaku bisnis yang sedang mencari mobil paling masuk akal!",
+    category: "Berita Otomotif",
+    date: "Mei 2026",
+    imageUrl: "/berita/marketshare-mobil-mei-2026.png",
+    content: [
+      "Pasar otomotif Indonesia kembali memanas di bulan Mei 2026. Berdasarkan data 10 besar brand mobil terlaris, Toyota masih menunjukkan dominasinya dengan penjualan mencapai <strong>24.846 unit</strong>. Angka ini membuat Toyota menguasai sekitar <strong>41,2%</strong> dari total penjualan 10 besar brand pada periode tersebut.",
+      "Di posisi kedua, Daihatsu membuntuti dengan <strong>11.140 unit</strong> atau sekitar <strong>18,5%</strong> market share. Sementara itu, Suzuki sukses mencuri perhatian dengan menempati posisi ketiga lewat penjualan <strong>6.108 unit</strong>, setara sekitar <strong>10,1%</strong> dari total 10 besar brand terlaris.",
+      "<strong>Yang menarik, Suzuki bukan cuma masuk 3 besar, tapi juga menjadi salah satu brand yang paling relevan untuk konsumen keluarga, pelaku usaha, hingga UMKM.</strong>",
+      "Dengan komposisi pasar seperti ini, terlihat jelas bahwa konsumen Indonesia masih sangat percaya pada brand Jepang. Toyota, Daihatsu, dan Suzuki menjadi tiga nama teratas yang paling banyak dipilih masyarakat. Artinya, faktor irit BBM, jaringan servis luas, harga jual kembali, dan ketersediaan spare part masih menjadi alasan utama pembelian mobil.",
+      "",
+      "<img src='/berita/marketshare-mobil-mei-2026.jpg' alt='Market Share Brand Mobil Terlaris Mei 2026' class='w-full h-auto border border-gray-200 shadow-md my-8 hover:shadow-xl transition-shadow duration-300' />",
+      "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>Toyota Masih Raja, Tapi Persaingan Mulai Mengeras</h3>",
+      "Toyota memang masih terlalu kuat di puncak. Dengan angka <strong>24.846 unit</strong>, penjualannya bahkan lebih dari dua kali lipat Daihatsu yang berada di posisi kedua. Namun, pasar otomotif tidak berhenti di satu merek saja. Konsumen kini makin cerdas dalam membandingkan harga, fitur, konsumsi BBM, biaya perawatan, dan kebutuhan penggunaan harian.",
+      "Di bawah Toyota dan Daihatsu, Suzuki menjadi sorotan karena berhasil menjaga posisi penting di papan atas. Dengan penjualan <strong>6.108 unit</strong>, Suzuki mengamankan posisi ketiga dan menunjukkan bahwa produknya masih punya daya tarik kuat, baik untuk kendaraan pribadi maupun kendaraan niaga.",
+      "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-green-600 pl-3'>Suzuki Tembus 3 Besar: Sinyal Kuat Buat Konsumen Cerdas</h3>",
+      "Masuknya Suzuki ke posisi tiga besar menjadi sinyal bahwa pasar masih sangat terbuka untuk brand yang menawarkan kombinasi antara harga masuk akal, efisiensi, dan fungsi yang jelas. Untuk konsumen yang mencari mobil keluarga, kendaraan usaha, maupun armada operasional, Suzuki punya daya tarik yang sulit diabaikan.",
+      "<ul class='list-disc pl-5 space-y-3 mb-8 text-gray-700'><li><strong>Market share kuat:</strong> Suzuki mencatat sekitar 10,1% dari total 10 besar brand terlaris Mei 2026.</li><li><strong>Masuk papan atas:</strong> Posisi ketiga membuktikan Suzuki masih menjadi pilihan besar konsumen Indonesia.</li><li><strong>Cocok untuk kebutuhan harian dan bisnis:</strong> Produk Suzuki dikenal fungsional, efisien, dan mudah dirawat.</li><li><strong>Peluang terbaik untuk pembeli:</strong> Saat pasar sedang ramai, konsumen bisa memanfaatkan promo, paket kredit, dan penawaran dealer untuk mendapatkan harga terbaik.</li></ul>",
+      "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Brand Baru Mulai Menggoda, Tapi Brand Jepang Masih Mendominasi</h3>",
+      "Selain tiga besar, daftar Mei 2026 juga diramaikan oleh Mitsubishi Motors dengan <strong>4.166 unit</strong>, Jaecoo <strong>3.000 unit</strong>, Isuzu <strong>2.570 unit</strong>, Honda <strong>2.378 unit</strong>, Mitsubishi Fuso <strong>2.371 unit</strong>, Hino <strong>2.056 unit</strong>, dan Geely <strong>1.710 unit</strong>.",
+      "Kehadiran Jaecoo dan Geely menunjukkan bahwa brand baru mulai mendapatkan perhatian pasar. Namun, secara keseluruhan, merek Jepang masih mendominasi daftar terlaris. Ini membuktikan bahwa kepercayaan konsumen terhadap kualitas, durabilitas, dan layanan purna jual masih menjadi faktor yang sangat menentukan.",
+      "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-yellow-500 pl-3'>Saatnya Ambil Momentum: Pilih Mobil yang Paling Menguntungkan</h3>",
+      "Data market share ini bukan sekadar angka. Bagi calon pembeli, ini bisa menjadi sinyal penting sebelum mengambil keputusan. Brand yang masuk jajaran terlaris biasanya memiliki permintaan tinggi, jaringan servis luas, spare part mudah ditemukan, dan nilai jual kembali yang lebih aman.",
+      "Bagi Anda yang sedang mencari mobil keluarga, mobil operasional, atau kendaraan usaha, Suzuki bisa menjadi salah satu pilihan paling rasional. Dengan posisi tiga besar di bulan Mei 2026, Suzuki membuktikan bahwa produknya tetap dipercaya pasar dan layak dipertimbangkan.",
+      "Jangan tunggu sampai promo berubah atau stok unit terbatas. Konsultasikan kebutuhan kendaraan Anda sekarang juga bersama <strong>Yusuf Suzuki</strong> melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> untuk mendapatkan rekomendasi unit, simulasi kredit, dan penawaran terbaik sesuai kebutuhan Anda!"
+    ]
   }
+
+
 ];
