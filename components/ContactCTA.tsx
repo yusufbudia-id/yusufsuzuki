@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, MessageCircle, Phone } from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
 
@@ -24,13 +21,7 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
 
       <div className="container-main relative z-10">
         <div className="grid items-center gap-10 md:grid-cols-12 lg:gap-16">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="relative md:col-span-4 lg:col-span-3"
-          >
+          <div className="relative md:col-span-4 lg:col-span-3">
             <div
               className="absolute -inset-3 border border-red-600/25 bg-red-600/5"
               style={{ clipPath: "polygon(0 10%, 10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%)" }}
@@ -38,8 +29,8 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
             <div className="relative aspect-[3/4] overflow-hidden border border-white/10 bg-black shadow-dark-glow">
               <img
                 src="/kontak/photo.jpg"
-                alt={`Yusuf Suzuki - Konsultan Penjualan Suzuki ${cityName ? cityName : "Jogja"}`}
-                className="h-full w-full object-cover opacity-90 transition-transform duration-700 group-hover:scale-105"
+                alt={`Yusuf Suzuki - Konsultan penjualan dealer mobil Suzuki ${cityName ? cityName : "Jogja"}`}
+                className="h-full w-full object-cover opacity-90"
               />
               <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent" />
               <div className="absolute bottom-5 left-5 border-l-2 border-red-600 pl-4">
@@ -47,15 +38,9 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
                 <p className="mt-1 text-[9px] font-bold uppercase tracking-[0.22em] text-white/55">Sales Executive</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-center md:col-span-8 md:text-left lg:col-span-9"
-          >
+          <div className="text-center md:col-span-8 md:text-left lg:col-span-9">
             <div className="mb-6 inline-flex items-center gap-3 border-l-2 border-red-600 bg-black/40 px-4 py-2 backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping bg-red-500 opacity-75" />
@@ -69,7 +54,7 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
             </h2>
 
             <p className="mx-auto mt-6 max-w-2xl text-sm leading-8 text-white/62 md:mx-0 md:text-base">
-              Diskusikan kebutuhan Anda langsung dengan Yusuf Suzuki. Fast response, ramah, dan siap membantu memilih unit terbaik sesuai anggaran serta promo spesial untuk wilayah <strong className="text-white">{cityName ? cityName : "Jogja dan sekitarnya"}</strong>.
+              Diskusikan kebutuhan Anda langsung dengan Yusuf Suzuki. Fast response, ramah, dan siap membantu memilih unit terbaik sesuai anggaran, harga OTR, serta promo spesial untuk wilayah <strong className="text-white">{cityName ? cityName : "Jogja dan sekitarnya"}</strong>.
             </p>
 
             <div className="mt-8 grid gap-3 sm:grid-cols-3 lg:max-w-3xl">
@@ -84,7 +69,7 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
             <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row md:justify-start">
               <a href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`} target="_blank" rel="noopener noreferrer" className="btn-red w-full sm:w-auto">
                 <MessageCircle size={16} />
-                Hubungi Sekarang
+                Hubungi Yusuf Suzuki
                 <ArrowRight size={14} className="hidden transition-transform group-hover:translate-x-1 sm:block" />
               </a>
 
@@ -98,7 +83,7 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
                 0821 7463 5218
               </a>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight, Calendar, MessageCircle, Timer } from "lucide-react";
 import { promos } from "@/data/promos";
 import { buildWhatsAppUrl } from "@/lib/utils";
@@ -37,25 +34,21 @@ const parseIndonesianDate = (dateStr: string) => {
   return new Date(year, month, day, 23, 59, 59);
 };
 
-export function PromoCard({ promo, index = 0, cityName }: { promo: typeof promos[0]; index?: number; cityName?: string }) {
+export function PromoCard({ promo, cityName }: { promo: typeof promos[0]; index?: number; cityName?: string }) {
   const waText = cityName
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan tertarik dengan promo: ${promo.title}. Mohon info syarat dan ketersediaannya.`
     : `Halo Yusuf Suzuki, saya tertarik dengan promo: ${promo.title}. Mohon info syarat dan ketersediaannya.`;
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 26 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.08, duration: 0.5 }}
-      className="card-sharp red-edge group relative flex h-full flex-col overflow-hidden"
-    >
-      <Link href={`/promo/${promo.slug}`} className="absolute inset-0 z-10" aria-label={`Lihat detail promo ${promo.title}`} />
+    <article className="card-sharp red-edge group relative flex h-full flex-col overflow-hidden">
+      <Link href={`/promo/${promo.slug}`} className="absolute inset-0 z-10">
+        <span className="sr-only">Lihat detail promo Suzuki {promo.title}</span>
+      </Link>
 
       <div className="relative aspect-[3/2] w-full overflow-hidden bg-gray-100">
         <Image
           src={promo.image}
-          alt={promo.title}
+          alt={`Promo Suzuki ${promo.title}`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
@@ -72,9 +65,9 @@ export function PromoCard({ promo, index = 0, cityName }: { promo: typeof promos
       </div>
 
       <div className="relative z-20 flex flex-1 flex-col bg-white p-5">
-        <h3 className="mb-3 line-clamp-2 text-lg font-black uppercase leading-tight tracking-tight text-gray-950 transition-colors group-hover:text-red-600">
+        <p className="mb-3 line-clamp-2 text-lg font-black uppercase leading-tight tracking-tight text-gray-950 transition-colors group-hover:text-red-600">
           {promo.title}
-        </h3>
+        </p>
 
         <div className="mb-5 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.18em] text-gray-400">
           <Calendar size={13} />
@@ -86,7 +79,7 @@ export function PromoCard({ promo, index = 0, cityName }: { promo: typeof promos
             href={`/promo/${promo.slug}`}
             className="group/btn inline-flex items-center justify-center gap-2 border border-gray-200 px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-gray-700 transition-all hover:border-gray-950 hover:bg-gray-950 hover:text-white"
           >
-            Detail Promo
+            Detail {promo.title}
             <ArrowRight size={13} className="transition-transform group-hover/btn:translate-x-1" />
           </Link>
           <a
@@ -94,13 +87,14 @@ export function PromoCard({ promo, index = 0, cityName }: { promo: typeof promos
             target="_blank"
             rel="noopener noreferrer"
             className="grid h-11 w-11 place-items-center border border-red-600 bg-red-600 text-white transition-all hover:border-whatsapp hover:bg-whatsapp"
-            aria-label={`Tanya promo ${promo.title} via WhatsApp`}
+            aria-label={`Tanya promo Suzuki ${promo.title} via WhatsApp`}
           >
+            <span className="sr-only">Tanya promo Suzuki {promo.title} via WhatsApp</span>
             <MessageCircle size={17} />
           </a>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
@@ -130,34 +124,25 @@ export default function PromoSection({ cityName }: { cityName?: string }) {
       <div className="absolute -right-20 top-20 h-80 w-80 bg-red-600/10 blur-3xl" />
 
       <div className="container-main relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mx-auto mb-12 max-w-3xl text-center md:mb-16"
-        >
+        <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
           <span className="section-label justify-center">Penawaran Terbatas</span>
           <h2 className="section-title-dark mt-4">
             Promo Dealer Suzuki {cityName ? cityName : "Jogja"}
           </h2>
           <p className="section-subtitle-dark mx-auto">
-            Penawaran bulanan yang dibuat lebih mudah dipahami: konsultasi unit, estimasi kredit, dan detail syarat promo langsung via WhatsApp.
+            Penawaran promo terbaru mobil Suzuki dengan konsultasi unit, estimasi kredit, dan detail syarat promo langsung via WhatsApp.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
-          <motion.article
-            initial={{ opacity: 0, scale: 0.97 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="group relative flex min-h-[460px] overflow-hidden border border-white/10 bg-black shadow-dark-glow lg:col-span-8 md:min-h-[540px]"
-          >
-            <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-20" aria-label={`Lihat detail promo ${featuredPromo.title}`} />
+          <article className="group relative flex min-h-[460px] overflow-hidden border border-white/10 bg-black shadow-dark-glow lg:col-span-8 md:min-h-[540px]">
+            <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-20">
+              <span className="sr-only">Lihat detail promo Suzuki {featuredPromo.title}</span>
+            </Link>
 
             <Image
               src={featuredPromo.image}
-              alt={featuredPromo.title}
+              alt={`Promo terbaru Suzuki ${featuredPromo.title}`}
               fill
               priority
               sizes="(max-width: 1024px) 100vw, 66vw"
@@ -174,23 +159,23 @@ export default function PromoSection({ cityName }: { cityName?: string }) {
                 </span>
               </div>
 
-              <h3 className="max-w-3xl text-3xl font-black uppercase leading-[1.02] tracking-tighter text-white md:text-5xl">
+              <p className="max-w-3xl text-3xl font-black uppercase leading-[1.02] tracking-tighter text-white md:text-5xl">
                 {featuredPromo.title}
-              </h3>
+              </p>
               <p className="mt-4 max-w-2xl text-sm font-semibold uppercase leading-relaxed tracking-[0.08em] text-white/70 md:text-base">
                 {featuredPromo.highlight}
               </p>
 
               <div className="relative z-30 mt-8 flex flex-col gap-3 sm:flex-row">
                 <a href={buildWhatsAppUrl(featuredWaText)} target="_blank" rel="noopener noreferrer" className="btn-red w-full sm:w-auto">
-                  <MessageCircle size={16} /> Ambil Promo
+                  <MessageCircle size={16} /> Ambil Promo {featuredPromo.title}
                 </a>
                 <Link href={`/promo/${featuredPromo.slug}`} className="inline-flex w-full items-center justify-center gap-2 border border-white/20 px-6 py-3.5 text-[11px] font-black uppercase tracking-[0.18em] text-white transition-all hover:border-white hover:bg-white hover:text-gray-950 sm:w-auto">
                   Detail Penawaran <ArrowRight size={15} />
                 </Link>
               </div>
             </div>
-          </motion.article>
+          </article>
 
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1">
             {regularPromos.slice(0, 2).map((promo, index) => (
@@ -207,17 +192,12 @@ export default function PromoSection({ cityName }: { cityName?: string }) {
           </div>
         )}
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-12 flex justify-center"
-        >
+        <div className="mt-12 flex justify-center">
           <Link href="/promo" className="btn-white w-full sm:w-auto">
-            Lihat Semua Promo
+            Lihat Semua Promo Suzuki
             <ArrowRight size={16} />
           </Link>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

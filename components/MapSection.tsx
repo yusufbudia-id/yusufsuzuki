@@ -1,4 +1,4 @@
-import { Clock, MapPin, Phone } from "lucide-react";
+import { Clock, ExternalLink, MapPin, Phone } from "lucide-react";
 
 const infoItems = [
   {
@@ -17,6 +17,8 @@ const infoItems = [
     desc: "Yusuf Suzuki\n0821 7463 5218",
   },
 ];
+
+const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Suzuki%20Sumber%20Baru%20Mobil%20Jl.%20Magelang%20KM%208%20Mlati%20Yogyakarta";
 
 export default function MapSection({ cityName }: { cityName?: string }) {
   return (
@@ -46,21 +48,30 @@ export default function MapSection({ cityName }: { cityName?: string }) {
             </div>
           </div>
 
-          <div className="red-edge relative h-[420px] overflow-hidden border border-gray-200 bg-gray-100 shadow-card-hover transition-colors duration-500 hover:border-red-600 lg:h-[520px]">
-            <div className="absolute inset-0 flex items-center justify-center text-xs font-black uppercase tracking-[0.2em] text-gray-400">
-              Memuat Peta...
+          <div className="red-edge relative min-h-[420px] overflow-hidden border border-gray-200 bg-[#050505] p-8 text-white shadow-card-hover transition-colors duration-500 hover:border-red-600 lg:min-h-[520px]">
+            <div className="surface-grid absolute inset-0 opacity-35" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_24%,rgba(227,6,19,0.18),transparent_32%)]" />
+            <div className="relative z-10 flex h-full min-h-[360px] flex-col justify-between lg:min-h-[460px]">
+              <div>
+                <span className="badge-red">Google Maps</span>
+                <p className="mt-8 text-3xl font-black uppercase leading-tight tracking-tighter md:text-5xl">
+                  Suzuki Sumber Baru Mobil Jogja
+                </p>
+                <p className="mt-5 max-w-md text-sm leading-7 text-white/60">
+                  Buka lokasi showroom di Google Maps tanpa memuat script peta berat di halaman utama. Ini membantu halaman lebih ringan dan tetap mudah diakses pengunjung.
+                </p>
+              </div>
+
+              <a
+                href={mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-10 inline-flex w-full items-center justify-center gap-3 border border-white/20 bg-white px-6 py-4 text-[11px] font-black uppercase tracking-[0.18em] text-gray-950 transition-all hover:border-red-600 hover:bg-red-600 hover:text-white sm:w-auto"
+              >
+                Buka Lokasi Dealer Suzuki Jogja
+                <ExternalLink size={15} />
+              </a>
             </div>
-            <iframe
-              src="https://maps.google.com/maps?q=Suzuki%20Mlati%20Sumber%20Baru%20Mobil&t=&z=15&ie=UTF8&iwloc=&output=embed"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Lokasi Suzuki Sumber Baru Mobil"
-              className="relative z-10 h-full w-full grayscale transition-all duration-500 hover:grayscale-0"
-            />
           </div>
         </div>
       </div>

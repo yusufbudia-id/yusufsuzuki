@@ -1,8 +1,5 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowRight, BadgePercent, CarFront, MessageCircle, Sparkles, TrendingUp } from "lucide-react";
 import { Car } from "@/data/cars";
 import { buildWhatsAppUrl } from "@/lib/utils";
@@ -13,9 +10,9 @@ interface CarCardProps {
   cityName?: string;
 }
 
-export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
+export default function CarCard({ car, cityName }: CarCardProps) {
   const customWaMsg = cityName
-    ? `Halo Yusuf Suzuki, saya warga ${cityName} dan tertarik dengan mobil ${car.name}. Mohon info harga dan promo terbarunya.`
+    ? `Halo Yusuf Suzuki, saya warga ${cityName} dan tertarik dengan mobil ${car.name}. Mohon info harga OTR dan promo terbarunya.`
     : car.whatsappMessage;
 
   const formatMaskedDiscount = (amount: number) => {
@@ -24,19 +21,15 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
   };
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: index * 0.06 }}
-      className="card-sharp red-edge group relative flex h-full flex-col overflow-hidden"
-    >
+    <article className="card-sharp red-edge group relative flex h-full flex-col overflow-hidden">
       <div className="relative aspect-[4/3] shrink-0 overflow-hidden bg-gray-100 sm:h-64">
-        <Link href={`/mobil/${car.slug}`} className="absolute inset-0 z-10" aria-label={`Lihat detail ${car.name}`} />
+        <Link href={`/mobil/${car.slug}`} className="absolute inset-0 z-10">
+          <span className="sr-only">Lihat detail mobil Suzuki {car.name}</span>
+        </Link>
 
         <Image
           src={car.heroImage || "/logo.png"}
-          alt={car.name}
+          alt={`Mobil Suzuki ${car.name} di Jogja`}
           fill
           sizes="(max-width: 640px) 86vw, (max-width: 1024px) 50vw, 380px"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -76,11 +69,11 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
           <p className="mb-2 text-[10px] font-black uppercase tracking-[0.22em] text-red-600">
             Harga mulai
           </p>
-          <h3 className="mb-4 text-xl font-black uppercase leading-tight tracking-tighter text-gray-950 transition-colors group-hover:text-red-600 sm:text-2xl">
-            <Link href={`/mobil/${car.slug}`} className="before:absolute before:inset-0 before:z-0">
+          <p className="mb-4 text-xl font-black uppercase leading-tight tracking-tighter text-gray-950 transition-colors group-hover:text-red-600 sm:text-2xl">
+            <Link href={`/mobil/${car.slug}`}>
               {car.name}
             </Link>
-          </h3>
+          </p>
 
           <div className="grid gap-3 border-y border-gray-100 py-4">
             <div>
@@ -107,7 +100,7 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
             href={`/mobil/${car.slug}`}
             className="group/btn inline-flex items-center justify-center gap-2 border border-gray-200 px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-gray-700 transition-all hover:border-gray-950 hover:bg-gray-950 hover:text-white"
           >
-            Detail
+            Detail {car.name}
             <ArrowRight size={13} className="transition-transform group-hover/btn:translate-x-1" />
           </Link>
 
@@ -116,12 +109,12 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 border border-red-600 bg-red-600 px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-white transition-all hover:border-gray-950 hover:bg-gray-950"
-            title="Chat WhatsApp"
+            title={`Tanya mobil Suzuki ${car.name} via WhatsApp`}
           >
-            <MessageCircle size={13} /> Tanya
+            <MessageCircle size={13} /> Tanya {car.name}
           </a>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }

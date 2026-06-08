@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { BadgePercent, CarFront, CreditCard, MapPin, MessageCircle, ShieldCheck } from "lucide-react";
 
 const baseAdvantages = [
@@ -54,39 +51,30 @@ export default function AdvantagesSection({ cityName }: { cityName?: string }) {
       <div className="pointer-events-none absolute right-0 top-10 h-72 w-72 bg-red-600/5 blur-3xl" />
 
       <div className="container-main relative">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mx-auto mb-12 max-w-3xl text-center md:mb-16"
-        >
+        <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
           <span className="section-label justify-center">Mengapa Kami?</span>
           <h2 className="section-title mt-4">
             Keunggulan Dealer Resmi Suzuki {cityName ? cityName : "Jogja"}
           </h2>
           <p className="section-subtitle mx-auto">
-            Beli mobil Suzuki impian dengan proses jelas, harga transparan, dan arahan langsung dari konsultan yang responsif.
+            Beli mobil Suzuki impian dengan proses jelas, harga transparan, harga OTR mudah dicek, dan arahan langsung dari konsultan yang responsif.
           </p>
-        </motion.div>
+        </div>
 
         <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-1 pb-6 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible sm:pb-0 lg:grid-cols-3 [&::-webkit-scrollbar]:hidden">
-          {advantages.map((item, index) => (
-            <motion.article
+          {advantages.map((item) => (
+            <article
               key={item.title}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: index * 0.07 }}
               className="card-sharp red-edge group flex w-[84vw] shrink-0 snap-center flex-col p-6 sm:w-auto md:p-8"
             >
               <div className="mb-6 grid h-14 w-14 place-items-center border border-gray-200 bg-gray-950 text-white transition-all duration-300 group-hover:border-red-600 group-hover:bg-red-600">
                 <item.icon size={24} strokeWidth={1.7} />
               </div>
-              <h3 className="mb-3 text-lg font-black uppercase leading-tight tracking-tight text-gray-950 transition-colors group-hover:text-red-600">
+              <p className="mb-3 text-lg font-black uppercase leading-tight tracking-tight text-gray-950 transition-colors group-hover:text-red-600">
                 {item.title}
-              </h3>
+              </p>
               <p className="text-sm leading-relaxed text-gray-500">{item.desc}</p>
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>

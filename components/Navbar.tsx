@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, MessageCircle, PhoneCall, X } from "lucide-react";
 import { getLeadContextFromPath } from "@/lib/leadContext";
 import { buildWhatsAppUrl, cn, PHONE_DISPLAY, PHONE_TEL } from "@/lib/utils";
@@ -89,10 +88,7 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
+      <nav
         className={cn("fixed inset-x-0 top-0 z-50 border-b transition-all duration-300", navShell)}
       >
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-600/80 to-transparent" />
@@ -198,17 +194,12 @@ export default function Navbar() {
             </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-[#050505] text-white lg:hidden"
-          >
+      {menuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-[#050505] text-white lg:hidden"
+        >
             <div className="surface-grid absolute inset-0 opacity-40" />
             <div className="absolute inset-0 bg-red-radial" />
             <div className="relative flex h-full flex-col px-5 pb-6 pt-24">
@@ -233,14 +224,10 @@ export default function Navbar() {
                           <ChevronDown size={16} className={cn("transition-transform", mobileInfoOpen && "rotate-180")} />
                         </button>
 
-                        <AnimatePresence initial={false}>
-                          {mobileInfoOpen && (
-                            <motion.div
-                              initial={{ height: 0, opacity: 0 }}
-                              animate={{ height: "auto", opacity: 1 }}
-                              exit={{ height: 0, opacity: 0 }}
-                              className="overflow-hidden"
-                            >
+                        {mobileInfoOpen && (
+                          <div
+                            className="overflow-hidden"
+                          >
                               <div className="grid gap-2 pb-4 pl-4">
                                 {link.dropdown.map((item) => {
                                   const childActive = pathname === item.href || pathname?.startsWith(`${item.href}/`);
@@ -255,9 +242,8 @@ export default function Navbar() {
                                   );
                                 })}
                               </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
+                          </div>
+                        )}
                       </div>
                     );
                   }
@@ -291,9 +277,8 @@ export default function Navbar() {
                 </a>
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      )}
     </>
   );
 }

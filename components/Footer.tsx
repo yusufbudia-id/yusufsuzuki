@@ -1,5 +1,3 @@
-"use client";
-
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Clock, Facebook, Instagram, MapPin, MessageCircle, Phone, Youtube } from "lucide-react";

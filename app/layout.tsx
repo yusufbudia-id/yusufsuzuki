@@ -6,7 +6,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsappFloatingButton from "@/components/WhatsappFloatingButton";
 import BottomNavigation from "@/components/BottomNavigation";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.suzukiautojogja.com"),
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
     template: "%s | Dealer Mobil Suzuki Jogja",
   },
   description:
-    "Cari mobil Suzuki di Jogja? Dapatkan promo DP ringan, diskon besar, dan harga OTR terbaru di Dealer Resmi Suzuki Sumber Baru Mobil bersama Yusuf Suzuki (0821-7463-5218).",
+    "Dealer mobil Suzuki Jogja resmi. Cek harga OTR, promo DP ringan, kredit mudah, dan test drive bersama Yusuf Suzuki: 0821-7463-5218.",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
@@ -49,7 +48,7 @@ export const metadata: Metadata = {
     siteName: "Suzuki Sumber Baru Mobil",
     title: "Dealer Mobil Suzuki Jogja | Promo DP Ringan & Angsuran Murah",
     description:
-      "Hubungi Yusuf Suzuki (0821-7463-5218) untuk promo mobil Suzuki terbaru di Yogyakarta dan sekitarnya. Proses cepat, dibantu sampai ACC!",
+      "Dealer mobil Suzuki Jogja resmi untuk harga OTR, promo terbaru, kredit mudah, dan test drive bersama Yusuf Suzuki.",
     images: [
       {
         url: "/og-image.jpg",
@@ -63,7 +62,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dealer Mobil Suzuki Jogja | Promo & Harga Terbaru",
     description:
-      "Dealer resmi mobil Suzuki Jogja & sekitarnya. Promo terbaik, kredit mudah, DP ringan.",
+      "Dealer mobil Suzuki Jogja resmi. Cek harga OTR, promo terbaru, kredit mudah, dan test drive.",
     images: ["/og-image.jpg"],
   },
   robots: {
@@ -171,7 +170,6 @@ export default function RootLayout({
 
         <Footer />
         <WhatsappFloatingButton />
-        <ScrollToTopButton />
         <BottomNavigation />
       </body>
     </html>
