@@ -8,6 +8,7 @@ import { cars, carCategories } from "@/data/cars";
 import CarCard from "@/components/CarCard";
 import ContactCTA from "@/components/ContactCTA";
 import PageHero from "@/components/PageHero";
+import EmptyState from "@/components/EmptyState";
 import { buildWhatsAppUrl } from "@/lib/utils";
 
 const catalogStats = [
@@ -106,10 +107,22 @@ export default function KatalogClient() {
 
       <section className="container-main py-12 md:py-16">
         {filtered.length === 0 ? (
-          <div className="border border-gray-200 bg-white py-20 text-center shadow-card">
-            <p className="mb-2 text-sm font-black uppercase tracking-widest text-gray-900">Mobil tidak ditemukan</p>
-            <p className="text-xs font-bold uppercase tracking-widest text-gray-400">Silakan coba kategori atau kata kunci lain.</p>
-          </div>
+          <EmptyState
+            title="Mobil tidak ditemukan"
+            description="Silakan coba kategori lain, hapus kata kunci pencarian, atau chat Yusuf Suzuki untuk rekomendasi unit yang paling cocok."
+            action={
+              <button
+                type="button"
+                onClick={() => {
+                  setQuery("");
+                  setCategory("Semua");
+                }}
+                className="btn-dark"
+              >
+                Reset Filter
+              </button>
+            }
+          />
         ) : (
           <>
             <div className="mb-8 flex flex-col gap-4 border-l-4 border-red-600 bg-white p-5 shadow-card md:flex-row md:items-center md:justify-between">

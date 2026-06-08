@@ -14,7 +14,7 @@ export default function CarDetailStickyCTA({ carName, carSlug, startingPrice }: 
   const message = `Halo Yusuf Suzuki, saya ingin tanya detail ${carName}: harga OTR, promo, stok unit, dan simulasi kreditnya.`;
 
   return (
-    <div className="fixed inset-x-0 bottom-16 z-40 border-t border-white/10 bg-[#050505]/95 px-3 py-3 text-white shadow-[0_-18px_45px_-28px_rgba(0,0,0,0.75)] backdrop-blur-xl md:hidden">
+    <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-40 border-t border-white/10 bg-[#050505]/95 px-3 py-3 text-white shadow-[0_-18px_45px_-28px_rgba(0,0,0,0.75)] backdrop-blur-xl md:hidden">
       <div className="mx-auto flex max-w-md items-center gap-3">
         <div className="min-w-0 flex-1">
           <p className="truncate text-[10px] font-black uppercase tracking-[0.18em] text-white/45">{carName}</p>
