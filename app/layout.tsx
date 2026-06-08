@@ -118,6 +118,13 @@ export default function RootLayout({
   return (
     <html lang="id">
       <head>
+        {/* Runtime font loading keeps the premium Manrope look without making `next build` fetch fonts. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body className="bg-white text-gray-900 antialiased">

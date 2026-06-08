@@ -4,9 +4,9 @@
 
 :root {
   /* Font tokens */
-  --font-manrope: Manrope;
-  --font-body: var(--font-manrope, Manrope), system-ui, sans-serif;
-  --font-display: var(--font-manrope, Manrope), system-ui, sans-serif;
+  --font-manrope: "Manrope";
+  --font-body: var(--font-manrope), "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  --font-display: var(--font-manrope), "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
 
   /* Brand tokens */
   --brand-dark: #050505;
@@ -59,6 +59,7 @@ body {
   background: #ffffff;
   color: #0a0a0a;
   font-family: var(--font-body);
+  font-feature-settings: "liga" 1, "kern" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -75,6 +76,16 @@ body {
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    text-wrap: balance;
   }
 
   a,
