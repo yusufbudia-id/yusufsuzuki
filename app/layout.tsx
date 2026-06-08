@@ -146,7 +146,7 @@ export default function RootLayout({
         />
       </head>
       {/* MENGGUNAKAN CLASS MANROPE DI BODY */}
-      <body className={`${manrope.className} antialiased bg-white text-gray-900`}>
+      <body className={`${manrope.variable} ${manrope.className} antialiased bg-white text-gray-900`}>
         
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
