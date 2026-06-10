@@ -466,3 +466,180 @@ body {
     transform: none !important;
   }
 }
+
+/* Phase 5.3: page-wide lightweight motion system for internal pages.
+   Uses CSS only, with scroll-linked animation where supported and graceful fallback elsewhere. */
+@keyframes reveal-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes reveal-fade-left {
+  from {
+    opacity: 0;
+    transform: translate3d(-28px, 0, 0);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes reveal-fade-right {
+  from {
+    opacity: 0;
+    transform: translate3d(28px, 0, 0);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes reveal-pop-soft {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0) scale(0.96);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes border-glow-red {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(227, 6, 19, 0);
+  }
+  50% {
+    box-shadow: 0 0 34px rgba(227, 6, 19, 0.18);
+  }
+}
+
+@keyframes icon-float-soft {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -5px, 0) rotate(-1.5deg);
+  }
+}
+
+.motion-section,
+.motion-card,
+.motion-reveal-left,
+.motion-reveal-right,
+.motion-pop {
+  will-change: transform, opacity, filter;
+  backface-visibility: hidden;
+}
+
+.motion-section {
+  animation: reveal-fade-up 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.motion-card {
+  animation: reveal-pop-soft 640ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.motion-reveal-left {
+  animation: reveal-fade-left 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.motion-reveal-right {
+  animation: reveal-fade-right 760ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.motion-pop {
+  animation: reveal-pop-soft 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.motion-delay-1 { animation-delay: 80ms; }
+.motion-delay-2 { animation-delay: 160ms; }
+.motion-delay-3 { animation-delay: 240ms; }
+.motion-delay-4 { animation-delay: 320ms; }
+.motion-delay-5 { animation-delay: 400ms; }
+.motion-delay-6 { animation-delay: 480ms; }
+.motion-delay-7 { animation-delay: 560ms; }
+.motion-delay-8 { animation-delay: 640ms; }
+
+.motion-hover-lift {
+  transition-property: transform, box-shadow, border-color, background-color, color, opacity;
+  transition-duration: 320ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.motion-hover-lift:hover {
+  transform: translate3d(0, -4px, 0);
+}
+
+.motion-icon-float {
+  animation: icon-float-soft 5.2s ease-in-out infinite;
+}
+
+.motion-border-glow {
+  animation: border-glow-red 4.8s ease-in-out infinite;
+}
+
+.motion-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.motion-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform: translateX(-120%) skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.motion-shine:hover::after {
+  transform: translateX(120%) skewX(-18deg);
+}
+
+/* Scroll-linked reveal for modern browsers. Unsupported browsers keep the normal CSS entrance animation. */
+@supports (animation-timeline: view()) {
+  .motion-section,
+  .motion-card,
+  .motion-reveal-left,
+  .motion-reveal-right,
+  .motion-pop {
+    animation-timeline: view();
+    animation-range: entry 0% cover 26%;
+    animation-delay: 0ms;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-section,
+  .motion-card,
+  .motion-reveal-left,
+  .motion-reveal-right,
+  .motion-pop,
+  .motion-icon-float,
+  .motion-border-glow,
+  .motion-shine::after {
+    animation: none !important;
+    transition-duration: 0.001ms !important;
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+}

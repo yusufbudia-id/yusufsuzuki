@@ -146,7 +146,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
 
       <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-950 via-red-600 to-red-950 z-[60] md:hidden" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="motion-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* === TOMBOL KEMBALI MENGARAH KE DAFTAR PROMO === */}
         <Link 
@@ -158,11 +158,11 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
         </Link>
 
         {/* PEMBAGIAN 3 KOLOM DI LAYAR BESAR */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12">
+        <div className="motion-section grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12">
           
           {/* KOLOM 1: GAMBAR (5 Kolom) */}
           <div className="lg:col-span-5">
-            <div className="relative w-full bg-gray-100 border border-gray-200 overflow-hidden shadow-sm sticky top-28">
+            <div className="motion-reveal-left motion-shine relative w-full bg-gray-100 border border-gray-200 overflow-hidden shadow-sm sticky top-28">
               <div className="relative aspect-square md:aspect-[4/5] w-full">
                 <Image
                   src={promo.image}
@@ -181,7 +181,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
           </div>
 
           {/* KOLOM 2: TEKS & TOMBOL (4 Kolom) */}
-          <div className="lg:col-span-4 flex flex-col">
+          <div className="motion-pop lg:col-span-4 flex flex-col">
             <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-red-600 mb-4">
               <Calendar size={14} />
               Berlaku s/d {promo.validUntil}
@@ -205,7 +205,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                 href={buildWhatsAppUrl(waMsg)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full bg-red-600 hover:bg-red-700 text-white py-5 px-8 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.3em] shadow-xl active:scale-95"
+                className="motion-shine w-full bg-red-600 hover:bg-red-700 text-white py-5 px-8 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.3em] shadow-xl active:scale-95"
               >
                 <MessageCircle size={20} />
                 Klaim Promo 
@@ -230,7 +230,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
 
           {/* KOLOM 3: SIDEBAR PROMO LAINNYA (3 Kolom) */}
           {otherPromos.length > 0 && (
-            <div className="lg:col-span-3 mt-12 lg:mt-0 lg:pl-6 xl:pl-8 lg:border-l border-gray-200">
+            <div className="motion-reveal-right lg:col-span-3 mt-12 lg:mt-0 lg:pl-6 xl:pl-8 lg:border-l border-gray-200">
               <div className="sticky top-28">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-2 h-2 bg-red-600 rounded-full" />
@@ -244,7 +244,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                     <Link 
                       key={other.slug} 
                       href={`/promo/${other.slug}`} 
-                      className="group flex flex-row lg:flex-col xl:flex-row gap-4 items-start"
+                      className="motion-card group flex flex-row lg:flex-col xl:flex-row gap-4 items-start"
                     >
                       <div className="relative w-24 h-16 lg:w-full lg:h-32 xl:w-20 xl:h-14 shrink-0 bg-gray-100 overflow-hidden border border-gray-200">
                         <Image 

@@ -44,19 +44,19 @@ export default function TestDrivePage() {
         </Link>
       </PageHero>
 
-      <section className="container-main -mt-10 relative z-20 pb-16 md:-mt-16 md:pb-24">
+      <section className="container-main motion-section -mt-10 relative z-20 pb-16 md:-mt-16 md:pb-24">
         <div className="grid grid-cols-1 items-start gap-8 md:gap-12 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <TestDriveForm />
           </div>
 
           <div className="lg:col-span-5">
-            <div className="red-edge sticky top-24 border border-gray-200 bg-white p-6 shadow-card-hover md:p-10">
+            <div className="red-edge motion-reveal-right motion-shine sticky top-24 border border-gray-200 bg-white p-6 shadow-card-hover md:p-10">
               <p className="section-label mb-4">Keuntungan</p>
               <h2 className="mb-8 text-2xl font-black uppercase tracking-tighter text-gray-950">Mengapa Test Drive?</h2>
               <div className="space-y-7">
                 {benefits.map((b) => (
-                  <div key={b.title} className="group flex items-start gap-5">
+                  <div key={b.title} className="motion-card group flex items-start gap-5">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-gray-200 bg-gray-50 text-gray-900 shadow-sm transition-all duration-300 group-hover:border-red-600 group-hover:bg-red-600 group-hover:text-white">
                       <b.icon size={20} strokeWidth={1.5} />
                     </div>

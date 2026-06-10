@@ -46,15 +46,15 @@ export default function KontakPage() {
         </a>
       </PageHero>
 
-      <section className="container-main py-16 md:py-24">
+      <section className="container-main motion-section py-16 md:py-24">
         <div className="mb-16 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="space-y-8">
-            <div className="red-edge border border-gray-200 bg-white p-8 shadow-card md:p-12">
+            <div className="red-edge motion-pop motion-shine border border-gray-200 bg-white p-8 shadow-card md:p-12">
               <p className="section-label mb-4">Informasi Dealer</p>
               <h2 className="mb-8 text-2xl font-black uppercase tracking-tighter text-gray-950 md:text-3xl">Detail Kontak Resmi</h2>
               <div className="space-y-8">
                 {contactItems.map((item) => (
-                  <div key={item.label} className="group flex items-start gap-5">
+                  <div key={item.label} className="motion-card group flex items-start gap-5">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center border border-gray-200 bg-gray-50 text-gray-900 shadow-sm transition-colors duration-300 group-hover:bg-red-600 group-hover:text-white">
                       <item.icon size={20} strokeWidth={1.5} />
                     </div>
@@ -91,7 +91,7 @@ export default function KontakPage() {
           </div>
         </div>
 
-        <div className="relative overflow-hidden border border-gray-800 bg-[#050505] p-8 text-white shadow-dark-glow md:p-16">
+        <div className="motion-reveal-right motion-shine relative overflow-hidden border border-gray-800 bg-[#050505] p-8 text-white shadow-dark-glow md:p-16">
           <div className="absolute inset-0 bg-red-radial opacity-70" />
           <div className="absolute inset-0 bg-automotive-grid bg-[size:56px_56px] opacity-30" />
           <div className="absolute right-0 top-0 h-full w-64 translate-x-32 skew-x-12 bg-white/5 transition-transform duration-1000" />

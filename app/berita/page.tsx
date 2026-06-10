@@ -56,8 +56,8 @@ export default function BeritaPage() {
         </Link>
       </PageHero>
 
-      <section className="container-main py-16 md:py-24">
-        <div className="mb-10 flex flex-col gap-4 border-l-4 border-red-600 bg-white p-6 shadow-card md:flex-row md:items-end md:justify-between">
+      <section className="container-main motion-section py-16 md:py-24">
+        <div className="motion-pop motion-shine mb-10 flex flex-col gap-4 border-l-4 border-red-600 bg-white p-6 shadow-card md:flex-row md:items-end md:justify-between">
           <div>
             <p className="section-label mb-3">Artikel Terbaru</p>
             <h2 className="text-3xl font-black uppercase tracking-tighter text-gray-950 md:text-4xl">Panduan Sebelum Membeli</h2>
@@ -75,7 +75,7 @@ export default function BeritaPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
-              className="group red-edge flex h-full flex-col border border-gray-200 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-red-600 hover:shadow-card-hover"
+              className="group red-edge motion-card motion-shine flex h-full flex-col border border-gray-200 bg-white shadow-card transition-all duration-300 hover:-translate-y-1 hover:border-red-600 hover:shadow-card-hover"
             >
               <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-200">
                 <Image

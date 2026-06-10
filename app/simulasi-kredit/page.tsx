@@ -81,10 +81,10 @@ export default function SimulasiKreditPage() {
         </Link>
       </PageHero>
 
-      <section className="container-main -mt-10 relative z-20 pb-12 md:-mt-16 md:pb-16">
+      <section className="container-main motion-section -mt-10 relative z-20 pb-12 md:-mt-16 md:pb-16">
         <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-4">
           {creditHighlights.map((item) => (
-            <div key={item.title} className="group border border-gray-200 bg-white p-5 shadow-card transition-all hover:-translate-y-1 hover:border-red-600 hover:shadow-card-hover">
+            <div key={item.title} className="motion-card motion-hover-lift group border border-gray-200 bg-white p-5 shadow-card transition-all hover:-translate-y-1 hover:border-red-600 hover:shadow-card-hover">
               <div className="mb-4 flex h-11 w-11 items-center justify-center bg-gray-950 text-white transition-colors group-hover:bg-red-600">
                 <item.icon size={19} strokeWidth={1.6} />
               </div>
@@ -97,8 +97,8 @@ export default function SimulasiKreditPage() {
         <CreditSimulator />
       </section>
 
-      <section className="container-main max-w-4xl pb-16 md:pb-24">
-        <div className="red-edge border border-gray-200 bg-white p-6 shadow-card md:p-10">
+      <section className="container-main motion-section max-w-4xl pb-16 md:pb-24">
+        <div className="red-edge motion-pop motion-shine border border-gray-200 bg-white p-6 shadow-card md:p-10">
           <p className="section-label mb-4">Panduan Kredit</p>
           <h2 className="mb-5 text-2xl font-black uppercase tracking-tighter text-gray-950 md:text-3xl">
             Dapatkan Penawaran Kredit Suzuki Terbaik di Yogyakarta

@@ -22,7 +22,7 @@ const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Suzuki%20Sumber
 
 export default function MapSection({ cityName }: { cityName?: string }) {
   return (
-    <section className="relative overflow-hidden bg-white py-14 md:py-28">
+    <section className="motion-section relative overflow-hidden bg-white py-14 md:py-28">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
       <div className="container-main relative">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -35,7 +35,7 @@ export default function MapSection({ cityName }: { cityName?: string }) {
 
             <div className="mt-10 space-y-6">
               {infoItems.map((item) => (
-                <div key={item.title} className="group flex items-start gap-5">
+                <div key={item.title} className="motion-card group flex items-start gap-5">
                   <div className="grid h-12 w-12 shrink-0 place-items-center border border-gray-200 bg-white text-gray-950 shadow-card transition-all duration-300 group-hover:border-red-600 group-hover:bg-red-600 group-hover:text-white">
                     <item.icon size={20} strokeWidth={1.5} />
                   </div>
@@ -48,7 +48,7 @@ export default function MapSection({ cityName }: { cityName?: string }) {
             </div>
           </div>
 
-          <div className="red-edge motion-enter-right relative min-h-[360px] overflow-hidden border border-gray-200 bg-[#050505] p-6 text-white shadow-card-hover transition-colors duration-500 hover:border-red-600 sm:p-8 lg:min-h-[520px]">
+          <div className="red-edge motion-reveal-right motion-shine relative min-h-[360px] overflow-hidden border border-gray-200 bg-[#050505] p-6 text-white shadow-card-hover transition-colors duration-500 hover:border-red-600 sm:p-8 lg:min-h-[520px]">
             <div className="surface-grid absolute inset-0 opacity-35" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_24%,rgba(227,6,19,0.18),transparent_32%)]" />
             <div className="relative z-10 flex h-full min-h-[360px] flex-col justify-between lg:min-h-[460px]">

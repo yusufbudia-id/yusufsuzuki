@@ -13,7 +13,7 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
     : "Halo Yusuf Suzuki, saya butuh bantuan memilih mobil Suzuki yang tepat.";
 
   return (
-    <section className="surface-dark relative overflow-hidden border-t border-white/5 py-14 font-manrope md:py-28">
+    <section className="surface-dark motion-section scan-line relative overflow-hidden border-t border-white/5 py-14 font-manrope md:py-28">
       <div className="surface-grid absolute inset-0 opacity-45" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_76%,rgba(227,6,19,0.18),transparent_34%),linear-gradient(135deg,#050505_0%,#080808_100%)]" />
       <div className="absolute bottom-0 left-0 h-[2px] w-1/2 bg-gradient-to-r from-red-600 via-red-600/40 to-transparent" />
@@ -26,7 +26,7 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
               className="absolute -inset-3 border border-red-600/25 bg-red-600/5"
               style={{ clipPath: "polygon(0 10%, 10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%)" }}
             />
-            <div className="relative aspect-[3/4] overflow-hidden border border-white/10 bg-black shadow-dark-glow">
+            <div className="motion-float-slow relative aspect-[3/4] overflow-hidden border border-white/10 bg-black shadow-dark-glow">
               <img
                 src="/kontak/photo.jpg"
                 alt={`Yusuf Suzuki - Konsultan penjualan dealer mobil Suzuki ${cityName ? cityName : "Jogja"}`}
@@ -59,7 +59,7 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
 
             <div className="mt-8 hidden gap-3 sm:grid sm:grid-cols-3 lg:max-w-3xl">
               {proofPoints.map((point) => (
-                <div key={point} className="flex items-center justify-center gap-2 border border-white/10 bg-white/[0.03] px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/70 md:justify-start">
+                <div key={point} className="motion-card motion-hover-lift flex items-center justify-center gap-2 border border-white/10 bg-white/[0.03] px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/70 md:justify-start">
                   <CheckCircle2 size={14} className="text-red-500" />
                   {point}
                 </div>

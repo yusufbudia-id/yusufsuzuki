@@ -31,7 +31,7 @@ export default function SpecificationTabs({ spec }: { spec: CarSpecifications })
       content: (
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {spec.fitur.map((f) => (
-            <div key={f} className="flex items-center gap-2 border border-gray-100 bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-700">
+            <div key={f} className="motion-card flex items-center gap-2 border border-gray-100 bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-700">
               <CheckCircle2 size={14} className="shrink-0 text-red-600" />
               {f}
             </div>
@@ -43,7 +43,7 @@ export default function SpecificationTabs({ spec }: { spec: CarSpecifications })
 
   return (
     <Tabs.Root defaultValue="mesin" className="w-full">
-      <Tabs.List className="mb-5 grid grid-cols-3 gap-2 border border-gray-200 bg-white p-2 shadow-card">
+      <Tabs.List className="motion-pop mb-5 grid grid-cols-3 gap-2 border border-gray-200 bg-white p-2 shadow-card">
         {tabs.map((t) => (
           <Tabs.Trigger
             key={t.id}
@@ -57,7 +57,7 @@ export default function SpecificationTabs({ spec }: { spec: CarSpecifications })
       </Tabs.List>
 
       {tabs.map((t) => (
-        <Tabs.Content key={t.id} value={t.id} className="red-edge border border-gray-200 bg-white p-5 shadow-card">
+        <Tabs.Content key={t.id} value={t.id} className="red-edge motion-card border border-gray-200 bg-white p-5 shadow-card">
           {t.content}
         </Tabs.Content>
       ))}

@@ -55,10 +55,10 @@ export default function KatalogClient() {
         </Link>
       </PageHero>
 
-      <section className="border-b border-gray-200 bg-white">
+      <section className="motion-section border-b border-gray-200 bg-white">
         <div className="container-main grid grid-cols-1 gap-4 py-6 md:grid-cols-3">
           {catalogStats.map((stat) => (
-            <div key={stat.label} className="group flex items-center gap-4 border border-gray-200 bg-gray-50 p-5 transition-all duration-300 hover:border-red-600 hover:bg-white">
+            <div key={stat.label} className="motion-card motion-hover-lift group flex items-center gap-4 border border-gray-200 bg-gray-50 p-5 transition-all duration-300 hover:border-red-600 hover:bg-white">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-white text-gray-900 shadow-sm transition-colors duration-300 group-hover:bg-red-600 group-hover:text-white">
                 <stat.icon size={20} strokeWidth={1.6} />
               </div>
@@ -71,7 +71,7 @@ export default function KatalogClient() {
         </div>
       </section>
 
-      <section className="sticky top-16 z-30 border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur-md md:top-20">
+      <section className="motion-section sticky top-16 z-30 border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur-md md:top-20">
         <div className="container-main flex flex-col gap-4 py-5 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.22em] text-gray-400 md:w-auto">
             <SlidersHorizontal size={15} /> Filter Unit
@@ -105,7 +105,7 @@ export default function KatalogClient() {
         </div>
       </section>
 
-      <section className="container-main py-12 md:py-16">
+      <section className="container-main motion-section py-12 md:py-16">
         {filtered.length === 0 ? (
           <EmptyState
             title="Mobil tidak ditemukan"
@@ -148,7 +148,7 @@ export default function KatalogClient() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          className="mt-20 border border-gray-200 bg-white p-6 shadow-card md:p-10"
+          className="motion-section motion-shine mt-20 border border-gray-200 bg-white p-6 shadow-card md:p-10"
         >
           <div className="mb-5 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.22em] text-red-600">
             <span className="h-2 w-2 bg-red-600" /> Area Layanan Resmi

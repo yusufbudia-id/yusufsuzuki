@@ -70,10 +70,10 @@ export default function PromoPage() {
         </Link>
       </PageHero>
 
-      <section className="border-b border-gray-200 bg-white">
+      <section className="motion-section border-b border-gray-200 bg-white">
         <div className="container-main grid grid-cols-1 gap-4 py-6 md:grid-cols-3">
           {promoStats.map((item) => (
-            <div key={item.title} className="group flex gap-4 border border-gray-200 bg-gray-50 p-5 transition-all hover:border-red-600 hover:bg-white">
+            <div key={item.title} className="motion-card motion-hover-lift group flex gap-4 border border-gray-200 bg-gray-50 p-5 transition-all hover:border-red-600 hover:bg-white">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-white text-gray-900 shadow-sm transition-colors group-hover:bg-red-600 group-hover:text-white">
                 <item.icon size={20} strokeWidth={1.6} />
               </div>
@@ -86,10 +86,10 @@ export default function PromoPage() {
         </div>
       </section>
 
-      <section className="container-main py-16 md:py-24">
+      <section className="container-main motion-section py-16 md:py-24">
         {activePromos.length > 0 ? (
           <>
-            <div className="mb-10 flex flex-col gap-5 border-l-4 border-red-600 bg-white p-6 shadow-card md:flex-row md:items-end md:justify-between">
+            <div className="motion-pop motion-shine mb-10 flex flex-col gap-5 border-l-4 border-red-600 bg-white p-6 shadow-card md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="section-label mb-3">Promo Aktif</p>
                 <h2 className="text-3xl font-black uppercase tracking-tighter text-gray-950 md:text-4xl">Daftar Promo Bulan Ini</h2>
@@ -114,7 +114,7 @@ export default function PromoPage() {
             </div>
           </>
         ) : (
-          <div className="mb-16 border border-gray-200 bg-white px-6 py-16 text-center shadow-card">
+          <div className="motion-pop border border-gray-200 bg-white px-6 py-16 text-center shadow-card">
             <p className="mb-3 text-sm font-black uppercase tracking-widest text-gray-900">Belum ada promo baru</p>
             <p className="mx-auto max-w-xl text-sm leading-relaxed text-gray-500">
               Program bisa berubah sewaktu-waktu. Hubungi Yusuf Suzuki untuk mengecek penawaran terbaru yang belum tampil di website.

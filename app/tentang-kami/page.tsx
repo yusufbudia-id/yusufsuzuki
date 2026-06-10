@@ -45,8 +45,8 @@ export default function TentangKamiPage() {
         </Link>
       </PageHero>
 
-      <section className="container-main py-20 md:py-28">
-        <div className="mb-24 grid grid-cols-1 items-center gap-16 md:gap-20 lg:grid-cols-2">
+      <section className="container-main motion-section py-20 md:py-28">
+        <div className="motion-section mb-24 grid grid-cols-1 items-center gap-16 md:gap-20 lg:grid-cols-2">
           <div>
             <p className="section-label mb-6">Siapa Kami</p>
             <h2 className="mb-8 text-3xl font-black uppercase leading-tight tracking-tighter text-gray-950 md:text-4xl">
@@ -65,7 +65,7 @@ export default function TentangKamiPage() {
             </div>
           </div>
 
-          <div className="group relative">
+          <div className="motion-reveal-right group relative">
             <div className="overflow-hidden border border-gray-200 shadow-card-hover">
               <img
                 src="/showroom/showroom.jpg"
@@ -80,9 +80,9 @@ export default function TentangKamiPage() {
           </div>
         </div>
 
-        <div className="mb-24 mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+        <div className="motion-section mb-24 mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
           {stats.map((s) => (
-            <div key={s.label} className="group border border-gray-200 bg-white p-6 text-center transition-all duration-500 hover:-translate-y-1 hover:border-red-600 hover:shadow-card-hover md:p-8">
+            <div key={s.label} className="motion-card motion-hover-lift group border border-gray-200 bg-white p-6 text-center transition-all duration-500 hover:-translate-y-1 hover:border-red-600 hover:shadow-card-hover md:p-8">
               <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center bg-gray-50 text-gray-900 transition-colors duration-500 group-hover:bg-red-600 group-hover:text-white">
                 <s.icon size={24} strokeWidth={1.5} />
               </div>
@@ -92,7 +92,7 @@ export default function TentangKamiPage() {
           ))}
         </div>
 
-        <div className="relative mb-24 overflow-hidden border border-gray-800 bg-[#050505] p-8 text-white shadow-dark-glow md:p-16">
+        <div className="motion-section motion-shine relative mb-24 overflow-hidden border border-gray-800 bg-[#050505] p-8 text-white shadow-dark-glow md:p-16">
           <div className="absolute inset-0 bg-red-radial opacity-70" />
           <div className="absolute inset-0 bg-automotive-grid bg-[size:56px_56px] opacity-30" />
           <div className="absolute right-0 top-0 h-full w-64 translate-x-32 skew-x-12 bg-white/5 transition-transform duration-1000" />
@@ -127,7 +127,7 @@ export default function TentangKamiPage() {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 pt-16">
+        <div className="motion-section border-t border-gray-200 pt-16">
           <div className="mb-16 text-center">
             <p className="section-label mb-4 justify-center">Area Cover Penjualan</p>
             <h2 className="text-3xl font-black uppercase leading-tight tracking-tighter text-gray-950 md:text-4xl">
@@ -143,7 +143,7 @@ export default function TentangKamiPage() {
               <Link
                 key={area.slug}
                 href={`/dealer/${area.slug}`}
-                className="group block border border-gray-200 bg-white p-8 transition-all duration-500 hover:-translate-y-1 hover:border-red-600 hover:shadow-card-hover"
+                className="motion-card motion-hover-lift group block border border-gray-200 bg-white p-8 transition-all duration-500 hover:-translate-y-1 hover:border-red-600 hover:shadow-card-hover"
               >
                 <div className="mb-4 flex items-center gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center bg-gray-50 text-gray-900 transition-colors duration-500 group-hover:bg-red-600 group-hover:text-white">

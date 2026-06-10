@@ -224,14 +224,14 @@ Mohon info persyaratannya.`;
   const tdpPct = hargaMobil > 0 ? ((dpBayar + diskon) / hargaMobil) * 100 : 0;
 
   return (
-    <div className="bg-white rounded-none border border-gray-200 shadow-2xl overflow-hidden">
+    <div className="motion-pop motion-shine bg-white rounded-none border border-gray-200 shadow-2xl overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-12">
         
         {/* Sisi Kiri: Inputs */}
         <div className="lg:col-span-7 p-6 md:p-10 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col">
           <div className="flex items-center justify-between mb-10">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-gray-900 flex items-center justify-center text-white shrink-0">
+              <div className="motion-icon-float w-12 h-12 bg-gray-900 flex items-center justify-center text-white shrink-0">
                 <Calculator size={24} strokeWidth={1.5} />
               </div>
               <div>

@@ -44,7 +44,7 @@ export default function TestDriveForm() {
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white rounded-none border border-gray-200 shadow-2xl p-12 md:p-16 text-center"
+        className="motion-pop bg-white rounded-none border border-gray-200 shadow-2xl p-12 md:p-16 text-center"
       >
         <CheckCircle2 size={64} strokeWidth={1.5} className="text-gray-900 mx-auto mb-6" />
         <h3 className="text-2xl font-black text-gray-900 mb-3 uppercase tracking-tight">Booking Berhasil</h3>
@@ -61,11 +61,11 @@ export default function TestDriveForm() {
   const errorClass = "text-red-500 text-[9px] uppercase tracking-widest font-bold mt-2 block";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-none border border-gray-200 shadow-2xl p-6 md:p-10">
+    <form onSubmit={handleSubmit(onSubmit)} className="motion-pop motion-shine bg-white rounded-none border border-gray-200 shadow-2xl p-6 md:p-10">
       
       {/* Header Form */}
       <div className="flex items-center gap-4 mb-10 border-b border-gray-100 pb-8">
-        <div className="w-12 h-12 bg-gray-900 flex items-center justify-center text-white shrink-0">
+        <div className="motion-icon-float w-12 h-12 bg-gray-900 flex items-center justify-center text-white shrink-0">
           <CalendarCheck size={24} strokeWidth={1.5} />
         </div>
         <div>

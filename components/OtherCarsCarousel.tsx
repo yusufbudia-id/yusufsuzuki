@@ -40,7 +40,7 @@ export default function OtherCarsCarousel({ cars }: { cars: SimpleCar[] }) {
             >
               <Link 
                 href={`/mobil/${otherCar.slug}`} 
-                className="group bg-gray-50 border border-gray-200 rounded-none overflow-hidden hover:border-gray-900 transition-colors duration-300 flex flex-col h-full"
+                className="motion-card motion-hover-lift motion-shine group bg-gray-50 border border-gray-200 rounded-none overflow-hidden hover:border-red-600 transition-all duration-300 flex flex-col h-full"
               >
                 {/* Image Box - MENGGUNAKAN NEXT/IMAGE */}
                 <div className="relative aspect-[4/3] bg-gray-100 p-6 flex items-center justify-center overflow-hidden border-b border-gray-200">

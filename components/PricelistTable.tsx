@@ -52,7 +52,7 @@ export default function PricelistTable({ variants, carName = "" }: PricelistTabl
         </button>
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-none overflow-hidden shadow-sm">
+      <div className="motion-pop bg-white border border-gray-200 rounded-none overflow-hidden shadow-sm">
         {/* Header Tabel (Disembunyikan di HP agar lebih bersih, muncul di Tablet/Desktop) */}
         <div className="hidden md:grid grid-cols-12 bg-gray-50 border-b border-gray-200 p-5">
           <div className="col-span-6 text-[10px] font-black text-gray-500 uppercase tracking-widest">
@@ -86,7 +86,7 @@ export default function PricelistTable({ variants, carName = "" }: PricelistTabl
             const waText = `Halo Yusuf Suzuki, saya ingin tanya promo, diskon, dan ketersediaan unit untuk *${finalVariantName}*.`;
 
             return (
-              <div key={i} className="flex flex-col md:grid md:grid-cols-12 p-5 gap-4 md:gap-0 md:items-center hover:bg-gray-50 transition-colors">
+              <div key={i} className="motion-card flex flex-col md:grid md:grid-cols-12 p-5 gap-4 md:gap-0 md:items-center hover:bg-gray-50 transition-colors">
                 
                 {/* Kolom Nama */}
                 <div className="md:col-span-6 flex justify-between md:block items-center">

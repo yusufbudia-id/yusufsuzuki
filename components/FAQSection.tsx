@@ -37,13 +37,13 @@ export default function FAQSection({ cityName }: { cityName?: string }) {
   ];
 
   return (
-    <section className="relative overflow-hidden border-t border-gray-100 bg-white py-20 md:py-28">
+    <section className="motion-section relative overflow-hidden border-t border-gray-100 bg-white py-20 md:py-28">
       <div className="container-main max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12 text-center md:mb-16"
+          className="motion-pop mb-12 text-center md:mb-16"
         >
           <div className="mx-auto mb-6 grid h-14 w-14 place-items-center border border-gray-200 bg-gray-950 text-white">
             <HelpCircle size={24} strokeWidth={1.5} />
@@ -58,7 +58,7 @@ export default function FAQSection({ cityName }: { cityName?: string }) {
         <Accordion.Root type="single" collapsible className="space-y-4">
           {faqs.map((faq, index) => (
             <motion.div key={faq.question} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.04 }}>
-              <Accordion.Item value={`item-${index}`} className="group overflow-hidden border border-gray-200 bg-gray-50 transition-colors duration-300 hover:border-red-600 data-[state=open]:border-red-600 data-[state=open]:bg-white">
+              <Accordion.Item value={`item-${index}`} className="motion-card group overflow-hidden border border-gray-200 bg-gray-50 transition-colors duration-300 hover:border-red-600 data-[state=open]:border-red-600 data-[state=open]:bg-white">
                 <Accordion.Header>
                   <Accordion.Trigger className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left text-xs font-black uppercase tracking-[0.16em] text-gray-950 focus:outline-none md:px-6 md:text-sm">
                     <span className="pr-4 leading-relaxed">{faq.question}</span>

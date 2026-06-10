@@ -40,7 +40,7 @@ export function PromoCard({ promo, cityName }: { promo: typeof promos[0]; index?
     : `Halo Yusuf Suzuki, saya tertarik dengan promo: ${promo.title}. Mohon info syarat dan ketersediaannya.`;
 
   return (
-    <article className="card-sharp red-edge motion-enter-up group relative flex h-full flex-col overflow-hidden">
+    <article className="card-sharp red-edge motion-enter-up motion-shine group relative flex h-full flex-col overflow-hidden">
       <Link href={`/promo/${promo.slug}`} className="absolute inset-0 z-10">
         <span className="sr-only">Lihat detail promo Suzuki {promo.title}</span>
       </Link>

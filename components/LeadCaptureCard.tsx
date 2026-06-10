@@ -26,12 +26,12 @@ export default function LeadCaptureCard({
   return (
     <div
       className={cn(
-        "relative overflow-hidden border p-6 shadow-card md:p-7",
+        "motion-card motion-shine relative overflow-hidden border p-6 shadow-card md:p-7",
         dark ? "border-gray-800 bg-[#050505] text-white shadow-dark-glow" : "border-gray-200 bg-white text-gray-950",
         className
       )}
     >
-      <div className={cn("absolute inset-0", dark ? "bg-red-radial opacity-70" : "bg-[radial-gradient(circle_at_top_right,rgba(227,6,19,0.08),transparent_36%)]")} />
+      <div className={cn("absolute inset-0 motion-glow-breathe", dark ? "bg-red-radial opacity-70" : "bg-[radial-gradient(circle_at_top_right,rgba(227,6,19,0.08),transparent_36%)]")} />
       <div className={cn("absolute inset-0 bg-automotive-grid bg-[size:44px_44px]", dark ? "opacity-25" : "opacity-[0.04]")} />
       <div className="relative z-10">
         <div className="mb-5 flex items-center gap-3">

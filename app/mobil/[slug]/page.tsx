@@ -162,11 +162,11 @@ export default async function CarDetailPage({ params }: Props) {
       {/* ========================================================= */}
       {/* 1. HERO SECTION (DARK TECH REDESIGN)                      */}
       {/* ========================================================= */}
-      <div className="relative bg-[#050505] pt-24 pb-20 md:pt-28 md:pb-32 overflow-hidden border-b border-white/10 font-manrope">
+      <div className="motion-section relative bg-[#050505] pt-24 pb-20 md:pt-28 md:pb-32 overflow-hidden border-b border-white/10 font-manrope">
         
         {/* Background Grids & Glows */}
-        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_70%_40%,rgba(220,38,38,0.15),transparent_40%),linear-gradient(135deg,#050505_0%,#0a0a0a_100%)]" />
-        <div className="absolute inset-0 z-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:48px_48px] opacity-40" />
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_70%_40%,rgba(220,38,38,0.15),transparent_40%),linear-gradient(135deg,#050505_0%,#0a0a0a_100%)] motion-glow-breathe" />
+        <div className="absolute inset-0 z-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:48px_48px] opacity-40 scan-line" />
         <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#050505] via-[#050505]/80 to-transparent" />
 
         {/* Thin Technical Lines */}
@@ -275,7 +275,7 @@ export default async function CarDetailPage({ params }: Props) {
       {/* ========================================================= */}
       {/* 2. SPESIFIKASI UMUM (TETAP SAMA TERANG)                   */}
       {/* ========================================================= */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b border-gray-200">
+      <div className="motion-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b border-gray-200">
         <FadeIn>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
             <div>
@@ -296,7 +296,7 @@ export default async function CarDetailPage({ params }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {specs.map((spec, i) => (
             <FadeIn key={i} delay={i * 0.1}>
-              <div className="bg-white p-6 border border-gray-200 rounded-none hover:border-red-600 transition-colors duration-300 group h-full shadow-sm hover:shadow-md relative overflow-hidden">
+              <div className="motion-card motion-hover-lift bg-white p-6 border border-gray-200 rounded-none hover:border-red-600 transition-colors duration-300 group h-full shadow-sm hover:shadow-md relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-full h-[2px] bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
                 <spec.icon size={28} strokeWidth={1.5} className="text-gray-400 group-hover:text-red-600 mb-4 transition-colors" />
                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">{spec.label}</p>
@@ -308,7 +308,7 @@ export default async function CarDetailPage({ params }: Props) {
       </div>
 
       {/* 3. PRICELIST & VARIAN */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b border-gray-200">
+      <div className="motion-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b border-gray-200">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           <div className="lg:col-span-4 lg:sticky lg:top-28">
@@ -353,7 +353,7 @@ export default async function CarDetailPage({ params }: Props) {
 
       {/* 4. PROMO TERBARU */}
       {latestPromos.length > 0 && (
-        <div className="bg-gray-50 border-b border-gray-200 py-20">
+        <div className="motion-section bg-gray-50 border-b border-gray-200 py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn>
               <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
@@ -370,7 +370,7 @@ export default async function CarDetailPage({ params }: Props) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {latestPromos.map((promoItem, i) => (
                 <FadeIn key={promoItem.slug} delay={i * 0.1}>
-                  <Link href={`/promo/${promoItem.slug}`} className="group block bg-white border border-gray-200 shadow-sm hover:shadow-xl hover:border-red-500 transition-all duration-300 h-full flex flex-col">
+                  <Link href={`/promo/${promoItem.slug}`} className="motion-card motion-shine group block bg-white border border-gray-200 shadow-sm hover:shadow-xl hover:border-red-500 transition-all duration-300 h-full flex flex-col">
                     <div className="relative w-full aspect-video bg-gray-100 overflow-hidden">
                       <Image src={promoItem.image} alt={promoItem.title} fill className="object-cover group-hover:scale-105 transition-transform duration-700" />
                       <div className="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-1 uppercase tracking-widest z-10 shadow-sm">
@@ -395,7 +395,7 @@ export default async function CarDetailPage({ params }: Props) {
 
       {/* 5. REKOMENDASI MOBIL LAIN */}
       {otherCars.length > 0 && (
-        <div className="bg-white py-20 overflow-hidden">
+        <div className="motion-section bg-white py-20 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeIn>
               <div className="flex justify-between items-end mb-10">

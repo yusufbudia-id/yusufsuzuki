@@ -21,7 +21,7 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
   };
 
   return (
-    <article className={`card-sharp red-edge motion-enter-up group relative flex h-full flex-col overflow-hidden stagger-${Math.min(index + 1, 6)}`}>
+    <article className={`card-sharp red-edge motion-enter-up motion-shine group relative flex h-full flex-col overflow-hidden stagger-${Math.min(index + 1, 6)}`}>
       <div className="relative aspect-[4/3] shrink-0 overflow-hidden bg-gray-100 sm:h-64">
         <Link href={`/mobil/${car.slug}`} className="absolute inset-0 z-10">
           <span className="sr-only">Lihat detail mobil Suzuki {car.name}</span>

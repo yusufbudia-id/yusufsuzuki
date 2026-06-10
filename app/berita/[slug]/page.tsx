@@ -100,7 +100,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
     <div className="min-h-screen bg-gray-50">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <section className="relative overflow-hidden border-b border-white/10 bg-[#050505] pt-28 pb-14 text-white md:pt-36 md:pb-20">
+      <section className="motion-section relative overflow-hidden border-b border-white/10 bg-[#050505] pt-28 pb-14 text-white md:pt-36 md:pb-20">
         <div className="absolute inset-0 bg-dark-hero" />
         <div className="absolute inset-0 bg-red-radial" />
         <div className="absolute inset-0 bg-automotive-grid bg-[size:56px_56px] opacity-40" />
@@ -127,9 +127,9 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
         </div>
       </section>
 
-      <main className="container-main py-12 md:py-16">
+      <main className="container-main motion-section py-12 md:py-16">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
-          <article className="red-edge border border-gray-200 bg-white p-6 shadow-card md:p-10 lg:col-span-8">
+          <article className="red-edge motion-pop motion-shine border border-gray-200 bg-white p-6 shadow-card md:p-10 lg:col-span-8">
             <div className="relative mb-10 aspect-[16/9] w-full overflow-hidden bg-gray-100 shadow-sm">
               <Image
                 src={article.imageUrl}
@@ -157,7 +157,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
 
           <aside className="lg:col-span-4">
             <div className="sticky top-28">
-              <div className="mb-6 border-l-4 border-red-600 bg-white p-5 shadow-card">
+              <div className="motion-pop mb-6 border-l-4 border-red-600 bg-white p-5 shadow-card">
                 <p className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-400">Rekomendasi</p>
                 <h3 className="mt-1 text-xl font-black uppercase tracking-tighter text-gray-950">Artikel Terbaru</h3>
               </div>
@@ -168,7 +168,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
                     <Link
                       href={`/berita/${rec.slug}`}
                       key={rec.slug}
-                      className="group flex items-start gap-4 border border-gray-200 bg-white p-3 shadow-card transition-all duration-300 hover:border-red-600 hover:shadow-card-hover"
+                      className="motion-card group flex items-start gap-4 border border-gray-200 bg-white p-3 shadow-card transition-all duration-300 hover:border-red-600 hover:shadow-card-hover"
                     >
                       <div className="relative h-24 w-24 shrink-0 overflow-hidden bg-gray-200">
                         <Image
@@ -198,7 +198,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
                 )}
               </div>
 
-              <div className="mt-8 border border-gray-800 bg-[#050505] p-6 text-center text-white shadow-dark-glow">
+              <div className="motion-pop motion-shine mt-8 border border-gray-800 bg-[#050505] p-6 text-center text-white shadow-dark-glow">
                 <h4 className="mb-2 text-lg font-black uppercase tracking-tight">Tertarik dengan Suzuki?</h4>
                 <p className="mb-6 text-xs leading-relaxed text-white/50">
                   Dapatkan penawaran DP ringan dan diskon khusus pemesanan bulan ini.
