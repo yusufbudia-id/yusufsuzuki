@@ -10,7 +10,7 @@ interface CarCardProps {
   cityName?: string;
 }
 
-export default function CarCard({ car, cityName }: CarCardProps) {
+export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
   const customWaMsg = cityName
     ? `Halo Yusuf Suzuki, saya warga ${cityName} dan tertarik dengan mobil ${car.name}. Mohon info harga OTR dan promo terbarunya.`
     : car.whatsappMessage;
@@ -21,7 +21,7 @@ export default function CarCard({ car, cityName }: CarCardProps) {
   };
 
   return (
-    <article className="card-sharp red-edge group relative flex h-full flex-col overflow-hidden">
+    <article className={`card-sharp red-edge motion-enter-up group relative flex h-full flex-col overflow-hidden stagger-${Math.min(index + 1, 6)}`}>
       <div className="relative aspect-[4/3] shrink-0 overflow-hidden bg-gray-100 sm:h-64">
         <Link href={`/mobil/${car.slug}`} className="absolute inset-0 z-10">
           <span className="sr-only">Lihat detail mobil Suzuki {car.name}</span>
@@ -100,7 +100,7 @@ export default function CarCard({ car, cityName }: CarCardProps) {
             href={`/mobil/${car.slug}`}
             className="group/btn inline-flex items-center justify-center gap-2 border border-gray-200 px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-gray-700 transition-all hover:border-gray-950 hover:bg-gray-950 hover:text-white"
           >
-            Detail {car.name}
+            <span className="sm:hidden">Detail</span><span className="hidden sm:inline">Detail {car.name}</span>
             <ArrowRight size={13} className="transition-transform group-hover/btn:translate-x-1" />
           </Link>
 
@@ -111,7 +111,7 @@ export default function CarCard({ car, cityName }: CarCardProps) {
             className="inline-flex items-center justify-center gap-2 border border-red-600 bg-red-600 px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-white transition-all hover:border-gray-950 hover:bg-gray-950"
             title={`Tanya mobil Suzuki ${car.name} via WhatsApp`}
           >
-            <MessageCircle size={13} /> Tanya {car.name}
+            <MessageCircle size={13} /> <span className="sm:hidden">Tanya</span><span className="hidden sm:inline">Tanya {car.name}</span>
           </a>
         </div>
       </div>

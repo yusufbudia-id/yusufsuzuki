@@ -40,7 +40,7 @@ export function PromoCard({ promo, cityName }: { promo: typeof promos[0]; index?
     : `Halo Yusuf Suzuki, saya tertarik dengan promo: ${promo.title}. Mohon info syarat dan ketersediaannya.`;
 
   return (
-    <article className="card-sharp red-edge group relative flex h-full flex-col overflow-hidden">
+    <article className="card-sharp red-edge motion-enter-up group relative flex h-full flex-col overflow-hidden">
       <Link href={`/promo/${promo.slug}`} className="absolute inset-0 z-10">
         <span className="sr-only">Lihat detail promo Suzuki {promo.title}</span>
       </Link>
@@ -118,24 +118,24 @@ export default function PromoSection({ cityName }: { cityName?: string }) {
     : `Halo Yusuf Suzuki, saya ingin ambil promo: ${featuredPromo.title}. Mohon info detailnya.`;
 
   return (
-    <section className="surface-dark relative overflow-hidden py-20 md:py-28">
+    <section className="surface-dark relative overflow-hidden py-14 md:py-28">
       <div className="surface-grid absolute inset-0 opacity-35" />
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-600/70 to-transparent" />
       <div className="absolute -right-20 top-20 h-80 w-80 bg-red-600/10 blur-3xl" />
 
       <div className="container-main relative z-10">
-        <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
+        <div className="motion-enter-up mx-auto mb-8 max-w-3xl text-center md:mb-16">
           <span className="section-label justify-center">Penawaran Terbatas</span>
           <h2 className="section-title-dark mt-4">
             Promo Dealer Suzuki {cityName ? cityName : "Jogja"}
           </h2>
-          <p className="section-subtitle-dark mx-auto">
+          <p className="section-subtitle-dark mx-auto hidden sm:block">
             Penawaran promo terbaru mobil Suzuki dengan konsultasi unit, estimasi kredit, dan detail syarat promo langsung via WhatsApp.
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8">
-          <article className="group relative flex min-h-[460px] overflow-hidden border border-white/10 bg-black shadow-dark-glow lg:col-span-8 md:min-h-[540px]">
+          <article className="motion-enter-left group relative flex min-h-[360px] overflow-hidden border border-white/10 bg-black shadow-dark-glow md:min-h-[540px] lg:col-span-8">
             <Link href={`/promo/${featuredPromo.slug}`} className="absolute inset-0 z-20">
               <span className="sr-only">Lihat detail promo Suzuki {featuredPromo.title}</span>
             </Link>
@@ -159,19 +159,19 @@ export default function PromoSection({ cityName }: { cityName?: string }) {
                 </span>
               </div>
 
-              <p className="max-w-3xl text-3xl font-black uppercase leading-[1.02] tracking-tighter text-white md:text-5xl">
+              <p className="max-w-3xl text-2xl font-black uppercase leading-[1.02] tracking-tighter text-white sm:text-3xl md:text-5xl">
                 {featuredPromo.title}
               </p>
-              <p className="mt-4 max-w-2xl text-sm font-semibold uppercase leading-relaxed tracking-[0.08em] text-white/70 md:text-base">
+              <p className="mt-4 hidden max-w-2xl text-sm font-semibold uppercase leading-relaxed tracking-[0.08em] text-white/70 sm:block md:text-base">
                 {featuredPromo.highlight}
               </p>
 
               <div className="relative z-30 mt-8 flex flex-col gap-3 sm:flex-row">
                 <a href={buildWhatsAppUrl(featuredWaText)} target="_blank" rel="noopener noreferrer" className="btn-red w-full sm:w-auto">
-                  <MessageCircle size={16} /> Ambil Promo {featuredPromo.title}
+                  <MessageCircle size={16} /> <span className="sm:hidden">Ambil Promo</span><span className="hidden sm:inline">Ambil Promo {featuredPromo.title}</span>
                 </a>
                 <Link href={`/promo/${featuredPromo.slug}`} className="inline-flex w-full items-center justify-center gap-2 border border-white/20 px-6 py-3.5 text-[11px] font-black uppercase tracking-[0.18em] text-white transition-all hover:border-white hover:bg-white hover:text-gray-950 sm:w-auto">
-                  Detail Penawaran <ArrowRight size={15} />
+                  Detail <span className="hidden sm:inline">Penawaran</span> <ArrowRight size={15} />
                 </Link>
               </div>
             </div>

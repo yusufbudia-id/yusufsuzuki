@@ -4,24 +4,24 @@ import { testimonials } from "@/data/testimonials";
 
 export default function TestimonialSection({ cityName }: { cityName?: string }) {
   return (
-    <section className="relative overflow-hidden bg-gray-50 py-20 md:py-28">
+    <section className="relative overflow-hidden bg-gray-50 py-14 md:py-28">
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
       <div className="pointer-events-none absolute left-0 top-24 h-72 w-72 bg-red-600/5 blur-3xl" />
 
       <div className="container-main relative">
-        <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
+        <div className="motion-enter-up mx-auto mb-8 max-w-3xl text-center md:mb-16">
           <span className="section-label justify-center">Testimoni Pelanggan</span>
           <h2 className="section-title mt-4">Review Pembeli Suzuki {cityName ? cityName : "Jogja"}</h2>
-          <p className="section-subtitle mx-auto">
+          <p className="section-subtitle mx-auto hidden sm:block">
             Bukti pelayanan Yusuf Suzuki dari pelanggan yang sudah melakukan pembelian dan serah terima unit.
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {testimonials.map((testimonial) => (
+          {testimonials.map((testimonial, index) => (
             <article
               key={testimonial.id}
-              className="card-sharp red-edge group relative flex h-full flex-col overflow-hidden p-7"
+              className={`card-sharp red-edge motion-enter-up group relative h-full flex-col overflow-hidden p-6 sm:p-7 stagger-${Math.min(index + 1, 6)} ${index > 1 ? "hidden md:flex" : "flex"}`}
             >
               <Quote size={130} className="absolute -bottom-8 -right-8 z-0 -rotate-12 text-gray-50 transition-colors duration-700 group-hover:text-red-50" />
               <span className="absolute right-0 top-0 z-20 bg-gray-950 px-3 py-1.5 text-[9px] font-black uppercase tracking-[0.18em] text-white group-hover:bg-red-600">
@@ -35,7 +35,7 @@ export default function TestimonialSection({ cityName }: { cityName?: string }) 
                   ))}
                 </div>
 
-                <p className="mb-6 line-clamp-6 flex-grow text-sm font-medium italic leading-relaxed text-gray-700">
+                <p className="mb-6 line-clamp-4 flex-grow sm:line-clamp-6 text-sm font-medium italic leading-relaxed text-gray-700">
                   “{testimonial.review}”
                 </p>
 

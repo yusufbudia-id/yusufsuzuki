@@ -13,7 +13,7 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
     : "Halo Yusuf Suzuki, saya butuh bantuan memilih mobil Suzuki yang tepat.";
 
   return (
-    <section className="surface-dark relative overflow-hidden border-t border-white/5 py-20 font-manrope md:py-28">
+    <section className="surface-dark relative overflow-hidden border-t border-white/5 py-14 font-manrope md:py-28">
       <div className="surface-grid absolute inset-0 opacity-45" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_76%,rgba(227,6,19,0.18),transparent_34%),linear-gradient(135deg,#050505_0%,#080808_100%)]" />
       <div className="absolute bottom-0 left-0 h-[2px] w-1/2 bg-gradient-to-r from-red-600 via-red-600/40 to-transparent" />
@@ -21,7 +21,7 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
 
       <div className="container-main relative z-10">
         <div className="grid items-center gap-10 md:grid-cols-12 lg:gap-16">
-          <div className="relative md:col-span-4 lg:col-span-3">
+          <div className="motion-enter-left relative hidden md:col-span-4 md:block lg:col-span-3">
             <div
               className="absolute -inset-3 border border-red-600/25 bg-red-600/5"
               style={{ clipPath: "polygon(0 10%, 10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%)" }}
@@ -40,7 +40,7 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
             </div>
           </div>
 
-          <div className="text-center md:col-span-8 md:text-left lg:col-span-9">
+          <div className="motion-enter-up text-center md:col-span-8 md:text-left lg:col-span-9">
             <div className="mb-6 inline-flex items-center gap-3 border-l-2 border-red-600 bg-black/40 px-4 py-2 backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping bg-red-500 opacity-75" />
@@ -53,11 +53,11 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
               Masih bingung pilih mobil Suzuki yang tepat?
             </h2>
 
-            <p className="mx-auto mt-6 max-w-2xl text-sm leading-8 text-white/62 md:mx-0 md:text-base">
+            <p className="mx-auto mt-6 hidden max-w-2xl text-sm leading-8 text-white/62 sm:block md:mx-0 md:text-base">
               Diskusikan kebutuhan Anda langsung dengan Yusuf Suzuki. Fast response, ramah, dan siap membantu memilih unit terbaik sesuai anggaran, harga OTR, serta promo spesial untuk wilayah <strong className="text-white">{cityName ? cityName : "Jogja dan sekitarnya"}</strong>.
             </p>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3 lg:max-w-3xl">
+            <div className="mt-8 hidden gap-3 sm:grid sm:grid-cols-3 lg:max-w-3xl">
               {proofPoints.map((point) => (
                 <div key={point} className="flex items-center justify-center gap-2 border border-white/10 bg-white/[0.03] px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-white/70 md:justify-start">
                   <CheckCircle2 size={14} className="text-red-500" />
