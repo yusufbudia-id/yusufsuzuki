@@ -146,7 +146,51 @@ export const articles = [
       "Bagi Anda yang sedang mencari mobil keluarga, mobil operasional, atau kendaraan usaha, Suzuki bisa menjadi salah satu pilihan paling rasional. Dengan posisi tiga besar di bulan Mei 2026, Suzuki membuktikan bahwa produknya tetap dipercaya pasar dan layak dipertimbangkan.",
       "Jangan tunggu sampai promo berubah atau stok unit terbatas. Konsultasikan kebutuhan kendaraan Anda sekarang juga bersama <strong>Yusuf Suzuki</strong> melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> untuk mendapatkan rekomendasi unit, simulasi kredit, dan penawaran terbaik sesuai kebutuhan Anda!"
     ]
-  }
+  },
+  {
+    slug: "granmax-vs-carry-pickup-mei-2026-laku-mana",
+    title: "Gran Max vs Carry Pick Up Mei 2026: Siapa yang Lebih Laku? Hasilnya Bikin Persaingan Mobil Usaha Makin Panas",
+    excerpt: "Persaingan mobil pick up ringan di Indonesia kembali panas pada Mei 2026. Suzuki Carry Pick Up berhasil unggul tipis dari Daihatsu Gran Max Pick Up berdasarkan data wholesales. Selisihnya tidak besar, tapi cukup untuk menunjukkan bahwa pasar kendaraan niaga masih sangat sengit.",
+    category: "Berita Otomotif",
+    date: "12 Juni 2026",
+    imageUrl: "/berita/granmax-vs-carry-pickup-mei-2026.jpg",
+    content: [
+    "Persaingan mobil pick up ringan di Indonesia kembali jadi sorotan pada Mei 2026. Dua nama yang paling sering dibandingkan oleh pelaku usaha adalah <strong>Suzuki Carry Pick Up</strong> dan <strong>Daihatsu Gran Max Pick Up</strong>.",
+    "Keduanya sama-sama dikenal sebagai mobil pekerja keras. Dipakai untuk angkut barang, distribusi toko, usaha material, laundry, galon, sayur, makanan, ekspedisi kecil, sampai operasional UMKM harian.",
+    "Tapi kalau pertanyaannya adalah <strong>Gran Max vs Carry Pick Up, laku mana di Mei 2026?</strong> jawabannya: <strong>Suzuki Carry Pick Up unggul tipis.</strong>",
+    "Berdasarkan data wholesales Mei 2026, Suzuki Carry Pick Up mencatat distribusi sebanyak <strong>3.793 unit</strong>. Sementara Daihatsu Gran Max Pick Up berada sangat dekat di belakangnya dengan <strong>3.565 unit</strong>.",
+    "Artinya, Carry Pick Up unggul sekitar <strong>228 unit</strong> dari Gran Max Pick Up pada periode Mei 2026. Selisihnya memang tidak terlalu jauh, tapi cukup menunjukkan bahwa persaingan dua mobil niaga ini benar-benar ketat.",
+    "",
+    "<img src='/berita/granmax-vs-carry-pickup-mei-2026.jpg' alt='Gran Max vs Carry Pick Up Mei 2026 Laku Mana' class='w-full h-auto border border-gray-200 shadow-md my-8 hover:shadow-xl transition-shadow duration-300' />",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Carry Pick Up Menang Tipis di Mei 2026</h3>",
+    "Pada daftar mobil terlaris Mei 2026, Suzuki Carry Pick Up berhasil menempati posisi kedua secara nasional. Posisi ini cukup kuat karena hanya berada di bawah Toyota Kijang Innova yang masih menjadi model terlaris pada bulan tersebut.",
+    "Daihatsu Gran Max Pick Up juga tetap tampil kuat dengan menempati posisi ketiga. Jadi meskipun Carry unggul, Gran Max tetap tidak bisa dianggap kalah telak. Keduanya masih menjadi raja di segmen kendaraan niaga ringan.",
+    "<ul class='list-disc pl-5 space-y-3 mb-8 text-gray-700'><li><strong>Suzuki Carry Pick Up:</strong> 3.793 unit pada Mei 2026.</li><li><strong>Daihatsu Gran Max Pick Up:</strong> 3.565 unit pada Mei 2026.</li><li><strong>Selisih penjualan:</strong> Carry unggul 228 unit.</li><li><strong>Kesimpulan singkat:</strong> Carry lebih laku di Mei 2026, tetapi persaingannya sangat tipis.</li></ul>",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>April Gran Max Unggul, Mei Carry Balik Memimpin</h3>",
+    "Yang membuat persaingan ini makin menarik adalah perubahan posisi dari bulan sebelumnya. Pada April 2026, Daihatsu Gran Max Pick Up sempat berada di atas Suzuki Carry Pick Up.",
+    "Saat itu, Gran Max Pick Up mencatat angka distribusi yang lebih tinggi dibanding Carry. Namun pada Mei 2026, posisinya berbalik. Carry naik menjadi pick up ringan paling laris di antara keduanya.",
+    "Perubahan ini menunjukkan bahwa pasar mobil niaga ringan sangat dinamis. Dalam satu bulan, posisi bisa berubah tergantung stok unit, permintaan fleet, kebutuhan pelaku usaha, program penjualan, dan momentum pembelian di dealer.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-green-600 pl-3'>Kenapa Carry dan Gran Max Selalu Jadi Pilihan Usaha?</h3>",
+    "Baik Suzuki Carry maupun Daihatsu Gran Max punya basis pengguna yang sangat kuat. Keduanya bukan sekadar mobil pick up biasa, tapi sudah menjadi kendaraan kerja harian bagi banyak pelaku usaha di Indonesia.",
+    "Alasannya sederhana: harga relatif terjangkau, bak luas, mesin tangguh, perawatan mudah, spare part mudah dicari, dan cocok untuk berbagai jenis usaha. Untuk pemilik bisnis kecil sampai armada operasional, faktor seperti ini jauh lebih penting daripada sekadar tampilan.",
+    "Suzuki Carry Pick Up dikenal sebagai kendaraan niaga yang irit, lincah, dan punya reputasi kuat untuk kebutuhan usaha harian. Sementara Daihatsu Gran Max Pick Up juga punya daya tarik besar karena kapasitas, pilihan varian, dan jaringan pengguna yang luas.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-yellow-500 pl-3'>Laku Mana? Jawabannya Tergantung Periode</h3>",
+    "Kalau melihat khusus data Mei 2026, jawabannya jelas: <strong>Suzuki Carry Pick Up lebih laku daripada Daihatsu Gran Max Pick Up.</strong>",
+    "Namun kalau melihat persaingan secara umum, keduanya masih sangat berimbang. Gran Max bisa unggul di bulan tertentu, Carry bisa memimpin di bulan berikutnya. Inilah yang membuat segmen pick up ringan selalu menarik untuk diikuti.",
+    "Bagi konsumen, kondisi ini justru menguntungkan. Persaingan yang ketat membuat masing-masing merek harus terus menjaga harga, promo, ketersediaan unit, layanan purna jual, dan paket pembiayaan agar tetap menarik.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-gray-900 pl-3'>Mana yang Lebih Cocok untuk Usaha?</h3>",
+    "Untuk memilih antara Gran Max dan Carry, calon pembeli sebaiknya tidak hanya melihat angka penjualan. Yang paling penting adalah menyesuaikan kendaraan dengan kebutuhan usaha.",
+    "Jika prioritas Anda adalah kendaraan niaga yang praktis, irit, mudah dirawat, dan punya reputasi kuat untuk usaha harian, Suzuki Carry Pick Up bisa menjadi pilihan yang sangat masuk akal.",
+    "Namun jika Anda sedang membandingkan dengan Gran Max, tetap perhatikan kebutuhan bak, rute harian, kapasitas muatan, budget DP, angsuran, sampai ketersediaan unit di daerah masing-masing.",
+    "<ul class='list-disc pl-5 space-y-3 mb-8 text-gray-700'><li><strong>Untuk usaha harian:</strong> pilih unit yang paling sesuai dengan rute dan jenis barang yang diangkut.</li><li><strong>Untuk armada bisnis:</strong> pertimbangkan efisiensi BBM, biaya servis, dan kemudahan spare part.</li><li><strong>Untuk pembelian kredit:</strong> bandingkan DP, tenor, angsuran, dan promo dealer.</li><li><strong>Untuk keputusan cepat:</strong> cek stok unit dan simulasi kredit terbaru sebelum promo berubah.</li></ul>",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Kesimpulan: Mei 2026 Carry Pick Up Lebih Unggul</h3>",
+    "Dari data penjualan Mei 2026, Suzuki Carry Pick Up berhasil mengungguli Daihatsu Gran Max Pick Up dengan selisih 228 unit. Carry mencatat 3.793 unit, sedangkan Gran Max Pick Up mencatat 3.565 unit.",
+    "Meski selisihnya tipis, hasil ini cukup menjadi sinyal bahwa Suzuki Carry masih sangat kuat di pasar kendaraan niaga ringan Indonesia. Di sisi lain, Gran Max tetap menjadi lawan berat yang tidak bisa diremehkan.",
+    "Jadi, untuk pertanyaan <strong>Gran Max vs Carry Pick Up, laku mana?</strong> khusus Mei 2026 jawabannya adalah: <strong>Suzuki Carry Pick Up lebih laku.</strong>",
+    "Sedang cari mobil pick up untuk usaha, operasional toko, angkutan barang, atau armada bisnis? Konsultasikan kebutuhan Anda bersama <strong>Yusuf Suzuki</strong> melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> untuk mendapatkan rekomendasi unit, simulasi kredit, dan penawaran terbaik sesuai kebutuhan Anda!"
+    ]
+}
+
 
 
 ];
