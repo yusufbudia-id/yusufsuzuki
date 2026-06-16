@@ -49,6 +49,25 @@ export default function ContactCTA({ cityName }: { cityName?: string }) {
               <span className="text-[10px] font-black uppercase tracking-[0.24em] text-white/75">Konsultasi Gratis</span>
             </div>
 
+            <div className="motion-pop relative mx-auto mb-8 w-full max-w-[230px] md:hidden">
+              <div
+                className="absolute -inset-2 border border-red-600/25 bg-red-600/5"
+                style={{ clipPath: "polygon(0 10%, 10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%)" }}
+              />
+              <div className="motion-float-slow relative aspect-[4/5] overflow-hidden border border-white/10 bg-black shadow-dark-glow">
+                <img
+                  src="/kontak/photo.jpg"
+                  alt={`Yusuf Suzuki - Konsultan penjualan dealer mobil Suzuki ${cityName ? cityName : "Jogja"}`}
+                  className="h-full w-full object-cover object-top opacity-95"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-transparent" />
+                <div className="absolute bottom-4 left-4 border-l-2 border-red-600 pl-3 text-left">
+                  <p className="text-base font-black uppercase tracking-[0.16em] text-white">Yusuf</p>
+                  <p className="mt-1 text-[8px] font-bold uppercase tracking-[0.2em] text-white/55">Sales Executive</p>
+                </div>
+              </div>
+            </div>
+
             <h2 className="section-title-dark mx-auto max-w-4xl md:mx-0">
               Masih bingung pilih mobil Suzuki yang tepat?
             </h2>
