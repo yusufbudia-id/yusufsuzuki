@@ -3,8 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Calendar, MessageCircle, AlertCircle } from "lucide-react";
 import { promos } from "@/data/promos"; 
-import { buildWhatsAppUrl } from "@/lib/utils";
-import LeadCaptureCard from "@/components/LeadCaptureCard";
+import { WA_BASE_URL } from "@/lib/utils";
 import type { Metadata } from "next";
 
 interface PromoPageProps {
@@ -136,7 +135,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 pt-24 pb-20">
+    <main className="min-h-screen bg-white pt-24 pb-20">
       
       {/* SUNTIKAN KODE RAHASIA UNTUK ROBOT GOOGLE */}
       <script
@@ -144,25 +143,25 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-red-950 via-red-600 to-red-950 z-[60] md:hidden" />
+      <div className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-700 via-red-600 to-blue-700 z-[60] md:hidden" />
 
-      <div className="motion-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* === TOMBOL KEMBALI MENGARAH KE DAFTAR PROMO === */}
         <Link 
           href="/promo" 
-          className="inline-flex items-center gap-2 text-gray-500 hover:text-red-600 transition-colors font-bold text-[10px] uppercase tracking-[0.2em] mb-8"
+          className="inline-flex items-center gap-2 text-gray-400 hover:text-black transition-colors font-bold text-[10px] uppercase tracking-[0.2em] mb-8"
         >
           <ArrowLeft size={14} />
           Kembali ke Daftar Promo
         </Link>
 
         {/* PEMBAGIAN 3 KOLOM DI LAYAR BESAR */}
-        <div className="motion-section grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 xl:gap-12">
           
           {/* KOLOM 1: GAMBAR (5 Kolom) */}
           <div className="lg:col-span-5">
-            <div className="motion-reveal-left motion-shine relative w-full bg-gray-100 border border-gray-200 overflow-hidden shadow-sm sticky top-28">
+            <div className="relative w-full bg-gray-100 border border-gray-200 overflow-hidden shadow-sm sticky top-28">
               <div className="relative aspect-square md:aspect-[4/5] w-full">
                 <Image
                   src={promo.image}
@@ -181,7 +180,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
           </div>
 
           {/* KOLOM 2: TEKS & TOMBOL (4 Kolom) */}
-          <div className="motion-pop lg:col-span-4 flex flex-col">
+          <div className="lg:col-span-4 flex flex-col">
             <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-red-600 mb-4">
               <Calendar size={14} />
               Berlaku s/d {promo.validUntil}
@@ -202,35 +201,27 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
 
             <div className="mt-10 space-y-4">
               <a
-                href={buildWhatsAppUrl(waMsg)}
+                href={`${WA_BASE_URL}?text=${encodeURIComponent(waMsg)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="motion-shine w-full bg-red-600 hover:bg-red-700 text-white py-5 px-8 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.3em] shadow-xl active:scale-95"
+                className="w-full bg-gray-900 hover:bg-black text-white py-5 px-8 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.3em] shadow-xl active:scale-95"
               >
                 <MessageCircle size={20} />
                 Klaim Promo 
               </a>
               
-              <div className="flex items-start gap-3 bg-gray-50 p-5 border-l-4 border-red-600">
+              <div className="flex items-start gap-3 bg-gray-50 p-5 border-l-4 border-gray-900">
                 <AlertCircle className="text-gray-400 shrink-0 mt-0.5" size={18} />
                 <p className="text-[10px] text-gray-500 font-bold uppercase leading-relaxed tracking-wider">
                   Syarat & ketentuan berlaku. Promo dapat berubah sewaktu-waktu tergantung ketersediaan unit di dealer.
                 </p>
               </div>
-
-              <LeadCaptureCard
-                dark={false}
-                title="Cek Ketersediaan Promo"
-                description="Yusuf Suzuki akan bantu cek syarat, stok unit, pilihan warna, dan simulasi terbaik untuk promo ini."
-                message={waMsg}
-                carSlug={promo.carSlug}
-              />
             </div>
           </div>
 
           {/* KOLOM 3: SIDEBAR PROMO LAINNYA (3 Kolom) */}
           {otherPromos.length > 0 && (
-            <div className="motion-reveal-right lg:col-span-3 mt-12 lg:mt-0 lg:pl-6 xl:pl-8 lg:border-l border-gray-200">
+            <div className="lg:col-span-3 mt-12 lg:mt-0 lg:pl-6 xl:pl-8 lg:border-l border-gray-200">
               <div className="sticky top-28">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-2 h-2 bg-red-600 rounded-full" />
@@ -244,7 +235,7 @@ export default async function PromoDetailPage({ params }: PromoPageProps) {
                     <Link 
                       key={other.slug} 
                       href={`/promo/${other.slug}`} 
-                      className="motion-card group flex flex-row lg:flex-col xl:flex-row gap-4 items-start"
+                      className="group flex flex-row lg:flex-col xl:flex-row gap-4 items-start"
                     >
                       <div className="relative w-24 h-16 lg:w-full lg:h-32 xl:w-20 xl:h-14 shrink-0 bg-gray-100 overflow-hidden border border-gray-200">
                         <Image 
