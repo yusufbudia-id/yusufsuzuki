@@ -395,4 +395,34 @@ Yuk, jadikan perjalanan Anda lebih berkelas bersama Grand Vitara, dan nikmati bo
   image: "/promo/promo-semesta-grand-vitara.jpg", // Sesuaikan dengan nama file gambar Anda
   highlight: "DP 20JT-an, Gratis Motor Burgman & Kaca Film 3M (Total 43JT!)",
 },
+// PROMO SUZUKI CARRY PICK UP - 6 JUTA SAJA
+{
+  slug: "promo-carry-pick-up-6-juta-jogja",
+  title: "Modal Usaha Cuma 6 Juta Sudah Bisa Bawa Pulang Carry Pick Up Baru? Angsurannya #PikirCarry!",
+  description: `Untuk Anda para pengusaha dan pebisnis yang ingin berlari lebih kencang, menambah armada operasional kini tak lagi butuh modal besar di awal! 
+
+Bulan ini, Suzuki Sumber Baru Mobil menghadirkan penawaran super istimewa untuk kendaraan niaga nomor satu di Indonesia: Suzuki New Carry Pick Up. Hanya dengan modal awal 6 JUTA SAJA, mobil tangguh ini sudah siap parkir di tempat usaha Anda dan langsung bisa diajak cari cuan.
+
+Khawatir soal cicilan tiap bulannya? Tenang, sesuai tagline kami: Angsurannya #pikircarry (pikir belakangan)! Kami akan menyusunkan skema angsuran paling ringan yang dijamin tidak akan memberatkan arus kas (cashflow) bisnis Anda.
+
+Mengapa momen ini adalah saat paling tepat untuk meminang New Carry Pick Up?
+- Proses Sangat Mudah: Tidak perlu repot antre, cukup siapkan berkas dari rumah, kami yang akan urus semuanya.
+- Dibantu Sampai Approve: Punya keraguan atau kendala data? Jangan khawatir, tim kami siap mengawal dan mencarikan solusi terbaik sampai kredit Anda disetujui (approve).
+- Partner Usaha Paling Cocok: Dengan bak yang ekstra luas, mesin bandel, serta konsumsi BBM yang super irit, Carry adalah jaminan untung maksimal untuk jangka panjang.
+
+Jangan sampai kesempatan emas ini terlewat. Anda bisa Konsultasi Promo Sekarang juga secara gratis untuk menyesuaikan hitungan dengan kebutuhan usaha Anda.
+
+Silakan hubungi Yusuf Suzuki melalui WhatsApp di 0821-7463-5218.
+
+Anda juga bisa melihat detail spesifikasi dimensi bak Suzuki New Carry Pick Up melalui link berikut:
+https://www.suzukiautojogja.com/mobil/carry-pick-up
+
+Mari perbesar skala bisnis Anda hari ini bersama partner kerja terbaik, Suzuki New Carry Pick Up!`,
+  carSlug: "carry-pick-up", // Pastikan sesuai dengan slug di file cars.ts Anda
+  carName: "Suzuki New Carry Pick Up",
+  badge: "PROMO #PIKIRCARRY",
+  validUntil: "30 Juni 2026",
+  image: "/promo/promo-carry-6-juta.jpg", // Sesuaikan nama file gambar poster ini saat Anda menyimpannya di folder public/promo/
+  highlight: "DP 6 Juta Saja, Proses Mudah & Dibantu Sampai Approve!",
+},
 ];
