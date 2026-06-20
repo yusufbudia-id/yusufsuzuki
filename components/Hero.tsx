@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { WA_BASE_URL } from "@/lib/utils";
 
-const heroImage = "/mobil/fronx-1.jpg";
+const heroImage = "/hero/hero-jimny.jpg";
 
 const trustBadges = [
   {
