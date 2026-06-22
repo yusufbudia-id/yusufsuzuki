@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Clock, Facebook, Instagram, MapPin, MessageCircle, Phone, Youtube } from "lucide-react";
+import { Clock, Facebook, Instagram, MapPin, MessageCircle, Phone, Youtube, Navigation } from "lucide-react";
 import { areas } from "@/data/areas";
 import { WA_BASE_URL } from "@/lib/utils";
 
@@ -71,18 +71,19 @@ export default function Footer() {
       <div className="absolute -right-24 top-20 h-80 w-80 bg-red-600/10 blur-3xl" />
 
       <div className="container-main relative z-10 py-20 md:py-24">
+        {/* Banner Ajakan Bertindak (CTA) */}
         <div className="mb-14 grid gap-6 border border-white/10 bg-white/[0.03] p-6 md:grid-cols-[1fr_auto] md:items-center md:p-8">
           <div>
-            <span className="section-label">Dealer Resmi Suzuki</span>
+            <span className="section-label">Dealer Resmi Suzuki Jogja - Jateng</span>
             <h2 className="mt-4 max-w-2xl text-2xl font-black uppercase leading-tight tracking-tighter text-white md:text-4xl">
               Butuh info harga, promo, atau kredit Suzuki?
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/55">
-              Hubungi Yusuf Suzuki untuk konsultasi cepat dan rekomendasi unit sesuai kebutuhan Anda.
+              Hubungi Yusuf Suzuki untuk konsultasi cepat, promo DP ringan, dan rekomendasi unit sesuai domisili KTP Anda.
             </p>
           </div>
           <a
-            href={`${WA_BASE_URL}?text=Halo%20Yusuf%20Suzuki%2C%20saya%20ingin%20tanya%20tentang%20mobil%20Suzuki`}
+            href={`${WA_BASE_URL}?text=Halo%20Yusuf%20Suzuki%2C%20saya%20ingin%20tanya%20promo%20mobil%20Suzuki%20terbaru`}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-red w-full md:w-auto"
@@ -93,15 +94,17 @@ export default function Footer() {
         </div>
 
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5 lg:gap-8">
+          {/* Kolom 1: Profil Dealer */}
           <div className="lg:col-span-1">
             <div className="mb-8 border-l-2 border-red-600 pl-4">
               <span className="inline-flex bg-white px-3 py-2">
-                <img src="/logo.png" alt="Logo Suzuki Sumber Baru Jogja" className="h-7 w-auto object-contain md:h-8" />
+                <img src="/logo.png" alt="Dealer Resmi Suzuki Sumber Baru Jogja Magelang" className="h-7 w-auto object-contain md:h-8" />
               </span>
               <p className="mt-4 text-[10px] font-black uppercase tracking-[0.22em] text-white/50">Yusuf Suzuki</p>
             </div>
+            {/* OPTIMASI LOKAL: Menyisipkan keyword coverage area secara natural */}
             <p className="mb-8 pr-4 text-sm leading-relaxed text-white/50">
-              Dealer resmi Suzuki terpercaya di Yogyakarta & sekitarnya. Melayani penjualan mobil Suzuki baru dengan promo terbaik dan pelayanan profesional.
+              Dealer resmi mobil Suzuki terpercaya melayani wilayah <strong>Yogyakarta, Magelang, Kedu, dan Banyumas</strong>. Dapatkan promo mobil baru, diskon maksimal, dan kemudahan approval kredit.
             </p>
             <div className="flex flex-wrap gap-2.5">
               {socials.map(({ icon: Icon, label, href }) => (
@@ -113,6 +116,7 @@ export default function Footer() {
             </div>
           </div>
 
+          {/* Kolom 2: Menu Cepat */}
           <div>
             <FooterHeading>Menu Cepat</FooterHeading>
             <ul className="space-y-3.5">
@@ -124,6 +128,7 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Kolom 3: Produk */}
           <div>
             <FooterHeading>Produk Suzuki</FooterHeading>
             <ul className="space-y-3.5">
@@ -135,6 +140,7 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Kolom 4: Area Layanan */}
           <div>
             <FooterHeading>Area Layanan</FooterHeading>
             <ul className="space-y-3.5">
@@ -146,32 +152,56 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Kolom 5: Kontak & Lokasi (OPTIMASI SEMANTIC NAP) */}
           <div>
             <FooterHeading>Kontak & Lokasi</FooterHeading>
-            <ul className="space-y-5">
-              <li className="flex gap-4 text-sm text-white/52">
+            {/* Tag <address> memberi sinyal kuat ke Google tentang data fisik bisnis */}
+            <address className="not-italic space-y-5">
+              <div className="flex gap-4 text-sm text-white/52">
                 <MapPin size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-red-500" />
-                <span className="leading-relaxed">Suzuki Sumber Baru Mobil<br />Jl. Magelang KM 8, Yogyakarta</span>
-              </li>
-              <li className="flex gap-4 text-sm text-white/52">
+                <div className="leading-relaxed">
+                  <strong className="text-white block mb-1">Suzuki Sumber Baru Mobil</strong>
+                  Jl. Magelang KM 8.5, Mulungan Kidul,<br />
+                  Sendangadi, Sleman, DIY 55285
+                  <a 
+                    href="https://maps.google.com/?q=Suzuki+Sumber+Baru+Mobil+Jl.+Magelang" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="mt-2 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-red-500 hover:text-red-400 transition-colors"
+                  >
+                    <Navigation size={12} /> Buka di Google Maps
+                  </a>
+                </div>
+              </div>
+              <div className="flex gap-4 text-sm text-white/52">
                 <Phone size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-red-500" />
-                <span className="leading-relaxed">0821 7463 5218<br />(Yusuf Suzuki)</span>
-              </li>
-              <li className="flex gap-4 text-sm text-white/52">
+                <span className="leading-relaxed">
+                  <strong className="text-white">0821 7463 5218</strong><br />
+                  (Telepon & WhatsApp Yusuf)
+                </span>
+              </div>
+              <div className="flex gap-4 text-sm text-white/52">
                 <Clock size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-red-500" />
-                <span className="leading-relaxed">Senin – Sabtu<br />08.00 – 17.00 WIB</span>
-              </li>
-            </ul>
+                <span className="leading-relaxed">
+                  Senin – Minggu<br />
+                  08.00 – 17.00 WIB
+                </span>
+              </div>
+            </address>
           </div>
         </div>
       </div>
 
+      {/* Bagian Bawah Footer */}
       <div className="relative z-10 border-t border-white/10 bg-black/70">
         <div className="container-main flex flex-col items-center justify-between gap-4 py-7 md:flex-row">
           <p className="text-center text-[10px] font-black uppercase tracking-[0.22em] text-white/35 md:text-left">
             © 2026 Suzuki Sumber Baru Mobil. Dealer Resmi.
           </p>
-          <p className="text-[10px] font-black uppercase tracking-[0.22em] text-white/30">Jl. Magelang KM 8, Yogyakarta</p>
+          {/* OPTIMASI BAWAH: Menaruh sinyal kota di area copyright */}
+          <p className="text-[10px] font-black uppercase tracking-[0.22em] text-white/30 text-center md:text-right">
+            Melayani: Jogja • Magelang • Kedu • Banyumas
+          </p>
         </div>
       </div>
     </footer>
