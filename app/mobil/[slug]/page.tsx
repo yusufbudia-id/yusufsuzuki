@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Download, CheckCircle2, ChevronRight, Gauge, Settings, ShieldCheck, Car, Calendar, ArrowRight, MessageCircle, CalendarCheck } from "lucide-react";
 import { cars } from "@/data/cars";
+import { getCarSeoContent } from "@/data/carSeo";
 import { promos } from "@/data/promos";
 import { formatCurrency, WA_BASE_URL } from "@/lib/utils";
 import PricelistTable from "@/components/PricelistTable";
@@ -18,20 +19,23 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
-// --- FUNGSI PINTAR UNTUK MEMBACA TANGGAL INDONESIA ---
+// --- UTILITAS PROMO: TANGGAL BERAKHIR MENGIKUTI ZONA WAKTU JAKARTA ---
 function parseIndonesianDate(dateStr: string) {
-  const months: { [key: string]: number } = {
-    "Januari": 0, "Februari": 1, "Maret": 2, "April": 3, "Mei": 4, "Juni": 5,
-    "Juli": 6, "Agustus": 7, "September": 8, "Oktober": 9, "November": 10, "Desember": 11
+  const months: Record<string, number> = {
+    Januari: 1, Februari: 2, Maret: 3, April: 4, Mei: 5, Juni: 6,
+    Juli: 7, Agustus: 8, September: 9, Oktober: 10, November: 11, Desember: 12,
   };
-  const parts = dateStr.split(" ");
-  if (parts.length !== 3) return 0;
-  
-  const day = parseInt(parts[0], 10);
-  const month = months[parts[1]] || 0;
-  const year = parseInt(parts[2], 10);
-  
-  return new Date(year, month, day, 23, 59, 59).getTime();
+  const [dayText, monthText, yearText] = dateStr.trim().split(/\s+/);
+  const day = Number(dayText);
+  const month = months[monthText];
+  const year = Number(yearText);
+
+  if (!day || !month || !year) return 0;
+  return new Date(`${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}T23:59:59+07:00`).getTime();
+}
+
+function normalizePromoCarSlug(slug?: string) {
+  return slug === "carry-pick-up" ? "carry-pickup" : slug;
 }
 
 // =========================================================================
@@ -47,9 +51,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const fullImageUrl = `https://www.suzukiautojogja.com${car.heroImage || "/logo.png"}`;
   const carName = car.name;
   const carNameLower = carName.toLowerCase();
+  const startingPriceLabel = new Intl.NumberFormat("id-ID", { maximumFractionDigits: 0 }).format(car.startingPriceNum / 1_000_000).replace(/,0$/, "");
 
   return {
-    title: `Harga ${carName} Jogja 2026 | Promo DP Ringan & OTR Terbaru`,
+    title: `Harga ${carName} Jogja 2026 | Promo DP Ringan & OTR Mulai Rp ${startingPriceLabel} Juta`,
     description: `Cek harga OTR, promo pembelian, simulasi kredit, dan spesifikasi ${carName} terbaru untuk Yogyakarta, Magelang, Kedu, dan Banyumas.`,
     keywords: [
       `${carNameLower} jogja`,
@@ -62,7 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ].join(", "),
     alternates: { canonical: carUrl },
     openGraph: {
-      title: `Harga & Promo ${carName} Jogja 2026`,
+      title: `Harga ${carName} Jogja 2026 | OTR Mulai Rp ${startingPriceLabel} Juta`,
       description: `Cek harga OTR, stok, pilihan varian, dan simulasi kredit ${carName} di dealer Suzuki Yogyakarta.`,
       url: carUrl,
       siteName: "Suzuki Auto Jogja",
@@ -72,7 +77,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: `Harga ${carName} OTR Jogja Terbaru`,
+      title: `Harga ${carName} Jogja | OTR Mulai Rp ${startingPriceLabel} Juta`,
       description: `Lihat harga OTR, spesifikasi, dan simulasi kredit ${carName} di Yogyakarta dan Jawa Tengah.`,
       images: [fullImageUrl],
     },
@@ -91,7 +96,8 @@ export default async function CarDetailPage({ params }: Props) {
     { icon: Car, label: "Dimensi", value: car.specifications.dimensi },
     { icon: ShieldCheck, label: "Konsumsi BBM", value: car.specifications.konsumsiBBM },
   ];
-  const detailedSpecs = car.detailedSpecifications || [];
+  const seoContent = getCarSeoContent(car.slug);
+  const detailedSpecs = seoContent?.detailedSpecifications ?? car.detailedSpecifications ?? [];
 
   const variants = car.variants || [];
   const otherCars = cars.filter((c) => c.slug !== car.slug);
@@ -106,7 +112,7 @@ export default async function CarDetailPage({ params }: Props) {
   // --- FILTER PROMO OTOMATIS ---
   const now = Date.now();
   const activePromos = promos.filter(p => parseIndonesianDate(p.validUntil) >= now);
-  const relatedPromos = activePromos.filter((promo) => promo.carSlug === car.slug);
+  const relatedPromos = activePromos.filter((promo) => normalizePromoCarSlug(promo.carSlug) === car.slug);
   // Jangan menampilkan promo model lain di halaman produk ini. Bila belum ada promo aktif
   // untuk model terkait, section sengaja disembunyikan agar halaman tetap relevan.
   const latestPromos = relatedPromos.slice(0, 3);
@@ -119,12 +125,9 @@ export default async function CarDetailPage({ params }: Props) {
   const faqs = [
     {
       question: `Berapa harga OTR ${car.name} terbaru untuk wilayah DIY dan Jawa Tengah?`,
-      answer: `Harga OTR ${car.name} untuk wilayah Yogyakarta (plat AB) mulai dari ${car.startingPrice}. Harga untuk Magelang dan Kedu (plat AA) atau Banyumas (plat R) dapat berbeda karena penyesuaian BBN. Hubungi kami untuk perhitungan harga nett dan promo yang berlaku saat ini.`,
+      answer: `Harga OTR ${car.name} untuk wilayah Yogyakarta (plat AB) mulai dari ${car.startingPrice}. Harga Magelang dan Kedu (plat AA) atau Banyumas (plat R) dapat berbeda karena penyesuaian BBN. Hubungi kami untuk perhitungan harga nett dan promo yang berlaku saat ini.`,
     },
-    {
-      question: `Apakah tersedia ${car.name} 3-Door dan 5-Door di Jogja?`,
-      answer: `Pilihan varian ${car.name} dapat berubah mengikuti alokasi dan stok berjalan. Tim kami dapat membantu mengecek ketersediaan 3-Door maupun 5-Door, pilihan warna, serta estimasi inden untuk area Yogyakarta dan sekitarnya.`,
-    },
+    ...(seoContent?.faqs ?? []),
     {
       question: `Apakah melayani tukar tambah mobil lama untuk pembelian ${car.name}?`,
       answer: `Ya. Kami melayani konsultasi tukar tambah mobil lama untuk pembelian ${car.name}. Tim appraisal akan meninjau kondisi unit dan menyampaikan estimasi penawaran secara transparan untuk area Jogja, Magelang, Kedu, dan sekitarnya.`,
@@ -165,7 +168,6 @@ export default async function CarDetailPage({ params }: Props) {
           "lowPrice": lowPrice,
           "highPrice": highPrice,
           "offerCount": variants.length > 0 ? variants.length : 1,
-          "availability": "https://schema.org/InStock",
           "seller": { "@id": "https://www.suzukiautojogja.com/#dealer" },
         },
       },
@@ -227,7 +229,7 @@ export default async function CarDetailPage({ params }: Props) {
                 </div>
                 
                 <h1 className="flex flex-col text-4xl md:text-5xl lg:text-[4rem] font-bank-gothic font-black text-white mb-6 uppercase tracking-tight leading-[1.05]">
-                  <span className="text-lg md:text-xl text-gray-400 font-normal tracking-widest mb-2 block">PROMO HARGA TERBAIK JOGJA</span>
+                  <span className="text-lg md:text-xl text-gray-400 font-normal tracking-widest mb-2 block">HARGA OTR & PROMO {car.name.split(" ").slice(1).join(" ")} JOGJA</span>
                   {car.name}
                 </h1>
                 
@@ -279,7 +281,7 @@ export default async function CarDetailPage({ params }: Props) {
                   {car.heroImage ? (
                     <img 
                       src={car.heroImage} 
-                      alt={`${car.name} di dealer resmi Suzuki Yogyakarta`} 
+                      alt={`${car.name} di dealer Suzuki Yogyakarta`} 
                       className="relative z-10 w-[110%] h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.8)] hover:scale-105 transition-transform duration-700 ease-out" 
                     />
                   ) : (

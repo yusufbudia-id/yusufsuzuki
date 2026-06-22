@@ -5,13 +5,13 @@ import { buildWhatsAppUrl } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Kontak – Suzuki Sumber Baru Mobil Jogja | Yusuf Suzuki 0821 7463 5218",
-  description: "Hubungi Yusuf Suzuki di Suzuki Sumber Baru Mobil, Jl. Magelang KM 8 Yogyakarta. WhatsApp: 0821 7463 5218. Senin–Sabtu 08.00–17.00.",
+  description: "Hubungi Yusuf Suzuki di Suzuki Sumber Baru Mobil, Jl. Magelang KM 8.5, Sendangadi, Sleman, DIY. WhatsApp: 0821 7463 5218. Senin–Sabtu 08.00–17.00.",
 };
 
 const contactItems = [
   { icon: Phone, label: "Nomor WhatsApp", value: "0821 7463 5218\n(Yusuf Suzuki)" },
-  { icon: MapPin, label: "Alamat Showroom", value: "Suzuki Sumber Baru Mobil\nJl. Magelang KM 8, Sendangadi, Mlati, Sleman, Yogyakarta" },
-  { icon: Clock, label: "Jam Operasional", value: "Senin – Sabtu: 08.00 – 17.00 WIB\nMinggu: Tutup (Bisa Janjian)" },
+  { icon: MapPin, label: "Alamat Showroom", value: "Suzuki Sumber Baru Mobil\nJl. Magelang KM 8.5, Mulungan Kidul, Sendangadi, Sleman, DIY 55285" },
+  { icon: Clock, label: "Jam Operasional", value: "Senin – Sabtu: 08.00 – 17.00 WIB\nMinggu: Tutup" },
 ];
 
 export default function KontakPage() {
@@ -23,7 +23,7 @@ export default function KontakPage() {
         description="Kunjungi showroom Suzuki Sumber Baru Mobil atau hubungi Yusuf Suzuki untuk konsultasi unit, promo, test drive, dan simulasi kredit."
         stats={[
           { value: "08-17", label: "Jam Layanan" },
-          { value: "KM 8", label: "Jl. Magelang" },
+          { value: "KM 8.5", label: "Jl. Magelang" },
           { value: "WA", label: "Respon Cepat" },
           { value: "DIY", label: "Area Layanan" },
         ]}
@@ -37,7 +37,7 @@ export default function KontakPage() {
           <MessageCircle size={16} /> Chat Yusuf
         </a>
         <a
-          href="https://maps.google.com/maps?q=Suzuki%20Mlati%20Sumber%20Baru%20Mobil,%20Sleman"
+          href="https://maps.app.goo.gl/pedJovQizb3M2X1S7"
           target="_blank"
           rel="noopener noreferrer"
           className="border border-white/20 bg-white/5 px-6 py-3.5 text-[11px] font-black uppercase tracking-[0.18em] text-white backdrop-blur transition-all hover:border-white/40 hover:bg-white/10"
@@ -79,14 +79,14 @@ export default function KontakPage() {
 
           <div className="relative min-h-[500px] overflow-hidden border border-gray-200 bg-gray-200 shadow-card-hover">
             <iframe
-              src="https://maps.google.com/maps?q=Suzuki%20Mlati%20Sumber%20Baru%20Mobil,%20Sleman&t=&z=16&ie=UTF8&iwloc=&output=embed"
+              src="https://www.google.com/maps?q=Suzuki%20Sumber%20Baru%20Mobil%20Jl.%20Magelang%20KM%208.5%20Sendangadi%20Sleman%20DIY&z=15&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0, position: "absolute", top: 0, left: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Lokasi Suzuki Sumber Baru Mobil – Jl. Magelang KM 8"
+              title="Lokasi Suzuki Sumber Baru Mobil – Jl. Magelang KM 8.5"
             />
           </div>
         </div>
@@ -121,7 +121,7 @@ export default function KontakPage() {
                 </div>
                 <div className="flex items-center gap-3 border border-white/10 bg-white/5 px-6 py-3.5">
                   <MapPin size={16} className="text-red-500" />
-                  <span className="text-[11px] font-black uppercase tracking-widest text-gray-200">Jl. Magelang KM 8</span>
+                  <span className="text-[11px] font-black uppercase tracking-widest text-gray-200">Jl. Magelang KM 8.5</span>
                 </div>
               </div>
             </div>

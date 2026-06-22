@@ -82,14 +82,12 @@ export const cars: Car[] = [
       dimensi: "P: 3995 mm | L: 1765 mm | T: 1550 mm",
       fitur: [
         "Smart Hybrid System",
-        "Head Up Display",
-        "360-degree Camera",
-        "Wireless Charging",
-        "Apple CarPlay & Android Auto",
         "6 Airbags",
-        "Lane Departure Warning",
-        "Automatic Emergency Braking",
-        "Blind Spot Detection"
+        "ISOFIX",
+        "Hill Hold Control",
+        "Suzuki Safety Support (SGX)",
+        "Head Up Display (SGX)",
+        "Fitur konektivitas mengikuti varian"
       ],
       konsumsiBBM: "21,4 km/L (WLTP)"
     },
@@ -136,17 +134,12 @@ export const cars: Car[] = [
       transmisi: "4-Speed AT / 5-Speed MT",
       dimensi: "P: 4450 mm | L: 1775 mm | T: 1710 mm",
       fitur: [
-        "Smart Hybrid Vehicle by Suzuki (SHVS)",
         "7-Seater Premium",
-        "Panoramic Sunroof",
-        "8\" Touchscreen Infotainment",
-        "Apple CarPlay & Android Auto",
-        "Dual-zone AC",
-        "2 Airbags",
-        "Rear Camera",
-        "Hill Hold Control",
-        "Cruise Control",
-        "Keyless Entry & Push Start"
+        "Smart Hybrid pada varian Hybrid",
+        "Dual SRS Airbags",
+        "Rear Parking Sensor",
+        "ESP dan Rear View Camera pada varian tertentu",
+        "Kelengkapan kenyamanan mengikuti varian"
       ],
       konsumsiBBM: "15,3 km/L"
     },
@@ -185,13 +178,11 @@ export const cars: Car[] = [
       transmisi: "5-Speed MT",
       dimensi: "P: 4157 mm | L: 1655 mm | T: 1795 mm | Bak: 2080x1520 mm",
       fitur: [
-        "Bak Terbuka Luas",
-        "Payload 800 kg",
-        "Power Steering",
-        "AC",
-        "Central Lock",
-        "Head Lamp LED",
-        "Radio Bluetooth"
+        "Pilihan Flat Deck dan Wide Deck",
+        "Kapasitas muatan hingga 1 ton",
+        "Power Steering pada tipe AC PS",
+        "AC pada tipe AC PS",
+        "Fitur dan kelengkapan mengikuti varian"
       ],
       konsumsiBBM: "17,8 km/L"
     },
@@ -485,17 +476,13 @@ export const cars: Car[] = [
       transmisi: "6-Speed AT",
       dimensi: "P: 4345 mm | L: 1795 mm | T: 1645 mm",
       fitur: [
-        "Smart Hybrid 48V",
+        "Smart Hybrid Vehicle by Suzuki (SHVS)",
         "9\" HD Touchscreen",
-        "Head Up Display",
-        "360-degree Camera",
         "6 Airbags",
-        "Lane Keep Assist",
-        "Adaptive Cruise Control",
-        "Blind Spot Warning",
+        "ESP dan Hill Hold Control",
         "Wireless Charging",
         "Panoramic Sunroof",
-        "Ventilated Seats"
+        "Fitur kenyamanan mengikuti varian"
       ],
       konsumsiBBM: "20,4 km/L (WLTP)"
     },
