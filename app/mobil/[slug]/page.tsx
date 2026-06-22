@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Download, CheckCircle2, ChevronRight, Gauge, Settings, ShieldCheck, Car, Calendar, ArrowRight, MessageCircle, CalendarCheck } from "lucide-react";
+import { Download, CheckCircle2, ChevronRight, Calendar, ArrowRight, MessageCircle, CalendarCheck } from "lucide-react";
 import { cars, type DetailedSpecification } from "@/data/cars";
 import { getCarSeoContent } from "@/data/carSeo";
 import { promos } from "@/data/promos";
@@ -14,6 +14,7 @@ import ContactCTA from "@/components/ContactCTA";
 import LeadCaptureCard from "@/components/LeadCaptureCard";
 import CarDetailStickyCTA from "@/components/CarDetailStickyCTA";
 import MapSection from "@/components/MapSection";
+import SpecificationShowcase from "@/components/SpecificationShowcase";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -90,12 +91,6 @@ export default async function CarDetailPage({ params }: Props) {
 
   if (!car) notFound();
 
-  const specs = [
-    { icon: Gauge, label: "Mesin", value: car.specifications.mesin },
-    { icon: Settings, label: "Transmisi", value: car.specifications.transmisi },
-    { icon: Car, label: "Dimensi", value: car.specifications.dimensi },
-    { icon: ShieldCheck, label: "Konsumsi BBM", value: car.specifications.konsumsiBBM },
-  ];
   const seoContent = getCarSeoContent(car.slug);
   const detailedSpecs = seoContent?.detailedSpecifications ?? car.detailedSpecifications ?? [];
   const detailedSpecGroups = detailedSpecs.reduce<Record<string, DetailedSpecification[]>>((groups, specification) => {
@@ -323,71 +318,43 @@ export default async function CarDetailPage({ params }: Props) {
       </div>
 
       {/* ========================================================= */}
-      {/* 2. SPESIFIKASI UMUM                                       */}
+      {/* 2. SPESIFIKASI PRODUK — VISUAL EXPLORER                  */}
       {/* ========================================================= */}
-      <div className="motion-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b border-gray-200">
-        <FadeIn>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-tighter">Highlight Spesifikasi</h2>
-              <p className="text-gray-500 text-sm mt-2">Ringkasan performa dan dimensi {car.name}.</p>
+      <div className="motion-section border-b border-gray-200 bg-white py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <FadeIn>
+            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div>
+                <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.22em] text-red-600">
+                  <span className="h-2 w-2 bg-red-600" />
+                  Product Intelligence
+                </span>
+                <h2 className="mt-3 text-3xl font-black uppercase tracking-tighter text-gray-950 md:text-4xl">Spesifikasi yang Lebih Mudah Dibaca</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-500 md:text-base">
+                  Lihat rangkuman utamanya terlebih dahulu, lalu buka tiap kategori untuk mengeksplorasi detail teknis {car.name} tanpa perlu membaca tabel yang monoton.
+                </p>
+              </div>
+              <a
+                href={brochureLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex shrink-0 items-center justify-center gap-3 border border-red-600 bg-red-600 px-6 py-3.5 text-[10px] font-black uppercase tracking-[0.2em] text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-red-700"
+              >
+                <Download size={16} /> Unduh E-Brosur
+              </a>
             </div>
-            <a
-              href={brochureLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 bg-red-600 hover:bg-red-700 text-white py-3.5 px-6 font-black text-[10px] uppercase tracking-[0.2em] rounded-none transition-colors shadow-md shrink-0"
-            >
-              <Download size={16} /> Unduh E-Brosur (PDF)
-            </a>
-          </div>
-        </FadeIn>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {specs.map((spec, i) => (
-            <FadeIn key={i} delay={i * 0.1}>
-              <div className="motion-card motion-hover-lift bg-white p-6 border border-gray-200 rounded-none hover:border-red-600 transition-colors duration-300 group h-full shadow-sm hover:shadow-md relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-[2px] bg-red-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-                <spec.icon size={28} strokeWidth={1.5} className="text-gray-400 group-hover:text-red-600 mb-4 transition-colors" />
-                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">{spec.label}</p>
-                <p className="font-black text-gray-900 text-sm">{spec.value}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-
-        {detailedSpecs.length > 0 && (
-          <FadeIn delay={0.15} direction="up">
-            <section className="mt-10 border border-gray-200 bg-white p-6 shadow-sm md:p-8">
-              <div className="mb-6 border-b border-gray-100 pb-5">
-                <h3 className="text-xl font-black uppercase tracking-tighter text-gray-950">Spesifikasi Lengkap {car.name}</h3>
-                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-gray-500">
-                  Detail teknis dan fitur penting untuk membantu membandingkan varian sebelum memilih unit yang sesuai kebutuhan Anda.
-                </p>
-              </div>
-              <div className="space-y-8">
-                {orderedDetailedSpecGroups.map(({ category, specifications }) => (
-                  <section key={category} aria-label={`Spesifikasi ${category}`}>
-                    <h4 className="mb-3 border-l-4 border-red-600 bg-gray-50 px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-gray-700">
-                      {category}
-                    </h4>
-                    <dl className="grid grid-cols-1 divide-y divide-gray-100 md:grid-cols-2 md:gap-x-8 md:divide-y-0">
-                      {specifications.map((specification) => (
-                        <div key={`${category}-${specification.label}`} className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-4 py-4 md:border-b md:border-gray-100">
-                          <dt className="text-[10px] font-black uppercase tracking-[0.16em] text-gray-400">{specification.label}</dt>
-                          <dd className="text-sm font-bold leading-relaxed text-gray-800">{specification.value}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </section>
-                ))}
-                <p className="border-t border-gray-100 pt-4 text-xs leading-relaxed text-gray-500">
-                  Spesifikasi, fitur, warna, dan kelengkapan dapat berbeda menurut varian, tahun produksi, serta ketersediaan unit. Konfirmasi detail final sebelum pemesanan.
-                </p>
-              </div>
-            </section>
           </FadeIn>
-        )}
+
+          {detailedSpecs.length > 0 ? (
+            <FadeIn delay={0.12} direction="up">
+              <SpecificationShowcase
+                carName={car.name}
+                summary={car.specifications}
+                groups={orderedDetailedSpecGroups}
+              />
+            </FadeIn>
+          ) : null}
+        </div>
       </div>
 
       {/* 3. PRICELIST & VARIAN */}
