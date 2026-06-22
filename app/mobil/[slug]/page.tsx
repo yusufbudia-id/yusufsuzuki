@@ -12,6 +12,7 @@ import OtherCarsCarousel from "@/components/OtherCarsCarousel";
 import ContactCTA from "@/components/ContactCTA";
 import LeadCaptureCard from "@/components/LeadCaptureCard";
 import CarDetailStickyCTA from "@/components/CarDetailStickyCTA";
+import MapSection from "@/components/MapSection";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -39,40 +40,40 @@ function parseIndonesianDate(dateStr: string) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const resolvedParams = await params;
   const car = cars.find((c) => c.slug === resolvedParams.slug);
-  
+
   if (!car) return { title: "Mobil Tidak Ditemukan - Suzuki Sumber Baru" };
 
   const carUrl = `https://www.suzukiautojogja.com/mobil/${car.slug}`;
   const fullImageUrl = `https://www.suzukiautojogja.com${car.heroImage || "/logo.png"}`;
-  const carNameLower = car.name.toLowerCase();
+  const carName = car.name;
+  const carNameLower = carName.toLowerCase();
 
   return {
-    title: `Harga Suzuki ${car.name} Jogja 2026 | Promo DP Ringan & OTR Termurah`,
-    description: `Dapatkan promo kredit DP ringan, cicilan murah, dan daftar harga OTR terbaru Suzuki ${car.name} untuk wilayah Yogyakarta, Magelang, Kedu, dan Banyumas.`,
+    title: `Harga ${carName} Jogja 2026 | Promo DP Ringan & OTR Terbaru`,
+    description: `Cek harga OTR, promo pembelian, simulasi kredit, dan spesifikasi ${carName} terbaru untuk Yogyakarta, Magelang, Kedu, dan Banyumas.`,
     keywords: [
-      `suzuki ${carNameLower} jogja`,
-      `harga suzuki ${carNameLower} jogja`,
-      `kredit suzuki ${carNameLower} magelang`,
-      `promo dp ringan suzuki ${carNameLower}`,
-      `simulasi kredit suzuki ${carNameLower} kedu`,
-      `cicilan mobil suzuki ${carNameLower} banyumas`,
-      `angsuran murah suzuki ${carNameLower} jogja`,
-      `dealer suzuki jl magelang`
+      `${carNameLower} jogja`,
+      `harga ${carNameLower} jogja`,
+      `kredit ${carNameLower} magelang`,
+      `promo ${carNameLower} jogja`,
+      `simulasi kredit ${carNameLower} kedu`,
+      `cicilan ${carNameLower} banyumas`,
+      `dealer suzuki jl magelang sleman`,
     ].join(", "),
     alternates: { canonical: carUrl },
     openGraph: {
-      title: `Harga & Promo Suzuki ${car.name} Jogja Terkini 2026`,
-      description: `Beli Suzuki ${car.name} di Jogja sekarang. DP Ringan, angsuran bisa disesuaikan, dan gratis test drive langsung ke rumah atau kantor.`,
+      title: `Harga & Promo ${carName} Jogja 2026`,
+      description: `Cek harga OTR, stok, pilihan varian, dan simulasi kredit ${carName} di dealer Suzuki Yogyakarta.`,
       url: carUrl,
       siteName: "Suzuki Auto Jogja",
-      images: [{ url: fullImageUrl, width: 1200, height: 630, alt: `Promo Suzuki ${car.name} Yogyakarta` }],
+      images: [{ url: fullImageUrl, width: 1200, height: 630, alt: `${carName} di dealer resmi Yogyakarta` }],
       locale: "id_ID",
-      type: "website", 
+      type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: `Harga Suzuki ${car.name} OTR Jogja Terbaru`,
-      description: `Cek promo DP ringan dan spesifikasi lengkap Suzuki ${car.name} di Yogyakarta dan Jawa Tengah.`,
+      title: `Harga ${carName} OTR Jogja Terbaru`,
+      description: `Lihat harga OTR, spesifikasi, dan simulasi kredit ${carName} di Yogyakarta dan Jawa Tengah.`,
       images: [fullImageUrl],
     },
   };
@@ -90,6 +91,7 @@ export default async function CarDetailPage({ params }: Props) {
     { icon: Car, label: "Dimensi", value: car.specifications.dimensi },
     { icon: ShieldCheck, label: "Konsumsi BBM", value: car.specifications.konsumsiBBM },
   ];
+  const detailedSpecs = car.detailedSpecifications || [];
 
   const variants = car.variants || [];
   const otherCars = cars.filter((c) => c.slug !== car.slug);
@@ -104,87 +106,80 @@ export default async function CarDetailPage({ params }: Props) {
   // --- FILTER PROMO OTOMATIS ---
   const now = Date.now();
   const activePromos = promos.filter(p => parseIndonesianDate(p.validUntil) >= now);
-  const relatedPromos = activePromos.filter(p => p.carSlug === car.slug);
-  const otherTopPromos = activePromos.filter(p => p.carSlug !== car.slug);
-  const latestPromos = [...relatedPromos, ...otherTopPromos].slice(0, 3);
+  const relatedPromos = activePromos.filter((promo) => promo.carSlug === car.slug);
+  // Jangan menampilkan promo model lain di halaman produk ini. Bila belum ada promo aktif
+  // untuk model terkait, section sengaja disembunyikan agar halaman tetap relevan.
+  const latestPromos = relatedPromos.slice(0, 3);
 
   // --- MENGHITUNG HARGA TERTINGGI & TERENDAH ---
   const prices = variants.length > 0 ? variants.map((v) => v.priceAB) : [car.startingPriceNum];
   const lowPrice = Math.min(...prices);
   const highPrice = Math.max(...prices);
 
-  // --- JSON-LD MULTI-SCHEMA (PRODUCT + AUTODEALER) ---
-  const jsonLd = [
+  const faqs = [
     {
-      "@context": "https://schema.org",
-      "@type": "Product",
-      "name": car.name, 
-      "image": `https://www.suzukiautojogja.com${car.heroImage || "/logo.png"}`,
-      "description": car.description || `Spesifikasi dan harga OTR Yogyakarta, Magelang, Kedu, Banyumas untuk Suzuki ${car.name}.`,
-      "brand": { "@type": "Brand", "name": "Suzuki" },
-      "category": car.category,
-      "offers": {
-        "@type": "AggregateOffer",
-        "url": `https://www.suzukiautojogja.com/mobil/${car.slug}`,
-        "priceCurrency": "IDR",
-        "lowPrice": lowPrice,
-        "highPrice": highPrice, 
-        "offerCount": variants.length > 0 ? variants.length : 1,
-        "availability": "https://schema.org/InStock",
-        "seller": {
-          "@id": "https://www.suzukiautojogja.com/#dealer"
-        }
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "128" 
-      },
-      "review": {
-        "@type": "Review",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5"
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Pelanggan Suzuki Jogja"
-        },
-        "reviewBody": `Pelayanan dari Mas Yusuf sangat memuaskan. Proses pembelian ${car.name} cepat, kredit dibantu sampai ACC, dan promo diskonnya nyata.`
-      }
+      question: `Berapa harga OTR ${car.name} terbaru untuk wilayah DIY dan Jawa Tengah?`,
+      answer: `Harga OTR ${car.name} untuk wilayah Yogyakarta (plat AB) mulai dari ${car.startingPrice}. Harga untuk Magelang dan Kedu (plat AA) atau Banyumas (plat R) dapat berbeda karena penyesuaian BBN. Hubungi kami untuk perhitungan harga nett dan promo yang berlaku saat ini.`,
     },
     {
-      "@context": "https://schema.org",
-      "@type": "AutoDealer",
-      "@id": "https://www.suzukiautojogja.com/#dealer",
-      "name": "Suzuki Sumber Baru Mobil Jogja",
-      "image": "https://www.suzukiautojogja.com/logo.png",
-      "url": "https://www.suzukiautojogja.com",
-      "telephone": "+6282135880951", 
-      "priceRange": "Rp 180.000.000 - Rp 530.000.000",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Jl. Magelang No.KM 8.5, Mulungan Kidul, Sendangadi",
-        "addressLocality": "Sleman",
-        "addressRegion": "DI Yogyakarta",
-        "postalCode": "55285",
-        "addressCountry": "ID"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": -7.7335,  
-        "longitude": 110.3634
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "opens": "08:00",
-        "closes": "17:00"
-      }
-    }
+      question: `Apakah tersedia ${car.name} 3-Door dan 5-Door di Jogja?`,
+      answer: `Pilihan varian ${car.name} dapat berubah mengikuti alokasi dan stok berjalan. Tim kami dapat membantu mengecek ketersediaan 3-Door maupun 5-Door, pilihan warna, serta estimasi inden untuk area Yogyakarta dan sekitarnya.`,
+    },
+    {
+      question: `Apakah melayani tukar tambah mobil lama untuk pembelian ${car.name}?`,
+      answer: `Ya. Kami melayani konsultasi tukar tambah mobil lama untuk pembelian ${car.name}. Tim appraisal akan meninjau kondisi unit dan menyampaikan estimasi penawaran secara transparan untuk area Jogja, Magelang, Kedu, dan sekitarnya.`,
+    },
+    {
+      question: `Bagaimana syarat kredit ${car.name} dan proses pengajuannya?`,
+      answer: `Dokumen umum yang biasanya diperlukan meliputi KTP, KK, NPWP bila tersedia, serta bukti penghasilan atau mutasi rekening. Kelengkapan syarat dan waktu proses mengikuti profil pengajuan serta keputusan leasing.`,
+    },
   ];
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "@id": `https://www.suzukiautojogja.com/mobil/${car.slug}#breadcrumb`,
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.suzukiautojogja.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Produk", "item": "https://www.suzukiautojogja.com/mobil" },
+          { "@type": "ListItem", "position": 3, "name": car.name, "item": `https://www.suzukiautojogja.com/mobil/${car.slug}` },
+        ],
+      },
+      {
+        "@type": "Product",
+        "@id": `https://www.suzukiautojogja.com/mobil/${car.slug}#product`,
+        "name": car.name,
+        "url": `https://www.suzukiautojogja.com/mobil/${car.slug}`,
+        "image": `https://www.suzukiautojogja.com${car.heroImage || "/logo.png"}`,
+        "description": car.description || `Spesifikasi dan harga OTR ${car.name} untuk Yogyakarta, Magelang, Kedu, dan Banyumas.`,
+        "sku": car.slug,
+        "brand": { "@type": "Brand", "name": "Suzuki" },
+        "category": car.category,
+        "itemCondition": "https://schema.org/NewCondition",
+        "offers": {
+          "@type": "AggregateOffer",
+          "url": `https://www.suzukiautojogja.com/mobil/${car.slug}`,
+          "priceCurrency": "IDR",
+          "lowPrice": lowPrice,
+          "highPrice": highPrice,
+          "offerCount": variants.length > 0 ? variants.length : 1,
+          "availability": "https://schema.org/InStock",
+          "seller": { "@id": "https://www.suzukiautojogja.com/#dealer" },
+        },
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `https://www.suzukiautojogja.com/mobil/${car.slug}#faq`,
+        "mainEntity": faqs.map((faq) => ({
+          "@type": "Question",
+          "name": faq.question,
+          "acceptedAnswer": { "@type": "Answer", "text": faq.answer },
+        })),
+      },
+    ],
+  };
   return (
     <div className="bg-gray-50 min-h-screen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -284,7 +279,7 @@ export default async function CarDetailPage({ params }: Props) {
                   {car.heroImage ? (
                     <img 
                       src={car.heroImage} 
-                      alt={`Promo Harga Suzuki ${car.name} OTR Jogja Magelang Kedu Banyumas di Dealer Resmi`} 
+                      alt={`${car.name} di dealer resmi Suzuki Yogyakarta`} 
                       className="relative z-10 w-[110%] h-auto object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.8)] hover:scale-105 transition-transform duration-700 ease-out" 
                     />
                   ) : (
@@ -336,6 +331,27 @@ export default async function CarDetailPage({ params }: Props) {
             </FadeIn>
           ))}
         </div>
+
+        {detailedSpecs.length > 0 && (
+          <FadeIn delay={0.15} direction="up">
+            <section className="mt-10 border border-gray-200 bg-white p-6 shadow-sm md:p-8">
+              <div className="mb-6 border-b border-gray-100 pb-5">
+                <h3 className="text-xl font-black uppercase tracking-tighter text-gray-950">Spesifikasi Lengkap {car.name}</h3>
+                <p className="mt-2 max-w-3xl text-sm leading-relaxed text-gray-500">
+                  Detail teknis dan fitur penting untuk membantu membandingkan varian sebelum memilih unit yang sesuai kebutuhan Anda.
+                </p>
+              </div>
+              <dl className="grid grid-cols-1 divide-y divide-gray-100 md:grid-cols-2 md:gap-x-8 md:divide-y-0">
+                {detailedSpecs.map((specification) => (
+                  <div key={specification.label} className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-4 py-4 md:border-b md:border-gray-100">
+                    <dt className="text-[10px] font-black uppercase tracking-[0.16em] text-gray-400">{specification.label}</dt>
+                    <dd className="text-sm font-bold leading-relaxed text-gray-800">{specification.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          </FadeIn>
+        )}
       </div>
 
       {/* 3. PRICELIST & VARIAN */}
@@ -464,42 +480,19 @@ export default async function CarDetailPage({ params }: Props) {
           </FadeIn>
           
           <div className="space-y-4">
-            <FadeIn delay={0.1} direction="up">
-              <div className="border border-gray-200 p-5 hover:border-red-500 transition-colors bg-white group shadow-sm">
-                <h3 className="font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">
-                  Berapa harga OTR {car.name} terbaru untuk wilayah DIY dan Jawa Tengah?
-                </h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Harga OTR Suzuki {car.name} di Yogyakarta (Plat AB) mulai dari <strong>{car.startingPrice}</strong>. Untuk area Kedu dan Magelang (Plat AA) atau Banyumas (Plat R) terdapat sedikit penyesuaian BBN. Karena promo diskon dan <em>cashback</em> berubah setiap bulannya, silakan hubungi kami untuk mendapatkan perhitungan harga nett terbaik.
-                </p>
-              </div>
-            </FadeIn>
-            
-            <FadeIn delay={0.2} direction="up">
-              <div className="border border-gray-200 p-5 hover:border-red-500 transition-colors bg-white group shadow-sm">
-                <h3 className="font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">
-                  Apakah melayani tukar tambah (Trade-In) mobil lama di area Kedu atau Magelang?
-                </h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Tentu, kami melayani tukar tambah semua merk mobil lama Anda dengan Suzuki {car.name} baru. Tim <em>appraisal</em> kami bisa melakukan inspeksi langsung di rumah Anda, khusus untuk area Jogja, Magelang, Kedu, dan sekitarnya dengan penawaran harga tertinggi yang transparan.
-                </p>
-              </div>
-            </FadeIn>
-
-            <FadeIn delay={0.3} direction="up">
-              <div className="border border-gray-200 p-5 hover:border-red-500 transition-colors bg-white group shadow-sm">
-                <h3 className="font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">
-                  Bagaimana syarat kredit Suzuki {car.name} dan berapa lama prosesnya?
-                </h3>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  Syarat kredit sangat mudah (KTP, KK, NPWP, dan Mutasi Rekening). Dengan pengalaman kami, data Anda akan dibantu semaksimal mungkin. Proses <em>approval</em> dari <em>leasing</em> rekanan resmi kami rata-rata selesai dalam 1-3 hari kerja untuk pengajuan Suzuki {car.name}.
-                </p>
-              </div>
-            </FadeIn>
+            {faqs.map((faq, index) => (
+              <FadeIn key={faq.question} delay={(index + 1) * 0.1} direction="up">
+                <div className="border border-gray-200 bg-white p-5 shadow-sm transition-colors hover:border-red-500">
+                  <h3 className="mb-2 font-bold text-gray-900 transition-colors hover:text-red-600">{faq.question}</h3>
+                  <p className="text-sm leading-relaxed text-gray-600">{faq.answer}</p>
+                </div>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </div>
 
+      <MapSection cityName="Yogyakarta, Magelang, Kedu, dan Banyumas" />
       <ContactCTA />
       <CarDetailStickyCTA carName={car.name} carSlug={car.slug} startingPrice={lowPrice} />
 

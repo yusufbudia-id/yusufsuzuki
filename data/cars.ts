@@ -11,6 +11,11 @@ export interface CarSpecifications {
   konsumsiBBM: string;
 }
 
+export interface DetailedSpecification {
+  label: string;
+  value: string;
+}
+
 export interface CarVariant {
   name: string;
   priceAB: number;
@@ -34,6 +39,7 @@ export interface Car {
   gallery: string[];
   colors: CarColor[];
   specifications: CarSpecifications;
+  detailedSpecifications?: DetailedSpecification[];
   brochureUrl: string;
   promo: string | null;
   whatsappMessage: string;
@@ -317,22 +323,35 @@ export const cars: Car[] = [
       { name: "Two-tone Chiffon Ivory/Black", hex: "#FAF0E6" }
     ],
     specifications: {
-      mesin: "1.5L K15B, 102 HP, 130 Nm",
+      mesin: "1.5L K15B, 1.462 cc, 4 silinder, 16 katup VVT",
       transmisi: "4-Speed AT / 5-Speed MT",
-      dimensi: "P: 3625 mm (3-Door) / 3985 mm (5-Door) | L: 1645 mm | T: 1720 mm",
+      dimensi: "P: 3.645 mm (3-Door) / 3.965 mm (5-Door) | L: 1.645 mm | T: 1.720 mm",
       fitur: [
-        "4WD AllGrip Pro",
-        "Low Range Transfer",
+        "4WD AllGrip Pro dengan transfer case 2H / 4H / 4L",
         "Ladder Frame Chassis",
-        "Hill Hold Control",
-        "Approach Angle 37°",
-        "Departure Angle 49°",
-        "7\" Touchscreen",
-        "Dual Airbags",
-        "ABS + EBD"
+        "3-Link Rigid Axle dengan Coil Spring",
+        "Hill Descent Control & Hill Hold Control",
+        "Brake LSD Traction Control & ESP",
+        "ABS + EBD",
+        "6 Airbags (5-Door) / Dual Airbags (3-Door)",
+        "Rear View Camera & 4 Parking Sensor (5-Door)",
+        "TECT Body & ISOFIX"
       ],
-      konsumsiBBM: "15,8 km/L"
+      konsumsiBBM: "Ikuti kondisi jalan dan gaya berkendara"
     },
+    detailedSpecifications: [
+      { label: "Kapasitas Mesin", value: "1.462 cc, 4 silinder K15B, 16 katup VVT" },
+      { label: "Daya Maksimal", value: "Hingga 104,7 PS pada 6.000 rpm" },
+      { label: "Torsi Maksimal", value: "Hingga 138 Nm pada 4.400 rpm" },
+      { label: "Penggerak", value: "4WD AllGrip Pro dengan transfer case 2H / 4H / 4L" },
+      { label: "Ground Clearance", value: "210 mm" },
+      { label: "Radius Putar", value: "4,9 m (3-Door) / 5,7 m (5-Door)" },
+      { label: "Suspensi", value: "3-Link Rigid Axle dengan Coil Spring" },
+      { label: "Sistem Pengereman", value: "Cakram berventilasi depan dan tromol belakang" },
+      { label: "Kapasitas Penumpang", value: "4 orang" },
+      { label: "Fitur Keselamatan", value: "ABS, EBD, ESP, Brake LSD, HHC, HDC, TECT Body, ISOFIX" },
+      { label: "Airbags", value: "6 airbags pada 5-Door / dual airbags pada 3-Door" }
+    ],
     brochureUrl: "/brosur/jimny.pdf",
     promo: "Inden 2-4 Minggu – Stock Terbatas!",
     whatsappMessage: "Halo Yusuf Suzuki, saya tertarik dengan Suzuki Jimny. Bisa minta info harga, stok, dan promo terkini?",

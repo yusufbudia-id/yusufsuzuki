@@ -4,7 +4,7 @@ const infoItems = [
   {
     icon: MapPin,
     title: "Alamat Pusat",
-    desc: "Suzuki Sumber Baru Mobil\nJl. Magelang KM 8, Mlati, Yogyakarta",
+    desc: "Suzuki Sumber Baru Mobil\nJl. Magelang KM 8.5, Sendangadi, Sleman, DIY 55285",
   },
   {
     icon: Clock,
@@ -18,7 +18,8 @@ const infoItems = [
   },
 ];
 
-const mapsUrl = "https://www.google.com/maps/search/?api=1&query=Suzuki%20Sumber%20Baru%20Mobil%20Jl.%20Magelang%20KM%208%20Mlati%20Yogyakarta";
+const mapsUrl = "https://maps.app.goo.gl/pedJovQizb3M2X1S7";
+const mapEmbedUrl = "https://www.google.com/maps?q=Suzuki%20Sumber%20Baru%20Mobil%20Jl.%20Magelang%20KM%208.5%20Sendangadi%20Sleman%20DIY&z=15&output=embed";
 
 export default function MapSection({ cityName }: { cityName?: string }) {
   return (
@@ -30,7 +31,7 @@ export default function MapSection({ cityName }: { cityName?: string }) {
             <span className="section-label">Lokasi Showroom</span>
             <h2 className="section-title mt-4">Kunjungi Dealer Kami</h2>
             <p className="section-subtitle hidden sm:block">
-              Datang langsung ke showroom pusat untuk melihat unit display secara detail. Kami juga siap melayani pengiriman unit dan test drive untuk wilayah <strong className="text-gray-950">{cityName ? cityName : "Yogyakarta dan sekitarnya"}</strong>.
+              Datang langsung ke showroom pusat untuk melihat unit display secara detail. Kami juga siap melayani pengiriman unit dan test drive untuk wilayah <strong className="text-gray-950">{cityName || "Yogyakarta dan sekitarnya"}</strong>.
             </p>
 
             <div className="mt-10 space-y-6">
@@ -48,28 +49,26 @@ export default function MapSection({ cityName }: { cityName?: string }) {
             </div>
           </div>
 
-          <div className="red-edge motion-reveal-right motion-shine relative min-h-[360px] overflow-hidden border border-gray-200 bg-[#050505] p-6 text-white shadow-card-hover transition-colors duration-500 hover:border-red-600 sm:p-8 lg:min-h-[520px]">
-            <div className="surface-grid absolute inset-0 opacity-35" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_24%,rgba(227,6,19,0.18),transparent_32%)]" />
-            <div className="relative z-10 flex h-full min-h-[360px] flex-col justify-between lg:min-h-[460px]">
-              <div>
-                <span className="badge-red">Google Maps</span>
-                <p className="mt-8 text-3xl font-black uppercase leading-tight tracking-tighter md:text-5xl">
-                  Suzuki Sumber Baru Mobil Jogja
-                </p>
-                <p className="mt-5 hidden max-w-md text-sm leading-7 text-white/60 sm:block">
-                  Buka lokasi showroom di Google Maps tanpa memuat script peta berat di halaman utama. Ini membantu halaman lebih ringan dan tetap mudah diakses pengunjung.
-                </p>
-              </div>
-
+          <div className="red-edge motion-reveal-right relative min-h-[360px] overflow-hidden border border-gray-200 bg-gray-100 shadow-card-hover transition-colors duration-500 hover:border-red-600 lg:min-h-[520px]">
+            <iframe
+              src={mapEmbedUrl}
+              title="Peta lokasi Suzuki Sumber Baru Mobil Jogja"
+              className="absolute inset-0 h-full w-full border-0"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent p-6 pt-20 text-white sm:p-8">
+              <span className="inline-flex border border-white/30 bg-black/40 px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] text-white backdrop-blur-sm">Google Maps</span>
+              <p className="mt-3 max-w-md text-xl font-black uppercase leading-tight tracking-tighter sm:text-2xl">Suzuki Sumber Baru Mobil Jogja</p>
               <a
                 href={mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-10 inline-flex w-full items-center justify-center gap-3 border border-white/20 bg-white px-6 py-4 text-[11px] font-black uppercase tracking-[0.18em] text-gray-950 transition-all hover:border-red-600 hover:bg-red-600 hover:text-white sm:w-auto"
+                className="pointer-events-auto mt-5 inline-flex items-center gap-2 border border-white/30 bg-white px-4 py-3 text-[10px] font-black uppercase tracking-[0.16em] text-gray-950 transition-all hover:border-red-600 hover:bg-red-600 hover:text-white"
               >
-                Buka Lokasi Dealer Suzuki Jogja
-                <ExternalLink size={15} />
+                Buka di Google Maps
+                <ExternalLink size={14} />
               </a>
             </div>
           </div>

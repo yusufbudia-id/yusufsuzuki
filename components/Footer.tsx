@@ -164,7 +164,7 @@ export default function Footer() {
                   Jl. Magelang KM 8.5, Mulungan Kidul,<br />
                   Sendangadi, Sleman, DIY 55285
                   <a 
-                    href="https://maps.google.com/?q=Suzuki+Sumber+Baru+Mobil+Jl.+Magelang" 
+                    href="https://maps.app.goo.gl/pedJovQizb3M2X1S7" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="mt-2 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-red-500 hover:text-red-400 transition-colors"
@@ -183,7 +183,7 @@ export default function Footer() {
               <div className="flex gap-4 text-sm text-white/52">
                 <Clock size={20} strokeWidth={1.5} className="mt-0.5 shrink-0 text-red-500" />
                 <span className="leading-relaxed">
-                  Senin – Minggu<br />
+                  Senin – Sabtu<br />
                   08.00 – 17.00 WIB
                 </span>
               </div>

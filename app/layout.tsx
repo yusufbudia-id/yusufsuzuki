@@ -81,37 +81,50 @@ export default function RootLayout({
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "AutoDealer",
-    name: "Dealer Mobil Suzuki Jogja - Sumber Baru Mobil",
-    image: "https://www.suzukiautojogja.com/logo.png",
-    "@id": "https://www.suzukiautojogja.com",
-    url: "https://www.suzukiautojogja.com",
-    telephone: ["+6282174635218", "082174635218", "0821 7463 5218", "0821-7463-5218"],
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Jl. Magelang KM 8, Sendangadi, Mlati",
-      addressLocality: "Sleman",
-      addressRegion: "Daerah Istimewa Yogyakarta",
-      postalCode: "55285",
-      addressCountry: "ID",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: -7.734464690542473,
-      longitude: 110.3629346013371,
-    },
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-      opens: "08:00",
-      closes: "17:00",
-    },
-    sameAs: [
-      "https://web.facebook.com/sumberbarumobil.yusuf",
-      "https://www.instagram.com/suzukisumberbaru.yusuf",
-      "https://www.tiktok.com/@suzukisumberbaru.yusuf",
-      "https://www.youtube.com/@yusufsuzuki",
-    ],
+    "@graph": [
+      {
+        "@type": "AutoDealer",
+        "@id": "https://www.suzukiautojogja.com/#dealer",
+        "name": "Suzuki Sumber Baru Mobil Jogja",
+        "url": "https://www.suzukiautojogja.com",
+        "image": "https://www.suzukiautojogja.com/logo.png",
+        "telephone": "+6282174635218",
+        "priceRange": "Rp 180.000.000 - Rp 530.000.000",
+        "hasMap": "https://maps.app.goo.gl/pedJovQizb3M2X1S7",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Jl. Magelang KM 8.5, Mulungan Kidul, Sendangadi",
+          "addressLocality": "Sleman",
+          "addressRegion": "Daerah Istimewa Yogyakarta",
+          "postalCode": "55285",
+          "addressCountry": "ID"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": -7.734464690542473,
+          "longitude": 110.3629346013371
+        },
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "08:00",
+          "closes": "17:00"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Yogyakarta" },
+          { "@type": "City", "name": "Sleman" },
+          { "@type": "City", "name": "Magelang" },
+          { "@type": "AdministrativeArea", "name": "Kedu" },
+          { "@type": "City", "name": "Banyumas" }
+        ],
+        "sameAs": [
+          "https://web.facebook.com/sumberbarumobil.yusuf",
+          "https://www.instagram.com/suzukisumberbaru.yusuf",
+          "https://www.tiktok.com/@suzukisumberbaru.yusuf",
+          "https://www.youtube.com/@yusufsuzuki"
+        ]
+      }
+    ]
   };
 
   return (
