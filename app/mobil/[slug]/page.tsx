@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { Download, CheckCircle2, ChevronRight, Calendar, ArrowRight, MessageCircle, CalendarCheck } from "lucide-react";
+import { CheckCircle2, ChevronRight, Calendar, ArrowRight, MessageCircle, CalendarCheck } from "lucide-react";
 import { cars, type DetailedSpecification } from "@/data/cars";
 import { getCarSeoContent } from "@/data/carSeo";
 import { promos } from "@/data/promos";
@@ -322,35 +322,13 @@ export default async function CarDetailPage({ params }: Props) {
       {/* ========================================================= */}
       <div className="motion-section border-b border-gray-200 bg-white pt-14 pb-10 md:pt-16 md:pb-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <FadeIn>
-            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-              <div>
-                <span className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.22em] text-red-600">
-                  <span className="h-2 w-2 bg-red-600" />
-                  Product Intelligence
-                </span>
-                <h2 className="mt-3 text-3xl font-black uppercase tracking-tighter text-gray-950 md:text-4xl">Spesifikasi yang Lebih Mudah Dibaca</h2>
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-500 md:text-base">
-                  Lihat rangkuman utamanya terlebih dahulu, lalu buka tiap kategori untuk mengeksplorasi detail teknis {car.name} tanpa perlu membaca tabel yang monoton.
-                </p>
-              </div>
-              <a
-                href={brochureLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex shrink-0 items-center justify-center gap-3 border border-red-600 bg-red-600 px-6 py-3.5 text-[10px] font-black uppercase tracking-[0.2em] text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-red-700"
-              >
-                <Download size={16} /> Unduh E-Brosur
-              </a>
-            </div>
-          </FadeIn>
-
           {detailedSpecs.length > 0 ? (
             <FadeIn delay={0.12} direction="up">
               <SpecificationShowcase
                 carName={car.name}
                 summary={car.specifications}
                 groups={orderedDetailedSpecGroups}
+                brochureLink={brochureLink}
               />
             </FadeIn>
           ) : null}

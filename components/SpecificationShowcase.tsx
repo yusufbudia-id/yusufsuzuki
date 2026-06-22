@@ -3,6 +3,7 @@ import {
   ChevronDown,
   CircleCheck,
   Cog,
+  Download,
   Gauge,
   Layers,
   Ruler,
@@ -77,10 +78,12 @@ export default function SpecificationShowcase({
   carName,
   summary,
   groups,
+  brochureLink,
 }: {
   carName: string;
   summary: CarSpecifications;
   groups: SpecGroup[];
+  brochureLink: string;
 }) {
   return (
     <section
@@ -92,24 +95,31 @@ export default function SpecificationShowcase({
       <div className="pointer-events-none absolute bottom-0 left-0 h-24 w-24 border-l border-t border-red-600/25" />
 
       <div className="relative border-b border-gray-200 bg-white px-5 py-6 md:px-8 md:py-8">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <div>
             <div className="mb-3 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.22em] text-red-600">
               <span className="h-2 w-2 bg-red-600" />
-              Explore the details
+              Detail Teknis
             </div>
-            <h3 id="full-specification-heading" className="text-2xl font-black uppercase tracking-tighter text-gray-950 md:text-3xl">
-              Kenali {carName} Lebih Dekat
-            </h3>
-            <p className="mt-2 text-sm leading-relaxed text-gray-500 md:text-base">
-              Bukan sekadar daftar angka. Buka tiap kategori untuk melihat data teknis dan fitur yang paling relevan sebelum memilih varian.
-            </p>
+            <h2 id="full-specification-heading" className="text-2xl font-black uppercase tracking-tighter text-gray-950 md:text-3xl">
+              Spesifikasi {carName}
+            </h2>
           </div>
-          <div className="flex items-center gap-3 border-l-4 border-red-600 bg-gray-950 px-4 py-3 text-white md:min-w-[220px]">
-            <Layers size={19} className="shrink-0 text-red-500" />
-            <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/50">Data Produk</p>
-              <p className="mt-0.5 text-sm font-black">{groups.reduce((total, group) => total + group.specifications.length, 0)} poin spesifikasi</p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a
+              href={brochureLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 border border-red-600 bg-red-600 px-4 py-3 text-[10px] font-black uppercase tracking-[0.18em] text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-red-700"
+            >
+              <Download size={15} /> Unduh E-Brosur
+            </a>
+            <div className="flex items-center gap-3 border-l-4 border-red-600 bg-gray-950 px-4 py-3 text-white sm:min-w-[220px]">
+              <Layers size={19} className="shrink-0 text-red-500" />
+              <div>
+                <p className="text-[10px] font-black uppercase tracking-[0.18em] text-white/50">Data Produk</p>
+                <p className="mt-0.5 text-sm font-black">{groups.reduce((total, group) => total + group.specifications.length, 0)} poin spesifikasi</p>
+              </div>
             </div>
           </div>
         </div>
