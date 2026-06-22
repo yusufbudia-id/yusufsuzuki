@@ -214,7 +214,7 @@ export default function SpecificationShowcase({
           })}
         </div>
 
-        <p className="relative mt-6 border-l-2 border-red-600 bg-white px-4 py-3 text-xs leading-relaxed text-gray-500">
+        <p className="relative mt-4 border-l-2 border-red-600 bg-white px-4 py-3 text-xs leading-relaxed text-gray-500">
           <span className="font-black uppercase tracking-[0.14em] text-gray-700">Catatan:</span> Spesifikasi, fitur, warna, dan kelengkapan dapat berbeda menurut varian, tahun produksi, serta ketersediaan unit. Konfirmasi detail final sebelum pemesanan.
         </p>
       </div>

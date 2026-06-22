@@ -320,7 +320,7 @@ export default async function CarDetailPage({ params }: Props) {
       {/* ========================================================= */}
       {/* 2. SPESIFIKASI PRODUK — VISUAL EXPLORER                  */}
       {/* ========================================================= */}
-      <div className="motion-section border-b border-gray-200 bg-white py-16 md:py-20">
+      <div className="motion-section border-b border-gray-200 bg-white pt-14 pb-10 md:pt-16 md:pb-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FadeIn>
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -358,7 +358,7 @@ export default async function CarDetailPage({ params }: Props) {
       </div>
 
       {/* 3. PRICELIST & VARIAN */}
-      <div className="motion-section max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-b border-gray-200">
+      <div id="daftar-harga" className="motion-section max-w-7xl mx-auto border-b border-gray-200 px-4 pt-10 pb-16 sm:px-6 md:pt-12 md:pb-20 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           <div className="lg:col-span-4 lg:sticky lg:top-28">
