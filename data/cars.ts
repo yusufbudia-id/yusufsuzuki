@@ -11,7 +11,16 @@ export interface CarSpecifications {
   konsumsiBBM: string;
 }
 
+export type SpecificationCategory =
+  | "Performa"
+  | "Dimensi & Kapasitas"
+  | "Sasis & Pengereman"
+  | "Keselamatan"
+  | "Kenyamanan & Teknologi"
+  | "Informasi Karoseri";
+
 export interface DetailedSpecification {
+  category?: SpecificationCategory;
   label: string;
   value: string;
 }
@@ -77,8 +86,8 @@ export const cars: Car[] = [
       { name: "Grandeur Gray Pearl Metallic", hex: "#6B6B6B" }
     ],
     specifications: {
-      mesin: "1.5L K15C Smart Hybrid, 103 HP, 137 Nm",
-      transmisi: "6-Speed AT / 5-Speed MT",
+      mesin: "1.5L 1.462 cc; Smart Hybrid tersedia pada varian tertentu",
+      transmisi: "Manual atau otomatis, mengikuti varian",
       dimensi: "P: 3995 mm | L: 1765 mm | T: 1550 mm",
       fitur: [
         "Smart Hybrid System",
@@ -89,7 +98,7 @@ export const cars: Car[] = [
         "Head Up Display (SGX)",
         "Fitur konektivitas mengikuti varian"
       ],
-      konsumsiBBM: "21,4 km/L (WLTP)"
+      konsumsiBBM: "Bervariasi menurut varian, rute, beban, dan gaya berkendara"
     },
     brochureUrl: "/brosur/fronx.pdf",
     promo: "Cicilan mulai Rp 3,2 juta/bln + Bonus Aksesoris",
@@ -141,7 +150,7 @@ export const cars: Car[] = [
         "ESP dan Rear View Camera pada varian tertentu",
         "Kelengkapan kenyamanan mengikuti varian"
       ],
-      konsumsiBBM: "15,3 km/L"
+      konsumsiBBM: "Bervariasi menurut varian, rute, beban, dan gaya berkendara"
     },
     brochureUrl: "/brosur/xl7.pdf",
     promo: "DP 20% + Gratis Asuransi Tahun Pertama",
@@ -176,7 +185,7 @@ export const cars: Car[] = [
     specifications: {
       mesin: "1.5L K15B-C, 97 PS, 135 Nm",
       transmisi: "5-Speed MT",
-      dimensi: "P: 4157 mm | L: 1655 mm | T: 1795 mm | Bak: 2080x1520 mm",
+      dimensi: "P: 4.150 mm | Ground clearance: 180 mm | Bak mengikuti tipe FD/WD",
       fitur: [
         "Pilihan Flat Deck dan Wide Deck",
         "Kapasitas muatan hingga 1 ton",
@@ -184,7 +193,7 @@ export const cars: Car[] = [
         "AC pada tipe AC PS",
         "Fitur dan kelengkapan mengikuti varian"
       ],
-      konsumsiBBM: "17,8 km/L"
+      konsumsiBBM: "Bervariasi menurut varian, rute, beban, dan gaya berkendara"
     },
     brochureUrl: "/brosur/carry-pickup.pdf",
     promo: "Khusus Pembelian Cash: Potongan Rp 5.000.000",
@@ -229,7 +238,7 @@ export const cars: Car[] = [
         "Central Lock",
         "Pintu Box Double"
       ],
-      konsumsiBBM: "17,5 km/L"
+      konsumsiBBM: "Bervariasi menurut varian, rute, beban, dan gaya berkendara"
     },
     brochureUrl: "/brosur/carry-box.pdf",
     promo: "Free BPKB + STNK & Balik Nama",
@@ -274,7 +283,7 @@ export const cars: Car[] = [
         "Keyless Entry",
         "Steering Audio Control"
       ],
-      konsumsiBBM: "20,3 km/L"
+      konsumsiBBM: "Bervariasi menurut varian, rute, beban, dan gaya berkendara"
     },
     brochureUrl: "/brosur/s-presso.pdf",
     promo: "DP Ringan Mulai 15% + Bonus Karpet & Kaca Film",
@@ -392,7 +401,7 @@ export const cars: Car[] = [
         "Keyless Entry & Push Start",
         "Cruise Control"
       ],
-      konsumsiBBM: "19,8 km/L (MT)"
+      konsumsiBBM: "Bervariasi menurut varian, rute, beban, dan gaya berkendara"
     },
     brochureUrl: "/brosur/ertiga.pdf",
     promo: "Cashback Rp 10.000.000 + Gratis Aksesoris",
@@ -429,7 +438,7 @@ export const cars: Car[] = [
     specifications: {
       mesin: "1.5L G15A, 94.5 PS, 126 Nm",
       transmisi: "5-Speed MT",
-      dimensi: "P: 4160 mm | L: 1655 mm | T: 1875 mm",
+      dimensi: "P: 4.230 mm (APV Arena) | Ground clearance: 175 mm",
       fitur: [
         "Kapasitas 9 Penumpang",
         "Sliding Door Kanan-Kiri",
@@ -439,7 +448,7 @@ export const cars: Car[] = [
         "Power Steering",
         "Radio + USB"
       ],
-      konsumsiBBM: "14,5 km/L"
+      konsumsiBBM: "Bervariasi menurut varian, rute, beban, dan gaya berkendara"
     },
     brochureUrl: "/brosur/apv.pdf",
     promo: "Kredit Ringan untuk Usaha: Bunga 0% 12 Bulan",
@@ -472,7 +481,7 @@ export const cars: Car[] = [
       { name: "Bluish Black Pearl", hex: "#1a1a2e" }
     ],
     specifications: {
-      mesin: "1.5L K15C Smart Hybrid, 103 HP, 137 Nm",
+      mesin: "K15C 1.462 cc DUALJET + SHVS, 75,8 kW / 136,8 Nm",
       transmisi: "6-Speed AT",
       dimensi: "P: 4345 mm | L: 1795 mm | T: 1645 mm",
       fitur: [
@@ -484,7 +493,7 @@ export const cars: Car[] = [
         "Panoramic Sunroof",
         "Fitur kenyamanan mengikuti varian"
       ],
-      konsumsiBBM: "20,4 km/L (WLTP)"
+      konsumsiBBM: "Bervariasi menurut varian, rute, beban, dan gaya berkendara"
     },
     brochureUrl: "/brosur/grand-vitara.pdf",
     promo: "Test Drive & Dapat Cashback Rp 15.000.000",

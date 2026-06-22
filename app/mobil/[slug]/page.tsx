@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Download, CheckCircle2, ChevronRight, Gauge, Settings, ShieldCheck, Car, Calendar, ArrowRight, MessageCircle, CalendarCheck } from "lucide-react";
-import { cars } from "@/data/cars";
+import { cars, type DetailedSpecification } from "@/data/cars";
 import { getCarSeoContent } from "@/data/carSeo";
 import { promos } from "@/data/promos";
 import { formatCurrency, WA_BASE_URL } from "@/lib/utils";
@@ -98,6 +98,23 @@ export default async function CarDetailPage({ params }: Props) {
   ];
   const seoContent = getCarSeoContent(car.slug);
   const detailedSpecs = seoContent?.detailedSpecifications ?? car.detailedSpecifications ?? [];
+  const detailedSpecGroups = detailedSpecs.reduce<Record<string, DetailedSpecification[]>>((groups, specification) => {
+    const category = specification.category ?? "Detail Teknis";
+    (groups[category] ??= []).push(specification);
+    return groups;
+  }, {});
+  const detailedSpecGroupOrder = [
+    "Performa",
+    "Dimensi & Kapasitas",
+    "Sasis & Pengereman",
+    "Keselamatan",
+    "Kenyamanan & Teknologi",
+    "Informasi Karoseri",
+    "Detail Teknis",
+  ];
+  const orderedDetailedSpecGroups = detailedSpecGroupOrder
+    .filter((category) => detailedSpecGroups[category]?.length)
+    .map((category) => ({ category, specifications: detailedSpecGroups[category] }));
 
   const variants = car.variants || [];
   const otherCars = cars.filter((c) => c.slug !== car.slug);
@@ -160,6 +177,11 @@ export default async function CarDetailPage({ params }: Props) {
         "sku": car.slug,
         "brand": { "@type": "Brand", "name": "Suzuki" },
         "category": car.category,
+        "additionalProperty": detailedSpecs.map((specification) => ({
+          "@type": "PropertyValue",
+          "name": specification.label,
+          "value": specification.value,
+        })),
         "itemCondition": "https://schema.org/NewCondition",
         "offers": {
           "@type": "AggregateOffer",
@@ -343,14 +365,26 @@ export default async function CarDetailPage({ params }: Props) {
                   Detail teknis dan fitur penting untuk membantu membandingkan varian sebelum memilih unit yang sesuai kebutuhan Anda.
                 </p>
               </div>
-              <dl className="grid grid-cols-1 divide-y divide-gray-100 md:grid-cols-2 md:gap-x-8 md:divide-y-0">
-                {detailedSpecs.map((specification) => (
-                  <div key={specification.label} className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-4 py-4 md:border-b md:border-gray-100">
-                    <dt className="text-[10px] font-black uppercase tracking-[0.16em] text-gray-400">{specification.label}</dt>
-                    <dd className="text-sm font-bold leading-relaxed text-gray-800">{specification.value}</dd>
-                  </div>
+              <div className="space-y-8">
+                {orderedDetailedSpecGroups.map(({ category, specifications }) => (
+                  <section key={category} aria-label={`Spesifikasi ${category}`}>
+                    <h4 className="mb-3 border-l-4 border-red-600 bg-gray-50 px-3 py-2 text-[10px] font-black uppercase tracking-[0.18em] text-gray-700">
+                      {category}
+                    </h4>
+                    <dl className="grid grid-cols-1 divide-y divide-gray-100 md:grid-cols-2 md:gap-x-8 md:divide-y-0">
+                      {specifications.map((specification) => (
+                        <div key={`${category}-${specification.label}`} className="grid grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] gap-4 py-4 md:border-b md:border-gray-100">
+                          <dt className="text-[10px] font-black uppercase tracking-[0.16em] text-gray-400">{specification.label}</dt>
+                          <dd className="text-sm font-bold leading-relaxed text-gray-800">{specification.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </section>
                 ))}
-              </dl>
+                <p className="border-t border-gray-100 pt-4 text-xs leading-relaxed text-gray-500">
+                  Spesifikasi, fitur, warna, dan kelengkapan dapat berbeda menurut varian, tahun produksi, serta ketersediaan unit. Konfirmasi detail final sebelum pemesanan.
+                </p>
+              </div>
             </section>
           </FadeIn>
         )}
