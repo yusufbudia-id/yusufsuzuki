@@ -31,7 +31,8 @@ export default function CarDetailClient({ car }: { car: Car }) {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = (data: FormData) => {
-    const msg = `Halo Yusuf Suzuki, saya tertarik dengan *${car.name}*.\n\n👤 Nama: ${data.nama}\n📱 HP: ${data.hp}\n💬 Pesan: ${data.pesan || "Mohon info harga dan promo terkini."}\n\nMohon informasinya. Terima kasih!`;
+    // Injeksi keyword wilayah natural di dalam pesan default WhatsApp
+    const msg = `Halo Yusuf Suzuki, saya melihat promo *${car.name}* untuk area Jogja/Jateng dan tertarik.\n\n👤 Nama: ${data.nama}\n📱 HP: ${data.hp}\n💬 Pesan: ${data.pesan || "Mohon info harga OTR, ketersediaan warna, dan promo diskon terkini."}\n\nTerima kasih!`;
     setSubmitted(true);
     setTimeout(() => window.open(buildWhatsAppUrl(msg), "_blank"), 500);
   };
@@ -52,13 +53,15 @@ export default function CarDetailClient({ car }: { car: Car }) {
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-5 lg:gap-12">
           <div className="space-y-8 lg:col-span-3">
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
+              {/* Jika memungkinkan di komponen CarGallery, tangkap title untuk alt image lokal */}
               <CarGallery images={car.gallery} name={car.name} />
             </motion.div>
 
             <motion.section initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
               <div className="mb-5 border-l-4 border-red-600 bg-white p-5 shadow-card">
                 <p className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-400">Spesifikasi Unit</p>
-                <h2 className="mt-1 text-2xl font-black uppercase tracking-tighter text-gray-950">Detail Teknis {car.name}</h2>
+                {/* OPTIMASI H2 LOKAL: Menambahkan kata kunci Jogja secara natural */}
+                <h2 className="mt-1 text-2xl font-black uppercase tracking-tighter text-gray-950">Detail Teknis & Fitur {car.name} Jogja</h2>
               </div>
               <SpecificationTabs spec={car.specifications} />
             </motion.section>
@@ -84,7 +87,12 @@ export default function CarDetailClient({ car }: { car: Car }) {
                 ) : null}
               </div>
 
-              <h1 className="text-3xl font-black uppercase leading-tight tracking-tighter text-gray-950 md:text-4xl">{car.name}</h1>
+              {/* OPTIMASI H1 LOKAL: Menyisipkan keyword geografis sebagai super-title tanpa merusak estetika desain */}
+              <h1 className="flex flex-col text-3xl font-black uppercase leading-tight tracking-tighter text-gray-950 md:text-4xl">
+                <span className="mb-2 block text-xs font-bold tracking-widest text-red-600">Promo Dealer Resmi Jogja - Sleman</span>
+                {car.name}
+              </h1>
+              
               <p className="mt-4 line-clamp-6 text-sm font-medium leading-relaxed text-gray-500">{car.description}</p>
 
               <div className="my-6 border-y border-gray-100 py-5">
@@ -134,7 +142,7 @@ export default function CarDetailClient({ car }: { car: Car }) {
             <LeadCaptureCard
               title={`Cek promo ${car.name}`}
               description="Minta info stok warna, diskon, booking test drive, dan simulasi kredit langsung ke Yusuf Suzuki."
-              message={`Halo Yusuf Suzuki, saya ingin cek promo, stok, warna, dan simulasi kredit untuk ${car.name}.`}
+              message={`Halo Yusuf Suzuki, saya ingin cek promo, stok, warna, dan simulasi kredit untuk ${car.name} di Jogja.`}
               dark
             />
 
