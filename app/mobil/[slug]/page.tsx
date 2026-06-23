@@ -51,35 +51,38 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const carUrl = `https://www.suzukiautojogja.com/mobil/${car.slug}`;
   const fullImageUrl = `https://www.suzukiautojogja.com${car.heroImage || "/logo.png"}`;
   const carName = car.name;
+  // seoName = nama model tanpa prefix "Suzuki " agar tidak duplikat di title SEO
+  // Contoh: "Suzuki Jimny" → "Jimny", "Suzuki XL7" → "XL7"
+  const seoName = carName.startsWith("Suzuki ") ? carName.slice(7) : carName;
   const carNameLower = carName.toLowerCase();
   const startingPriceLabel = new Intl.NumberFormat("id-ID", { maximumFractionDigits: 0 }).format(car.startingPriceNum / 1_000_000).replace(/,0$/, "");
 
   return {
-    title: `Harga ${carName} Jogja 2026 | Promo DP Ringan & OTR Mulai Rp ${startingPriceLabel} Juta`,
-    description: `Cek harga OTR, promo pembelian, simulasi kredit, dan spesifikasi ${carName} terbaru untuk Yogyakarta, Magelang, Kedu, dan Banyumas.`,
+    title: `Harga Suzuki ${seoName} Jogja 2026 | Promo DP Ringan & OTR Mulai Rp ${startingPriceLabel} Juta`,
+    description: `Cek harga OTR, promo pembelian, simulasi kredit, dan spesifikasi Suzuki ${seoName} terbaru untuk Yogyakarta, Magelang, Kedu, dan Banyumas.`,
     keywords: [
-      `${carNameLower} jogja`,
-      `harga ${carNameLower} jogja`,
-      `kredit ${carNameLower} magelang`,
-      `promo ${carNameLower} jogja`,
-      `simulasi kredit ${carNameLower} kedu`,
-      `cicilan ${carNameLower} banyumas`,
+      `suzuki ${seoName.toLowerCase()} jogja`,
+      `harga suzuki ${seoName.toLowerCase()} jogja`,
+      `kredit suzuki ${seoName.toLowerCase()} magelang`,
+      `promo suzuki ${seoName.toLowerCase()} jogja`,
+      `simulasi kredit suzuki ${seoName.toLowerCase()} kedu`,
+      `cicilan suzuki ${seoName.toLowerCase()} banyumas`,
       `dealer suzuki jl magelang sleman`,
     ].join(", "),
     alternates: { canonical: carUrl },
     openGraph: {
-      title: `Harga ${carName} Jogja 2026 | OTR Mulai Rp ${startingPriceLabel} Juta`,
-      description: `Cek harga OTR, stok, pilihan varian, dan simulasi kredit ${carName} di dealer Suzuki Yogyakarta.`,
+      title: `Harga Suzuki ${seoName} Jogja 2026 | OTR Mulai Rp ${startingPriceLabel} Juta`,
+      description: `Cek harga OTR, stok, pilihan varian, dan simulasi kredit Suzuki ${seoName} di dealer Suzuki Yogyakarta.`,
       url: carUrl,
       siteName: "Suzuki Auto Jogja",
-      images: [{ url: fullImageUrl, width: 1200, height: 630, alt: `${carName} di dealer resmi Yogyakarta` }],
+      images: [{ url: fullImageUrl, width: 1200, height: 630, alt: `Suzuki ${seoName} di dealer resmi Yogyakarta` }],
       locale: "id_ID",
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: `Harga ${carName} Jogja | OTR Mulai Rp ${startingPriceLabel} Juta`,
-      description: `Lihat harga OTR, spesifikasi, dan simulasi kredit ${carName} di Yogyakarta dan Jawa Tengah.`,
+      title: `Harga Suzuki ${seoName} Jogja | OTR Mulai Rp ${startingPriceLabel} Juta`,
+      description: `Lihat harga OTR, spesifikasi, dan simulasi kredit Suzuki ${seoName} di Yogyakarta dan Jawa Tengah.`,
       images: [fullImageUrl],
     },
   };
