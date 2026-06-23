@@ -189,8 +189,43 @@ export const articles = [
     "Jadi, untuk pertanyaan <strong>Gran Max vs Carry Pick Up, laku mana?</strong> khusus Mei 2026 jawabannya adalah: <strong>Suzuki Carry Pick Up lebih laku.</strong>",
     "Sedang cari mobil pick up untuk usaha, operasional toko, angkutan barang, atau armada bisnis? Konsultasikan kebutuhan Anda bersama <strong>Yusuf Suzuki</strong> melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> untuk mendapatkan rekomendasi unit, simulasi kredit, dan penawaran terbaik sesuai kebutuhan Anda!"
     ]
+},
+
+{
+  slug: "harga-mobil-bulan-depan-naik-penyesuaian-berbagai-merek",
+  title: "Harga Mobil Bulan Depan Naik? Benarkah Akan Ada Penyesuaian di Berbagai Merek?",
+  excerpt: "Menjelang pergantian bulan, kabar mengenai potensi penyesuaian harga mobil mulai ramai dibicarakan. Belum ada kepastian yang berlaku untuk semua merek, tetapi calon pembeli tetap perlu mempertimbangkan perubahan harga, promo, stok unit, dan skema kredit sebelum menentukan waktu pembelian.",
+  category: "Berita Otomotif",
+  date: "23 Juni 2026",
+  imageUrl: "/berita/harga-mobil-bulan-depan-naik.jpg",
+  content: [
+    "Pertanyaan <strong>“harga mobil bulan depan naik?”</strong> mulai ramai dibahas menjelang pergantian periode. Tidak sedikit calon pembeli yang memilih menunda keputusan karena berharap ada promo lebih besar, sementara sebagian lainnya justru mulai mencari unit lebih awal karena khawatir harga berubah.",
+    "Lalu, benarkah akan ada penyesuaian harga di berbagai merek mobil? Jawabannya, <strong>belum tentu sama untuk setiap merek dan setiap model.</strong> Kebijakan harga kendaraan dapat berubah mengikuti program dealer, kondisi stok, biaya distribusi, pembaruan model, hingga strategi penjualan masing-masing brand.",
+    "Artinya, informasi mengenai potensi kenaikan harga memang patut diperhatikan, tetapi calon pembeli sebaiknya tidak hanya fokus pada satu isu tersebut. Ada beberapa faktor lain yang sama pentingnya sebelum memutuskan membeli mobil baru.",
+    "",
+    "<img src='/berita/harga-mobil-bulan-depan-naik.jpg' alt='Harga Mobil Bulan Depan Naik Penyesuaian Berbagai Merek' class='w-full h-auto border border-gray-200 shadow-md my-8 hover:shadow-xl transition-shadow duration-300' />",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Kenapa Harga Mobil Bisa Mengalami Penyesuaian?</h3>",
+    "Harga mobil tidak selalu tetap dari bulan ke bulan. Dalam kondisi tertentu, produsen maupun dealer dapat melakukan pembaruan harga atau menyesuaikan program pembelian sesuai kondisi pasar.",
+    "Penyesuaian tersebut tidak selalu berarti semua unit langsung naik secara signifikan. Ada kalanya harga kendaraan tetap, tetapi bonus pembelian berubah. Ada juga kondisi ketika promo diskon, cashback, paket servis, atau subsidi bunga tidak lagi sama seperti periode sebelumnya.",
+    "<ul class='list-disc pl-5 space-y-3 mb-8 text-gray-700'><li><strong>Pergantian program bulanan:</strong> promo dealer dapat diperbarui ketika masuk periode baru.</li><li><strong>Ketersediaan stok unit:</strong> tipe atau warna tertentu bisa lebih cepat habis dibanding unit lainnya.</li><li><strong>Pembaruan model:</strong> hadirnya varian atau tahun produksi baru dapat memengaruhi strategi harga.</li><li><strong>Skema pembiayaan:</strong> DP, tenor, bunga, dan angsuran dapat berbeda tergantung program leasing yang sedang berjalan.</li></ul>",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>Bukan Hanya Harga, Promo dan Stok Juga Perlu Dipertimbangkan</h3>",
+    "Bagi calon pembeli, menunggu atau membeli sekarang bukan hanya persoalan harga OTR. Kadang harga mobil tidak berubah, tetapi promo yang tersedia pada bulan berjalan justru menjadi lebih terbatas di periode berikutnya.",
+    "Karena itu, langkah paling aman adalah mulai mencari informasi lebih awal. Anda bisa membandingkan harga, melihat stok unit, menanyakan promo yang tersedia, sekaligus menghitung simulasi kredit sesuai kemampuan finansial.",
+    "Dengan begitu, keputusan pembelian tidak dilakukan secara terburu-buru hanya karena mendengar kabar harga akan berubah.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-green-600 pl-3'>Kalau Harga Tidak Naik, Apakah Tetap Perlu Proses Sekarang?</h3>",
+    "Tetap perlu dipertimbangkan, terutama bila Anda memang sudah membutuhkan kendaraan dalam waktu dekat. Memulai proses dari sekarang memberi Anda lebih banyak pilihan dan waktu untuk menyesuaikan pembelian dengan kebutuhan.",
+    "Untuk pembelian kredit, proses pengajuan juga membutuhkan tahapan seperti persiapan dokumen, pengecekan data, survei, hingga approval dari leasing. Dengan mulai lebih awal, Anda dapat memilih skema DP dan angsuran yang lebih nyaman tanpa harus mengambil keputusan mendadak.",
+    "<ul class='list-disc pl-5 space-y-3 mb-8 text-gray-700'><li><strong>Lebih leluasa memilih unit:</strong> tipe, warna, dan varian masih bisa disesuaikan dengan kebutuhan.</li><li><strong>Waktu pengajuan lebih panjang:</strong> proses kredit dapat dipersiapkan tanpa terburu-buru.</li><li><strong>Bisa membandingkan beberapa skema:</strong> Anda dapat memilih DP, tenor, dan angsuran yang paling cocok.</li><li><strong>Kesempatan menikmati promo berjalan:</strong> program yang tersedia saat ini masih dapat dipertimbangkan sebelum berganti.</li></ul>",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-yellow-500 pl-3'>Saatnya Cek Kebutuhan Mobil Anda</h3>",
+    "Bila Anda membutuhkan mobil untuk usaha, kendaraan niaga seperti <strong>Suzuki New Carry Pick Up</strong> bisa menjadi pilihan untuk distribusi barang, operasional toko, usaha kuliner, hingga kebutuhan armada.",
+    "Sementara untuk kebutuhan keluarga dan mobilitas harian, pilihan seperti <strong>Suzuki Fronx, XL7 Hybrid, Ertiga Hybrid, S-Presso, Grand Vitara,</strong> hingga <strong>Jimny</strong> dapat disesuaikan dengan budget, jumlah penumpang, serta karakter penggunaan sehari-hari.",
+    "Setiap kebutuhan tentu memiliki pertimbangan yang berbeda. Karena itu, cek harga dan simulasi sejak awal akan membantu Anda mengambil keputusan yang lebih tepat.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Kesimpulan: Jangan Hanya Menunggu Kabar Harga</h3>",
+    "Kabar mengenai potensi penyesuaian harga mobil di berbagai merek memang perlu diperhatikan. Namun, calon pembeli sebaiknya tidak hanya menunggu kepastian harga bulan depan tanpa melihat kondisi promo, stok unit, dan kebutuhan kendaraan saat ini.",
+    "Bila Anda sudah memiliki rencana membeli mobil, tidak ada salahnya mulai konsultasi dari sekarang. Anda tetap bisa mempertimbangkan pilihan dengan tenang, membandingkan skema pembelian, serta melihat program terbaik yang masih tersedia.",
+    "Untuk informasi harga, promo, stok unit, simulasi kredit, DP, dan angsuran Suzuki terbaru, hubungi <strong>Yusuf Suzuki</strong> melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a>.",
+    "<strong>Cek kebutuhan mobil Anda dari sekarang, sebelum harga, promo, atau pilihan unit berubah.</strong>"
+  ]
 }
-
-
 
 ];
