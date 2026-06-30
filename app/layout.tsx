@@ -24,6 +24,8 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   keywords: [
+    "suzuki terdekat",
+    "suzuki mobil terdekat",
     "mobil suzuki jogja",
     "dealer mobil suzuki jogja",
     "suzuki sumber baru mobil",

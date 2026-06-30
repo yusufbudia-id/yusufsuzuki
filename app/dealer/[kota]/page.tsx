@@ -25,6 +25,8 @@ export async function generateMetadata({ params }: AreaPageProps): Promise<Metad
   // Pastikan huruf kecil semua agar rapi di mata Google
   const cityName = area.name.toLowerCase();
   const dynamicKeywords = [
+    `suzuki terdekat ${cityName}`,
+    `suzuki mobil terdekat ${cityName}`,
     `mobil suzuki ${cityName}`,
     `dealer mobil suzuki ${cityName}`,
     `promo mobil suzuki ${cityName}`,
