@@ -106,7 +106,7 @@ export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps
     if (hargaMobil === 0) return;
 
     const tenorTahun = tenor / 12;
-    const tdpKotor = dpBayar + diskon; // Rumus utamanya sekarang dari sini
+    const tdpKotor = dpBayar + diskon; 
     
     // @ts-ignore
     const rateBungaDasarString = paymentType === "ADDM" 
@@ -313,48 +313,44 @@ Mohon info persyaratannya.`;
                 </div>
               </div>
 
-              {/* AREA INPUT DP BAYAR & DISKON YANG SUDAH CUSTOMER FRIENDLY */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="relative">
-                  <div className="flex justify-between items-end mb-2">
-                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-red-600">DP Bayar (Nett)</label>
-                    <span className="text-[10px] font-black text-red-900">Total DP (TDP): {tdpPct.toFixed(2)}%</span>
-                  </div>
-                  <div className="flex items-center border-b-2 border-red-200 focus-within:border-red-600 transition-colors">
-                    <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
-                    <input 
-                      type="text" 
-                      value={dpBayar === 0 ? "" : new Intl.NumberFormat('id-ID').format(dpBayar)} 
-                      onChange={handleNumChange(setDpBayar)}
-                      onBlur={() => {
-                        // Validasi agar Total DP tidak kurang dari 15% dari OTR
-                        const minTdp = hargaMobil * 0.15;
-                        if ((dpBayar + diskon) < minTdp) {
-                          setDpBayar(minTdp - diskon > 0 ? (minTdp - diskon) : 0);
-                        }
-                      }}
-                      className="w-full bg-transparent py-2 text-lg font-black text-red-900 focus:outline-none" 
-                    />
-                  </div>
-                  {/* SLIDER mengontrol persentase TDP kotor, tapi mengubah nominal DP Bayar */}
-                  <input
-                    type="range" min={15} max={100} step={1} value={Math.max(15, Math.min(100, tdpPct))}
-                    onChange={(e) => {
-                      const newPct = Number(e.target.value);
-                      const newTdpNominal = hargaMobil * (newPct / 100);
-                      setDpBayar(newTdpNominal - diskon > 0 ? newTdpNominal - diskon : 0);
+              {/* ========================================== */}
+              {/* AREA INPUT DP BAYAR HIGHLIGHTED (UI BARU)  */}
+              {/* ========================================== */}
+              <div className="bg-red-50/50 p-4 md:p-6 border-2 border-red-100 rounded-lg relative mt-2">
+                <div className="flex justify-between items-end mb-2">
+                  <label className="block text-xs md:text-sm font-black uppercase tracking-[0.2em] text-red-600">Masukkan DP</label>
+                  <span className="text-[10px] font-black text-red-900 bg-red-100 px-2 py-1 rounded-sm">Total DP (TDP): {tdpPct.toFixed(2)}%</span>
+                </div>
+                <div className="flex items-center border-b-2 border-red-200 focus-within:border-red-600 transition-colors mt-2">
+                  <span className="text-xl md:text-2xl font-bold text-red-400 mr-3 py-2">Rp</span>
+                  <input 
+                    type="text" 
+                    value={dpBayar === 0 ? "" : new Intl.NumberFormat('id-ID').format(dpBayar)} 
+                    onChange={handleNumChange(setDpBayar)}
+                    onBlur={() => {
+                      // Validasi agar Total DP tidak kurang dari 15% dari OTR
+                      const minTdp = hargaMobil * 0.15;
+                      if ((dpBayar + diskon) < minTdp) {
+                        setDpBayar(minTdp - diskon > 0 ? (minTdp - diskon) : 0);
+                      }
                     }}
-                    className="w-full h-1.5 bg-red-100 accent-red-600 appearance-none cursor-pointer mt-4"
+                    className="w-full bg-transparent py-2 text-2xl md:text-4xl font-black text-red-600 focus:outline-none placeholder-red-200" 
+                    placeholder="0"
                   />
                 </div>
-                <div className="relative flex flex-col justify-end">
-                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2 text-green-600">Diskon Unit / Subsidi</label>
-                  <div className="flex items-center border-b-2 border-green-200 focus-within:border-green-600 transition-colors">
-                    <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
-                    <input type="text" value={diskon === 0 ? "" : new Intl.NumberFormat('id-ID').format(diskon)} onChange={handleNumChange(setDiskon)} className="w-full bg-transparent py-2 text-lg font-black text-green-900 focus:outline-none mb-[22px]" />
-                  </div>
-                </div>
+                {/* SLIDER mengontrol persentase TDP kotor, tapi mengubah nominal DP Bayar */}
+                <input
+                  type="range" min={15} max={100} step={1} value={Math.max(15, Math.min(100, tdpPct))}
+                  onChange={(e) => {
+                    const newPct = Number(e.target.value);
+                    const newTdpNominal = hargaMobil * (newPct / 100);
+                    setDpBayar(newTdpNominal - diskon > 0 ? newTdpNominal - diskon : 0);
+                  }}
+                  className="w-full h-2 bg-red-200 rounded-lg accent-red-600 appearance-none cursor-pointer mt-6"
+                />
               </div>
+              {/* ========================================== */}
+
             </div>
 
             <div className="pt-4">
@@ -417,22 +413,35 @@ Mohon info persyaratannya.`;
                   <Unlock size={14} />
                 </button>
                 
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-900 mb-4">Pengaturan Advanced</label>
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-900 mb-6">Pengaturan Advanced</label>
                 
-                <div className="max-w-[250px]">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">Upping / Subsidi Bunga (%)</span>
-                    <span className="text-sm font-black text-gray-900">{uping.toFixed(1)}%</span>
+                <div className="max-w-[280px] space-y-6">
+                  {/* PENGATURAN UPPING */}
+                  <div>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">Upping / Subsidi Bunga (%)</span>
+                      <span className="text-sm font-black text-gray-900">{uping.toFixed(1)}%</span>
+                    </div>
+                    <input
+                      type="range" min={-2} max={5} step={0.1} value={uping}
+                      onChange={(e) => setUping(Number(e.target.value))}
+                      className="w-full h-1.5 bg-gray-200 accent-gray-900 appearance-none cursor-pointer"
+                    />
+                    <div className="flex justify-between mt-1">
+                      <span className="text-[9px] text-gray-400 font-bold">-2%</span>
+                      <span className="text-[9px] text-gray-400 font-bold">5%</span>
+                    </div>
                   </div>
-                  <input
-                    type="range" min={-2} max={5} step={0.1} value={uping}
-                    onChange={(e) => setUping(Number(e.target.value))}
-                    className="w-full h-1.5 bg-gray-200 accent-gray-900 appearance-none cursor-pointer"
-                  />
-                  <div className="flex justify-between mt-1">
-                    <span className="text-[9px] text-gray-400 font-bold">-2%</span>
-                    <span className="text-[9px] text-gray-400 font-bold">5%</span>
+
+                  {/* INPUT DISKON UNIT (DIPINDAHKAN KE SINI) */}
+                  <div className="relative flex flex-col">
+                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-green-600 mb-2">Diskon Unit / Subsidi</label>
+                    <div className="flex items-center border-b-2 border-green-200 focus-within:border-green-600 transition-colors">
+                      <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
+                      <input type="text" value={diskon === 0 ? "" : new Intl.NumberFormat('id-ID').format(diskon)} onChange={handleNumChange(setDiskon)} className="w-full bg-transparent py-2 text-base font-black text-green-900 focus:outline-none" />
+                    </div>
                   </div>
+
                 </div>
               </div>
             )}
@@ -463,13 +472,12 @@ Mohon info persyaratannya.`;
               <span className="text-xs font-black text-gray-900">{formatCurrency(hargaMobil)}</span>
             </div>
             
-            {/* HIERARKI BARU: DP Bayar di Atas, Diskon di Tengah, TDP di Bawah */}
-            <div className="flex justify-between py-2 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-red-600 uppercase tracking-widest">Budget DP (DP Bayar)</span>
+            <div className="flex justify-between py-2 border-b border-gray-200 bg-red-50/50 px-2 -mx-2 rounded-sm">
+              <span className="text-[10px] font-bold text-red-600 uppercase tracking-widest">DP Bayar</span>
               <span className="text-xs font-black text-red-600">{formatCurrency(dpBayar)}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">+ Diskon Unit</span>
+              <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">+ Subsidi Dealer</span>
               <span className="text-xs font-black text-green-600">{formatCurrency(diskon)}</span>
             </div>
             <div className="flex justify-between py-2 border-b border-gray-200">
@@ -487,7 +495,7 @@ Mohon info persyaratannya.`;
             <div className="flex gap-3 text-gray-500 mb-6 bg-gray-200/50 p-4 border-l-4 border-gray-900">
               <Info size={16} className="shrink-0 mt-0.5" />
               <p className="text-[9px] uppercase leading-relaxed font-bold">
-                TDP di atas merupakan kalkulasi otomatis dari DP Bayar ditambah Diskon, sudah mencakup Biaya Fidusia, Admin, Asuransi, {paymentType === "ADDM" && "dan Angsuran Bulan ke-1."}
+                TDP di atas merupakan kalkulasi otomatis dari DP Bayar ditambah Subsidi, sudah mencakup Biaya Fidusia, Admin, Asuransi, {paymentType === "ADDM" && "dan Angsuran Bulan ke-1."}
               </p>
             </div>
 
