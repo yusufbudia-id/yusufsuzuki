@@ -226,6 +226,35 @@ export const articles = [
     "Untuk informasi harga, promo, stok unit, simulasi kredit, DP, dan angsuran Suzuki terbaru, hubungi <strong>Yusuf Suzuki</strong> melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a>.",
     "<strong>Cek kebutuhan mobil Anda dari sekarang, sebelum harga, promo, atau pilihan unit berubah.</strong>"
   ]
+},
+{
+  "slug": "perubahan-tampilan-suzuki-xl7-facelift-terbaru",
+  "title": "Tampilan Baru Suzuki XL7 Facelift: Makin Sporty dan Tegas, Apa Saja yang Berubah?",
+  "excerpt": "Suzuki XL7 facelift terbaru hadir dengan penyegaran eksterior yang signifikan. Dari grille yang lebih besar hingga sentuhan ornamen baru, mari bedah ubahan visual pada varian Alpha, Beta, dan Zeta yang membuatnya semakin tangguh.",
+  "category": "Berita Otomotif",
+  "date": "01 Juli 2026",
+  "imageUrl": "/berita/suzuki-xl7-facelift-baru.jpg",
+  "content": [
+    "Kehadiran <strong>Suzuki XL7 facelift terbaru</strong> membawa angin segar bagi para pecinta Low SUV. Tidak sekadar ubahan kosmetik minor, Suzuki memberikan sentuhan eksterior yang cukup signifikan untuk mempertegas karakter tangguh, maskulin, dan <i>sporty</i> pada mobil keluarga andalan ini.",
+    "Fokus utama pembaruan kali ini adalah memberikan identitas visual yang lebih kuat dan pembeda yang jelas pada masing-masing tipe, yaitu Zeta, Beta, dan Alpha. Hal ini tentu semakin memudahkan calon konsumen untuk memilih varian yang paling sesuai dengan karakter dan preferensi gaya mereka sehari-hari.",
+    "Lalu, apa saja detail ubahan yang disematkan pada fasia depan, samping, dan belakang mobil ini? Mari kita bedah satu per satu.",
+    "",
+    "<img src='/berita/suzuki-xl7-facelift-baru.jpg' alt='Perubahan Tampilan Suzuki XL7 Facelift Terbaru' class='w-full h-auto border border-gray-200 shadow-md my-8 hover:shadow-xl transition-shadow duration-300' />",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>1. New XL7 Alpha: Tampil Lebih Agresif dan Dominan</h3>",
+    "Varian tertinggi, XL7 Alpha, mendapatkan sentuhan paling agresif dengan mengusung tema <i>black out</i> yang mendominasi berbagai sisi eksteriornya, membuatnya terlihat sangat tangguh di jalanan.",
+    "<ul class='list-disc pl-5 space-y-3 mb-8 text-gray-700'><li><strong>Fasad Depan:</strong> Grille depan baru berwarna <i>glossy black</i> berukuran lebih lebar dan kotak, dipadukan dengan <i>under diffuser</i> berwarna <i>gunmetal</i> serta desain <i>fog lamp</i> baru yang membentuk huruf 'L'.</li><li><strong>Sisi Samping:</strong> Pelek <i>alloy</i> 16 inci kini tampil garang dengan sentuhan <i>full black</i>. Bagian <i>door handle</i>, <i>roof rail</i>, dan <i>side under spoiler</i> juga dikelir hitam senada.</li><li><strong>Sisi Belakang:</strong> Dilengkapi lampu belakang beraksen gelap (<i>smoked</i>), tambahan <i>rear upper spoiler</i> eksklusif dari Suzuki Sport, antena <i>shark fin</i>, dan emblem Hybrid yang menandakan ketangguhan dapur pacunya.</li></ul>",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>2. New XL7 Beta: Elegan dengan Sentuhan Premium</h3>",
+    "Bagi Anda yang menginginkan perpaduan antara kemewahan bodi dan efisiensi teknologi <i>Smart Hybrid Vehicle by Suzuki (SHVS)</i>, varian Beta menawarkan tampilan yang lebih elegan dan berkelas.",
+    "<ul class='list-disc pl-5 space-y-3 mb-8 text-gray-700'><li><strong>Fasad Depan:</strong> Mempertahankan bingkai krom pada lampu LED, varian ini menggunakan grille berwarna <i>satin silver</i> yang mewah, dipadukan dengan <i>garnish</i> bumper perak terang.</li><li><strong>Sisi Samping:</strong> Tampil menawan dengan <i>door handle</i> berlapis krom yang kontras, serta pelek <i>alloy</i> berdesain baru dengan sentuhan <i>polished finishing (dual-tone)</i>.</li><li><strong>Sisi Belakang:</strong> Mendapat <i>garnish</i> pintu bagasi krom, lampu belakang bernuansa gelap, antena <i>shark fin</i>, serta logo identitas Hybrid.</li></ul>",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-green-600 pl-3'>3. New XL7 Zeta: Berkelas Tanpa Kompromi</h3>",
+    "Meski berstatus sebagai varian dasar (non-hybrid), tipe Zeta terbukti tidak tampil murahan. Suzuki merancangnya agar tetap memberikan kesan mewah yang nyaris identik dengan tipe menengah.",
+    "<ul class='list-disc pl-5 space-y-3 mb-8 text-gray-700'><li><strong>Tampilan Depan:</strong> Fasia depannya identik dengan tipe Beta, mengusung lampu LED berbingkai krom, grille <i>satin silver</i>, dan format <i>fog lamp</i> desain baru yang lebih segar.</li><li><strong>Tampilan Samping & Belakang:</strong> Menggunakan velg <i>dual-tone</i> yang sama dengan Beta. Pembeda utamanya ada pada <i>door handle</i> yang dicat sewarna dengan bodi mobil (<i>body color</i>), serta absennya emblem Hybrid di pintu bagasi.</li></ul>",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-yellow-500 pl-3'>Kesimpulan: Waktunya Beralih ke Low SUV yang Lebih Segar</h3>",
+    "Perubahan desain pada XL7 facelift ini membuktikan komitmen Suzuki untuk menghadirkan mobil 7-seater yang tidak hanya lega dan efisien, tetapi juga memiliki daya tarik visual yang modern dan berkarakter kuat.",
+    "Bagi masyarakat di area Sleman, Kota Yogyakarta, dan sekitarnya, pembaruan desain ini tentu membuat XL7 semakin layak untuk dipinang sebagai mobil andalan keluarga maupun penunjang mobilitas harian.",
+    "Untuk melihat langsung perubahan desain ini, mencoba <i>test drive</i>, atau menanyakan harga OTR DIY & Jateng, promo diskon, serta ketersediaan stok unit terbaru, Anda dapat menghubungi tim Jago Jualan, <strong>Yusuf Suzuki</strong>, melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> atau kunjungi website resmi kami di suzuki-jogja.com.",
+    "<strong>Segera konsultasikan kebutuhan kendaraan Anda dan dapatkan penawaran terbaik sebelum kehabisan varian warna favorit Anda!</strong>"
+  ]
 }
 
 ];
