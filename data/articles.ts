@@ -229,7 +229,7 @@ export const articles = [
 },
 {
   "slug": "perubahan-tampilan-suzuki-xl7-facelift-terbaru",
-  "title": "Tampilan Baru Suzuki XL7 Facelift: Makin Sporty dan Tegas, Apa Saja yang Berubah?",
+  "title": "Tampilan Baru Suzuki XL7 Facelift 2026: Makin Sporty dan Tegas, Apa Saja yang Berubah?",
   "excerpt": "Suzuki XL7 facelift terbaru hadir dengan penyegaran eksterior yang signifikan. Dari grille yang lebih besar hingga sentuhan ornamen baru, mari bedah ubahan visual pada varian Alpha, Beta, dan Zeta yang membuatnya semakin tangguh.",
   "category": "Berita Otomotif",
   "date": "01 Juli 2026",
