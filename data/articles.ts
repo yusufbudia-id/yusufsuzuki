@@ -255,6 +255,38 @@ export const articles = [
     "Untuk melihat langsung perubahan desain ini, mencoba <i>test drive</i>, atau menanyakan harga OTR DIY & Jateng, promo diskon, serta ketersediaan stok unit terbaru, Anda dapat menghubungi tim Jago Jualan, <strong>Yusuf Suzuki</strong>, melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> atau kunjungi website resmi kami di suzuki-jogja.com.",
     "<strong>Segera konsultasikan kebutuhan kendaraan Anda dan dapatkan penawaran terbaik sebelum kehabisan varian warna favorit Anda!</strong>"
   ]
+},
+{
+  "slug": "alur-lengkap-pengajuan-kredit-mobil",
+  "title": "Mau Nyicil Kendaraan? Pahami Dulu Alur Lengkap Pengajuan Kredit Mobil Berikut Ini!",
+  "excerpt": "Membeli mobil impian kini makin mudah dengan fasilitas kredit. Agar tidak salah langkah dan prosesnya cepat disetujui, yuk pahami alur pengajuan kredit mobil dari awal hingga mobil dikirim ke garasi Anda!",
+  "category": "Tips & Edukasi",
+  "date": "04 Juli 2026",
+  "imageUrl": "/berita/alur-kredit-mobil.jpg",
+  "content": [
+    "Memiliki mobil impian kini semakin mudah diwujudkan berkat adanya fasilitas kredit dari bank maupun lembaga pembiayaan (<i>leasing</i>). Opsi cicilan memungkinkan Anda membawa pulang mobil idaman lebih cepat tanpa harus menunggu uang tunai terkumpul penuh ratusan juta rupiah.",
+    "Namun, bagi pemula, proses pengajuan kredit mobil seringkali terasa membingungkan. Agar tidak salah langkah dan prosesnya berjalan mulus, yuk pahami alur pengajuan kredit mobil dari awal hingga mobil terparkir di garasi Anda!",
+    "",
+    "<img src='/berita/alur-kredit-mobil.jpg' alt='Alur Pengajuan Kredit Mobil' class='w-full h-auto border border-gray-200 shadow-md my-8 hover:shadow-xl transition-shadow duration-300' />",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>1. Tentukan Mobil dan Hitung Simulasi Kredit</h3>",
+    "Langkah pertama tentu saja memilih merek dan tipe mobil yang sesuai dengan kebutuhan dan anggaran. Mintalah bantuan tenaga penjual (<i>sales</i>) untuk membuat simulasi kredit. Di tahap ini, Anda harus menentukan besaran <strong>Down Payment (DP)</strong> dan <strong>Tenor</strong> (jangka waktu cicilan). Pastikan angsuran per bulan tidak melebihi 30% dari total pendapatan Anda agar arus kas tetap aman.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>2. Membayar Uang Tanda Jadi (Booking Fee)</h3>",
+    "Jika sudah cocok dengan hitungan simulasi, Anda akan diminta membayar <i>booking fee</i> sebagai tanda keseriusan dan untuk mengikat promo yang berlaku. <strong>Tips Aman:</strong> Pastikan Anda mentransfer uang tersebut langsung ke rekening resmi perusahaan dealer, bukan ke rekening pribadi sales. Pastikan juga ada perjanjian tertulis bahwa uang bisa di-<i>refund</i> 100% jika pengajuan kredit ditolak.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>3. Siapkan Dokumen Persyaratan</h3>",
+    "Pihak leasing membutuhkan data diri Anda untuk mengecek riwayat dan profil keuangan. Siapkan dokumen standar seperti KTP pemohon dan pasangan, KK, NPWP, slip gaji (untuk karyawan) atau bukti usaha (untuk wirausaha), mutasi rekening 3 bulan terakhir, dan Bukti Kepemilikan Rumah (BKR) seperti resi PBB atau tagihan listrik.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>4. Proses Survei dan Verifikasi</h3>",
+    "Petugas <i>surveyor</i> (CMO) akan menghubungi Anda untuk membuat janji temu. Mereka akan berkunjung ke rumah atau tempat usaha untuk memverifikasi dokumen asli, mengecek lingkungan, dan melakukan wawancara singkat. Bersikaplah kooperatif dan berikan informasi sejujurnya.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>5. Tunggu Analisis dan Keputusan (Approval)</h3>",
+    "Tim analis akan mengevaluasi hasil survei dan riwayat kredit Anda melalui SLIK OJK (dulu BI Checking). Proses ini memakan waktu sekitar 1-3 hari kerja. Jika <i>Approved</i>, leasing akan mengeluarkan Surat Persetujuan (PO) ke dealer. Jika ditolak, transaksi batal dan Anda bisa memproses pengembalian dana <i>booking fee</i>.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>6. Tanda Tangan Kontrak dan Pelunasan DP</h3>",
+    "Selamat, kredit Anda disetujui! Langkah selanjutnya adalah menandatangani perjanjian kontrak pembiayaan. Bacalah dengan saksama hak, kewajiban, dan rincian asuransinya. Setelah itu, Anda wajib melunasi sisa DP (Total DP dikurangi <i>booking fee</i>) ke rekening resmi dealer.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>7. Mobil Dikirim ke Rumah (Delivery)</h3>",
+    "Setelah DP lunas dan PO diterima, dealer akan mempersiapkan mobil melalui proses <i>Pre-Delivery Inspection</i> (PDI). Mobil siap dikirim ke alamat Anda! STNK dan pelat nomor asli biasanya menyusul dalam beberapa minggu, sementara BPKB akan disimpan oleh pihak leasing sebagai jaminan hingga cicilan lunas.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Wujudkan Mobil Impian Anda Sekarang!</h3>",
+    "Membeli mobil secara kredit adalah keputusan finansial yang besar. Jangan sampai salah langkah! Bagi Anda yang ingin semakin pintar mengatur arus kas dan belajar literasi finansial sehari-hari, yuk ikuti edukasinya di TikTok <a href='https://www.tiktok.com/@cerdas_finance' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>@cerdas_finance</a>.",
+    "Khusus untuk Anda yang berdomisili di area Sleman, Kota Yogyakarta, dan sekitarnya, percayakan urusan pembelian mobil impian Anda pada ahlinya. Bersama tim Jago Jualan, <strong>Yusuf Suzuki</strong> siap membantu proses pengajuan kredit Anda hingga mobil terkirim dengan aman, cepat, dan anti-ribet.",
+    "Dapatkan simulasi kredit terbaik, promo diskon, dan layanan sepenuh hati. Hubungi Yusuf sekarang juga melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> atau kunjungi website resmi kami di <a href='https://suzuki-jogja.com' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>suzuki-jogja.com</a>. Mari wujudkan kendaraan impian dengan perencanaan yang cerdas!"
+  ]
 }
 
 ];
