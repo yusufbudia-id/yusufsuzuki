@@ -425,4 +425,43 @@ Mari perbesar skala bisnis Anda hari ini bersama partner kerja terbaik, Suzuki N
   image: "/promo/promo-carry-6-juta.jpg", // Sesuaikan nama file gambar poster ini saat Anda menyimpannya di folder public/promo/
   highlight: "DP 6 Juta Saja, Proses Mudah & Dibantu Sampai Approve!",
 },
+// PROMO SUZUKI GRAND VITARA - JULI DISKON SUPER (JDS)
+{
+  slug: "promo-jds-grand-vitara-jogja",
+  title: "BOMBASTIS! Promo JDS Grand Vitara Spesial Warga Jogja: DP Mung 10 Juta, Diskon Tembus 55 Juta!",
+  description: `Halo Sedulur Jogja, Sleman, Bantul, dan sekitarnya! 
+
+Punya impian bawa keluarga jalan-jalan menikmati sejuknya Kaliurang, atau hunting sunset di deretan Pantai Gunungkidul dengan mobil baru yang gagah? Melalui program spesial JDS (Juli Diskon Super), memiliki Suzuki Grand Vitara kini menjadi lebih mudah, lebih murah, dan pastinya sangat menguntungkan buat warga plat AB! 
+
+Rincian Harga Spesial JDS (Khusus Wilayah DIY/Plat AB):
+- Harga OTR Grand Vitara (Tipe MC GLX AT - One Tone): Rp 427.400.000
+- Diskon Gila-gilaan: Rp 55.000.000
+- Harga NET (Setelah Diskon): Rp 372.400.000
+*(Tersedia juga tipe MC GLX AT - Two Tone dengan Harga OTR Rp 430.400.000)*
+
+Kejutan Promo Tambahan: Ora Gawe Kantong Jebol!
+Cukup dengan Down Payment (DP) MUNG 10 JUTA SAJA, Anda sudah bisa membawa pulang sebuah SUV berkelas. Beban awal sangat ringan, sangat cocok untuk menjaga cashflow bulanan Anda tetap aman.
+
+Kenapa Grand Vitara Cocok Banget Buat Jalanan Jogja?
+- Irit buat Muter-muter Jogja (Teknologi SHVS): Mesin K15C dengan Mild Hybrid bikin konsumsi bensin jauh lebih irit. Mau macet-macetan di sekitaran Malioboro tetap hemat!
+- Kenyamanan Premium: Dilengkapi Panoramic Sunroof yang luas.
+- Ground Clearance Tinggi: Aman buat blusukan melewati jalanan bergelombang menuju destinasi wisata alam.
+- Fitur Keamanan Terdepan: 6 Airbags, 360-Degree Camera yang bikin parkir di area sempit Kota Jogja jadi super gampang, dan Head-Up Display (HUD).
+
+PERHATIAN: Promo Juli Diskon Super (JDS) ini SANGAT TERBATAS dan HANYA BERLAKU HINGGA TANGGAL 15 JULI 2026! 
+
+Jangan biarkan kesempatan mendapatkan harga net senilai Rp 372.400.000 ini keduluan tetangga. Jadilah yang pertama menikmati sensasi berkendara dengan SUV Hybrid berkelas dari Suzuki dengan penawaran harga terbaik tahun ini!
+
+Informasi, Pemesanan, Simulasi Kredit, dan Test Drive ke Rumah Anda, segera hubungi Tim Jago Jualan:
+Yusuf Suzuki - WhatsApp: 0821-7463-5218
+
+Anda juga bisa melihat detail spesifikasi Suzuki Grand Vitara melalui link berikut:
+https://www.suzukiautojogja.com/mobil/grand-vitara`,
+  carSlug: "grand-vitara",
+  carName: "Suzuki Grand Vitara",
+  badge: "JULI DISKON SUPER",
+  validUntil: "15 Juli 2026",
+  image: "/promo/promo-grandvitara-diskon-super.jpg", 
+  highlight: "DP Mung 10 Juta, Diskon 55 Juta, Promo Terbatas s/d 15 Juli!",
+}
 ];
