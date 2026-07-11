@@ -287,6 +287,30 @@ export const articles = [
     "Khusus untuk Anda yang berdomisili di area Sleman, Kota Yogyakarta, dan sekitarnya, percayakan urusan pembelian mobil impian Anda pada ahlinya. Bersama tim Jago Jualan, <strong>Yusuf Suzuki</strong> siap membantu proses pengajuan kredit Anda hingga mobil terkirim dengan aman, cepat, dan anti-ribet.",
     "Dapatkan simulasi kredit terbaik, promo diskon, dan layanan sepenuh hati. Hubungi Yusuf sekarang juga melalui WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> atau kunjungi website resmi kami di <a href='https://suzuki-jogja.com' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>suzuki-jogja.com</a>. Mari wujudkan kendaraan impian dengan perencanaan yang cerdas!"
   ]
+},
+{
+  "slug": "10-merek-mobil-terlaris-juni-2026-suzuki-tiga-besar",
+  "title": "10 Merek Mobil Terlaris Juni 2026: Pasar Menggeliat, Suzuki Kokoh di Tiga Besar",
+  "excerpt": "Pasar otomotif Indonesia melonjak tajam pada Juni 2026 menurut data Gaikindo. Simak daftar 10 merek terlaris dan pencapaian gemilang Suzuki yang mantap di peringkat tiga besar!",
+  "category": "Berita & Tren",
+  "date": "11 Juli 2026",
+  "imageUrl": "/berita/suzuki-juni-2026.jpg",
+  "content": [
+    "Industri otomotif nasional kembali menunjukkan performa yang sangat positif pada penutup semester pertama tahun ini. Mengutip data <i>wholesales</i> (distribusi dari pabrik ke diler) yang dirilis oleh Gabungan Industri Kendaraan Bermotor Indonesia (Gaikindo), pasar kendaraan roda empat di Indonesia mengalami lonjakan signifikan sepanjang bulan Juni 2026.",
+    "Lonjakan ini menjadi sinyal kuat pulihnya daya beli masyarakat serta tingginya antusiasme pasar terhadap model kendaraan terbaru. Di tengah ketatnya persaingan dan hadirnya berbagai produsen pendatang baru di Tanah Air, merek-merek legendaris terbukti masih memegang kendali utama dalam peta persaingan otomotif nasional.",
+    "",
+    "<img src='/berita/suzuki-juni-2026.jpg' alt='10 Brand Mobil Terlaris Indonesia Juni 2026' class='w-full h-auto border border-gray-200 shadow-md my-8 hover:shadow-xl transition-shadow duration-300' />",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>Daftar 10 Besar Merek Mobil Terlaris (Juni 2026)</h3>",
+    "Berdasarkan data resmi kuota pengiriman dari pabrik ke jaringan diler resmi selama periode Juni 2026, berikut adalah urutan 10 besar brand otomotif paling dominan di Indonesia:",
+    "<ol class='list-decimal list-inside space-y-2 text-gray-700 font-medium my-4'><li><strong>Toyota</strong> – 22.809 unit</li><li><strong>Daihatsu</strong> – 14.125 unit</li><li><strong>Suzuki</strong> – 6.057 unit</li><li><strong>BYD</strong> – 5.264 unit</li><li><strong>Mitsubishi Motors</strong> – 4.143 unit</li><li><strong>Mitsubishi Fuso</strong> – 4.076 unit</li><li><strong>Isuzu</strong> – 3.070 unit</li><li><strong>Jaecoo</strong> – 3.050 unit</li><li><strong>Honda</strong> – 2.402 unit</li><li><strong>Hino</strong> – 2.319 unit</li></ol>",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>Dominasi Berlanjut, Suzuki Buktikan Kualitas Tangguh</h3>",
+    "Dari rilis data di atas, <strong>Suzuki</strong> sukses mempertahankan posisinya yang sangat kuat dengan mantap bertengger di peringkat ketiga penguasa pasar otomotif nasional melalui raihan total 6.057 unit. Angka ini sekaligus mengungguli kompetitor besar lainnya di segmen kendaraan penumpang maupun niaga.",
+    "Pencapaian konsisten ini merupakan bukti nyata tingginya tingkat kepercayaan masyarakat Indonesia terhadap keunggulan lini kendaraan berlambang 'S' tersebut. Kombinasi matang antara teknologi efisiensi bahan bakar pintar (seperti sistem Smart Hybrid), durabilitas mesin yang tangguh lintas generasi, serta nilai purna jual dan biaya perawatan berkala yang sangat bersahabat menjadikan Suzuki opsi paling cerdas dan rasional di masa kini.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Wujudkan Mobil Suzuki Impian Anda Sekarang!</h3>",
+    "Melihat tren pasar otomotif yang sedang bergairah, pertengahan tahun ini merupakan momentum yang paling tepat bagi Anda untuk melakukan pembaruan atau menambah unit kendaraan baru. Apakah Anda membutuhkan kenyamanan ruang untuk keluarga besar, atau mengincar ketangguhan desain <i>crossover</i> urban kekinian seperti <strong>Suzuki Fronx</strong>, kami siap menghadirkan solusi mobilitas terbaik.",
+    "Khusus bagi Anda yang berdomisili di area Sleman, Kota Yogyakarta, dan sekitarnya, percayakan urusan pembelian mobil baru Anda kepada ahlinya. Bersama tim sales berpengalaman 'Jago Jualan', kami siap membantu seluruh proses dari awal hingga unit siap dikirim ke garasi Anda.",
+    "Dapatkan simulasi kredit dengan suku bunga terendah, promo diskon melimpah, pilihan DP ringan, serta proses berkas yang cepat dan anti-ribet. Jangan tunda lagi, segera konsultasikan kebutuhan armada Anda bersama <strong>Yusuf Suzuki</strong> via WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> atau kunjungi info promo lengkap kami di website <a href='https://suzukiautojogja.com' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>suzukiautojogja.com</a>. Mari berkendara lebih cerdas bersama Suzuki!"
+  ]
 }
 
 ];
