@@ -311,6 +311,31 @@ export const articles = [
     "Khusus bagi Anda yang berdomisili di area Sleman, Kota Yogyakarta, dan sekitarnya, percayakan urusan pembelian mobil baru Anda kepada ahlinya. Bersama tim sales berpengalaman 'Jago Jualan', kami siap membantu seluruh proses dari awal hingga unit siap dikirim ke garasi Anda.",
     "Dapatkan simulasi kredit dengan suku bunga terendah, promo diskon melimpah, pilihan DP ringan, serta proses berkas yang cepat dan anti-ribet. Jangan tunda lagi, segera konsultasikan kebutuhan armada Anda bersama <strong>Yusuf Suzuki</strong> via WhatsApp di <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>0821-7463-5218</a> atau kunjungi info promo lengkap kami di website <a href='https://suzukiautojogja.com' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>suzukiautojogja.com</a>. Mari berkendara lebih cerdas bersama Suzuki!"
   ]
+},
+{
+  "slug": "misteri-kehadiran-suzuki-fronx-sgx-kuro",
+  "title": "Menanti Siluet Gelap di Jalanan: Misteri Kehadiran Suzuki Fronx SGX Kuro",
+  "excerpt": "Desas-desus kehadiran Suzuki Fronx SGX Kuro semakin kencang. Apakah ini sekadar ubahan kosmetik atau ada kejutan buas di baliknya? Unit eksklusif ini sudah bisa dipesan sekarang!",
+  "category": "Berita & Tren",
+  "date": "11 Juli 2026",
+  "imageUrl": "/berita/suzuki-fronx-sgx-kuro.jpg",
+  "content": [
+    "Pasar <i>Compact SUV</i> tampaknya belum akan diizinkan untuk bernapas lega. Setelah sukses menggebrak dengan desain <i>coupe</i> yang agresif, desas-desus terbaru menyebutkan bahwa lini Suzuki Fronx akan segera kedatangan tamu misterius. Berbagai forum dan bisik-bisik di kalangan pegiat otomotif mulai merujuk pada satu nama yang mengundang tanda tanya: <strong>Suzuki Fronx SGX Kuro</strong>.",
+    "Mengingat kesuksesan varian 'Kuro' pada lini XL7 yang menawarkan aura maskulinitas pekat, kemunculan nama ini pada Fronx tentu memicu rentetan spekulasi. Namun, sejauh mana kebenaran rumor ini? Apakah ini sekadar angan-angan pecinta modifikasi, atau memang ada senjata rahasia yang sedang dipersiapkan rapat-rapat?",
+    "",
+    "<img src='/berita/suzuki-fronx-sgx-kuro.jpg' alt='Siluet Misteri Suzuki Fronx SGX Kuro' class='w-full h-auto border border-gray-200 shadow-md my-8 hover:shadow-xl transition-shadow duration-300' />",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>Identitas 'Kuro': Sekadar Kosmetik atau Lebih Ganas?</h3>",
+    "Kata 'Kuro' yang berarti hitam dalam bahasa Jepang, selalu identik dengan aura misterius, eksklusif, dan <i>sporty</i>. Pada varian tertingginya saat ini (SGX Hybrid), Fronx sudah dibekali dengan garis desain aerodinamis yang tajam.",
+    "Keambiguan mulai muncul ketika kita mempertanyakan sejauh mana sentuhan 'Kuro' ini akan diaplikasikan. Apakah kita akan melihat <i>black-out treatment</i> total pada <i>grille</i> depan, velg <i>alloy</i> 16 incinya, hingga aksen krom yang dilenyapkan? Ataukah Suzuki menyimpan kejutan lain berupa warna eksterior <i>matte</i> eksklusif yang belum pernah ada di lini produk mereka sebelumnya?",
+    "Belum ada satu pun siluet resmi yang bocor ke publik, membiarkan imajinasi para calon konsumen berlari liar.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>Teka-Teki di Balik Kap Mesin dan Fitur Kabin</h3>",
+    "Di atas kertas, varian SGX saat ini sudah dipersenjatai dengan mesin K15C Dual Jet ditambah teknologi <i>Smart Hybrid Vehicle by Suzuki</i> (SHVS). Pertanyaannya, apakah Fronx SGX Kuro akan membawa <i>tuning</i> performa yang berbeda untuk menyesuaikan tampilan garangnya, atau tetap mempertahankan efisiensi yang sudah menjadi ciri khasnya?",
+    "Area kabin juga masih menjadi ruang gelap. Ada spekulasi yang beredar bahwa edisi Kuro ini akan membawa nuansa interior yang sepenuhnya <i>pitch-black</i> dengan jahitan kontras, atau mungkin penambahan fitur <i>Advance Driver Assistance System</i> (ADAS) yang lebih rahasia melengkapi <i>Dual Sensor Brake Support II</i> (DSBS II) yang sudah ada. Pihak pabrikan masih menutup rapat mulut mereka mengenai detail ini.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Kabut Mulai Tersingkap: Amankan Antrean Anda!</h3>",
+    "Meski wujud aslinya masih diselimuti misteri dan menunggu waktu peluncuran resmi, ada satu rahasia yang sudah bisa dipastikan. Bagi Anda yang tidak ingin kehilangan momentum dan ingin menjadi kelompok pertama yang mengaspal dengan gaya eksklusif, <strong>unit Suzuki Fronx SGX Kuro ini ternyata sudah bisa dipesan mulai akhir bulan ini!</strong>",
+    "Jangan sampai kehabisan kuota awal pemesanan. Untuk informasi <i>pre-order</i>, estimasi harga, atau sekadar berdiskusi mengenai spesifikasinya, Anda bisa langsung menghubungi <strong>Yusuf Suzuki</strong>.",
+    "Jika Anda merasa tidak sabar menunggu varian Kuro atau memiliki preferensi desain yang berbeda, tidak perlu khawatir. Yusuf Suzuki juga siap membantu pemesanan untuk tipe Suzuki Fronx standar lainnya (seperti varian GL atau GX), serta seluruh lini produk Suzuki yang paling pas untuk menemani aktivitas harian Anda. Waktu terus berjalan, pastikan garasi Anda bersiap menyambut sang penantang baru."
+  ]
 }
 
 ];
