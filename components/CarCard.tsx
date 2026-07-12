@@ -23,16 +23,11 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
   // 1. Kalkulasi DP Minim (16% x Harga OTR Terendah - Diskon) lalu bulatkan ke atas
   const discountVal = car.maxDiscount || 0;
   const rawDp = (car.startingPriceNum * 0.16) - discountVal;
-  // Memastikan DP tidak minus jika diskon sangat besar, dan membulatkan ke atas
   const calculatedDp = Math.max(0, Math.ceil(rawDp));
   
-  // 2. Format DP menjadi Rupiah (Rp XX.XXX.XXX)
-  const formattedDp = new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(calculatedDp);
+  // 2. Format DP mengambil nominal jutaan (contoh: 28.750.000 menjadi 28)
+  const millionsDp = Math.floor(calculatedDp / 1000000);
+  const formattedDp = `${millionsDp} Jutaan`;
 
   return (
     <article className={`card-sharp red-edge motion-enter-up motion-shine group relative flex h-full flex-col overflow-hidden stagger-${Math.min(index + 1, 6)}`}>
@@ -80,10 +75,7 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
 
       <div className="relative z-20 flex flex-1 flex-col bg-white p-5 sm:p-6">
         <div className="mb-5 flex-1">
-          {/* Label diubah menjadi DP Mulai */}
-          <p className="mb-2 text-[10px] font-black uppercase tracking-[0.22em] text-red-600">
-            DP Mulai
-          </p>
+          {/* TIPE/NAMA MOBIL di urutan pertama */}
           <p className="mb-4 text-xl font-black uppercase leading-tight tracking-tighter text-gray-950 transition-colors group-hover:text-red-600 sm:text-2xl">
             <Link href={`/mobil/${car.slug}`}>
               {car.name}
@@ -92,10 +84,14 @@ export default function CarCard({ car, index = 0, cityName }: CarCardProps) {
 
           <div className="grid gap-3 border-y border-gray-100 py-4">
             <div>
-              {/* Highlight DP di teks yang paling besar */}
-              <p className="text-2xl font-black tracking-tight text-gray-950 sm:text-3xl">{formattedDp}</p>
+              {/* LABEL DP & NOMINAL DP di urutan kedua */}
+              <p className="mb-1 text-[10px] font-black uppercase tracking-[0.22em] text-red-600">
+                DP Mulai
+              </p>
+              <p className="text-2xl font-black tracking-tight text-gray-950 sm:text-3xl">
+                {formattedDp}
+              </p>
               
-              {/* OTR dan Angsuran dijadikan teks support di bawahnya */}
               <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.18em] text-gray-400">
                 OTR {car.startingPrice} <br/> Angsuran {car.monthlyInstallment}/bln
               </p>
