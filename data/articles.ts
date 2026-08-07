@@ -336,5 +336,29 @@ export const articles = [
     "Jangan sampai kehabisan kuota awal pemesanan. Untuk informasi <i>pre-order</i>, estimasi harga, atau sekadar berdiskusi mengenai spesifikasinya, Anda bisa langsung menghubungi <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>Yusuf Suzuki</a>.",
     "Jika Anda merasa tidak sabar menunggu varian Kuro atau memiliki preferensi desain yang berbeda, tidak perlu khawatir. <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>Yusuf Suzuki</a> juga siap membantu pemesanan untuk tipe Suzuki Fronx standar lainnya (seperti varian GL atau GX), serta seluruh lini produk Suzuki yang paling pas untuk menemani aktivitas harian Anda. Waktu terus berjalan, pastikan garasi Anda bersiap menyambut sang penantang baru."
   ]
+},
+{
+  "slug": "update-pricelist-suzuki-jogja-agustus-2026",
+  "title": "Intip Daftar Harga Suzuki Plat AB Terbaru Agustus 2026: Ada Kejutan Promo Kemerdekaan!",
+  "excerpt": "Cek segera update daftar harga mobil Suzuki untuk wilayah Yogyakarta (Plat AB) periode Agustus 2026. Ada program spesial 'Merdeka Bawa Pulang Suzuki' dengan ragam hadiah menarik yang sayang untuk dilewatkan.",
+  "category": "Promo & Harga",
+  "date": "07 Agustus 2026",
+  "imageUrl": "/berita/image_61c5bb.jpg",
+  "content": [
+    "Kabar menarik bagi Anda yang sedang mencari mobil baru di wilayah Daerah Istimewa Yogyakarta! Menjelang peringatan hari kemerdekaan bulan ini, dealer resmi Suzuki Sumber Baru Mobil merilis daftar harga OTR (<i>On The Road</i>) terbaru untuk area Plat AB.",
+    "Menariknya, pembaruan harga per 1 Agustus 2026 ini diiringi dengan kampanye spesial bertajuk <strong>'MERDEKA BAWA PULANG SUZUKI'</strong>. Penawaran ini digadang-gadang membawa sejumlah keuntungan ekstra bagi calon konsumen yang melakukan pemesanan di bulan ini.",
+    "",
+    "<img src='/berita/image_61c5bb.jpg' alt='Pricelist Suzuki Jogja Agustus 2026' class='w-full h-auto border border-gray-200 shadow-md my-8 hover:shadow-xl transition-shadow duration-300' />",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-red-600 pl-3'>Penyesuaian Harga NIK 2026 dan Potongan Khusus</h3>",
+    "Meski kami tidak merinci angka detail dari setiap model di sini, lini andalan Suzuki seperti XL7 Hybrid, Fronx, hingga mobil niaga Carry Pick Up dipastikan memiliki skema penawaran yang sangat kompetitif. Terdapat selisih yang cukup menggiurkan antara harga OTR awal dengan 'Harga Nett' setelah mendapatkan subsidi diskon dari dealer.",
+    "Ini berarti, calon konsumen memiliki ruang gerak yang lebih lega untuk mengatur <i>budget</i> DP (Down Payment) maupun cicilan bulanan agar lebih sesuai dengan kondisi finansial.",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-blue-600 pl-3'>Banjir Hadiah dari Gadget Premium hingga Sepeda Motor</h3>",
+    "Daya tarik utama dari promo kemerdekaan ini bukan hanya berpusat pada potongan harga. Berdasarkan daftar brosur yang dirilis, Suzuki Sumber Baru Mobil memberikan program <i>bundling</i> hadiah langsung yang cukup spektakuler.",
+    "Untuk pembelian tipe-tipe tertentu, Anda tidak hanya dimanjakan dengan bonus standar seperti gratis jasa servis rutin atau kaca film eksklusif. Tersedia kejutan ekstra berupa hadiah langsung mulai dari logam mulia, <i>gadget</i> kelas atas, hingga kendaraan roda dua (sepeda motor) yang siap dibawa pulang ke garasi Anda!",
+    "<h3 class='text-xl sm:text-2xl font-black text-gray-900 mt-10 mb-4 border-l-4 border-green-600 pl-3'>Pesan Sekarang Sebelum Kehabisan Kuota Promo</h3>",
+    "Dengan skema diskon dan ragam hadiah langsung yang ditawarkan, bulan Agustus ini menjadi salah satu momen terbaik sepanjang tahun untuk meminang mobil Suzuki impian Anda. Namun, mengingat tingginya antusiasme masyarakat, stok unit dengan varian dan warna favorit bisa saja menipis lebih cepat dari perkiraan.",
+    "Jangan sampai Anda melewatkan kesempatan emas di bulan kemerdekaan ini. Ingin melihat daftar harga lengkapnya secara mendetail, meminta simulasi kredit angsuran ringan, atau memastikan hadiah apa yang berhak Anda dapatkan?",
+    "Segera konsultasikan rencana pembelian kendaraan Anda dengan menghubungi <a href='https://wa.me/6282174635218' target='_blank' rel='noopener noreferrer' class='text-blue-600 font-bold hover:underline'>Yusuf Suzuki</a>, konsultan otomotif terpercaya di Sumber Baru Mobil Yogyakarta. Amankan unit Anda hari ini dan nikmati perjalanan baru bersama keluarga!"
+  ]
 }
 ];
