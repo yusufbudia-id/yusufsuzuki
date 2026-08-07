@@ -61,18 +61,19 @@ export const cars: Car[] = [
     slug: "fronx",
     name: "Suzuki Fronx",
     category: "SUV",
-    startingPrice: "Rp 267.300.000",
-    startingPriceNum: 267300000,
-    startingPriceAB: 267300000,
-    startingPriceAA: 275000000, // <-- UPDATE AA
+    startingPrice: "Rp 268.300.000",
+    startingPriceNum: 268300000,
+    startingPriceAB: 268300000,
+    startingPriceAA: 275800000,
     maxDiscount: 14000000,
     variants: [
-      { name: "FRONX GL MT", priceAB: 267300000, priceAA: 275000000, discount: 14000000 }, // <-- UPDATE AA
-      { name: "FRONX GL AT", priceAB: 278300000, priceAA: 286400000, discount: 14000000 }, // <-- UPDATE AA
-      { name: "FRONX GX MT", priceAB: 289700000, priceAA: 298000000, discount: 8000000 },  // <-- UPDATE AA
-      { name: "FRONX GX AT", priceAB: 308100000, priceAA: 316700000, discount: 8000000 },  // <-- UPDATE AA
-      { name: "FRONX SGX AT (ONE TONE)", priceAB: 334200000, priceAA: 343200000, discount: 8000000 }, // <-- UPDATE AA
-      { name: "FRONX SGX AT (TWO TONE)", priceAB: 336200000, priceAA: 345200000, discount: 8000000 }  // <-- UPDATE AA
+      { name: "FRONX GL MT", priceAB: 268300000, priceAA: 275800000, discount: 14000000 },
+      { name: "FRONX GL AT", priceAB: 279300000, priceAA: 287200000, discount: 14000000 },
+      { name: "FRONX GX MT", priceAB: 291600000, priceAA: 300400000, discount: 4000000 },
+      { name: "FRONX GX AT", priceAB: 310000000, priceAA: 318700000, discount: 4000000 },
+      { name: "FRONX SGX AT (ONE TONE)", priceAB: 336500000, priceAA: 345200000, discount: 4000000 },
+      { name: "FRONX SGX AT (TWO TONE)", priceAB: 338500000, priceAA: 347200000, discount: 4000000 },
+      { name: "FRONX SGX AT (KURO)", priceAB: 339000000, priceAA: 347700000, discount: 4000000 }
     ],
     monthlyInstallment: "Rp 3.200.000",
     description: "Beli Suzuki Fronx terbaru di Jogja. SUV kompak stylish dengan desain coupe sport futuristis ini hadir membawa teknologi hybrid mild yang efisien. Dapatkan penawaran kredit Suzuki Fronx terbaik untuk area Yogyakarta, Sleman, Bantul, dan sekitarnya hanya di dealer resmi Suzuki Sumber Baru Mobil. Nikmati pengalaman berkendara yang responsif sekaligus irit bahan bakar berkat mesin 1.5L K15C Smart Hybrid. Kabin interior yang mewah dilengkapi dengan fitur keselamatan canggih seperti 6 Airbags, Head Up Display, dan 360-degree Camera, memastikan keamanan ekstra saat melintasi jalanan perkotaan Jogja yang padat maupun saat bepergian ke luar kota. Jangan lewatkan promo spesial bulan ini dengan cicilan ringan, proses approval cepat, dan berbagai bonus aksesoris eksklusif. Hubungi Yusuf Suzuki sekarang untuk mengatur jadwal test drive langsung di rumah atau kantor Anda!",
@@ -110,22 +111,18 @@ export const cars: Car[] = [
     slug: "xl7",
     name: "Suzuki XL7",
     category: "SUV",
-    startingPrice: "Rp 274.000.000",
-    startingPriceNum: 274000000,
-    startingPriceAB: 274000000,
-    startingPriceAA: 285000000,
-    maxDiscount: 21000000,
+    startingPrice: "Rp 282.600.000",
+    startingPriceNum: 282600000,
+    startingPriceAB: 282600000,
+    startingPriceAA: 294100000,
+    maxDiscount: 16000000,
     variants: [
-      { name: "XL7 ZETA MT", priceAB: 274000000, priceAA: 285000000, discount: 21000000 },
-      { name: "XL7 ZETA AT", priceAB: 285000000, priceAA: 297000000, discount: 21000000 },
-      { name: "XL7 HYBRID BETA MT", priceAB: 301500000, priceAA: 313500000, discount: 21000000 },
-      { name: "XL7 HYBRID BETA AT", priceAB: 312500000, priceAA: 325500000, discount: 21000000 },
-      { name: "XL7 HYBRID ALPHA MT", priceAB: 312500000, priceAA: 325000000, discount: 21000000 },
-      { name: "XL7 HYBRID ALPHA MT (2 Tone)", priceAB: 314500000, priceAA: 327000000, discount: 21000000 },
-      { name: "XL7 HYBRID ALPHA AT", priceAB: 323500000, priceAA: 336500000, discount: 21000000 },
-      { name: "XL7 HYBRID ALPHA AT (2 Tone)", priceAB: 325500000, priceAA: 338500000, discount: 21000000 },
-      { name: "XL7 HYBRID ALPHA AT KURO", priceAB: 327500000, priceAA: 340500000, discount: 21000000 },
-      { name: "XL7 HYBRID ALPHA AT KURO (2 Tone)", priceAB: 329500000, priceAA: 342500000, discount: 21000000 }
+      { name: "XL7 ZETA MT", priceAB: 282600000, priceAA: 294100000, discount: 16000000 },
+      { name: "XL7 ZETA AT", priceAB: 293700000, priceAA: 305900000, discount: 16000000 },
+      { name: "XL7 HYBRID BETA MT", priceAB: 310800000, priceAA: 322700000, discount: 16000000 },
+      { name: "XL7 HYBRID BETA AT", priceAB: 321400000, priceAA: 334600000, discount: 16000000 },
+      { name: "XL7 HYBRID ALPHA AT", priceAB: 336100000, priceAA: 348900000, discount: 16000000 },
+      { name: "XL7 HYBRID ALPHA AT (2 Tone)", priceAB: 338100000, priceAA: 350900000, discount: 16000000 }
     ],
     monthlyInstallment: "Rp 3.500.000",
     description: "Cari mobil keluarga tangguh di Jogja? Suzuki XL7 adalah SUV 7 penumpang premium dengan kabin luas dan teknologi Smart Hybrid. Sangat nyaman untuk mobilitas harian di Yogyakarta maupun saat Anda merencanakan liburan jalan darat ke Bali atau luar pulau bersama keluarga tercinta. Dengan ground clearance tinggi, XL7 siap melibas berbagai kondisi jalan di DIY dan Jawa Tengah tanpa mengorbankan kenyamanan. Dilengkapi fitur unggulan seperti Smart E-Mirror, Cruise Control, dan sistem hiburan layar sentuh canggih, perjalanan jauh akan terasa jauh lebih menyenangkan. Mesin tangguh K15B yang dipadukan dengan teknologi SHVS menjamin efisiensi bahan bakar yang luar biasa. Konsultasikan kebutuhan kendaraan Anda bersama Yusuf, dapatkan simulasi cicilan paling terjangkau, garansi resmi, dan gratis biaya jasa servis.",
@@ -253,11 +250,11 @@ export const cars: Car[] = [
     startingPrice: "Rp 182.500.000",
     startingPriceNum: 182500000,
     startingPriceAB: 182500000,
-    startingPriceAA: 189400000, // <-- UPDATE AA
+    startingPriceAA: 189400000,
     maxDiscount: 16000000,
     variants: [
-      { name: "S-PRESSO MT", priceAB: 182500000, priceAA: 189400000, discount: 16000000 }, // <-- UPDATE AA
-      { name: "S-PRESSO AGS", priceAB: 193800000, priceAA: 201400000, discount: 16000000 } // <-- UPDATE AA
+      { name: "S-PRESSO MT", priceAB: 182500000, priceAA: 189400000, discount: 16000000 },
+      { name: "S-PRESSO AGS", priceAB: 193800000, priceAA: 201400000, discount: 16000000 }
     ],
     monthlyInstallment: "Rp 2.100.000",
     description: "Suzuki S-Presso adalah city car lincah bergaya SUV mini yang sangat cocok untuk bermanuver menembus kemacetan dan jalanan sempit di pusat kota Jogja. Selain sangat irit konsumsi BBM, mobil ini memiliki keunggulan ground clearance tinggi mencapai 180mm yang membuatnya aman melewati genangan air atau jalan bergelombang. Dimensinya yang ringkas memastikan S-Presso sangat mudah diparkir di area terbatas, baik itu di lingkungan kampus maupun area kafe yang padat pengunjung. Walaupun tampak mungil dari luar, ruang kabinnya didesain ergonomis dengan headroom yang tergolong lega dan telah dilengkapi fitur hiburan modern. Keselamatan berkendara pun terjamin berkat Dual SRS Airbags dan pengereman ABS+EBD. Dapatkan penawaran simulasi kredit Suzuki S-Presso dengan DP super ringan yang dirancang khusus untuk mahasiswa dan pekerja muda di Yogyakarta.",
@@ -416,10 +413,10 @@ export const cars: Car[] = [
     startingPrice: "Rp 186.000.000",
     startingPriceNum: 186000000,
     startingPriceAB: 186000000,
-    startingPriceAA: 193500000, // <-- UPDATE AA
+    startingPriceAA: 193500000,
     maxDiscount: 3000000,
     variants: [
-      { name: "APV BLIND VAN", priceAB: 186000000, priceAA: 193500000, discount: 3000000 }, // <-- UPDATE AA
+      { name: "APV BLIND VAN", priceAB: 186000000, priceAA: 193500000, discount: 3000000 },
       { name: "APV GE MT", priceAB: 227500000, priceAA: 236500000, discount: 3000000 },
       { name: "APV GL MT", priceAB: 235500000, priceAA: 245000000, discount: 3000000 },
       { name: "APV GX MT", priceAB: 249500000, priceAA: 259000000, discount: 3000000 },
