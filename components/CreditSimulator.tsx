@@ -2,7 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Calculator, MessageCircle, Info, Edit2, Copy, Check, Lock, Unlock } from "lucide-react";
+import {
+  Calculator,
+  MessageCircle,
+  Info,
+  Copy,
+  Check,
+  Lock,
+  Unlock,
+} from "lucide-react";
 import { cars } from "@/data/cars";
 import { formatCurrency, buildWhatsAppUrl } from "@/lib/utils";
 import leasingData from "@/data/leasingData.json";
@@ -15,9 +23,12 @@ const getOjkRate = (currentOtr: number) => {
 
 const hitungAsuransiKombi = (otr: number, tenorTahun: number) => {
   let totalPremi = 0;
+
   for (let tahun = 1; tahun <= tenorTahun; tahun++) {
     // @ts-ignore
-    const penyusutan = leasingData.depreciation[tahun.toString()] || 0.5;
+    const penyusutan =
+      leasingData.depreciation[tahun.toString()] || 0.5;
+
     const depreciatedOtr = otr * penyusutan;
     const rateOjk = getOjkRate(depreciatedOtr);
 
@@ -29,185 +40,447 @@ const hitungAsuransiKombi = (otr: number, tenorTahun: number) => {
       }
     }
   }
-  return totalPremi + (leasingData.flatFeePerYear * tenorTahun);
+
+  return totalPremi + leasingData.flatFeePerYear * tenorTahun;
 };
 
 interface CreditSimulatorProps {
   defaultCarSlug?: string;
 }
 
-export default function CreditSimulator({ defaultCarSlug }: CreditSimulatorProps) {
-  const [selectedSlug, setSelectedSlug] = useState(defaultCarSlug ?? cars[0].slug);
+export default function CreditSimulator({
+  defaultCarSlug,
+}: CreditSimulatorProps) {
+  const [selectedSlug, setSelectedSlug] = useState(
+    defaultCarSlug ?? cars[0].slug
+  );
+
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(0);
+
   const [region, setRegion] = useState<"AB" | "AA">("AB");
-  const [paymentType, setPaymentType] = useState<"ADDM" | "ADDB">("ADDB");
-  
+
+  const [paymentType, setPaymentType] = useState<
+    "ADDM" | "ADDB"
+  >("ADDB");
+
   // STATE BARU: Fokus pada DP Bayar & Diskon Dinamis
-  const [hargaMobil, setHargaMobil] = useState(0); 
-  const [dpBayar, setDpBayar] = useState(20000000); // Input utama customer
-  const [diskon, setDiskon] = useState(0); // Ditarik otomatis dari data
-  
-  const [uping, setUping] = useState(1.0); 
+  const [hargaMobil, setHargaMobil] = useState(0);
+
+  const [dpBayar, setDpBayar] = useState(20000000);
+
+  const [diskon, setDiskon] = useState(0);
+
+  const [uping, setUping] = useState(1.0);
+
   const [tenor, setTenor] = useState(60);
-  
-  const [result, setResult] = useState({ 
-    uangMukaAsli: 0, 
-    cicilan: 0, 
+
+  const [result, setResult] = useState({
+    uangMukaAsli: 0,
+    cicilan: 0,
     tdpKotor: 0,
-    pokokUtang: 0
+    pokokUtang: 0,
   });
 
   const [isCopied, setIsCopied] = useState(false);
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [isUnlocked, setIsUnlocked] = useState(false);
+
+  const [showAdvanced, setShowAdvanced] =
+    useState(false);
+
+  const [isUnlocked, setIsUnlocked] =
+    useState(false);
+
   const [pinInput, setPinInput] = useState("");
-  const [pinError, setPinError] = useState(false);
+
+  const [pinError, setPinError] =
+    useState(false);
 
   const biayaFidusia = 503000;
-  const biayaAdminPH = 6300000; 
-  const provisiRate = 0.01; 
 
-  const currentCar = cars.find((c) => c.slug === selectedSlug);
+  const biayaAdminPH = 6300000;
+
+  const provisiRate = 0.01;
+
+  const currentCar = cars.find(
+    (c) => c.slug === selectedSlug
+  );
+
   // @ts-ignore
   const currentVariants = currentCar?.variants || [];
-  const currentVariantName = currentVariants.length > 0 ? currentVariants[selectedVariantIndex]?.name : "";
 
-  // 1. EFEK PERGANTIAN MOBIL: Otomatis Menarik Harga & Diskon Varian
+  const currentVariantName =
+    currentVariants.length > 0
+      ? currentVariants[selectedVariantIndex]?.name
+      : "";
+
+  // =====================================================
+  // 1. EFEK PERGANTIAN MOBIL
+  // =====================================================
+
   useEffect(() => {
     if (currentCar) {
       let newHarga = 0;
       let newDiskon = 0;
-      
-      if (currentVariants.length > 0 && currentVariants[selectedVariantIndex]) {
-        const variant = currentVariants[selectedVariantIndex];
-        newHarga = region === "AB" ? variant.priceAB : variant.priceAA;
+
+      if (
+        currentVariants.length > 0 &&
+        currentVariants[selectedVariantIndex]
+      ) {
+        const variant =
+          currentVariants[selectedVariantIndex];
+
+        newHarga =
+          region === "AB"
+            ? variant.priceAB
+            : variant.priceAA;
+
         newDiskon = variant.discount || 0;
       } else {
         newHarga = currentCar.startingPriceNum;
-        newDiskon = currentCar.maxDiscount || 0;
+
+        newDiskon =
+          currentCar.maxDiscount || 0;
       }
-      
+
       setHargaMobil(newHarga);
+
       setDiskon(newDiskon);
 
-      // Pastikan saat mobil berganti, TDP tidak di bawah 15%
-      const currentTdp = dpBayar + newDiskon;
-      const minTdp = newHarga * 0.15;
+      // Pastikan saat mobil berganti,
+      // TDP tidak di bawah 15%
+      const currentTdp =
+        dpBayar + newDiskon;
+
+      const minTdp =
+        newHarga * 0.15;
+
       if (currentTdp < minTdp) {
-        const adjustedDp = minTdp - newDiskon;
-        setDpBayar(adjustedDp > 0 ? Math.round(adjustedDp) : 0);
+        const adjustedDp =
+          minTdp - newDiskon;
+
+        setDpBayar(
+          adjustedDp > 0
+            ? Math.round(adjustedDp)
+            : 0
+        );
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedSlug, selectedVariantIndex, region]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    selectedSlug,
+    selectedVariantIndex,
+    region,
+  ]);
+
+  // =====================================================
   // 2. EFEK KALKULATOR KREDIT UTAMA
+  // =====================================================
+
   useEffect(() => {
     if (hargaMobil === 0) return;
 
-    const tenorTahun = tenor / 12;
-    const tdpKotor = dpBayar + diskon; 
-    
-    // @ts-ignore
-    const rateBungaDasarString = paymentType === "ADDM" 
-      // @ts-ignore
-      ? leasingData.interestRates.PASS_DP_RINGAN_ADDM[tenorTahun.toString()] 
-      // @ts-ignore
-      : leasingData.interestRates.PASS_DP_RINGAN_ADDB[tenorTahun.toString()];
-    
-    let rateBungaDasar = Number(rateBungaDasarString) / 100;
+    const tenorTahun =
+      tenor / 12;
 
-    if (selectedSlug.toLowerCase().includes("carry")) {
-      rateBungaDasar += 0.02; 
+    const tdpKotor =
+      dpBayar + diskon;
+
+    // @ts-ignore
+    const rateBungaDasarString =
+      paymentType === "ADDM"
+        ? // @ts-ignore
+          leasingData.interestRates
+            .PASS_DP_RINGAN_ADDM[
+            tenorTahun.toString()
+          ]
+        : // @ts-ignore
+          leasingData.interestRates
+            .PASS_DP_RINGAN_ADDB[
+            tenorTahun.toString()
+          ];
+
+    let rateBungaDasar =
+      Number(rateBungaDasarString) / 100;
+
+    if (
+      selectedSlug
+        .toLowerCase()
+        .includes("carry")
+    ) {
+      rateBungaDasar += 0.02;
     }
 
-    const bungaJual = rateBungaDasar + (uping / 100);
-    const asuransiPH = hitungAsuransiKombi(hargaMobil, tenorTahun);
+    const bungaJual =
+      rateBungaDasar +
+      uping / 100;
+
+    const asuransiPH =
+      hitungAsuransiKombi(
+        hargaMobil,
+        tenorTahun
+      );
+
     let angsuranBulat = 0;
 
+    // =================================================
+    // ADDB
+    // =================================================
+
     if (paymentType === "ADDB") {
-      let uangMuka = tdpKotor - biayaFidusia;
-      let ph = hargaMobil - uangMuka;
-      let tph = ph + (ph * provisiRate) + asuransiPH + biayaAdminPH;
-      
-      let nilaiKredit = tph * (1 + (bungaJual * tenorTahun));
-      let angsuranRaw = nilaiKredit / tenor;
-      angsuranBulat = Math.round(angsuranRaw / 1000) * 1000;
-      
-    } else if (paymentType === "ADDM") {
-      const C = ((1 + provisiRate) * (1 + (bungaJual * tenorTahun))) / tenor;
-      const angsuranRaw = (((hargaMobil - tdpKotor + biayaFidusia) * (1 + provisiRate) + asuransiPH + biayaAdminPH) * (1 + (bungaJual * tenorTahun)) / tenor) / (1 - C);
-      angsuranBulat = Math.round(angsuranRaw / 1000) * 1000;
+      const uangMuka =
+        tdpKotor -
+        biayaFidusia;
+
+      const ph =
+        hargaMobil -
+        uangMuka;
+
+      const tph =
+        ph +
+        ph * provisiRate +
+        asuransiPH +
+        biayaAdminPH;
+
+      const nilaiKredit =
+        tph *
+        (1 +
+          bungaJual *
+            tenorTahun);
+
+      const angsuranRaw =
+        nilaiKredit /
+        tenor;
+
+      angsuranBulat =
+        Math.round(
+          angsuranRaw / 1000
+        ) * 1000;
     }
 
-    let uangMukaFinal = tdpKotor - biayaFidusia - (paymentType === "ADDM" ? angsuranBulat : 0);
-    let pokokHutangFinal = hargaMobil - uangMukaFinal;
-    let provisiFinal = pokokHutangFinal * provisiRate;
-    let tphFinal = pokokHutangFinal + provisiFinal + asuransiPH + biayaAdminPH;
+    // =================================================
+    // ADDM
+    // =================================================
 
-    setResult({ 
-      uangMukaAsli: uangMukaFinal, 
-      cicilan: angsuranBulat, 
-      tdpKotor: tdpKotor,
-      pokokUtang: tphFinal
+    else if (paymentType === "ADDM") {
+      const C =
+        ((1 + provisiRate) *
+          (1 +
+            bungaJual *
+              tenorTahun)) /
+        tenor;
+
+      const angsuranRaw =
+        (((hargaMobil -
+          tdpKotor +
+          biayaFidusia) *
+          (1 + provisiRate) +
+          asuransiPH +
+          biayaAdminPH) *
+          (1 +
+            bungaJual *
+              tenorTahun) /
+          tenor) /
+        (1 - C);
+
+      angsuranBulat =
+        Math.round(
+          angsuranRaw / 1000
+        ) * 1000;
+    }
+
+    const uangMukaFinal =
+      tdpKotor -
+      biayaFidusia -
+      (paymentType === "ADDM"
+        ? angsuranBulat
+        : 0);
+
+    const pokokHutangFinal =
+      hargaMobil -
+      uangMukaFinal;
+
+    const provisiFinal =
+      pokokHutangFinal *
+      provisiRate;
+
+    const tphFinal =
+      pokokHutangFinal +
+      provisiFinal +
+      asuransiPH +
+      biayaAdminPH;
+
+    setResult({
+      uangMukaAsli:
+        uangMukaFinal,
+
+      cicilan:
+        angsuranBulat,
+
+      tdpKotor:
+        tdpKotor,
+
+      pokokUtang:
+        tphFinal,
     });
+  }, [
+    hargaMobil,
+    dpBayar,
+    diskon,
+    tenor,
+    paymentType,
+    uping,
+    selectedSlug,
+  ]);
 
-  }, [hargaMobil, dpBayar, diskon, tenor, paymentType, uping, selectedSlug]);
+  // =====================================================
+  // INPUT NOMINAL
+  // =====================================================
 
-  const handleNumChange = (setter: any) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setter(Number(e.target.value.replace(/[^0-9]/g, "")));
+  const handleNumChange =
+    (setter: any) =>
+    (
+      e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+      setter(
+        Number(
+          e.target.value.replace(
+            /[^0-9]/g,
+            ""
+          )
+        )
+      );
+    };
+
+  // =====================================================
+  // GANTI MOBIL
+  // =====================================================
+
+  const handleCarChange = (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedSlug(
+      e.target.value
+    );
+
+    setSelectedVariantIndex(0);
   };
 
-  const handleCarChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedSlug(e.target.value);
-    setSelectedVariantIndex(0); 
-  };
+  // =====================================================
+  // COPY HASIL
+  // =====================================================
 
-  const handleCopyText = async () => {
-    const formatAngka = (num: number) => new Intl.NumberFormat('id-ID').format(num);
-    const baseCarName = currentCar?.name.replace(/Suzuki /i, "") || ""; 
-    const variantName = currentVariantName || "";
-    
-    let finalTitle = baseCarName;
-    if (variantName) {
-      if (variantName.toLowerCase().includes(baseCarName.toLowerCase())) {
-        finalTitle = variantName; 
-      } else {
-        finalTitle = `${baseCarName} ${variantName}`; 
+  const handleCopyText =
+    async () => {
+      const formatAngka = (
+        num: number
+      ) =>
+        new Intl.NumberFormat(
+          "id-ID"
+        ).format(num);
+
+      const baseCarName =
+        currentCar?.name.replace(
+          /Suzuki /i,
+          ""
+        ) || "";
+
+      const variantName =
+        currentVariantName || "";
+
+      let finalTitle =
+        baseCarName;
+
+      if (variantName) {
+        if (
+          variantName
+            .toLowerCase()
+            .includes(
+              baseCarName.toLowerCase()
+            )
+        ) {
+          finalTitle =
+            variantName;
+        } else {
+          finalTitle = `${baseCarName} ${variantName}`;
+        }
       }
-    }
-    finalTitle = finalTitle.toUpperCase();
 
-    const textToCopy = 
-`${finalTitle}
+      finalTitle =
+        finalTitle.toUpperCase();
+
+      const textToCopy = `${finalTitle}
 OTR ${formatAngka(hargaMobil)}
 DP Bayar ${formatAngka(dpBayar)}
 Angsuran ${formatAngka(result.cicilan)} x ${tenor}`;
 
-    try {
-      await navigator.clipboard.writeText(textToCopy);
-      setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2500); 
-    } catch (err) {
-      console.error("Gagal menyalin teks: ", err);
-    }
-  };
+      try {
+        await navigator.clipboard.writeText(
+          textToCopy
+        );
 
-  const handlePinSubmit = (e: React.FormEvent) => {
+        setIsCopied(true);
+
+        setTimeout(
+          () =>
+            setIsCopied(false),
+          2500
+        );
+      } catch (err) {
+        console.error(
+          "Gagal menyalin teks: ",
+          err
+        );
+      }
+    };
+
+  // =====================================================
+  // PIN ADVANCED
+  // =====================================================
+
+  const handlePinSubmit = (
+    e: React.FormEvent
+  ) => {
     e.preventDefault();
-    if (pinInput === "123456") {
+
+    if (
+      pinInput === "123456"
+    ) {
       setIsUnlocked(true);
+
       setPinError(false);
+
       setPinInput("");
     } else {
       setPinError(true);
     }
   };
 
-  let waCarTitle = currentCar?.name || "";
-  if (currentVariantName && !currentVariantName.toLowerCase().includes((currentCar?.name || "").replace(/Suzuki /i, "").toLowerCase())) {
+  // =====================================================
+  // WHATSAPP
+  // =====================================================
+
+  let waCarTitle =
+    currentCar?.name || "";
+
+  if (
+    currentVariantName &&
+    !currentVariantName
+      .toLowerCase()
+      .includes(
+        (
+          currentCar?.name || ""
+        )
+          .replace(
+            /Suzuki /i,
+            ""
+          )
+          .toLowerCase()
+      )
+  ) {
     waCarTitle += ` (${currentVariantName})`;
-  } else if (currentVariantName) {
+  } else if (
+    currentVariantName
+  ) {
     waCarTitle = `Suzuki ${currentVariantName}`;
   }
 
@@ -220,312 +493,857 @@ Angsuran ${formatAngka(result.cicilan)} x ${tenor}`;
 - Angsuran: ${formatCurrency(result.cicilan)}/bln
 Mohon info persyaratannya.`;
 
-  // Kalkulasi % TDP untuk tampilan Slider
-  const tdpPct = hargaMobil > 0 ? ((dpBayar + diskon) / hargaMobil) * 100 : 0;
+  // Kalkulasi persentase TDP untuk slider
+  const tdpPct =
+    hargaMobil > 0
+      ? ((dpBayar +
+          diskon) /
+          hargaMobil) *
+        100
+      : 0;
 
   return (
     <div className="motion-pop motion-shine bg-white rounded-none border border-gray-200 shadow-2xl overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-12">
-        
-        {/* Sisi Kiri: Inputs */}
+
+        {/* ================================================= */}
+        {/* SISI KIRI: INPUT */}
+        {/* ================================================= */}
+
         <div className="lg:col-span-7 p-6 md:p-10 border-b lg:border-b-0 lg:border-r border-gray-100 flex flex-col">
+
+          {/* HEADER */}
+
           <div className="flex items-center justify-between mb-10">
+
             <div className="flex items-center gap-4">
+
               <div className="motion-icon-float w-12 h-12 bg-gray-900 flex items-center justify-center text-white shrink-0">
-                <Calculator size={24} strokeWidth={1.5} />
+                <Calculator
+                  size={24}
+                  strokeWidth={1.5}
+                />
               </div>
+
               <div>
-                <h3 className="font-black text-gray-900 text-xl uppercase tracking-tighter">Simulasi Kredit</h3>
-                <p className="text-gray-400 text-xs uppercase tracking-widest font-bold">Standard Kombi 1TH</p>
+                <h3 className="font-black text-gray-900 text-xl uppercase tracking-tighter">
+                  Simulasi Kredit
+                </h3>
+
+                <p className="text-gray-400 text-xs uppercase tracking-widest font-bold">
+                  Standard Kombi 1TH
+                </p>
               </div>
             </div>
+
+            {/* ADDM / ADDB */}
+
             <div className="flex bg-gray-100 rounded-md p-1">
+
               <button
-                onClick={() => setPaymentType("ADDM")}
+                onClick={() =>
+                  setPaymentType(
+                    "ADDM"
+                  )
+                }
                 className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-sm transition-all ${
-                  paymentType === "ADDM" ? "bg-white shadow text-gray-900" : "text-gray-400 hover:text-gray-900"
+                  paymentType ===
+                  "ADDM"
+                    ? "bg-white shadow text-gray-900"
+                    : "text-gray-400 hover:text-gray-900"
                 }`}
               >
                 ADDM
               </button>
+
               <button
-                onClick={() => setPaymentType("ADDB")}
+                onClick={() =>
+                  setPaymentType(
+                    "ADDB"
+                  )
+                }
                 className={`px-4 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-sm transition-all ${
-                  paymentType === "ADDB" ? "bg-white shadow text-gray-900" : "text-gray-400 hover:text-gray-900"
+                  paymentType ===
+                  "ADDB"
+                    ? "bg-white shadow text-gray-900"
+                    : "text-gray-400 hover:text-gray-900"
                 }`}
               >
                 ADDB
               </button>
+
             </div>
           </div>
 
+          {/* INPUT AREA */}
+
           <div className="space-y-6 flex-grow">
+
+            {/* UNIT / VARIANT / REGION */}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+              {/* UNIT */}
+
               <div className="sm:col-span-2">
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Unit Kendaraan</label>
+
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">
+                  Unit Kendaraan
+                </label>
+
                 <select
-                  value={selectedSlug}
-                  onChange={handleCarChange}
+                  value={
+                    selectedSlug
+                  }
+                  onChange={
+                    handleCarChange
+                  }
                   className="w-full border-b-2 border-gray-200 bg-transparent py-2 text-base font-bold text-gray-900 focus:outline-none focus:border-gray-900 transition-colors appearance-none cursor-pointer"
                 >
-                  {cars.map((c) => (
-                    <option key={c.slug} value={c.slug}>{c.name.toUpperCase()}</option>
-                  ))}
+                  {cars.map(
+                    (c) => (
+                      <option
+                        key={
+                          c.slug
+                        }
+                        value={
+                          c.slug
+                        }
+                      >
+                        {c.name.toUpperCase()}
+                      </option>
+                    )
+                  )}
                 </select>
+
               </div>
 
-              {currentVariants.length > 0 && (
+              {/* VARIAN */}
+
+              {currentVariants.length >
+                0 && (
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Tipe / Varian</label>
+
+                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">
+                    Tipe / Varian
+                  </label>
+
                   <select
-                    value={selectedVariantIndex}
-                    onChange={(e) => setSelectedVariantIndex(Number(e.target.value))}
+                    value={
+                      selectedVariantIndex
+                    }
+                    onChange={(
+                      e
+                    ) =>
+                      setSelectedVariantIndex(
+                        Number(
+                          e
+                            .target
+                            .value
+                        )
+                      )
+                    }
                     className="w-full border-b-2 border-gray-200 bg-transparent py-2 text-base font-bold text-gray-900 focus:outline-none focus:border-gray-900 transition-colors appearance-none cursor-pointer"
                   >
-                    {currentVariants.map((v: any, idx: number) => (
-                      <option key={idx} value={idx}>{v.name.toUpperCase()}</option>
-                    ))}
+                    {currentVariants.map(
+                      (
+                        v: any,
+                        idx: number
+                      ) => (
+                        <option
+                          key={
+                            idx
+                          }
+                          value={
+                            idx
+                          }
+                        >
+                          {v.name.toUpperCase()}
+                        </option>
+                      )
+                    )}
                   </select>
+
                 </div>
               )}
 
-              {currentVariants.length > 0 && (
+              {/* WILAYAH */}
+
+              {currentVariants.length >
+                0 && (
                 <div>
-                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">Wilayah OTR</label>
+
+                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">
+                    Wilayah OTR
+                  </label>
+
                   <select
-                    value={region}
-                    onChange={(e) => setRegion(e.target.value as "AB" | "AA")}
+                    value={
+                      region
+                    }
+                    onChange={(
+                      e
+                    ) =>
+                      setRegion(
+                        e.target
+                          .value as
+                          | "AB"
+                          | "AA"
+                      )
+                    }
                     className="w-full border-b-2 border-gray-200 bg-transparent py-2 text-base font-bold text-gray-900 focus:outline-none focus:border-gray-900 transition-colors appearance-none cursor-pointer"
                   >
-                    <option value="AB">PLAT AB (JOGJA)</option>
-                    <option value="AA">PLAT AA (KEDU/MAGELANG)</option>
+                    <option value="AB">
+                      PLAT AB
+                      (JOGJA)
+                    </option>
+
+                    <option value="AA">
+                      PLAT AA
+                      (KEDU/MAGELANG)
+                    </option>
+
                   </select>
+
                 </div>
               )}
+
             </div>
 
+            {/* HARGA + DP */}
+
             <div className="grid grid-cols-1 gap-6 pt-2">
+
+              {/* HARGA OTR */}
+
               <div className="relative">
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Harga OTR</label>
+
+                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">
+                  Harga OTR
+                </label>
+
                 <div className="flex items-center border-b-2 border-gray-200 focus-within:border-gray-900 transition-colors">
-                  <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
-                  <input type="text" value={hargaMobil === 0 ? "" : new Intl.NumberFormat('id-ID').format(hargaMobil)} onChange={handleNumChange(setHargaMobil)} className="w-full bg-transparent py-2 text-lg font-black text-gray-900 focus:outline-none" />
+
+                  <span className="text-sm font-bold text-gray-400 mr-2 py-2">
+                    Rp
+                  </span>
+
+                  <input
+                    type="text"
+                    value={
+                      hargaMobil ===
+                      0
+                        ? ""
+                        : new Intl.NumberFormat(
+                            "id-ID"
+                          ).format(
+                            hargaMobil
+                          )
+                    }
+                    onChange={handleNumChange(
+                      setHargaMobil
+                    )}
+                    className="w-full bg-transparent py-2 text-lg font-black text-gray-900 focus:outline-none"
+                  />
+
                 </div>
               </div>
 
-              {/* ========================================== */}
-              {/* AREA INPUT DP BAYAR HIGHLIGHTED (UI BARU)  */}
-              {/* ========================================== */}
+              {/* ================================================= */}
+              {/* DP BAYAR */}
+              {/* ================================================= */}
+
               <div className="bg-red-50/50 p-4 md:p-6 border-2 border-red-100 rounded-lg relative mt-2">
+
                 <div className="flex justify-between items-end mb-2">
-                  <label className="block text-xs md:text-sm font-black uppercase tracking-[0.2em] text-red-600">Masukkan DP</label>
-                  <span className="text-[10px] font-black text-red-900 bg-red-100 px-2 py-1 rounded-sm">Total DP (TDP): {tdpPct.toFixed(2)}%</span>
+
+                  <label className="block text-xs md:text-sm font-black uppercase tracking-[0.2em] text-red-600">
+                    Masukkan DP
+                  </label>
+
+                  <span className="text-[10px] font-black text-red-900 bg-red-100 px-2 py-1 rounded-sm">
+                    Total DP
+                    (TDP):{" "}
+                    {tdpPct.toFixed(
+                      2
+                    )}
+                    %
+                  </span>
+
                 </div>
+
                 <div className="flex items-center border-b-2 border-red-200 focus-within:border-red-600 transition-colors mt-2">
-                  <span className="text-xl md:text-2xl font-bold text-red-400 mr-3 py-2">Rp</span>
-                  <input 
-                    type="text" 
-                    value={dpBayar === 0 ? "" : new Intl.NumberFormat('id-ID').format(dpBayar)} 
-                    onChange={handleNumChange(setDpBayar)}
+
+                  <span className="text-xl md:text-2xl font-bold text-red-400 mr-3 py-2">
+                    Rp
+                  </span>
+
+                  <input
+                    type="text"
+                    value={
+                      dpBayar === 0
+                        ? ""
+                        : new Intl.NumberFormat(
+                            "id-ID"
+                          ).format(
+                            dpBayar
+                          )
+                    }
+                    onChange={handleNumChange(
+                      setDpBayar
+                    )}
                     onBlur={() => {
-                      // Validasi agar Total DP tidak kurang dari 15% dari OTR
-                      const minTdp = hargaMobil * 0.15;
-                      if ((dpBayar + diskon) < minTdp) {
-                        setDpBayar(minTdp - diskon > 0 ? (minTdp - diskon) : 0);
+                      const minTdp =
+                        hargaMobil *
+                        0.15;
+
+                      if (
+                        dpBayar +
+                          diskon <
+                        minTdp
+                      ) {
+                        setDpBayar(
+                          minTdp -
+                            diskon >
+                            0
+                            ? minTdp -
+                                diskon
+                            : 0
+                        );
                       }
                     }}
-                    className="w-full bg-transparent py-2 text-2xl md:text-4xl font-black text-red-600 focus:outline-none placeholder-red-200" 
+                    className="w-full bg-transparent py-2 text-2xl md:text-4xl font-black text-red-600 focus:outline-none placeholder-red-200"
                     placeholder="0"
                   />
+
                 </div>
-                {/* SLIDER mengontrol persentase TDP kotor, tapi mengubah nominal DP Bayar */}
+
+                {/* SLIDER DP */}
+
                 <input
-                  type="range" min={15} max={100} step={1} value={Math.max(15, Math.min(100, tdpPct))}
-                  onChange={(e) => {
-                    const newPct = Number(e.target.value);
-                    const newTdpNominal = hargaMobil * (newPct / 100);
-                    setDpBayar(newTdpNominal - diskon > 0 ? newTdpNominal - diskon : 0);
+                  type="range"
+                  min={15}
+                  max={100}
+                  step={1}
+                  value={Math.max(
+                    15,
+                    Math.min(
+                      100,
+                      tdpPct
+                    )
+                  )}
+                  onChange={(
+                    e
+                  ) => {
+                    const newPct =
+                      Number(
+                        e.target
+                          .value
+                      );
+
+                    const newTdpNominal =
+                      hargaMobil *
+                      (newPct /
+                        100);
+
+                    setDpBayar(
+                      newTdpNominal -
+                        diskon >
+                        0
+                        ? newTdpNominal -
+                            diskon
+                        : 0
+                    );
                   }}
                   className="w-full h-2 bg-red-200 rounded-lg accent-red-600 appearance-none cursor-pointer mt-6"
                 />
+
               </div>
-              {/* ========================================== */}
 
             </div>
 
-            <div className="pt-4">
-              <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4">Jangka Waktu</label>
-              <div className="grid grid-cols-5 gap-2">
-                {[12, 24, 36, 48, 60].map((t) => (
-                  <button
-                    key={t} onClick={() => setTenor(t)}
-                    className={`py-3 text-xs font-black transition-all border ${
-                      tenor === t ? "bg-gray-900 border-gray-900 text-white" : "border-gray-200 text-gray-400 hover:border-gray-900 hover:text-gray-900"
-                    }`}
-                  >
-                    {t/12} THN
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
-
-          {/* --- AREA FITUR ADVANCED --- */}
-          <div className="pt-8 mt-8 border-t border-gray-100">
-            {!isUnlocked ? (
-              <div>
-                {!showAdvanced ? (
-                  <button
-                    onClick={() => setShowAdvanced(true)}
-                    className="text-[9px] font-bold text-gray-400 hover:text-gray-800 uppercase tracking-widest flex items-center gap-1.5 transition-colors"
-                  >
-                    <Lock size={12} strokeWidth={2.5} /> Buka Pengaturan Lanjutan
-                  </button>
-                ) : (
-                  <form onSubmit={handlePinSubmit} className="flex flex-col gap-2 max-w-[200px]">
-                    <label className="text-[9px] font-black uppercase tracking-widest text-gray-500">Masukkan PIN</label>
-                    <div className="flex gap-2">
-                      <input
-                        type="password"
-                        value={pinInput}
-                        onChange={(e) => { setPinInput(e.target.value); setPinError(false); }}
-                        className={`w-full border-b-2 py-1.5 text-xs font-bold bg-transparent focus:outline-none transition-colors ${
-                          pinError ? "border-red-500 text-red-500" : "border-gray-300 focus:border-gray-900"
-                        }`}
-                        placeholder="******"
-                        autoFocus
-                      />
-                      <button type="submit" className="bg-gray-900 text-white px-3 text-[10px] font-bold rounded-sm hover:bg-black">
-                        OK
-                      </button>
-                    </div>
-                    {pinError && <span className="text-[9px] text-red-500 font-bold uppercase tracking-wider">PIN Salah!</span>}
-                  </form>
-                )}
-              </div>
-            ) : (
-              <div className="bg-gray-50 p-4 border border-gray-200 relative">
-                <button 
-                  onClick={() => setIsUnlocked(false)} 
-                  className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors"
-                  title="Kunci kembali"
-                >
-                  <Unlock size={14} />
-                </button>
-                
-                <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-900 mb-6">Pengaturan Advanced</label>
-                
-                <div className="max-w-[280px] space-y-6">
-                  {/* PENGATURAN UPPING */}
-                  <div>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">Upping / Subsidi Bunga (%)</span>
-                      <span className="text-sm font-black text-gray-900">{uping.toFixed(1)}%</span>
-                    </div>
-                    <input
-                      type="range" min={-2} max={5} step={0.1} value={uping}
-                      onChange={(e) => setUping(Number(e.target.value))}
-                      className="w-full h-1.5 bg-gray-200 accent-gray-900 appearance-none cursor-pointer"
-                    />
-                    <div className="flex justify-between mt-1">
-                      <span className="text-[9px] text-gray-400 font-bold">-2%</span>
-                      <span className="text-[9px] text-gray-400 font-bold">5%</span>
-                    </div>
-                  </div>
-
-                  {/* INPUT DISKON UNIT (DIPINDAHKAN KE SINI) */}
-                  <div className="relative flex flex-col">
-                    <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-green-600 mb-2">Diskon Unit / Subsidi</label>
-                    <div className="flex items-center border-b-2 border-green-200 focus-within:border-green-600 transition-colors">
-                      <span className="text-sm font-bold text-gray-400 mr-2 py-2">Rp</span>
-                      <input type="text" value={diskon === 0 ? "" : new Intl.NumberFormat('id-ID').format(diskon)} onChange={handleNumChange(setDiskon)} className="w-full bg-transparent py-2 text-base font-black text-green-900 focus:outline-none" />
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            )}
-          </div>
-          {/* --- END AREA FITUR ADVANCED --- */}
 
         </div>
 
-        {/* Sisi Kanan: Hasil Kalkulasi */}
+        {/* ================================================= */}
+        {/* SISI KANAN: HASIL */}
+        {/* ================================================= */}
+
         <div className="lg:col-span-5 bg-gray-50 p-6 md:p-10 flex flex-col">
+
+          {/* ESTIMASI ANGSURAN */}
+
           <div className="mb-6">
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Estimasi Angsuran</p>
+
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">
+              Estimasi Angsuran
+            </p>
+
             <AnimatePresence mode="wait">
-              <motion.p 
-                key={result.cicilan}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
+
+              <motion.p
+                key={
+                  result.cicilan
+                }
+                initial={{
+                  opacity: 0,
+                  y: 10,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
                 className="text-4xl md:text-4xl xl:text-5xl font-black text-gray-900 tracking-tighter"
               >
-                {formatCurrency(result.cicilan)}<span className="text-base md:text-sm xl:text-lg text-gray-400 ml-1 font-bold">/BLN</span>
+                {formatCurrency(
+                  result.cicilan
+                )}
+
+                <span className="text-base md:text-sm xl:text-lg text-gray-400 ml-1 font-bold">
+                  /BLN
+                </span>
+
               </motion.p>
+
             </AnimatePresence>
+
           </div>
+
+          {/* DETAIL HASIL */}
 
           <div className="space-y-3 mb-6 flex-grow">
+
+            {/* HARGA OTR */}
+
             <div className="flex justify-between py-2 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Harga OTR</span>
-              <span className="text-xs font-black text-gray-900">{formatCurrency(hargaMobil)}</span>
+
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                Harga OTR
+              </span>
+
+              <span className="text-xs font-black text-gray-900">
+                {formatCurrency(
+                  hargaMobil
+                )}
+              </span>
+
             </div>
-            
+
+            {/* DP BAYAR */}
+
             <div className="flex justify-between py-2 border-b border-gray-200 bg-red-50/50 px-2 -mx-2 rounded-sm">
-              <span className="text-[10px] font-bold text-red-600 uppercase tracking-widest">DP Bayar</span>
-              <span className="text-xs font-black text-red-600">{formatCurrency(dpBayar)}</span>
+
+              <span className="text-[10px] font-bold text-red-600 uppercase tracking-widest">
+                DP Bayar
+              </span>
+
+              <span className="text-xs font-black text-red-600">
+                {formatCurrency(
+                  dpBayar
+                )}
+              </span>
+
             </div>
+
+            {/* SUBSIDI DEALER */}
+
             <div className="flex justify-between py-2 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">+ Subsidi Dealer</span>
-              <span className="text-xs font-black text-green-600">{formatCurrency(diskon)}</span>
+
+              <span className="text-[10px] font-bold text-green-600 uppercase tracking-widest">
+                + Subsidi Dealer
+              </span>
+
+              <span className="text-xs font-black text-green-600">
+                {formatCurrency(
+                  diskon
+                )}
+              </span>
+
             </div>
+
+            {/* TOTAL DP */}
+
             <div className="flex justify-between py-2 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">= Total DP (TDP)</span>
-              <span className="text-xs font-black text-gray-900">{formatCurrency(result.tdpKotor)}</span>
+
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                = Total DP (TDP)
+              </span>
+
+              <span className="text-xs font-black text-gray-900">
+                {formatCurrency(
+                  result.tdpKotor
+                )}
+              </span>
+
             </div>
-            
+
+            {/* POKOK HUTANG */}
+
             <div className="flex justify-between py-2 border-b border-gray-200">
-              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Pokok Hutang</span>
-              <span className="text-xs font-black text-gray-900">{formatCurrency(result.pokokUtang)}</span>
+
+              <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                Pokok Hutang
+              </span>
+
+              <span className="text-xs font-black text-gray-900">
+                {formatCurrency(
+                  result.pokokUtang
+                )}
+              </span>
+
             </div>
+
+            {/* ================================================= */}
+            {/* JANGKA WAKTU */}
+            {/* DIPINDAHKAN KE SISI KANAN */}
+            {/* ================================================= */}
+
+            <div className="pt-5">
+
+              <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-3">
+                Jangka Waktu
+              </label>
+
+              <div className="grid grid-cols-5 gap-2">
+
+                {[
+                  12,
+                  24,
+                  36,
+                  48,
+                  60,
+                ].map((t) => (
+                  <button
+                    key={t}
+                    onClick={() =>
+                      setTenor(t)
+                    }
+                    className={`py-2.5 text-[10px] font-black transition-all border ${
+                      tenor === t
+                        ? "bg-gray-900 border-gray-900 text-white"
+                        : "border-gray-200 text-gray-400 hover:border-gray-900 hover:text-gray-900"
+                    }`}
+                  >
+                    {t / 12} THN
+                  </button>
+                ))}
+
+              </div>
+
+            </div>
+
+            {/* ================================================= */}
+            {/* ADVANCED SETTINGS */}
+            {/* DIPINDAHKAN KE SISI KANAN */}
+            {/* ================================================= */}
+
+            <div className="pt-5 mt-2 border-t border-gray-200">
+
+              {!isUnlocked ? (
+                <div>
+
+                  {!showAdvanced ? (
+                    <button
+                      onClick={() =>
+                        setShowAdvanced(
+                          true
+                        )
+                      }
+                      className="text-[9px] font-bold text-gray-400 hover:text-gray-800 uppercase tracking-widest flex items-center gap-1.5 transition-colors"
+                    >
+                      <Lock
+                        size={12}
+                        strokeWidth={
+                          2.5
+                        }
+                      />
+
+                      Buka Pengaturan
+                      Lanjutan
+                    </button>
+                  ) : (
+                    <form
+                      onSubmit={
+                        handlePinSubmit
+                      }
+                      className="flex flex-col gap-2 max-w-[220px]"
+                    >
+
+                      <label className="text-[9px] font-black uppercase tracking-widest text-gray-500">
+                        Masukkan PIN
+                      </label>
+
+                      <div className="flex gap-2">
+
+                        <input
+                          type="password"
+                          value={
+                            pinInput
+                          }
+                          onChange={(
+                            e
+                          ) => {
+                            setPinInput(
+                              e.target
+                                .value
+                            );
+
+                            setPinError(
+                              false
+                            );
+                          }}
+                          className={`w-full border-b-2 py-1.5 text-xs font-bold bg-transparent focus:outline-none transition-colors ${
+                            pinError
+                              ? "border-red-500 text-red-500"
+                              : "border-gray-300 focus:border-gray-900"
+                          }`}
+                          placeholder="******"
+                          autoFocus
+                        />
+
+                        <button
+                          type="submit"
+                          className="bg-gray-900 text-white px-3 text-[10px] font-bold rounded-sm hover:bg-black"
+                        >
+                          OK
+                        </button>
+
+                      </div>
+
+                      {pinError && (
+                        <span className="text-[9px] text-red-500 font-bold uppercase tracking-wider">
+                          PIN Salah!
+                        </span>
+                      )}
+
+                    </form>
+                  )}
+
+                </div>
+              ) : (
+                <div className="bg-white p-4 border border-gray-200 relative">
+
+                  {/* LOCK BUTTON */}
+
+                  <button
+                    onClick={() =>
+                      setIsUnlocked(
+                        false
+                      )
+                    }
+                    className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors"
+                    title="Kunci kembali"
+                  >
+                    <Unlock
+                      size={14}
+                    />
+                  </button>
+
+                  <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-900 mb-6">
+                    Pengaturan
+                    Advanced
+                  </label>
+
+                  <div className="space-y-6">
+
+                    {/* ================================= */}
+                    {/* UPPING */}
+                    {/* ================================= */}
+
+                    <div>
+
+                      <div className="flex justify-between items-center mb-2">
+
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">
+                          Upping /
+                          Subsidi
+                          Bunga (%)
+                        </span>
+
+                        <span className="text-sm font-black text-gray-900">
+                          {uping.toFixed(
+                            1
+                          )}
+                          %
+                        </span>
+
+                      </div>
+
+                      <input
+                        type="range"
+                        min={-2}
+                        max={5}
+                        step={0.1}
+                        value={uping}
+                        onChange={(
+                          e
+                        ) =>
+                          setUping(
+                            Number(
+                              e
+                                .target
+                                .value
+                            )
+                          )
+                        }
+                        className="w-full h-1.5 bg-gray-200 accent-gray-900 appearance-none cursor-pointer"
+                      />
+
+                      <div className="flex justify-between mt-1">
+
+                        <span className="text-[9px] text-gray-400 font-bold">
+                          -2%
+                        </span>
+
+                        <span className="text-[9px] text-gray-400 font-bold">
+                          5%
+                        </span>
+
+                      </div>
+
+                    </div>
+
+                    {/* ================================= */}
+                    {/* DISKON UNIT */}
+                    {/* ================================= */}
+
+                    <div className="relative flex flex-col">
+
+                      <label className="block text-[10px] font-black uppercase tracking-[0.2em] text-green-600 mb-2">
+                        Diskon Unit /
+                        Subsidi
+                      </label>
+
+                      <div className="flex items-center border-b-2 border-green-200 focus-within:border-green-600 transition-colors">
+
+                        <span className="text-sm font-bold text-gray-400 mr-2 py-2">
+                          Rp
+                        </span>
+
+                        <input
+                          type="text"
+                          value={
+                            diskon === 0
+                              ? ""
+                              : new Intl.NumberFormat(
+                                  "id-ID"
+                                ).format(
+                                  diskon
+                                )
+                          }
+                          onChange={handleNumChange(
+                            setDiskon
+                          )}
+                          className="w-full bg-transparent py-2 text-base font-black text-green-900 focus:outline-none"
+                        />
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+              )}
+
+            </div>
+
+            {/* END ADVANCED */}
+
           </div>
 
+          {/* ================================================= */}
+          {/* INFO + ACTION BUTTON */}
+          {/* ================================================= */}
+
           <div className="mt-auto">
+
+            {/* INFO */}
+
             <div className="flex gap-3 text-gray-500 mb-6 bg-gray-200/50 p-4 border-l-4 border-gray-900">
-              <Info size={16} className="shrink-0 mt-0.5" />
+
+              <Info
+                size={16}
+                className="shrink-0 mt-0.5"
+              />
+
               <p className="text-[9px] uppercase leading-relaxed font-bold">
-                TDP di atas merupakan kalkulasi otomatis dari DP Bayar ditambah Subsidi, sudah mencakup Biaya Fidusia, Admin, Asuransi, {paymentType === "ADDM" && "dan Angsuran Bulan ke-1."}
+                TDP di atas
+                merupakan kalkulasi
+                otomatis dari DP
+                Bayar ditambah
+                Subsidi, sudah
+                mencakup Biaya
+                Fidusia, Admin,
+                Asuransi,{" "}
+                {paymentType ===
+                  "ADDM" &&
+                  "dan Angsuran Bulan ke-1."}
               </p>
+
             </div>
 
-            {/* ACTION BUTTONS (WA & COPY) */}
+            {/* ================================================= */}
+            {/* ACTION BUTTONS */}
+            {/* ================================================= */}
+
             <div className="flex gap-3">
+
+              {/* COPY */}
+
               <button
-                onClick={handleCopyText}
+                onClick={
+                  handleCopyText
+                }
                 className={`flex-none w-16 md:w-auto md:px-6 py-4 flex justify-center items-center gap-2 border-2 text-[11px] uppercase tracking-widest font-black transition-colors ${
-                  isCopied 
-                    ? "border-green-600 text-green-600 bg-green-50" 
+                  isCopied
+                    ? "border-green-600 text-green-600 bg-green-50"
                     : "border-gray-200 hover:border-gray-900 text-gray-600 hover:text-gray-900 bg-transparent"
                 }`}
                 title="Salin hitungan"
               >
-                {isCopied ? <Check size={18} /> : <Copy size={18} />}
-                <span className="hidden md:block">{isCopied ? "Tersalin" : "Salin"}</span>
+                {isCopied ? (
+                  <Check
+                    size={18}
+                  />
+                ) : (
+                  <Copy
+                    size={18}
+                  />
+                )}
+
+                <span className="hidden md:block">
+                  {isCopied
+                    ? "Tersalin"
+                    : "Salin"}
+                </span>
+
               </button>
 
+              {/* WHATSAPP */}
+
               <a
-                href={buildWhatsAppUrl(waMsg)}
+                href={buildWhatsAppUrl(
+                  waMsg
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-grow bg-whatsapp hover:bg-[#1ebe5d] text-white py-4 flex justify-center items-center gap-3 transition-all font-black text-xs uppercase tracking-[0.2em] shadow-[0_16px_35px_-20px_rgba(37,211,102,0.8)] active:scale-95"
               >
-                <MessageCircle size={18} />
+                <MessageCircle
+                  size={18}
+                />
+
                 Kirim ke WhatsApp
               </a>
+
             </div>
+
           </div>
+
         </div>
+
       </div>
     </div>
   );
