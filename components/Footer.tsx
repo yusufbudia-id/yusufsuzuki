@@ -198,10 +198,23 @@ export default function Footer() {
           <p className="text-center text-[10px] font-black uppercase tracking-[0.22em] text-white/35 md:text-left">
             © 2026 Suzuki Sumber Baru Mobil. Dealer Resmi.
           </p>
-          {/* OPTIMASI BAWAH: Menaruh sinyal kota di area copyright */}
-          <p className="text-[10px] font-black uppercase tracking-[0.22em] text-white/30 text-center md:text-right">
-            Melayani: Jogja • Magelang • Kedu • Banyumas
-          </p>
+          {/* Area layanan dan referensi kendaraan niaga */}
+          <div className="text-center md:text-right">
+            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-white/30">
+              Melayani: Jogja • Magelang • Kedu • Banyumas
+            </p>
+            <p className="mt-2 text-xs text-white/40">
+              Mencari kendaraan niaga Isuzu?{" "}
+              <a
+                href="https://www.astraisuzujogja.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-white/60 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
+              >
+                Kunjungi Astra Isuzu Jogja
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
